@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>database-system-concept on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/database-system-concept/</link>
+    <description>Recent content in database-system-concept on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 09 Sep 2018 13:56:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/database-system-concept/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数据库系统概论-介绍</title>
+      <link>https://huangkai1008.github.io/post/database/database-system-concept/ch1-introduction/</link>
+      <pubDate>Sun, 09 Sep 2018 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/database/database-system-concept/ch1-introduction/</guid>
+      <description>数据库系统的目的(Purpose of Database Systems) 在早期，数据库应用程序直接建立在文件系统之上，导致一系列的问题 数据冗余和不一致(Data redundancy and inconsistency) 数据访问</description>
+    </item>
+    
+  </channel>
+</rss>

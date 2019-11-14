@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>multi-threading on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/multi-threading/</link>
+    <description>Recent content in multi-threading on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 08 Feb 2018 22:49:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/multi-threading/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python线程池使用</title>
+      <link>https://huangkai1008.github.io/post/python/python-threadpool-executor/</link>
+      <pubDate>Thu, 08 Feb 2018 22:49:14 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/python-threadpool-executor/</guid>
+      <description>介绍 从Python3.2开始，标准库为我们提供了 concurrent.futures 模块，它提供了 ThreadPoolExecutor (线程池)和ProcessPoolExecutor (进程池)两个类。 相比 threading</description>
+    </item>
+    
+  </channel>
+</rss>

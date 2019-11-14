@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/git/</link>
+    <description>Recent content in git on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 12 Oct 2019 14:36:49 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Git工作流</title>
+      <link>https://huangkai1008.github.io/post/git/git-workflow/</link>
+      <pubDate>Sat, 12 Oct 2019 14:36:49 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/git/git-workflow/</guid>
+      <description>GitFlow 基本介绍 Gitflow 提倡使用 feature branches 模式来开发各个相互独立的功能，同时分成不同的分支以便进行集成和发布 分支介绍 长期分支 主分支(master) 开发分支(d</description>
+    </item>
+    
+    <item>
+      <title>Git Commit Message编写规范</title>
+      <link>https://huangkai1008.github.io/post/git/git-commit-message/</link>
+      <pubDate>Fri, 12 Jul 2019 14:14:15 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/git/git-commit-message/</guid>
+      <description>Git提交代码时需要提交Message, 为了使得提交信息更清晰明了, 需要确定规范 现在比较流行的规范是Angular规范, 也根据此规范衍生了C</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Sqlalchemy使用注意 - Huanghuang&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huangkai" /><meta name="description" content="遇到in查询之类的批量删除或者更新，可以使用synchronize_session=False 1 db.session.delete(synchronize_session=False) 使用find_in_set 1 2 3 from sqlalchemy.sql.expression import func db.session.query(Post).filter(func.find_in_set(&amp;#39;10&amp;#39;," /><meta name="keywords" content="Python, Flask, Backend, Golang, Github" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0-DEV with theme even" />
+
+
+<link rel="canonical" href="https://huangkai1008.github.io/post/python/sqlalchemy-tips/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Sqlalchemy使用注意" />
+<meta property="og:description" content="遇到in查询之类的批量删除或者更新，可以使用synchronize_session=False 1 db.session.delete(synchronize_session=False) 使用find_in_set 1 2 3 from sqlalchemy.sql.expression import func db.session.query(Post).filter(func.find_in_set(&#39;10&#39;," />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://huangkai1008.github.io/post/python/sqlalchemy-tips/" />
+<meta property="article:published_time" content="2017-06-14T13:56:20+08:00" />
+<meta property="article:modified_time" content="2019-09-25T13:56:20+08:00" />
+<meta itemprop="name" content="Sqlalchemy使用注意">
+<meta itemprop="description" content="遇到in查询之类的批量删除或者更新，可以使用synchronize_session=False 1 db.session.delete(synchronize_session=False) 使用find_in_set 1 2 3 from sqlalchemy.sql.expression import func db.session.query(Post).filter(func.find_in_set(&#39;10&#39;,">
+
+
+<meta itemprop="datePublished" content="2017-06-14T13:56:20&#43;08:00" />
+<meta itemprop="dateModified" content="2019-09-25T13:56:20&#43;08:00" />
+<meta itemprop="wordCount" content="207">
+
+
+
+<meta itemprop="keywords" content="python,mysql,sqlalchemy,tips," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sqlalchemy使用注意"/>
+<meta name="twitter:description" content="遇到in查询之类的批量删除或者更新，可以使用synchronize_session=False 1 db.session.delete(synchronize_session=False) 使用find_in_set 1 2 3 from sqlalchemy.sql.expression import func db.session.query(Post).filter(func.find_in_set(&#39;10&#39;,"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149768628-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149768628-1');
+</script>
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Huang&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Huang&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Sqlalchemy使用注意</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-06-14 </span>
+        <div class="post-category">
+            <a href="/categories/python/"> python </a>
+            <a href="/categories/mysql/"> mysql </a>
+            <a href="/categories/sqlalchemy/"> sqlalchemy </a>
+            </div>
+          <span class="more-meta"> 约 207 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      <ul>
+<li><p>遇到in查询之类的批量删除或者更新，可以使用<strong>synchronize_session=False</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">synchronize_session</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>使用<strong>find_in_set</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sqlalchemy.sql.expression</span> <span class="kn">import</span> <span class="n">func</span>
+  
+<span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Post</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">find_in_set</span><span class="p">(</span><span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="n">Post</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">tag_id</span><span class="p">))</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>批量增加删除</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">db.session.add_all<span class="o">(</span>instances<span class="o">)</span>
+db.session.delete_all<span class="o">(</span>instances<span class="o">)</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Mysql IS NULL判断</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">isnot</span><span class="p">()</span>
+<span class="n">is_</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Mysql 联合主键</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">PrimaryKeyConstraint</span>
+  
+<span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+  <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">(</span>
+      <span class="n">PrimaryKeyConstraint</span><span class="p">(</span><span class="s1">&#39;pk1&#39;</span><span class="p">,</span> <span class="s1">&#39;pk2&#39;</span><span class="p">),</span>
+  <span class="p">)</span>
+  </code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Flask_sqlalchemy支持Double精度类型字段</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.dialects.mysql</span> <span class="kn">import</span> <span class="n">DOUBLE</span>
+  
+<span class="kn">from</span> <span class="nn">app</span> <span class="kn">import</span> <span class="n">db</span> 
+  
+<span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+   <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>         <span class="c1"># Flask_sqlalchemy</span>
+   <span class="n">double_column</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DOUBLE</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;双精度字段&#39;</span><span class="p">)</span>  <span class="c1"># Sqlalchemy mysql double column</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huangkai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-09-25
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/python/">python</a>
+          <a href="/tags/mysql/">mysql</a>
+          <a href="/tags/sqlalchemy/">sqlalchemy</a>
+          <a href="/tags/tips/">tips</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/docker/docker-install/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Docker安装</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/python/python-install/">
+            <span class="next-text nav-default">Python安装</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Huangkai1008" class="iconfont icon-github" title="github"></a>
+  <a href="https://huangkai1008.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">huangkai</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149768628-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149768628-1');
+</script>
+
+
+
+
+
+
+</body>
+</html>

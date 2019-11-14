@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sqlalchemy on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/sqlalchemy/</link>
+    <description>Recent content in sqlalchemy on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 14 Jun 2017 13:56:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/sqlalchemy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sqlalchemy使用注意</title>
+      <link>https://huangkai1008.github.io/post/python/sqlalchemy-tips/</link>
+      <pubDate>Wed, 14 Jun 2017 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/sqlalchemy-tips/</guid>
+      <description>遇到in查询之类的批量删除或者更新，可以使用synchronize_session=False 1 db.session.delete(synchronize_session=False) 使用find_in_set 1 2 3 from sqlalchemy.sql.expression import func db.session.query(Post).filter(func.find_in_set(&amp;#39;10&amp;#39;,</description>
+    </item>
+    
+  </channel>
+</rss>

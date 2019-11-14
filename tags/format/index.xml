@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>format on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/format/</link>
+    <description>Recent content in format on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 27 Sep 2019 13:56:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/format/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Black安装和使用</title>
+      <link>https://huangkai1008.github.io/post/python/black/</link>
+      <pubDate>Fri, 27 Sep 2019 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/black/</guid>
+      <description>Black是一个毫不妥协的python代码格式化工具, 特点是可配置项较少 Black依赖于python3.6+, 官方地址在https://gi</description>
+    </item>
+    
+  </channel>
+</rss>

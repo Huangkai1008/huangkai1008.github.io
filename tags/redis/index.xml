@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redis on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/redis/</link>
+    <description>Recent content in redis on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 11 Oct 2018 13:56:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Redis安装配置</title>
+      <link>https://huangkai1008.github.io/post/redis/redis-install/</link>
+      <pubDate>Thu, 11 Oct 2018 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/redis/redis-install/</guid>
+      <description>Redis 安装 Platform: centos7 version: 5.0 安装 1 2 3 4 wget http://download.redis.io/releases/redis-5.0.0.tar.gz # 获取包 tar -zxvf redis-5.0.0.tar.gz mv redis-5.0.0 /usr/local/redis make &amp;amp;&amp;amp; make install Redis配置 设置配置文件目录 1 2 mkdir -p /etc/redis cp redis.conf /etc/redis 修改配置文件 1 2 3 4 vim /etc/redis/redis.conf daemonize yes (no -&amp;gt; yes) #</description>
+    </item>
+    
+  </channel>
+</rss>

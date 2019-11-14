@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mariadb on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/mariadb/</link>
+    <description>Recent content in mariadb on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 09 Sep 2018 13:56:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/mariadb/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MariaDB安装</title>
+      <link>https://huangkai1008.github.io/post/database/mysql/mariadb-install/</link>
+      <pubDate>Sun, 09 Sep 2018 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/database/mysql/mariadb-install/</guid>
+      <description>MariaDB安装 platform: Centos7 Install 1 yum install -y mariadb-server MariaDB配置使用 Using 1 2 systemctl start mariadb.service # 启动 systemctl enable mariadb.service # 开机自启 Configure 首先是设置密码，会提示先输入密码 Enter current password for root (enter for none):</description>
+    </item>
+    
+  </channel>
+</rss>

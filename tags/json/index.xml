@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>json on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/json/</link>
+    <description>Recent content in json on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 09 Apr 2018 22:49:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/json/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>扩展Python Json Encoder</title>
+      <link>https://huangkai1008.github.io/post/python/extend-json-encoder/</link>
+      <pubDate>Mon, 09 Apr 2018 22:49:14 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/extend-json-encoder/</guid>
+      <description>Python默认的json模块序列化并不是很全面，只能序列化基本的数据类型, 像一些时间格式或者自定义类型都不能序列化，所以在有些时候需要扩展</description>
+    </item>
+    
+  </channel>
+</rss>

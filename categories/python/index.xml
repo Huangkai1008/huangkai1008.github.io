@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/categories/python/</link>
+    <description>Recent content in python on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 27 Sep 2019 13:56:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Black安装和使用</title>
+      <link>https://huangkai1008.github.io/post/python/black/</link>
+      <pubDate>Fri, 27 Sep 2019 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/black/</guid>
+      <description>Black是一个毫不妥协的python代码格式化工具, 特点是可配置项较少 Black依赖于python3.6+, 官方地址在https://gi</description>
+    </item>
+    
+    <item>
+      <title>Poetry安装和使用</title>
+      <link>https://huangkai1008.github.io/post/python/poetry/</link>
+      <pubDate>Sat, 14 Sep 2019 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/poetry/</guid>
+      <description>安装 custom installer 1 2 curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python source $HOME/.poetry/env pip 1 pip install poetry # 不推荐, 可能会有冲突 验证安装 1 poetry --version 使用 项目初始化 从pipenv/pip等工具迁移 1 poetry init # 进入交互式命令</description>
+    </item>
+    
+    <item>
+      <title>值得关注的Python库</title>
+      <link>https://huangkai1008.github.io/post/python/libs/</link>
+      <pubDate>Mon, 27 May 2019 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/libs/</guid>
+      <description>Web Frameworks Uvicorn 基于asyncio开发的一个轻量级高效的 web 服务器框架 Starlette Quart Responder ==Fastapi== Sanic Utils Poetry 新的Python依赖包管理工具 Pipenv 用了很久的现在也在用的&amp;hellip</description>
+    </item>
+    
+    <item>
+      <title>WSGI ASGI UWSGI的区别</title>
+      <link>https://huangkai1008.github.io/post/python/wsgiasgiuwsgi/</link>
+      <pubDate>Thu, 24 Jan 2019 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/wsgiasgiuwsgi/</guid>
+      <description>What is wsgi 1 2 3 4 5 6 7 8 **CGI(通用网关接口， Common Gateway Interface/CGI)** **CGI是定义客户端与web服务器交流方式的程序**。&amp;lt;u&amp;gt;例如正常情况</description>
+    </item>
+    
+    <item>
+      <title>扩展Python Json Encoder</title>
+      <link>https://huangkai1008.github.io/post/python/extend-json-encoder/</link>
+      <pubDate>Mon, 09 Apr 2018 22:49:14 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/extend-json-encoder/</guid>
+      <description>Python默认的json模块序列化并不是很全面，只能序列化基本的数据类型, 像一些时间格式或者自定义类型都不能序列化，所以在有些时候需要扩展</description>
+    </item>
+    
+    <item>
+      <title>Python线程池使用</title>
+      <link>https://huangkai1008.github.io/post/python/python-threadpool-executor/</link>
+      <pubDate>Thu, 08 Feb 2018 22:49:14 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/python-threadpool-executor/</guid>
+      <description>介绍 从Python3.2开始，标准库为我们提供了 concurrent.futures 模块，它提供了 ThreadPoolExecutor (线程池)和ProcessPoolExecutor (进程池)两个类。 相比 threading</description>
+    </item>
+    
+    <item>
+      <title>Sqlalchemy使用注意</title>
+      <link>https://huangkai1008.github.io/post/python/sqlalchemy-tips/</link>
+      <pubDate>Wed, 14 Jun 2017 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/sqlalchemy-tips/</guid>
+      <description>遇到in查询之类的批量删除或者更新，可以使用synchronize_session=False 1 db.session.delete(synchronize_session=False) 使用find_in_set 1 2 3 from sqlalchemy.sql.expression import func db.session.query(Post).filter(func.find_in_set(&amp;#39;10&amp;#39;,</description>
+    </item>
+    
+    <item>
+      <title>Python安装</title>
+      <link>https://huangkai1008.github.io/post/python/python-install/</link>
+      <pubDate>Sun, 08 Jan 2017 22:49:14 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/python-install/</guid>
+      <description>Python安装 Platform: centos7 Version: 3.7 安装编译环境 1 yum install zlib-devel bzip2-devel openssl-devel ncurses-devel libffi-devel 下载 1 wget --no-check-certificate https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz 创建安装目录解压 1 2 3 4 5 sudo mkdir /usr/local/python3 tar -zxvf Python-3.7.4.tgz cd Python-3.7.4/ 编译安装 1 2 3 sudo ./configure --prefix=/usr/local/python3 # 指定创建的目</description>
+    </item>
+    
+  </channel>
+</rss>

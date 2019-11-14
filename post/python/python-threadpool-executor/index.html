@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Python线程池使用 - Huanghuang&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="huangkai" /><meta name="description" content="介绍 从Python3.2开始，标准库为我们提供了 concurrent.futures 模块，它提供了 ThreadPoolExecutor (线程池)和ProcessPoolExecutor (进程池)两个类。 相比 threading" /><meta name="keywords" content="Python, Flask, Backend, Golang, Github" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0-DEV with theme even" />
+
+
+<link rel="canonical" href="https://huangkai1008.github.io/post/python/python-threadpool-executor/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Python线程池使用" />
+<meta property="og:description" content="介绍 从Python3.2开始，标准库为我们提供了 concurrent.futures 模块，它提供了 ThreadPoolExecutor (线程池)和ProcessPoolExecutor (进程池)两个类。 相比 threading" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://huangkai1008.github.io/post/python/python-threadpool-executor/" />
+<meta property="article:published_time" content="2018-02-08T22:49:14+08:00" />
+<meta property="article:modified_time" content="2018-02-08T22:49:14+08:00" />
+<meta itemprop="name" content="Python线程池使用">
+<meta itemprop="description" content="介绍 从Python3.2开始，标准库为我们提供了 concurrent.futures 模块，它提供了 ThreadPoolExecutor (线程池)和ProcessPoolExecutor (进程池)两个类。 相比 threading">
+
+
+<meta itemprop="datePublished" content="2018-02-08T22:49:14&#43;08:00" />
+<meta itemprop="dateModified" content="2018-02-08T22:49:14&#43;08:00" />
+<meta itemprop="wordCount" content="1165">
+
+
+
+<meta itemprop="keywords" content="python,multi-threading," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python线程池使用"/>
+<meta name="twitter:description" content="介绍 从Python3.2开始，标准库为我们提供了 concurrent.futures 模块，它提供了 ThreadPoolExecutor (线程池)和ProcessPoolExecutor (进程池)两个类。 相比 threading"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149768628-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149768628-1');
+</script>
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Huang&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Huang&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Python线程池使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-02-08 </span>
+        <div class="post-category">
+            <a href="/categories/python/"> python </a>
+            </div>
+          <span class="more-meta"> 约 1165 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#基本使用">基本使用</a></li>
+<li><a href="#api">Api</a>
+<ul>
+<li><a href="#as-completed">as_completed</a></li>
+<li><a href="#wait">wait</a></li>
+<li><a href="#map">map</a></li>
+</ul></li>
+<li><a href="#回调函数">回调函数</a></li>
+<li><a href="#异常处理">异常处理</a></li>
+<li><a href="#备注">备注</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="介绍">介绍</h2>
+
+<p>从Python3.2开始，标准库为我们提供了 concurrent.futures 模块，它提供了 ThreadPoolExecutor (线程池)和ProcessPoolExecutor (进程池)两个类。</p>
+
+<p>相比 threading 等模块，该模块通过 submit 返回的是一个 future 对象，它是一个未来可期的对象，通过它可以获悉线程的状态主线程(或进程)中可以获取某一个线程(进程)执行的状态或者某一个任务执行的状态及返回值：</p>
+
+<p>1.主线程可以获取某一个线程（或者任务的）的状态，以及返回值。</p>
+
+<p>2.当一个线程完成的时候，主线程能够立即知道。</p>
+
+<p>3.让多线程和多进程的编码接口一致。</p>
+
+<h2 id="基本使用">基本使用</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">url</span>
+
+
+<span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>  <span class="c1"># 创建一个最大容纳数量为5的线程池</span>
+    <span class="n">task1</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">get_page</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">task2</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">get_page</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 通过submit提交执行的函数到线程池中</span>
+    <span class="n">task3</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">get_page</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;task1: {task1.done()}&#34;</span><span class="p">)</span>  <span class="c1"># 通过done来判断线程是否完成</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;task2: {task2.done()}&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;task3: {task3.done()}&#34;</span><span class="p">)</span>
+
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;task1: {task1.done()}&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;task2: {task2.done()}&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;task3: {task3.done()}&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">task1</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>  <span class="c1"># 通过result来获取返回值</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">task1</span><span class="p">:</span> <span class="bp">False</span>
+    <span class="n">task2</span><span class="p">:</span> <span class="bp">False</span>
+    <span class="n">task3</span><span class="p">:</span> <span class="bp">False</span> 
+    <span class="o">...</span>
+    <span class="n">task1</span><span class="p">:</span> <span class="bp">True</span>
+    <span class="n">task2</span><span class="p">:</span> <span class="bp">True</span>
+    <span class="n">task3</span><span class="p">:</span> <span class="bp">False</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="api">Api</h2>
+
+<h3 id="as-completed">as_completed</h3>
+
+<blockquote>
+<p><strong>concurrent.futures.as_completed(fs, timeout=None)</strong></p>
+
+<p>返回一个生成器在迭代过程中会阻塞</p>
+
+<p>直到线程完成或者异常时,返回一个被set_result的Future对象</p>
+
+<p>此方法的返回顺序为哪个线程先失败/完成就返回</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">as_completed</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">url</span>
+
+
+<span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>  <span class="c1"># 创建一个最大容纳数量为5的线程池</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">get_page</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span> <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+    
+    <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">as_completed</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span>
+    <span class="mi">2</span>
+    <span class="mi">3</span>
+    <span class="mi">4</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="wait">wait</h3>
+
+<blockquote>
+<p><strong>concurrent.futures.wait(fs, timeout=None, return_when=ALL_COMPLETED)</strong></p>
+
+<p><strong>fs</strong>: 执行的序列</p>
+
+<p><strong>timeout</strong>: 等待的最大时间，如果超过这个时间即使线程未执行完成也将返回</p>
+
+<p><strong>return_when</strong>: 表示wait返回结果的条件，默认为 ALL_COMPLETED 全部执行完成再返回</p>
+
+<ul>
+<li><p>FIRST_COMPLETED</p>
+
+<p>函数将在任意可等待对象结束或取消时返回。</p></li>
+
+<li><p>FIRST_EXCEPTION</p>
+
+<p>函数将在任意可等待对象因引发异常而结束时返回。
+当没有引发任何异常时它就相当于 ALL_COMPLETED。</p></li>
+
+<li><p>ALL_COMPLETED</p>
+
+<p>函数将在所有可等待对象结束或取消时返回。</p></li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">wait</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">url</span>
+
+
+<span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>  <span class="c1"># 创建一个最大容纳数量为5的线程池</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">get_page</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span> <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="o">&lt;</span><span class="n">Future</span> <span class="n">at</span> <span class="mh">0x1c071fb1f28</span> <span class="n">state</span><span class="o">=</span><span class="n">finished</span> <span class="n">returned</span> <span class="nb">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Future</span> <span class="n">at</span> <span class="mh">0x1c071fb1d68</span> <span class="n">state</span><span class="o">=</span><span class="n">finished</span> <span class="n">returned</span> <span class="nb">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Future</span> <span class="n">at</span> <span class="mh">0x1c071f9fd68</span> <span class="n">state</span><span class="o">=</span><span class="n">finished</span> <span class="n">returned</span> <span class="nb">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Future</span> <span class="n">at</span> <span class="mh">0x1c071d78278</span> <span class="n">state</span><span class="o">=</span><span class="n">finished</span> <span class="n">returned</span> <span class="nb">int</span><span class="o">&gt;</span><span class="p">}</span> 
+    <span class="nb">set</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="map">map</h3>
+
+<blockquote>
+<p><strong>concurrent.futures.Executor.map(fn, *iterables, timeout=None)</strong></p>
+
+<p><strong>fn</strong>: 第一个参数 fn 是需要线程执行的函数</p>
+
+<p>*<strong>iterables</strong>: 第二个参数接受一个可迭代对象</p>
+
+<p><strong>timeout</strong>: 第三个参数 timeout 跟 wait() 的 timeout 一样，但由于 map 是返回线程执行的结果，如果 timeout小于线程执行时间会抛异常 TimeoutError</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">url</span>
+
+
+<span class="n">URLS</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+
+<span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>  <span class="c1"># 创建一个最大容纳数量为5的线程池</span>
+    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">executor</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">get_page</span><span class="p">,</span> <span class="n">URLS</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span>
+    <span class="mi">2</span>
+    <span class="mi">3</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="回调函数">回调函数</h2>
+
+<p>回调函数(add_done_callback)是在调用线程完成后再调用的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">wait</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">url</span>
+
+
+<span class="k">def</span> <span class="nf">call_back</span><span class="p">(</span><span class="n">worker</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;tid: {threading.current_thread().ident}&#39;</span><span class="p">,</span> <span class="n">worker</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+
+
+<span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">get_page</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">page</span><span class="p">)</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">call_back</span><span class="p">)</span>
+        <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+    <span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tid</span><span class="p">:</span> <span class="mi">6392</span>  <span class="mi">1</span>
+    <span class="n">tid</span><span class="p">:</span> <span class="mi">14936</span> <span class="mi">2</span>
+    <span class="n">tid</span><span class="p">:</span> <span class="mi">12516</span> <span class="mi">3</span>
+    <span class="n">tid</span><span class="p">:</span> <span class="mi">10524</span> <span class="mi">4</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="异常处理">异常处理</h2>
+
+<ul>
+<li><p>通过添加回调函数的方法处理异常</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">logging</span>
+
+
+<span class="k">def</span> <span class="nf">executor_callback</span><span class="p">(</span><span class="n">worker</span><span class="p">):</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;finished&#39;</span><span class="p">)</span>
+<span class="n">worker_exception</span> <span class="o">=</span> <span class="n">worker</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">worker_exception</span><span class="p">:</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">worker_exception</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="备注">备注</h2>
+
+<ul>
+<li>一定使用with关键字处理线程池，在某些情况下线程池可能不能自动回收线程资源，with可以避免内存持续增长等情况</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">huangkai</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-02-08
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/python/">python</a>
+          <a href="/tags/multi-threading/">multi-threading</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/python/extend-json-encoder/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">扩展Python Json Encoder</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/docker/docker-install/">
+            <span class="next-text nav-default">Docker安装</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Huangkai1008" class="iconfont icon-github" title="github"></a>
+  <a href="https://huangkai1008.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">huangkai</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149768628-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149768628-1');
+</script>
+
+
+
+
+
+
+</body>
+</html>
