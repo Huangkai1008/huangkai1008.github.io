@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Huanghuang&#39;s Blog</title>
@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Huanghuang&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 12 Oct 2019 14:36:49 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 22 Nov 2019 15:19:35 +0800</lastBuildDate>
     
 	<atom:link href="https://huangkai1008.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>日志库Loguru使用教程</title>
+      <link>https://huangkai1008.github.io/post/python/loguru/</link>
+      <pubDate>Fri, 22 Nov 2019 15:19:35 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/loguru/</guid>
+      <description>Loguru是一个好用的第三方python日志库 安装 1 pip install loguru 初步使用 添加日志到标准输出流 1 2 3 4 5 import sys from loguru import logger logger.add(sys.stderr, format=&amp;#39;{time} {level} {message}&amp;#39;, filter=&amp;#39;my module&amp;#39;, level=&amp;#39;INFO&amp;#39;) 添加日志到文件 1</description>
+    </item>
+    
+    <item>
+      <title>Eventlet使用</title>
+      <link>https://huangkai1008.github.io/post/python/eventlet/</link>
+      <pubDate>Fri, 22 Nov 2019 11:20:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/eventlet/</guid>
+      <description>Evenlet是一个Python的基于携程的网络库，它改变了你代码运行的方式，但是没有改变你怎么写代码 安装 1 pip install eventlet 简单使用 从eventlet</description>
+    </item>
     
     <item>
       <title>Git工作流</title>
@@ -75,6 +93,15 @@
     </item>
     
     <item>
+      <title>Mysql优化</title>
+      <link>https://huangkai1008.github.io/post/database/mysql/mysql-optimize/</link>
+      <pubDate>Tue, 06 Nov 2018 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/database/mysql/mysql-optimize/</guid>
+      <description>mysql中min和max查询优化 max()函数需扫描where条件过滤后的所有行 慎用max()函数，特别是频繁执行的sql，若需用到可转化</description>
+    </item>
+    
+    <item>
       <title>Redis安装配置</title>
       <link>https://huangkai1008.github.io/post/redis/redis-install/</link>
       <pubDate>Thu, 11 Oct 2018 13:56:20 +0800</pubDate>
@@ -107,7 +134,7 @@
       <pubDate>Sun, 09 Sep 2018 13:56:20 +0800</pubDate>
       
       <guid>https://huangkai1008.github.io/post/database/mysql/mysql-install/</guid>
-      <description>Mysql安装 版本: 8.0 添加源 1 yum local install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm 安装 1 yum install mysql-community-server Mysql配置 启动mysql 1 systemctl start mysqld 设置mysql开机自启 1 systemctl enable mysqld 查看初始密码 1 grep &amp;#39;temporary password&amp;#39; /var/log/mysqld.log 进</description>
+      <description>Mysql安装 版本: 8.0 添加源 bash yum local install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm 安装 bash yum install mysql-community-server Mysql配置 启动mysql 1 systemctl start mysqld 设置mysql开机自启 1 systemctl enable mysqld 查看初始密码 1 grep &amp;#39;temporary password&amp;#39; /var/log/mysqld.log 进</description>
     </item>
     
     <item>

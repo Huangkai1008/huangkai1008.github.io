@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.60.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
 
 
 <link rel="canonical" href="https://huangkai1008.github.io/post/docker/docker-install/" />
@@ -42,8 +42,9 @@
 <meta property="og:description" content="Platform: centos7 version: 5.0 安装 Uninstall old versions 1 2 3 4 5 6 7 8 sudo yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-engine Install Docker CE 1 2 3 4 5 6 7 8 9 10 11 sudo yum install -y yum-utils \ device-mapper-persistent-data \ lvm2 # 设置stable源 sudo yum-config-manager" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangkai1008.github.io/post/docker/docker-install/" />
-<meta property="article:published_time" content="2018-01-31T13:56:20+08:00" />
-<meta property="article:modified_time" content="2019-07-31T13:56:20+08:00" />
+<meta property="article:published_time" content="2018-01-31T13:56:20&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-31T13:56:20&#43;08:00"/>
+
 <meta itemprop="name" content="Docker安装">
 <meta itemprop="description" content="Platform: centos7 version: 5.0 安装 Uninstall old versions 1 2 3 4 5 6 7 8 sudo yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-engine Install Docker CE 1 2 3 4 5 6 7 8 9 10 11 sudo yum install -y yum-utils \ device-mapper-persistent-data \ lvm2 # 设置stable源 sudo yum-config-manager">
 
@@ -228,19 +229,18 @@ sudo yum install docker-ce docker-ce-cli containerd.io</code></pre></td></tr></t
 <h2 id="启动">启动</h2>
 
 <ul>
-<li><p>Docker启动</p>
+<li>Docker启动</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">sudo systemctl start docker	<span class="c1"># 启动Docker</span>
-sudo systemctl status docker	<span class="c1"># 查看Docker状态</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  sudo systemctl start docker	<span class="c1"># 启动Docker</span>
+  sudo systemctl status docker	<span class="c1"># 查看Docker状态</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
     </div>
 
     <div class="post-copyright">

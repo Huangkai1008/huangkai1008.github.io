@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.60.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
 
 
 <link rel="canonical" href="https://huangkai1008.github.io/" />
@@ -45,7 +45,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://huangkai1008.github.io/" />
 
-<meta property="og:updated_time" content="2019-10-12T14:36:49+08:00" />
+<meta property="og:updated_time" content="2018-11-12T13:56:20&#43;08:00"/>
+
 <meta itemprop="name" content="Huanghuang&#39;s Blog">
 <meta itemprop="description" content="Huang&#39;s blog site.">
 
@@ -125,6 +126,76 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/mq/rabbitmq/rabbitmq-install/">RabbitMQ基础安装使用</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-11-12 </span>
+      <div class="post-category">
+          <a href="/categories/mq/"> mq </a>
+          <a href="/categories/rabbitmq/"> rabbitMQ </a>
+          </div>
+        <span class="more-meta"> 约 180 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      RabbitMQ Platform: Centos7 安装 install Erlang 1 yum install erlang install rabbitMQ 1 2 3 4 5 6 # rpm安装 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_6_14/rabbitmq-server-3.6.14-1.el7.noarch.rpm yum install rabbitmq-server-3.6.14-1.el7.noarch.rpm # yum安装 yum install rabbitmq-server 配置 启动远程访问 1 2 3 4 [{rabbit, [ {loopback_users, []} ]}] 安装插件 1 /sbin/rabbitmq-plugins enable rabbitmq_management 使用 服务命令
+    </div>
+    <div class="read-more">
+      <a href="/post/mq/rabbitmq/rabbitmq-install/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/database/mysql/mysql-optimize/">Mysql优化</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-11-06 </span>
+      <div class="post-category">
+          <a href="/categories/mysql/"> mysql </a>
+          </div>
+        <span class="more-meta"> 约 81 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      mysql中min和max查询优化 max()函数需扫描where条件过滤后的所有行 慎用max()函数，特别是频繁执行的sql，若需用到可转化
+    </div>
+    <div class="read-more">
+      <a href="/post/database/mysql/mysql-optimize/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/redis/redis-install/">Redis安装配置</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-10-11 </span>
+      <div class="post-category">
+          <a href="/categories/redis/"> redis </a>
+          </div>
+        <span class="more-meta"> 约 196 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Redis 安装 Platform: centos7 version: 5.0 安装 1 2 3 4 wget http://download.redis.io/releases/redis-5.0.0.tar.gz # 获取包 tar -zxvf redis-5.0.0.tar.gz mv redis-5.0.0 /usr/local/redis make &amp;&amp; make install Redis配置 设置配置文件目录 1 2 mkdir -p /etc/redis cp redis.conf /etc/redis 修改配置文件 1 2 3 4 vim /etc/redis/redis.conf daemonize yes (no -&gt; yes) #
+    </div>
+    <div class="read-more">
+      <a href="/post/redis/redis-install/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/mongodb/mongo-install/">MongoDB的安装</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2018-09-12 </span>
@@ -184,7 +255,7 @@
   
   <div class="post-content">
     <div class="post-summary">
-      Mysql安装 版本: 8.0 添加源 1 yum local install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm 安装 1 yum install mysql-community-server Mysql配置 启动mysql 1 systemctl start mysqld 设置mysql开机自启 1 systemctl enable mysqld 查看初始密码 1 grep &#39;temporary password&#39; /var/log/mysqld.log 进
+      Mysql安装 版本: 8.0 添加源 bash yum local install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm 安装 bash yum install mysql-community-server Mysql配置 启动mysql 1 systemctl start mysqld 设置mysql开机自启 1 systemctl enable mysqld 查看初始密码 1 grep &#39;temporary password&#39; /var/log/mysqld.log 进
     </div>
     <div class="read-more">
       <a href="/post/database/mysql/mysql-install/" class="read-more-link">阅读更多</a>
@@ -235,75 +306,6 @@
     </div>
     <div class="read-more">
       <a href="/post/golang/golang-install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/python/extend-json-encoder/">扩展Python Json Encoder</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-04-09 </span>
-      <div class="post-category">
-          <a href="/categories/python/"> python </a>
-          </div>
-        <span class="more-meta"> 约 441 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Python默认的json模块序列化并不是很全面，只能序列化基本的数据类型, 像一些时间格式或者自定义类型都不能序列化，所以在有些时候需要扩展
-    </div>
-    <div class="read-more">
-      <a href="/post/python/extend-json-encoder/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/python/python-threadpool-executor/">Python线程池使用</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-02-08 </span>
-      <div class="post-category">
-          <a href="/categories/python/"> python </a>
-          </div>
-        <span class="more-meta"> 约 1165 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      介绍 从Python3.2开始，标准库为我们提供了 concurrent.futures 模块，它提供了 ThreadPoolExecutor (线程池)和ProcessPoolExecutor (进程池)两个类。 相比 threading
-    </div>
-    <div class="read-more">
-      <a href="/post/python/python-threadpool-executor/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/docker/docker-install/">Docker安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-01-31 </span>
-      <div class="post-category">
-          <a href="/categories/docker/"> docker </a>
-          </div>
-        <span class="more-meta"> 约 130 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Platform: centos7 version: 5.0 安装 Uninstall old versions 1 2 3 4 5 6 7 8 sudo yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-engine Install Docker CE 1 2 3 4 5 6 7 8 9 10 11 sudo yum install -y yum-utils \ device-mapper-persistent-data \ lvm2 # 设置stable源 sudo yum-config-manager
-    </div>
-    <div class="read-more">
-      <a href="/post/docker/docker-install/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

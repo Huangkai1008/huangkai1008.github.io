@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.60.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
 
 
 <link rel="canonical" href="https://huangkai1008.github.io/post/redis/redis-install/" />
@@ -42,8 +42,9 @@
 <meta property="og:description" content="Redis 安装 Platform: centos7 version: 5.0 安装 1 2 3 4 wget http://download.redis.io/releases/redis-5.0.0.tar.gz # 获取包 tar -zxvf redis-5.0.0.tar.gz mv redis-5.0.0 /usr/local/redis make &amp;&amp; make install Redis配置 设置配置文件目录 1 2 mkdir -p /etc/redis cp redis.conf /etc/redis 修改配置文件 1 2 3 4 vim /etc/redis/redis.conf daemonize yes (no -&gt; yes) #" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangkai1008.github.io/post/redis/redis-install/" />
-<meta property="article:published_time" content="2018-10-11T13:56:20+08:00" />
-<meta property="article:modified_time" content="2018-10-12T13:56:20+08:00" />
+<meta property="article:published_time" content="2018-10-11T13:56:20&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-12T13:56:20&#43;08:00"/>
+
 <meta itemprop="name" content="Redis安装配置">
 <meta itemprop="description" content="Redis 安装 Platform: centos7 version: 5.0 安装 1 2 3 4 wget http://download.redis.io/releases/redis-5.0.0.tar.gz # 获取包 tar -zxvf redis-5.0.0.tar.gz mv redis-5.0.0 /usr/local/redis make &amp;&amp; make install Redis配置 设置配置文件目录 1 2 mkdir -p /etc/redis cp redis.conf /etc/redis 修改配置文件 1 2 3 4 vim /etc/redis/redis.conf daemonize yes (no -&gt; yes) #">
 
@@ -169,7 +170,8 @@
 
 <li><p>version: 5.0</p></li>
 
-<li><p>安装</p>
+<li><p>安装</p></li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -178,30 +180,30 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">wget http://download.redis.io/releases/redis-5.0.0.tar.gz <span class="c1"># 获取包</span>
-tar -zxvf redis-5.0.0.tar.gz
-mv redis-5.0.0 /usr/local/redis
-make <span class="o">&amp;&amp;</span> make install</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  wget http://download.redis.io/releases/redis-5.0.0.tar.gz <span class="c1"># 获取包</span>
+  tar -zxvf redis-5.0.0.tar.gz
+  mv redis-5.0.0 /usr/local/redis
+  make <span class="o">&amp;&amp;</span> make install</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <h2 id="redis配置">Redis配置</h2>
 
 <ul>
-<li><p>设置配置文件目录</p>
+<li>设置配置文件目录</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir -p /etc/redis
-cp redis.conf /etc/redis</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  mkdir -p /etc/redis
+  cp redis.conf /etc/redis</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>修改配置文件</p>
+</div>
+<ul>
+<li>修改配置文件</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -210,38 +212,39 @@ cp redis.conf /etc/redis</code></pre></td></tr></table>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">vim /etc/redis/redis.conf
-daemonize yes <span class="o">(</span>no -&gt; yes<span class="o">)</span>   <span class="c1"># 守护进程</span>
-<span class="nb">bind</span> <span class="m">0</span>.0.0.0 <span class="o">(</span><span class="m">127</span>.0.0.1 -&gt; <span class="m">0</span>.0.0.0<span class="o">)</span> <span class="c1"># 远程登录</span>
-protected-mode no <span class="o">(</span>yes -&gt; no<span class="o">)</span>  <span class="c1"># 关闭保护模式/或者添加密码</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  vim /etc/redis/redis.conf
+  daemonize yes <span class="o">(</span>no -&gt; yes<span class="o">)</span>   <span class="c1"># 守护进程</span>
+  <span class="nb">bind</span> <span class="m">0</span>.0.0.0 <span class="o">(</span><span class="m">127</span>.0.0.1 -&gt; <span class="m">0</span>.0.0.0<span class="o">)</span> <span class="c1"># 远程登录</span>
+  protected-mode no <span class="o">(</span>yes -&gt; no<span class="o">)</span>  <span class="c1"># 关闭保护模式/或者添加密码</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <h2 id="redis使用">Redis使用</h2>
 
 <ul>
-<li><p>启动</p>
+<li>启动</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">/usr/local/bin/redis-server /etc/redis/redis.conf</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  /usr/local/bin/redis-server /etc/redis/redis.conf</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>查看启动</p>
+</div>
+<ul>
+<li>查看启动</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">ps -ef <span class="p">|</span> grep redis</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  ps -ef <span class="p">|</span> grep redis</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>客户端使用</p>
+</div>
+<ul>
+<li>客户端使用</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -251,27 +254,26 @@ protected-mode no <span class="o">(</span>yes -&gt; no<span class="o">)</span>  
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">redis-cli  <span class="c1"># 进入</span>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  redis-cli  <span class="c1"># 进入</span>
   
-<span class="m">127</span>.0.0.1:6379&gt;set name Huang
-Ok
-redis-cli shutdown <span class="c1"># 关闭客户端</span></code></pre></td></tr></table>
+  <span class="m">127</span>.0.0.1:6379&gt;set name Huang
+  Ok
+  redis-cli shutdown <span class="c1"># 关闭客户端</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>开机启动配置</p>
+</div>
+<ul>
+<li>开机启动配置</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 开机启动要配置在 rc.local 中，而 /etc/profile 文件，要有用户登录了，才会被执行。</span>
-<span class="nb">echo</span> <span class="s2">&#34;/usr/local/bin/redis-server /etc/redis/redis.conf &amp;&#34;</span> &gt;&gt; /etc/rc.local</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  <span class="c1"># 开机启动要配置在 rc.local 中，而 /etc/profile 文件，要有用户登录了，才会被执行。</span>
+  <span class="nb">echo</span> <span class="s2">&#34;/usr/local/bin/redis-server /etc/redis/redis.conf &amp;&#34;</span> &gt;&gt; /etc/rc.local</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
     </div>
 
     <div class="post-copyright">
@@ -295,9 +297,9 @@ redis-cli shutdown <span class="c1"># 关闭客户端</span></code></pre></td></
           <a href="/tags/install/">install</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/mq/rabbitmq/rabbitmq-install/">
+        <a class="prev" href="/post/database/mysql/mysql-optimize/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">RabbitMQ基础安装使用</span>
+            <span class="prev-text nav-default">Mysql优化</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         <a class="next" href="/post/mongodb/mongo-install/">

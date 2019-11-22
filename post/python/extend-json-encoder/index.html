@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.60.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
 
 
 <link rel="canonical" href="https://huangkai1008.github.io/post/python/extend-json-encoder/" />
@@ -42,15 +42,16 @@
 <meta property="og:description" content="Python默认的json模块序列化并不是很全面，只能序列化基本的数据类型, 像一些时间格式或者自定义类型都不能序列化，所以在有些时候需要扩展" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangkai1008.github.io/post/python/extend-json-encoder/" />
-<meta property="article:published_time" content="2018-04-09T22:49:14+08:00" />
-<meta property="article:modified_time" content="2018-04-09T22:49:14+08:00" />
+<meta property="article:published_time" content="2018-04-09T22:49:14&#43;08:00"/>
+<meta property="article:modified_time" content="2018-04-09T22:49:14&#43;08:00"/>
+
 <meta itemprop="name" content="扩展Python Json Encoder">
 <meta itemprop="description" content="Python默认的json模块序列化并不是很全面，只能序列化基本的数据类型, 像一些时间格式或者自定义类型都不能序列化，所以在有些时候需要扩展">
 
 
 <meta itemprop="datePublished" content="2018-04-09T22:49:14&#43;08:00" />
 <meta itemprop="dateModified" content="2018-04-09T22:49:14&#43;08:00" />
-<meta itemprop="wordCount" content="441">
+<meta itemprop="wordCount" content="442">
 
 
 
@@ -138,7 +139,7 @@
         <div class="post-category">
             <a href="/categories/python/"> python </a>
             </div>
-          <span class="more-meta"> 约 441 字 </span>
+          <span class="more-meta"> 约 442 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -243,9 +244,43 @@
 <li><p><strong>Flask</strong></p>
 
 <p>修改flask类的json_encoder</p>
+
+<p>```python
+from flask import Flask as _Flask</p></li>
+</ul>
+
+<p>class QuizFlask(_Flask):
+      &ldquo;&rdquo;&rdquo;
+      自定义flask
+      &ldquo;&rdquo;&rdquo;</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">  json_encoder = ExtendedEncoder
+
+  def make_response(self, rv):
+      if rv is None:
+          rv = dict()
+
+      if isinstance(rv, Iterator):
+          rv = list(rv)
+
+      return super(QuizFlask, self).make_response(rv)</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -262,69 +297,33 @@
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
-</span></code></pre></td>
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span> <span class="k">as</span> <span class="n">_Flask</span>
+<pre class="chroma">* **Tortoise-orm**
+
+    模型jsonfield的encoder
+
+  ```python
+  import json
   
-<span class="k">class</span> <span class="nc">QuizFlask</span><span class="p">(</span><span class="n">_Flask</span><span class="p">):</span>
-  <span class="s2">&#34;&#34;&#34;
-</span><span class="s2">  自定义flask
-</span><span class="s2">  &#34;&#34;&#34;</span>
+  from tortoise import fields
+  from tortoise.models import Model
   
-  <span class="n">json_encoder</span> <span class="o">=</span> <span class="n">ExtendedEncoder</span>
+  __all__ = [&#39;OurModel&#39;]
   
-  <span class="k">def</span> <span class="nf">make_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rv</span><span class="p">):</span>
-      <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-          <span class="n">rv</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+  class OurModel(Model):
+      &#34;&#34;&#34;示例model&#34;&#34;&#34;
   
-      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">):</span>
-          <span class="n">rv</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span>
-  
-      <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">QuizFlask</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">make_response</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></code></pre></td></tr></table>
+      id = fields.IntField(pk=True)
+      cat_ids = fields.JSONField(
+          encoder=ExtendedEncoder, decoder=json.decoder
+      ) 	# JsonField的encoder
+  </pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p><strong>Tortoise-orm</strong></p>
-
-<p>模型jsonfield的encoder</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">json</span>
-  
-<span class="kn">from</span> <span class="nn">tortoise</span> <span class="kn">import</span> <span class="n">fields</span>
-<span class="kn">from</span> <span class="nn">tortoise.models</span> <span class="kn">import</span> <span class="n">Model</span>
-  
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OurModel&#39;</span><span class="p">]</span>
-  
-<span class="k">class</span> <span class="nc">OurModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-  <span class="s2">&#34;&#34;&#34;示例model&#34;&#34;&#34;</span>
-  
-  <span class="nb">id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntField</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-  <span class="n">cat_ids</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">JSONField</span><span class="p">(</span>
-      <span class="n">encoder</span><span class="o">=</span><span class="n">ExtendedEncoder</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">decoder</span>
-  <span class="p">)</span>     <span class="c1"># JsonField的encoder</span>
-  </code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
     </div>
 
     <div class="post-copyright">

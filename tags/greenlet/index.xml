@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>greenlet on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/greenlet/</link>
+    <description>Recent content in greenlet on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 22 Nov 2019 11:20:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/greenlet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Eventlet使用</title>
+      <link>https://huangkai1008.github.io/post/python/eventlet/</link>
+      <pubDate>Fri, 22 Nov 2019 11:20:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/python/eventlet/</guid>
+      <description>Evenlet是一个Python的基于携程的网络库，它改变了你代码运行的方式，但是没有改变你怎么写代码 安装 1 pip install eventlet 简单使用 从eventlet</description>
+    </item>
+    
+  </channel>
+</rss>

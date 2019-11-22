@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.60.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
 
 
 <link rel="canonical" href="https://huangkai1008.github.io/post/python/poetry/" />
@@ -42,8 +42,9 @@
 <meta property="og:description" content="安装 custom installer 1 2 curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python source $HOME/.poetry/env pip 1 pip install poetry # 不推荐, 可能会有冲突 验证安装 1 poetry --version 使用 项目初始化 从pipenv/pip等工具迁移 1 poetry init # 进入交互式命令" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangkai1008.github.io/post/python/poetry/" />
-<meta property="article:published_time" content="2019-09-14T13:56:20+08:00" />
-<meta property="article:modified_time" content="2019-10-13T10:10:16+08:00" />
+<meta property="article:published_time" content="2019-09-14T13:56:20&#43;08:00"/>
+<meta property="article:modified_time" content="2019-10-13T10:10:16&#43;08:00"/>
+
 <meta itemprop="name" content="Poetry安装和使用">
 <meta itemprop="description" content="安装 custom installer 1 2 curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python source $HOME/.poetry/env pip 1 pip install poetry # 不推荐, 可能会有冲突 验证安装 1 poetry --version 使用 项目初始化 从pipenv/pip等工具迁移 1 poetry init # 进入交互式命令">
 
@@ -165,29 +166,30 @@
 <h2 id="安装">安装</h2>
 
 <ul>
-<li><p><strong>custom installer</strong></p>
+<li><strong>custom installer</strong>
+<br /></li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py <span class="p">|</span> python
-<span class="nb">source</span> <span class="nv">$HOME</span>/.poetry/env  </code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py <span class="p">|</span> python
+  <span class="nb">source</span> <span class="nv">$HOME</span>/.poetry/env  </code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p><strong>pip</strong></p>
+</div>
+<ul>
+<li><strong>pip</strong></li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">pip install poetry  <span class="c1"># 不推荐, 可能会有冲突</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  pip install poetry  <span class="c1"># 不推荐, 可能会有冲突</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <p><strong>验证安装</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -215,7 +217,8 @@
 <li><p><strong>添加依赖</strong></p>
 
 <ul>
-<li><p>添加包</p>
+<li>添加包</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -227,9 +230,10 @@
 poetry add <span class="nv">fastapi</span><span class="o">=</span><span class="m">0</span>.38.1 -E all <span class="c1">#  pipenv install fastapi[all]</span>
 poetry add celery --extras <span class="s2">&#34;librabbitmq redis auth msgpack&#34;</span>  <span class="c1"># pip install &#34;celery[librabbitmq,redis,auth,msgpack]&#34;</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>依赖安装</p>
+</div>
+<ul>
+<li>依赖安装</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -237,8 +241,8 @@ poetry add celery --extras <span class="s2">&#34;librabbitmq redis auth msgpack&
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash">poetry install  <span class="c1"># 会从pyproject.toml文件里读取, 如果有poetry.lock文件则会从lock文件中读取锁定依赖并安装</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
+</div>
+<ul>
 <li><p>虚拟环境地址</p>
 
 <ul>

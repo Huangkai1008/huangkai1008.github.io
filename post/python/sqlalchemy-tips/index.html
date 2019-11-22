@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.60.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
 
 
 <link rel="canonical" href="https://huangkai1008.github.io/post/python/sqlalchemy-tips/" />
@@ -42,8 +42,9 @@
 <meta property="og:description" content="遇到in查询之类的批量删除或者更新，可以使用synchronize_session=False 1 db.session.delete(synchronize_session=False) 使用find_in_set 1 2 3 from sqlalchemy.sql.expression import func db.session.query(Post).filter(func.find_in_set(&#39;10&#39;," />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangkai1008.github.io/post/python/sqlalchemy-tips/" />
-<meta property="article:published_time" content="2017-06-14T13:56:20+08:00" />
-<meta property="article:modified_time" content="2019-09-25T13:56:20+08:00" />
+<meta property="article:published_time" content="2017-06-14T13:56:20&#43;08:00"/>
+<meta property="article:modified_time" content="2019-09-25T13:56:20&#43;08:00"/>
+
 <meta itemprop="name" content="Sqlalchemy使用注意">
 <meta itemprop="description" content="遇到in查询之类的批量删除或者更新，可以使用synchronize_session=False 1 db.session.delete(synchronize_session=False) 使用find_in_set 1 2 3 from sqlalchemy.sql.expression import func db.session.query(Post).filter(func.find_in_set(&#39;10&#39;,">
 
@@ -154,17 +155,19 @@
 </div>
     <div class="post-content">
       <ul>
-<li><p>遇到in查询之类的批量删除或者更新，可以使用<strong>synchronize_session=False</strong></p>
+<li>遇到in查询之类的批量删除或者更新，可以使用<strong>synchronize_session=False</strong></li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">synchronize_session</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-python" data-lang="python">  <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">synchronize_session</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>使用<strong>find_in_set</strong></p>
+</div>
+<ul>
+<li>使用<strong>find_in_set</strong></li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
@@ -172,37 +175,40 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sqlalchemy.sql.expression</span> <span class="kn">import</span> <span class="n">func</span>
+<pre class="chroma"><code class="language-python" data-lang="python">  <span class="kn">from</span> <span class="nn">sqlalchemy.sql.expression</span> <span class="kn">import</span> <span class="n">func</span>
   
-<span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Post</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">find_in_set</span><span class="p">(</span><span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="n">Post</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">tag_id</span><span class="p">))</span></code></pre></td></tr></table>
+  <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Post</span><span class="p">)</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">find_in_set</span><span class="p">(</span><span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="n">Post</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">tag_id</span><span class="p">))</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>批量增加删除</p>
+</div>
+<ul>
+<li>批量增加删除</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">db.session.add_all<span class="o">(</span>instances<span class="o">)</span>
-db.session.delete_all<span class="o">(</span>instances<span class="o">)</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">  db.session.add_all<span class="o">(</span>instances<span class="o">)</span>
+  db.session.delete_all<span class="o">(</span>instances<span class="o">)</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>Mysql IS NULL判断</p>
+</div>
+<ul>
+<li>Mysql IS NULL判断</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">isnot</span><span class="p">()</span>
-<span class="n">is_</span><span class="p">()</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-python" data-lang="python">  <span class="n">isnot</span><span class="p">()</span>
+  <span class="n">is_</span><span class="p">()</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>Mysql 联合主键</p>
+</div>
+<ul>
+<li>Mysql 联合主键</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
@@ -214,17 +220,18 @@ db.session.delete_all<span class="o">(</span>instances<span class="o">)</span></
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">PrimaryKeyConstraint</span>
+<pre class="chroma"><code class="language-python" data-lang="python">  <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">PrimaryKeyConstraint</span>
   
-<span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-  <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">(</span>
-      <span class="n">PrimaryKeyConstraint</span><span class="p">(</span><span class="s1">&#39;pk1&#39;</span><span class="p">,</span> <span class="s1">&#39;pk2&#39;</span><span class="p">),</span>
-  <span class="p">)</span>
+  <span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+      <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">(</span>
+          <span class="n">PrimaryKeyConstraint</span><span class="p">(</span><span class="s1">&#39;pk1&#39;</span><span class="p">,</span> <span class="s1">&#39;pk2&#39;</span><span class="p">),</span>
+      <span class="p">)</span>
   </code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>Flask_sqlalchemy支持Double精度类型字段</p>
+</div>
+<ul>
+<li>Flask_sqlalchemy支持Double精度类型字段</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
@@ -237,18 +244,16 @@ db.session.delete_all<span class="o">(</span>instances<span class="o">)</span></
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.dialects.mysql</span> <span class="kn">import</span> <span class="n">DOUBLE</span>
+<pre class="chroma"><code class="language-python" data-lang="python">  <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span>
+  <span class="kn">from</span> <span class="nn">sqlalchemy.dialects.mysql</span> <span class="kn">import</span> <span class="n">DOUBLE</span>
   
-<span class="kn">from</span> <span class="nn">app</span> <span class="kn">import</span> <span class="n">db</span> 
+  <span class="kn">from</span> <span class="nn">app</span> <span class="kn">import</span> <span class="n">db</span> 
   
-<span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-   <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>         <span class="c1"># Flask_sqlalchemy</span>
-   <span class="n">double_column</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DOUBLE</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;双精度字段&#39;</span><span class="p">)</span>  <span class="c1"># Sqlalchemy mysql double column</span></code></pre></td></tr></table>
+  <span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+       <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>         <span class="c1"># Flask_sqlalchemy</span>
+       <span class="n">double_column</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DOUBLE</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;双精度字段&#39;</span><span class="p">)</span>  <span class="c1"># Sqlalchemy mysql double column</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
     </div>
 
     <div class="post-copyright">

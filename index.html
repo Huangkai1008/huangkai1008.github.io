@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.60.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.54.0 with theme even" />
 
 
 <link rel="canonical" href="https://huangkai1008.github.io/" />
@@ -45,7 +45,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://huangkai1008.github.io/" />
 
-<meta property="og:updated_time" content="2019-10-12T14:36:49+08:00" />
+<meta property="og:updated_time" content="2017-08-20T21:38:52&#43;08:00"/>
+
 <meta itemprop="name" content="Huanghuang&#39;s Blog">
 <meta itemprop="description" content="Huang&#39;s blog site.">
 
@@ -123,6 +124,52 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/python/loguru/">日志库Loguru使用教程</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-11-22 </span>
+      <div class="post-category">
+          <a href="/categories/python/"> python </a>
+          </div>
+        <span class="more-meta"> 约 462 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Loguru是一个好用的第三方python日志库 安装 1 pip install loguru 初步使用 添加日志到标准输出流 1 2 3 4 5 import sys from loguru import logger logger.add(sys.stderr, format=&#39;{time} {level} {message}&#39;, filter=&#39;my module&#39;, level=&#39;INFO&#39;) 添加日志到文件 1
+    </div>
+    <div class="read-more">
+      <a href="/post/python/loguru/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/python/eventlet/">Eventlet使用</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-11-22 </span>
+      <div class="post-category">
+          <a href="/categories/python/"> python </a>
+          </div>
+        <span class="more-meta"> 约 395 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Evenlet是一个Python的基于携程的网络库，它改变了你代码运行的方式，但是没有改变你怎么写代码 安装 1 pip install eventlet 简单使用 从eventlet
+    </div>
+    <div class="read-more">
+      <a href="/post/python/eventlet/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/git/git-workflow/">Git工作流</a></h1>
@@ -258,53 +305,6 @@
     </div>
     <div class="read-more">
       <a href="/post/python/wsgiasgiuwsgi/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/mq/rabbitmq/rabbitmq-install/">RabbitMQ基础安装使用</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-11-12 </span>
-      <div class="post-category">
-          <a href="/categories/mq/"> mq </a>
-          <a href="/categories/rabbitmq/"> rabbitMQ </a>
-          </div>
-        <span class="more-meta"> 约 180 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      RabbitMQ Platform: Centos7 安装 install Erlang 1 yum install erlang install rabbitMQ 1 2 3 4 5 6 # rpm安装 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_6_14/rabbitmq-server-3.6.14-1.el7.noarch.rpm yum install rabbitmq-server-3.6.14-1.el7.noarch.rpm # yum安装 yum install rabbitmq-server 配置 启动远程访问 1 2 3 4 [{rabbit, [ {loopback_users, []} ]}] 安装插件 1 /sbin/rabbitmq-plugins enable rabbitmq_management 使用 服务命令
-    </div>
-    <div class="read-more">
-      <a href="/post/mq/rabbitmq/rabbitmq-install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/redis/redis-install/">Redis安装配置</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-10-11 </span>
-      <div class="post-category">
-          <a href="/categories/redis/"> redis </a>
-          </div>
-        <span class="more-meta"> 约 196 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Redis 安装 Platform: centos7 version: 5.0 安装 1 2 3 4 wget http://download.redis.io/releases/redis-5.0.0.tar.gz # 获取包 tar -zxvf redis-5.0.0.tar.gz mv redis-5.0.0 /usr/local/redis make &amp;&amp; make install Redis配置 设置配置文件目录 1 2 mkdir -p /etc/redis cp redis.conf /etc/redis 修改配置文件 1 2 3 4 vim /etc/redis/redis.conf daemonize yes (no -&gt; yes) #
-    </div>
-    <div class="read-more">
-      <a href="/post/redis/redis-install/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
