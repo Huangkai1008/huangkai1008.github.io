@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2018-04-09T22:49:14&#43;08:00" />
 <meta itemprop="dateModified" content="2018-04-09T22:49:14&#43;08:00" />
-<meta itemprop="wordCount" content="442">
+<meta itemprop="wordCount" content="440">
 
 
 
@@ -139,7 +139,7 @@
         <div class="post-category">
             <a href="/categories/python/"> python </a>
             </div>
-          <span class="more-meta"> 约 442 字 </span>
+          <span class="more-meta"> 约 440 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -227,9 +227,8 @@
 <span class="n">now</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span></code></pre></td></tr></table>
 </div>
 </div>
-<p>对于now如果使用json.dumps(t_now)便会触发<pre>TypeError: Object of type datetime is not JSON serializable</pre></p>
-
-<p>使用扩展的Encoder</p>
+<p>对于now如果使用json.dumps(t_now)便会触发<pre>TypeError: Object of type datetime is not JSON serializable</pre>
+使用扩展的Encoder</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
@@ -244,43 +243,9 @@
 <li><p><strong>Flask</strong></p>
 
 <p>修改flask类的json_encoder</p>
-
-<p>```python
-from flask import Flask as _Flask</p></li>
-</ul>
-
-<p>class QuizFlask(_Flask):
-      &ldquo;&rdquo;&rdquo;
-      自定义flask
-      &ldquo;&rdquo;&rdquo;</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">  json_encoder = ExtendedEncoder
-
-  def make_response(self, rv):
-      if rv is None:
-          rv = dict()
-
-      if isinstance(rv, Iterator):
-          rv = list(rv)
-
-      return super(QuizFlask, self).make_response(rv)</pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -296,32 +261,65 @@ from flask import Flask as _Flask</p></li>
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></pre></td>
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">* **Tortoise-orm**
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span> <span class="k">as</span> <span class="n">_Flask</span>
+<span class="k">class</span> <span class="nc">QuizFlask</span><span class="p">(</span><span class="n">_Flask</span><span class="p">):</span>
+  <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">  自定义flask
+</span><span class="s2">  &#34;&#34;&#34;</span>
+  
+  <span class="n">json_encoder</span> <span class="o">=</span> <span class="n">ExtendedEncoder</span>
+  
+  <span class="k">def</span> <span class="nf">make_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rv</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+          <span class="n">rv</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+  
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">):</span>
+          <span class="n">rv</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span>
+  
+      <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">QuizFlask</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">make_response</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div></li>
 
-    模型jsonfield的encoder
+<li><p><strong>Tortoise-orm</strong></p>
 
-  ```python
-  import json
+<p>模型jsonfield的encoder</p></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python">  <span class="kn">import</span> <span class="nn">json</span>
   
-  from tortoise import fields
-  from tortoise.models import Model
+  <span class="kn">from</span> <span class="nn">tortoise</span> <span class="kn">import</span> <span class="n">fields</span>
+  <span class="kn">from</span> <span class="nn">tortoise.models</span> <span class="kn">import</span> <span class="n">Model</span>
   
-  __all__ = [&#39;OurModel&#39;]
+  <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OurModel&#39;</span><span class="p">]</span>
   
-  class OurModel(Model):
-      &#34;&#34;&#34;示例model&#34;&#34;&#34;
+  <span class="k">class</span> <span class="nc">OurModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+      <span class="s2">&#34;&#34;&#34;示例model&#34;&#34;&#34;</span>
   
-      id = fields.IntField(pk=True)
-      cat_ids = fields.JSONField(
-          encoder=ExtendedEncoder, decoder=json.decoder
-      ) 	# JsonField的encoder
-  </pre></td></tr></table>
+      <span class="nb">id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntField</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+      <span class="n">cat_ids</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">JSONField</span><span class="p">(</span>
+          <span class="n">encoder</span><span class="o">=</span><span class="n">ExtendedEncoder</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">decoder</span>
+      <span class="p">)</span> 	<span class="c1"># JsonField的encoder</span>
+  </code></pre></td></tr></table>
 </div>
 </div>
     </div>
