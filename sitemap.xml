@@ -190,13 +190,6 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/database/</loc>
-    <lastmod>2018-09-09T13:56:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://huangkai1008.github.io/tags/database/</loc>
     <lastmod>2018-09-09T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -204,7 +197,7 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/database-system-concept/</loc>
+    <loc>https://huangkai1008.github.io/categories/database/</loc>
     <lastmod>2018-09-09T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -218,14 +211,21 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/docker/</loc>
-    <lastmod>2019-07-31T13:56:20+08:00</lastmod>
+    <loc>https://huangkai1008.github.io/categories/database-system-concept/</loc>
+    <lastmod>2018-09-09T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://huangkai1008.github.io/tags/docker/</loc>
+    <lastmod>2019-07-31T13:56:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/docker/</loc>
     <lastmod>2019-07-31T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -239,13 +239,6 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/git/</loc>
-    <lastmod>2019-10-12T14:36:49+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://huangkai1008.github.io/tags/git/</loc>
     <lastmod>2019-10-12T14:36:49+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -253,14 +246,21 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/golang/</loc>
-    <lastmod>2018-07-31T13:56:20+08:00</lastmod>
+    <loc>https://huangkai1008.github.io/categories/git/</loc>
+    <lastmod>2019-10-12T14:36:49+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://huangkai1008.github.io/tags/golang/</loc>
+    <lastmod>2018-07-31T13:56:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/golang/</loc>
     <lastmod>2018-07-31T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -316,13 +316,6 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/mongo/</loc>
-    <lastmod>2018-10-12T13:56:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://huangkai1008.github.io/tags/mongo/</loc>
     <lastmod>2018-10-12T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -330,14 +323,21 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/mq/</loc>
-    <lastmod>2019-06-12T13:56:20+08:00</lastmod>
+    <loc>https://huangkai1008.github.io/categories/mongo/</loc>
+    <lastmod>2018-10-12T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://huangkai1008.github.io/tags/mq/</loc>
+    <lastmod>2019-06-12T13:56:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/mq/</loc>
     <lastmod>2019-06-12T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -351,13 +351,6 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/mysql/</loc>
-    <lastmod>2019-11-11T13:56:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://huangkai1008.github.io/tags/mysql/</loc>
     <lastmod>2019-11-11T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -365,14 +358,21 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/network/</loc>
-    <lastmod>2019-01-24T13:56:20+08:00</lastmod>
+    <loc>https://huangkai1008.github.io/categories/mysql/</loc>
+    <lastmod>2019-11-11T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://huangkai1008.github.io/tags/network/</loc>
+    <lastmod>2019-01-24T13:56:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/network/</loc>
     <lastmod>2019-01-24T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -393,14 +393,14 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/python/</loc>
+    <loc>https://huangkai1008.github.io/tags/python/</loc>
     <lastmod>2019-11-22T15:19:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/tags/python/</loc>
+    <loc>https://huangkai1008.github.io/categories/python/</loc>
     <lastmod>2019-11-22T15:19:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -414,13 +414,6 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/rabbitmq/</loc>
-    <lastmod>2019-06-12T13:56:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://huangkai1008.github.io/tags/rabbitmq/</loc>
     <lastmod>2019-06-12T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -428,8 +421,8 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/redis/</loc>
-    <lastmod>2018-10-12T13:56:20+08:00</lastmod>
+    <loc>https://huangkai1008.github.io/categories/rabbitmq/</loc>
+    <lastmod>2019-06-12T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -442,14 +435,21 @@
   </url>
   
   <url>
-    <loc>https://huangkai1008.github.io/categories/sqlalchemy/</loc>
-    <lastmod>2019-09-25T13:56:20+08:00</lastmod>
+    <loc>https://huangkai1008.github.io/categories/redis/</loc>
+    <lastmod>2018-10-12T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://huangkai1008.github.io/tags/sqlalchemy/</loc>
+    <lastmod>2019-09-25T13:56:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/sqlalchemy/</loc>
     <lastmod>2019-09-25T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
