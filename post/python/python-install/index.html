@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2017-01-08T22:49:14&#43;08:00" />
 <meta itemprop="dateModified" content="2017-01-08T22:49:14&#43;08:00" />
-<meta itemprop="wordCount" content="134">
+<meta itemprop="wordCount" content="390">
 
 
 
@@ -139,7 +139,7 @@
         <div class="post-category">
             <a href="/categories/python/"> python </a>
             </div>
-          <span class="more-meta"> 约 134 字 </span>
+          <span class="more-meta"> 约 390 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -154,6 +154,11 @@
 <ul>
 <li><a href="#python安装">Python安装</a></li>
 <li><a href="#软链接">软链接</a></li>
+<li><a href="#使用pyenv管理多个python版本">使用pyenv管理多个Python版本</a>
+<ul>
+<li><a href="#安装pyenv">安装pyenv</a></li>
+<li><a href="#pyenv基本使用">pyenv基本使用</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -231,6 +236,53 @@ ln -s /usr/local/python3/bin/python3 /usr/bin/python3  # python3 软链接
 ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3  # pip3软链接
 ln -s /usr/local/python3/bin/pipenv /usr/bin/pipenv  # pipenv软链接
 </code></li>
+</ul>
+
+<h2 id="使用pyenv管理多个python版本">使用pyenv管理多个Python版本</h2>
+
+<h3 id="安装pyenv">安装pyenv</h3>
+
+<ul>
+<li>安装脚本
+<code>bash
+curl https://pyenv.run | bash   
+</code></li>
+<li>manjaro
+<code>bash
+sudo pacman -S pyenv
+</code></li>
+</ul>
+
+<h3 id="pyenv基本使用">pyenv基本使用</h3>
+
+<ul>
+<li>展示可以安装的版本
+<code>bash
+pyenv install --list 
+</code></li>
+<li>安装python
+<code>bash
+pyenv install 3.7.4
+</code>
+&gt; manjaro如遇到ModuleNotFoundError: No module named &lsquo;_ctypes&rsquo;, 可执行<code>sudo pacman -S pkgconf libffi</code></li>
+
+<li><p>查看可使用的版本，带*表示当前使用的版本
+```bash
+$ pyenv versions</p>
+
+<ul>
+<li>system (set by /home/huangkai/.pyenv/version)
+3.7.4
+```</li>
+</ul></li>
+
+<li><p>配置及管理python版本</p>
+
+<ul>
+<li>使用pyenv global <version>配置当前用户的系统使用的python版本</li>
+<li>使用pyenv shell <version>配置当前shell的python版本，退出shell则失效</li>
+<li>使用pyenv local <version>配置所在项目（目录）的python版本</li>
+</ul></li>
 </ul>
 
     </div>
