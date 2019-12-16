@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Huanghuang&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 22 Nov 2019 15:19:35 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Dec 2019 22:21:57 +0800</lastBuildDate>
     
 	<atom:link href="https://huangkai1008.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Awesome Software</title>
+      <link>https://huangkai1008.github.io/post/common/awesome-software/</link>
+      <pubDate>Sun, 01 Dec 2019 22:21:57 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/common/awesome-software/</guid>
+      <description>IDE Jetbrains系列 Editor Vscode Sublime text Typora(markdown编辑) Notion(笔记软件) 画图 Microsoft visio drawing.io 数据库 Mysql系列 Navicat Tableplus Jetbrains Datagrip Redis</description>
+    </item>
     
     <item>
       <title>日志库Loguru使用教程</title>
@@ -54,6 +63,15 @@
       
       <guid>https://huangkai1008.github.io/post/python/poetry/</guid>
       <description>安装 custom installer 1 2 curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python source $HOME/.poetry/env pip 1 pip install poetry # 不推荐, 可能会有冲突 验证安装 1 poetry --version 使用 项目初始化 从pipenv/pip等工具迁移 1 poetry init # 进入交互式命令</description>
+    </item>
+    
+    <item>
+      <title>Manjaro安装配置</title>
+      <link>https://huangkai1008.github.io/post/common/manjaro/</link>
+      <pubDate>Thu, 01 Aug 2019 22:21:57 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/common/manjaro/</guid>
+      <description>基本安装 使用rufus以dd模式写入U盘 从u盘启动 将manjaro启动项中的driver和boot添加或修改driver=intel才能进入</description>
     </item>
     
     <item>

@@ -56,6 +56,15 @@
     </item>
     
     <item>
+      <title>linux</title>
+      <link>https://huangkai1008.github.io/categories/linux/</link>
+      <pubDate>Thu, 01 Aug 2019 22:21:57 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>mongo</title>
       <link>https://huangkai1008.github.io/categories/mongo/</link>
       <pubDate>Wed, 12 Sep 2018 13:56:20 +0800</pubDate>
@@ -115,6 +124,15 @@
       <pubDate>Thu, 11 Oct 2018 13:56:20 +0800</pubDate>
       
       <guid>https://huangkai1008.github.io/categories/redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>software</title>
+      <link>https://huangkai1008.github.io/categories/software/</link>
+      <pubDate>Sun, 01 Dec 2019 22:21:57 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/categories/software/</guid>
       <description></description>
     </item>
     

@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2018-01-31T13:56:20&#43;08:00" />
 <meta itemprop="dateModified" content="2019-07-31T13:56:20&#43;08:00" />
-<meta itemprop="wordCount" content="130">
+<meta itemprop="wordCount" content="129">
 
 
 
@@ -139,7 +139,7 @@
         <div class="post-category">
             <a href="/categories/docker/"> docker </a>
             </div>
-          <span class="more-meta"> 约 130 字 </span>
+          <span class="more-meta"> 约 129 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -229,18 +229,15 @@ sudo yum install docker-ce docker-ce-cli containerd.io</code></pre></td></tr></t
 <h2 id="启动">启动</h2>
 
 <ul>
-<li>Docker启动</li>
+<li>Docker启动
+<code>bash
+sudo systemctl start docker	# 启动Docker
+sudo systemctl status docker	# 查看Docker状态
+</code>
+
+<br /></li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  sudo systemctl start docker	<span class="c1"># 启动Docker</span>
-  sudo systemctl status docker	<span class="c1"># 查看Docker状态</span></code></pre></td></tr></table>
-</div>
-</div>
+
     </div>
 
     <div class="post-copyright">

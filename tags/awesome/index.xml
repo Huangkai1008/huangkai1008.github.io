@@ -6,10 +6,19 @@
     <description>Recent content in awesome on Huanghuang&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 27 May 2019 13:56:20 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Dec 2019 22:21:57 +0800</lastBuildDate>
     
 	<atom:link href="https://huangkai1008.github.io/tags/awesome/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Awesome Software</title>
+      <link>https://huangkai1008.github.io/post/common/awesome-software/</link>
+      <pubDate>Sun, 01 Dec 2019 22:21:57 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/common/awesome-software/</guid>
+      <description>IDE Jetbrains系列 Editor Vscode Sublime text Typora(markdown编辑) Notion(笔记软件) 画图 Microsoft visio drawing.io 数据库 Mysql系列 Navicat Tableplus Jetbrains Datagrip Redis</description>
+    </item>
     
     <item>
       <title>值得关注的Python库</title>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/tags/linux/</link>
+    <description>Recent content in linux on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 01 Aug 2019 22:21:57 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Manjaro安装配置</title>
+      <link>https://huangkai1008.github.io/post/common/manjaro/</link>
+      <pubDate>Thu, 01 Aug 2019 22:21:57 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/common/manjaro/</guid>
+      <description>基本安装 使用rufus以dd模式写入U盘 从u盘启动 将manjaro启动项中的driver和boot添加或修改driver=intel才能进入</description>
+    </item>
+    
+  </channel>
+</rss>

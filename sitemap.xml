@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>https://huangkai1008.github.io/post/common/awesome-software/</loc>
+    <lastmod>2019-12-01T22:21:57+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://huangkai1008.github.io/post/python/loguru/</loc>
     <lastmod>2019-11-22T15:19:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -40,6 +47,13 @@
   <url>
     <loc>https://huangkai1008.github.io/post/python/poetry/</loc>
     <lastmod>2019-10-13T10:10:16+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/post/common/manjaro/</loc>
+    <lastmod>2019-12-02T11:02:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -171,7 +185,7 @@
   
   <url>
     <loc>https://huangkai1008.github.io/post/</loc>
-    <lastmod>2019-11-22T15:19:35+08:00</lastmod>
+    <lastmod>2019-12-01T22:21:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -184,7 +198,7 @@
   
   <url>
     <loc>https://huangkai1008.github.io/tags/awesome/</loc>
-    <lastmod>2019-10-25T13:56:20+08:00</lastmod>
+    <lastmod>2019-12-01T22:21:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -282,7 +296,7 @@
   
   <url>
     <loc>https://huangkai1008.github.io/tags/install/</loc>
-    <lastmod>2019-06-12T13:56:20+08:00</lastmod>
+    <lastmod>2019-12-02T11:02:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -290,6 +304,20 @@
   <url>
     <loc>https://huangkai1008.github.io/tags/json/</loc>
     <lastmod>2018-04-09T22:49:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/tags/linux/</loc>
+    <lastmod>2019-12-02T11:02:57+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/linux/</loc>
+    <lastmod>2019-12-02T11:02:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -304,6 +332,13 @@
   <url>
     <loc>https://huangkai1008.github.io/tags/logging/</loc>
     <lastmod>2019-11-22T15:19:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/tags/manjaro/</loc>
+    <lastmod>2019-12-02T11:02:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -437,6 +472,20 @@
   <url>
     <loc>https://huangkai1008.github.io/categories/redis/</loc>
     <lastmod>2018-10-12T13:56:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/tags/software/</loc>
+    <lastmod>2019-12-01T22:21:57+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/software/</loc>
+    <lastmod>2019-12-01T22:21:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

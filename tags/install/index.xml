@@ -6,10 +6,19 @@
     <description>Recent content in install on Huanghuang&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 12 Nov 2018 13:56:20 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 01 Aug 2019 22:21:57 +0800</lastBuildDate>
     
 	<atom:link href="https://huangkai1008.github.io/tags/install/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Manjaro安装配置</title>
+      <link>https://huangkai1008.github.io/post/common/manjaro/</link>
+      <pubDate>Thu, 01 Aug 2019 22:21:57 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/common/manjaro/</guid>
+      <description>基本安装 使用rufus以dd模式写入U盘 从u盘启动 将manjaro启动项中的driver和boot添加或修改driver=intel才能进入</description>
+    </item>
     
     <item>
       <title>RabbitMQ基础安装使用</title>
