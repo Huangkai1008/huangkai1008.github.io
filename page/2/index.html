@@ -295,14 +295,14 @@
       <div class="post-category">
           <a href="/categories/mysql/"> mysql </a>
           </div>
-        <span class="more-meta"> 约 178 字 </span>
+        <span class="more-meta"> 约 188 字 </span>
         <span class="more-meta"> 预计阅读 1 分钟 </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      Mysql安装 版本: 8.0 添加源 bash yum local install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm 安装 bash yum install mysql-community-server Mysql配置 启动mysql 1 systemctl start mysqld 设置mysql开机自启 1 systemctl enable mysqld 查看初始密码 1 grep &#39;temporary password&#39; /var/log/mysqld.log 进
+      Mysql安装 版本: 8.0 添加源 bash yum local install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm 安装 bash yum install mysql-community-server Mysql配置 初始化 1 sudo mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql 启动mysql 1 systemctl start mysqld 设置mysql开机自启 1 systemctl enable mysqld 查看
     </div>
     <div class="read-more">
       <a href="/post/database/mysql/mysql-install/" class="read-more-link">阅读更多</a>

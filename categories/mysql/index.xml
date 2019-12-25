@@ -35,7 +35,7 @@
       <pubDate>Sun, 09 Sep 2018 13:56:20 +0800</pubDate>
       
       <guid>https://huangkai1008.github.io/post/database/mysql/mysql-install/</guid>
-      <description>Mysql安装 版本: 8.0 添加源 bash yum local install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm 安装 bash yum install mysql-community-server Mysql配置 启动mysql 1 systemctl start mysqld 设置mysql开机自启 1 systemctl enable mysqld 查看初始密码 1 grep &amp;#39;temporary password&amp;#39; /var/log/mysqld.log 进</description>
+      <description>Mysql安装 版本: 8.0 添加源 bash yum local install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm 安装 bash yum install mysql-community-server Mysql配置 初始化 1 sudo mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql 启动mysql 1 systemctl start mysqld 设置mysql开机自启 1 systemctl enable mysqld 查看</description>
     </item>
     
     <item>
