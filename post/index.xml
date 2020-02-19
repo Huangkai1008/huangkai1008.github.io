@@ -93,6 +93,15 @@
     </item>
     
     <item>
+      <title>Spring初始化工具</title>
+      <link>https://huangkai1008.github.io/post/spring/spring-initializr/</link>
+      <pubDate>Thu, 07 Feb 2019 11:15:10 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/spring/spring-initializr/</guid>
+      <description>使用IDEA初始化Spring Boot项目 选择File -&amp;gt; New -&amp;gt; Project 新建项目 选择Spring Initializr， 点击Next，填写项目基本信息 项</description>
+    </item>
+    
+    <item>
       <title>WSGI ASGI UWSGI的区别</title>
       <link>https://huangkai1008.github.io/post/python/wsgiasgiuwsgi/</link>
       <pubDate>Thu, 24 Jan 2019 13:56:20 +0800</pubDate>

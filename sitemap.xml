@@ -73,6 +73,13 @@
   </url>
   
   <url>
+    <loc>https://huangkai1008.github.io/post/spring/spring-initializr/</loc>
+    <lastmod>2019-02-07T11:15:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://huangkai1008.github.io/post/python/wsgiasgiuwsgi/</loc>
     <lastmod>2019-01-24T13:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -302,6 +309,20 @@
   </url>
   
   <url>
+    <loc>https://huangkai1008.github.io/tags/java/</loc>
+    <lastmod>2019-02-07T11:15:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/java/</loc>
+    <lastmod>2019-02-07T11:15:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://huangkai1008.github.io/tags/json/</loc>
     <lastmod>2018-04-09T22:49:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -486,6 +507,34 @@
   <url>
     <loc>https://huangkai1008.github.io/categories/software/</loc>
     <lastmod>2019-12-01T22:21:57+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/tags/spring/</loc>
+    <lastmod>2019-02-07T11:15:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/spring/</loc>
+    <lastmod>2019-02-07T11:15:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/tags/spring-boot/</loc>
+    <lastmod>2019-02-07T11:15:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://huangkai1008.github.io/categories/spring-boot/</loc>
+    <lastmod>2019-02-07T11:15:10+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

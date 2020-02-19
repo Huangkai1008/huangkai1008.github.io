@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/categories/java/</link>
+    <description>Recent content in java on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 07 Feb 2019 11:15:10 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spring初始化工具</title>
+      <link>https://huangkai1008.github.io/post/spring/spring-initializr/</link>
+      <pubDate>Thu, 07 Feb 2019 11:15:10 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/spring/spring-initializr/</guid>
+      <description>使用IDEA初始化Spring Boot项目 选择File -&amp;gt; New -&amp;gt; Project 新建项目 选择Spring Initializr， 点击Next，填写项目基本信息 项</description>
+    </item>
+    
+  </channel>
+</rss>
