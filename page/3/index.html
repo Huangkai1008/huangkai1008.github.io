@@ -126,6 +126,29 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/database/mysql/mariadb-install/">MariaDB安装</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-09-09 </span>
+      <div class="post-category">
+          <a href="/categories/mysql/"> mysql </a>
+          </div>
+        <span class="more-meta"> 约 293 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      MariaDB安装 platform: Centos7 Install 1 yum install -y mariadb-server MariaDB配置使用 Using 1 2 systemctl start mariadb.service # 启动 systemctl enable mariadb.service # 开机自启 Configure 首先是设置密码，会提示先输入密码 Enter current password for root (enter for none):
+    </div>
+    <div class="read-more">
+      <a href="/post/database/mysql/mariadb-install/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/database/mysql/mysql-install/">Mysql安装配置</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2018-09-09 </span>
@@ -288,29 +311,6 @@
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/python/python-install/">Python安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-01-08 </span>
-      <div class="post-category">
-          <a href="/categories/python/"> python </a>
-          </div>
-        <span class="more-meta"> 约 390 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Python安装 Platform: centos7 Version: 3.7 安装编译环境 1 yum install zlib-devel bzip2-devel openssl-devel ncurses-devel libffi-devel 下载 1 wget --no-check-certificate https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz 创建安装目录解压 1 2 3 4 5 sudo mkdir /usr/local/python3 tar -zxvf Python-3.7.4.tgz cd Python-3.7.4/ 编译安装 1 2 3 sudo ./configure --prefix=/usr/local/python3 # 指定创建的目
-    </div>
-    <div class="read-more">
-      <a href="/post/python/python-install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -318,7 +318,10 @@
         <i class="iconfont icon-left"></i>
         <span class="prev-text">上一页</span>
       </a>
-    
+    <a class="next" href="/page/4/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
         </div>
         

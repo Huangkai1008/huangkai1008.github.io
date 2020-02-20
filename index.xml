@@ -147,6 +147,15 @@
     </item>
     
     <item>
+      <title>Angular Starter</title>
+      <link>https://huangkai1008.github.io/post/angular/angular-starter/</link>
+      <pubDate>Tue, 09 Oct 2018 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/angular/angular-starter/</guid>
+      <description>安装Angular 确保node/npm已安装 1 2 node -v 查看node版本 npm -v 查看npm版本 安装typescript 1 npm install -g typescript 安装Angular CLI</description>
+    </item>
+    
+    <item>
       <title>MongoDB的安装</title>
       <link>https://huangkai1008.github.io/post/mongodb/mongo-install/</link>
       <pubDate>Wed, 12 Sep 2018 13:56:20 +0800</pubDate>
