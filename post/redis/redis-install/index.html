@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2018-10-11T13:56:20&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-12T13:56:20&#43;08:00" />
-<meta itemprop="wordCount" content="196">
+<meta itemprop="wordCount" content="377">
 
 
 
@@ -139,7 +139,7 @@
         <div class="post-category">
             <a href="/categories/redis/"> redis </a>
             </div>
-          <span class="more-meta"> 约 196 字 </span>
+          <span class="more-meta"> 约 377 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -155,6 +155,7 @@
 <li><a href="#redis-安装">Redis 安装</a></li>
 <li><a href="#redis配置">Redis配置</a></li>
 <li><a href="#redis使用">Redis使用</a></li>
+<li><a href="#supervisor管理redis">Supervisor管理Redis</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -274,6 +275,56 @@
   <span class="nb">echo</span> <span class="s2">&#34;/usr/local/bin/redis-server /etc/redis/redis.conf &amp;&#34;</span> &gt;&gt; /etc/rc.local</code></pre></td></tr></table>
 </div>
 </div>
+<h2 id="supervisor管理redis">Supervisor管理Redis</h2>
+
+<ul>
+<li>更改redis配置</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  vim /etc/redis/redis.conf
+  daemonize no <span class="o">(</span>yes -&gt; no<span class="o">)</span>   <span class="c1"># 取消守护进程</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><p>创建supervisor对redis的配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">vim /etc/supervisord.d/redis.ini</code></pre></td></tr></table>
+</div>
+</div>
+<p><code>redis.ini</code>文件如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>program:redis<span class="o">]</span>
+<span class="nv">command</span><span class="o">=</span>redis-server /etc/redis/redis.conf      <span class="c1">#   启动Redis的命令</span>
+<span class="nv">autostart</span><span class="o">=</span><span class="nb">true</span>                                <span class="c1">#   supervisord启动时，该程序也启动</span>
+<span class="nv">autorestart</span><span class="o">=</span><span class="nb">true</span>                                 <span class="c1">#   异常退出时，自动启动</span>
+<span class="nv">startsecs</span><span class="o">=</span><span class="m">3</span>                                   <span class="c1">#   启动后持续3s后未发生异常，才表示启动成功</span>                     
+<span class="nv">stdout_logfile</span><span class="o">=</span>/var/log/supervisor/redis/redis.log  <span class="c1">#  标准输出流日志</span>
+<span class="nv">stderr_logfile</span><span class="o">=</span>/var/log/supervisor/redis/redis_err.log  <span class="c1"># 标准错误输出流日志</span>
+    </code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
     </div>
 
     <div class="post-copyright">
