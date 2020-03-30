@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2018-02-08T22:49:14&#43;08:00" />
 <meta itemprop="dateModified" content="2018-02-08T22:49:14&#43;08:00" />
-<meta itemprop="wordCount" content="1159">
+<meta itemprop="wordCount" content="1165">
 
 
 
@@ -139,7 +139,7 @@
         <div class="post-category">
             <a href="/categories/python/"> python </a>
             </div>
-          <span class="more-meta"> 约 1159 字 </span>
+          <span class="more-meta"> 约 1165 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
         
       </div>
@@ -496,18 +496,30 @@
 <h2 id="异常处理">异常处理</h2>
 
 <ul>
-<li>通过添加回调函数的方法处理异常
-```python
-import logging</li>
+<li>通过添加回调函数的方法处理异常</li>
 </ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">logging</span>
 
-<p>def executor_callback(worker):
-    logging.info(f&rsquo;finished&rsquo;)
-    worker_exception = worker.exception()
-    if worker_exception:
-        logging.exception(worker_exception)
-```</p>
 
+<span class="k">def</span> <span class="nf">executor_callback</span><span class="p">(</span><span class="n">worker</span><span class="p">):</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;finished&#39;</span><span class="p">)</span>
+    <span class="n">worker_exception</span> <span class="o">=</span> <span class="n">worker</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">worker_exception</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">worker_exception</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="备注">备注</h2>
 
 <ul>
