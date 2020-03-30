@@ -75,6 +75,15 @@
     </item>
     
     <item>
+      <title>Nginx安装和基本使用</title>
+      <link>https://huangkai1008.github.io/post/nginx/nginx-install/</link>
+      <pubDate>Mon, 26 Aug 2019 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/nginx/nginx-install/</guid>
+      <description>Nginx (engine x) 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP/POP3/SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问</description>
+    </item>
+    
+    <item>
       <title>Manjaro安装配置</title>
       <link>https://huangkai1008.github.io/post/common/manjaro/</link>
       <pubDate>Thu, 01 Aug 2019 22:21:57 +0800</pubDate>

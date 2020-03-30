@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nginx on Huanghuang&#39;s Blog</title>
+    <link>https://huangkai1008.github.io/categories/nginx/</link>
+    <description>Recent content in nginx on Huanghuang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 26 Aug 2019 13:56:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://huangkai1008.github.io/categories/nginx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nginx安装和基本使用</title>
+      <link>https://huangkai1008.github.io/post/nginx/nginx-install/</link>
+      <pubDate>Mon, 26 Aug 2019 13:56:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/nginx/nginx-install/</guid>
+      <description>Nginx (engine x) 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP/POP3/SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问</description>
+    </item>
+    
+  </channel>
+</rss>

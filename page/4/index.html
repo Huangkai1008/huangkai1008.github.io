@@ -45,7 +45,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://huangkai1008.github.io/" />
 
-<meta property="og:updated_time" content="2017-01-08T22:49:14&#43;08:00"/>
+<meta property="og:updated_time" content="2017-06-14T13:56:20&#43;08:00"/>
 
 <meta itemprop="name" content="Huanghuang&#39;s Blog">
 <meta itemprop="description" content="Huang&#39;s blog site.">
@@ -124,6 +124,31 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/python/sqlalchemy-tips/">Sqlalchemy使用注意</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-14 </span>
+      <div class="post-category">
+          <a href="/categories/python/"> python </a>
+          <a href="/categories/mysql/"> mysql </a>
+          <a href="/categories/sqlalchemy/"> sqlalchemy </a>
+          </div>
+        <span class="more-meta"> 约 430 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      遇到in查询之类的批量删除或者更新，可以使用synchronize_session=False 1 db.session.delete(synchronize_session=False) 使用find_in_set 1 2 3 from sqlalchemy.sql.expression import func db.session.query(Post).filter(func.find_in_set(&#39;10&#39;,
+    </div>
+    <div class="read-more">
+      <a href="/post/python/sqlalchemy-tips/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/python/python-install/">Python安装</a></h1>
