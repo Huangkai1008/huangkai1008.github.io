@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>https://huangkai1008.github.io/post/database/mysql/ch1-mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2020-06-01T21:56:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://huangkai1008.github.io/post/common/awesome-software/</loc>
     <lastmod>2019-12-01T22:21:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -206,7 +213,7 @@
   
   <url>
     <loc>https://huangkai1008.github.io/post/</loc>
-    <lastmod>2019-12-01T22:21:57+08:00</lastmod>
+    <lastmod>2020-06-01T21:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -450,14 +457,14 @@
   
   <url>
     <loc>https://huangkai1008.github.io/tags/mysql/</loc>
-    <lastmod>2019-11-11T13:56:20+08:00</lastmod>
+    <lastmod>2020-06-01T21:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://huangkai1008.github.io/categories/mysql/</loc>
-    <lastmod>2019-11-11T13:56:20+08:00</lastmod>
+    <lastmod>2020-06-01T21:56:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
