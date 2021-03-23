@@ -6,10 +6,19 @@
     <description>Recent content in mysql on Huanghuang&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 01 Jun 2020 21:56:20 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2020 22:25:20 +0800</lastBuildDate>
     
 	<atom:link href="https://huangkai1008.github.io/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>事务</title>
+      <link>https://huangkai1008.github.io/post/database/mysql/ch2-%E4%BA%8B%E5%8A%A1/</link>
+      <pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate>
+      
+      <guid>https://huangkai1008.github.io/post/database/mysql/ch2-%E4%BA%8B%E5%8A%A1/</guid>
+      <description>概念 事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如</description>
+    </item>
     
     <item>
       <title>Mysql的基础架构</title>
