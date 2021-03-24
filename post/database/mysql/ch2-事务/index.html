@@ -43,15 +43,15 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangkai1008.github.io/post/database/mysql/ch2-%E4%BA%8B%E5%8A%A1/" />
 <meta property="article:published_time" content="2020-06-02T22:25:20&#43;08:00"/>
-<meta property="article:modified_time" content="2020-06-02T22:25:20&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-03T22:01:24&#43;08:00"/>
 
 <meta itemprop="name" content="事务">
 <meta itemprop="description" content="概念 事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如">
 
 
 <meta itemprop="datePublished" content="2020-06-02T22:25:20&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-02T22:25:20&#43;08:00" />
-<meta itemprop="wordCount" content="1093">
+<meta itemprop="dateModified" content="2020-06-03T22:01:24&#43;08:00" />
+<meta itemprop="wordCount" content="1707">
 
 
 
@@ -139,8 +139,8 @@
         <div class="post-category">
             <a href="/categories/mysql/"> mysql </a>
             </div>
-          <span class="more-meta"> 约 1093 字 </span>
-          <span class="more-meta"> 预计阅读 3 分钟 </span>
+          <span class="more-meta"> 约 1707 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
     </header>
@@ -154,7 +154,12 @@
 <ul>
 <li><a href="#概念">概念</a></li>
 <li><a href="#acid特性">ACID特性</a></li>
-<li><a href="#隔离级别">隔离级别</a></li>
+<li><a href="#隔离级别-isolation-level">隔离级别（Isolation level）</a></li>
+<li><a href="#事务类型">事务类型</a>
+<ul>
+<li><a href="#隐式事务">隐式事务</a></li>
+<li><a href="#显式事务">显式事务</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -174,18 +179,18 @@
 <ul>
 <li><p><strong>原子性（Atomicity）</strong>：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行</p></li>
 
-<li><p><strong>一致性（Consistency）</strong>：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。*一致状态*的含义是数据库中的数据应满足完整性约束。</p></li>
+<li><p><strong>一致性（Consistency）</strong>：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束。</p></li>
 
-<li><p><strong>隔离性（Isolation）</strong>：<strong>通常来说</strong>，一个事务所做的修改在最终提交以前，对其他事务是不可见的。****</p></li>
+<li><p><strong>隔离性（Isolation）</strong>：<strong>通常来说</strong>，一个事务所做的修改在最终提交以前，对其他事务是不可见的。</p></li>
 
-<li><p><strong>持久性（Durability）</strong>：已被提交的事务对数据库的修改应该永久保存在数据库中。****</p></li>
+<li><p><strong>持久性（Durability）</strong>：已被提交的事务对数据库的修改应该永久保存在数据库中。</p></li>
 </ul>
 
 <blockquote>
 <p>一个实现了ACID的数据库，相比没有实现ACID的数据库，通常会需要更强的CPU处理能力、更大的内存和更多的磁盘空间。</p>
 </blockquote>
 
-<h2 id="隔离级别">隔离级别</h2>
+<h2 id="隔离级别-isolation-level">隔离级别（Isolation level）</h2>
 
 <ul>
 <li><strong>READ UNCOMMITTED（读未提交）</strong></li>
@@ -259,6 +264,102 @@
 </tbody>
 </table>
 
+<blockquote>
+<p>查看MySQL的隔离级别</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="n">VARIABLES</span> <span class="k">LIKE</span> <span class="s1">&#39;transaction_isolation&#39;</span><span class="p">;</span>
+
+<span class="o">+-----------------------+-----------------+</span>
+<span class="o">|</span> <span class="n">Variable_name</span>         <span class="o">|</span> <span class="n">Value</span>           <span class="o">|</span>
+<span class="o">+-----------------------+-----------------+</span>
+<span class="o">|</span> <span class="n">transaction_isolation</span> <span class="o">|</span> <span class="n">REPEATABLE</span><span class="o">-</span><span class="k">READ</span> <span class="o">|</span>
+<span class="o">+-----------------------+-----------------+</span>
+<span class="mi">1</span> <span class="n">row</span> <span class="k">in</span> <span class="kt">set</span><span class="p">,</span> <span class="mi">1</span> <span class="nf">warning</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>设置当前会话的隔离级别</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">SET</span> <span class="n">SESSION</span> <span class="n">TRANSACTION</span> <span class="n">ISOLATION</span> <span class="n">LEVEL</span> <span class="k">READ</span> <span class="n">COMMITTED</span><span class="p">;</span>	<span class="c1"># 设置当前会话为RC级别，下个事务生效</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="事务类型">事务类型</h2>
+
+<h3 id="隐式事务">隐式事务</h3>
+
+<p>DML操作的语句都会隐式的开启事务，并且在语句执行后没有错误的话隐式提交。可以通过将MySQL的<code>autocommit</code>这个变量（默认为1）设置为0将事务的<code>隐式提交</code>关闭，但需要注意，DML语句的隐式事务仍会启动，只是区别在于需要手动COMMIT显式提交这个事务，也就是将隐式事务转化为长事务了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="n">VARIABLES</span> <span class="k">LIKE</span> <span class="s1">&#39;autocommit&#39;</span><span class="p">;</span> 	<span class="c1"># 查看隐式事务提交方式
+</span><span class="c1"></span>
+<span class="o">+---------------+-------+</span>
+<span class="o">|</span> <span class="n">Variable_name</span> <span class="o">|</span> <span class="n">Value</span> <span class="o">|</span>
+<span class="o">+---------------+-------+</span>
+<span class="o">|</span> <span class="n">autocommit</span>    <span class="o">|</span> <span class="k">ON</span>    <span class="o">|</span>
+<span class="o">+---------------+-------+</span>
+<span class="mi">1</span> <span class="n">row</span> <span class="k">in</span> <span class="kt">set</span><span class="p">,</span> <span class="mi">1</span> <span class="nf">warning</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="显式事务">显式事务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1"># 1.显式开启一个事务
+</span><span class="c1"></span><span class="n">START</span> <span class="n">TRANSACTION</span><span class="p">;</span>
+<span class="n">BEGIN</span><span class="p">;</span>
+<span class="c1"># 2.提交事务
+</span><span class="c1"></span><span class="n">COMMIT</span><span class="p">;</span>
+<span class="c1"># 3.回滚事务
+</span><span class="c1"></span><span class="n">ROLLBACK</span><span class="p">;</span>
+<span class="c1"># 4.在事务中创建保存点，可以在同一事务中创建多个，以便通过ROLLBACK更灵活的回滚
+</span><span class="c1"></span><span class="n">SAVEPOINT</span><span class="p">;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>显式开启一个事务时，如果还有未提交的事务会自动提交，并且<code>autocommit</code>会被禁用直到该事务结束。对于显式事务，存在<code>completion_type</code>这样一个变量控制显式事务的行为。有下列三种情况：</p>
+
+<ul>
+<li>值为0时即为默认，执行COMMIT后提交该显式事务并结束该事务。</li>
+<li>值为1时，执行COMMIT后除了有值为0时的默认行为外，随后会自动开始一个相同隔离级别的事务。术语为<code>COMMIT AND CHAIN</code></li>
+<li>值为2时，执行COMMIT后除了有值为0时的默认行为外，随后会断开与服务器的连接。术语为<code>COMMIT AND RELEASE</code></li>
+</ul>
+
     </div>
 
     <div class="post-copyright">
@@ -269,7 +370,7 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2020-06-02
+        2020-06-03
         
     </span>
   </p>
