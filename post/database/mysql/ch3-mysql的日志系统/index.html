@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Awesome Software - Huanghuang&#39;s Blog</title>
+  <title>MySQL的日志系统 - Huanghuang&#39;s Blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="huangkai" /><meta name="description" content="IDE Jetbrains系列 Editor Vscode Sublime text Typora(markdown编辑) Notion(笔记软件) 画图 Microsoft visio drawing.io 数据库 Mysql系列 Navicat Tableplus Jetbrains Datagrip Redis" /><meta name="keywords" content="Python, Flask, Backend, Golang, Github" />
+<meta name="author" content="huangkai" /><meta name="description" content="日志类型 ​ MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑SQL修改语句)。red" /><meta name="keywords" content="Python, Flask, Backend, Golang, Github" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.54.0 with theme even" />
 
 
-<link rel="canonical" href="https://huangkai1008.github.io/post/common/awesome-software/" />
+<link rel="canonical" href="https://huangkai1008.github.io/post/database/mysql/ch3-mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -38,27 +38,27 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Awesome Software" />
-<meta property="og:description" content="IDE Jetbrains系列 Editor Vscode Sublime text Typora(markdown编辑) Notion(笔记软件) 画图 Microsoft visio drawing.io 数据库 Mysql系列 Navicat Tableplus Jetbrains Datagrip Redis" />
+<meta property="og:title" content="MySQL的日志系统" />
+<meta property="og:description" content="日志类型 ​ MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑SQL修改语句)。red" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://huangkai1008.github.io/post/common/awesome-software/" />
-<meta property="article:published_time" content="2019-12-01T22:21:57&#43;08:00"/>
-<meta property="article:modified_time" content="2019-12-01T22:21:57&#43;08:00"/>
+<meta property="og:url" content="https://huangkai1008.github.io/post/database/mysql/ch3-mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" />
+<meta property="article:published_time" content="2020-06-05T22:07:21&#43;08:00"/>
+<meta property="article:modified_time" content="2020-06-05T22:07:21&#43;08:00"/>
 
-<meta itemprop="name" content="Awesome Software">
-<meta itemprop="description" content="IDE Jetbrains系列 Editor Vscode Sublime text Typora(markdown编辑) Notion(笔记软件) 画图 Microsoft visio drawing.io 数据库 Mysql系列 Navicat Tableplus Jetbrains Datagrip Redis">
-
-
-<meta itemprop="datePublished" content="2019-12-01T22:21:57&#43;08:00" />
-<meta itemprop="dateModified" content="2019-12-01T22:21:57&#43;08:00" />
-<meta itemprop="wordCount" content="130">
+<meta itemprop="name" content="MySQL的日志系统">
+<meta itemprop="description" content="日志类型 ​ MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑SQL修改语句)。red">
 
 
+<meta itemprop="datePublished" content="2020-06-05T22:07:21&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-05T22:07:21&#43;08:00" />
+<meta itemprop="wordCount" content="649">
 
-<meta itemprop="keywords" content="software,awesome," />
+
+
+<meta itemprop="keywords" content="mysql," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Awesome Software"/>
-<meta name="twitter:description" content="IDE Jetbrains系列 Editor Vscode Sublime text Typora(markdown编辑) Notion(笔记软件) 画图 Microsoft visio drawing.io 数据库 Mysql系列 Navicat Tableplus Jetbrains Datagrip Redis"/>
+<meta name="twitter:title" content="MySQL的日志系统"/>
+<meta name="twitter:description" content="日志类型 ​ MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑SQL修改语句)。red"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -132,15 +132,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Awesome Software</h1>
+      <h1 class="post-title">MySQL的日志系统</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-12-01 </span>
+        <span class="post-time"> 2020-06-05 </span>
         <div class="post-category">
-            <a href="/categories/software/"> software </a>
+            <a href="/categories/mysql/"> mysql </a>
             </div>
-          <span class="more-meta"> 约 130 字 </span>
-          <span class="more-meta"> 预计阅读 1 分钟 </span>
+          <span class="more-meta"> 约 649 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
     </header>
@@ -152,21 +152,12 @@
 <ul>
 <li>
 <ul>
-<li><a href="#ide">IDE</a></li>
-<li><a href="#editor">Editor</a></li>
-<li><a href="#画图">画图</a></li>
-<li><a href="#数据库">数据库</a>
+<li><a href="#日志类型">日志类型</a></li>
+<li><a href="#重做日志-redo-log">重做日志  (redo log)</a>
 <ul>
-<li><a href="#mysql系列">Mysql系列</a></li>
-<li><a href="#redis系列">Redis系列</a></li>
+<li><a href="#预写式技术-write-ahead-logging-wal">预写式技术 (Write Ahead logging, WAL)</a></li>
+<li><a href="#重做日志的策略">重做日志的策略</a></li>
 </ul></li>
-<li><a href="#cvs">CVS</a></li>
-<li><a href="#接口测试">接口测试</a></li>
-<li><a href="#vm">Vm</a></li>
-<li><a href="#ssh工具">ssh工具</a></li>
-<li><a href="#系统工具">系统工具</a></li>
-<li><a href="#接口文档工具">接口文档工具</a></li>
-<li><a href="#终端">终端</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -175,94 +166,33 @@
     <div class="post-content">
       
 
-<h2 id="ide">IDE</h2>
+<h2 id="日志类型">日志类型</h2>
 
-<ul>
-<li><code>Jetbrains</code>系列</li>
-</ul>
+<blockquote>
+<p>​       MySQL主要有两种日志类型，一种是<code>物理日志</code>（记录在某个数据页上做了什么修改)，一种是<code>逻辑日志</code>(存储了逻辑SQL修改语句)。<code>redo log</code>属于物理日志，<code>binlog</code>和<code>undo log</code>属于逻辑日志，其中物理日志的恢复速度远快于逻辑日志。</p>
 
-<h2 id="editor">Editor</h2>
+<p><code>redo log</code>和<code>undo log</code>都属于<code>InnoDB</code>引擎层下的<code>事务日志（transaction log）</code>。</p>
+</blockquote>
 
-<ul>
-<li><code>Vscode</code></li>
-<li><code>Sublime text</code></li>
-<li><code>Typora</code>(markdown编辑)</li>
-<li><code>Notion</code>(笔记软件)</li>
-</ul>
+<h2 id="重做日志-redo-log">重做日志  (redo log)</h2>
 
-<h2 id="画图">画图</h2>
+<h3 id="预写式技术-write-ahead-logging-wal">预写式技术 (Write Ahead logging, WAL)</h3>
 
-<ul>
-<li><code>Microsoft visio</code></li>
-<li><code>drawing.io</code></li>
-</ul>
+<blockquote>
+<p>​        InnoDB 引擎对数据更新，是先将更新记录写入到重做日志，在系统空闲时或者按照设定的更新策略再将日志中的内容更新到磁盘中，这就是<code>预写式技术 (Write Ahead logging, WAL)</code>，这种技术可以大大减少IO操作的频率，提升数据刷新的效率。</p>
+</blockquote>
 
-<h2 id="数据库">数据库</h2>
+<h3 id="重做日志的策略">重做日志的策略</h3>
 
-<h3 id="mysql系列">Mysql系列</h3>
+<blockquote>
+<p>​       重做日志（redo log）是 InnoDB 引擎层的日志，用来记录事务操作引起数据的变化，记录的是数据页的物理修改，提供<code>前滚</code>操作，<code>redo log 保证事务的持久性</code>。重做日志由两部分组成，一是内存中的<code>重做日志缓冲区 (redo log buffer)</code>，因为重做日志缓冲区在内存中，所以它是<code>易失的</code>，另一个就是在磁盘上的<code>重做日志文件 (redo log file)</code>，它是持久的。</p>
+</blockquote>
 
-<ul>
-<li><code>Navicat</code></li>
-<li><code>Tableplus</code></li>
-<li><code>Jetbrains Datagrip</code></li>
-</ul>
+<p>​         当我们在一个事务中尝试对数据进行修改时，它会先将数据从磁盘读入内存，并更新内存中缓存的数据，然后生成一条重做日志并写入重做日志缓存，当事务真正提交时，MySQL 会将重做日志缓存中的内容刷新到重做日志文件，再将内存中的数据更新到磁盘上。</p>
 
-<h3 id="redis系列">Redis系列</h3>
+<p>​        值得注意的是，redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，<code>checkpoint</code>和<code>write pos</code>。</p>
 
-<ul>
-<li><code>RDM</code>(redis desktop manager)</li>
-</ul>
-
-<h2 id="cvs">CVS</h2>
-
-<ul>
-<li>Jetbrains系IDE自带</li>
-<li><code>SourceTree</code></li>
-</ul>
-
-<h2 id="接口测试">接口测试</h2>
-
-<ul>
-<li><code>Postman</code></li>
-</ul>
-
-<h2 id="vm">Vm</h2>
-
-<ul>
-<li><code>VirtualBox</code></li>
-<li><code>Vagrant</code></li>
-<li><code>Windows SubLinux(WSL)</code></li>
-<li><code>Vmware</code></li>
-</ul>
-
-<h2 id="ssh工具">ssh工具</h2>
-
-<ul>
-<li><code>MobaXterm</code></li>
-<li><code>xshell</code></li>
-</ul>
-
-<h2 id="系统工具">系统工具</h2>
-
-<ul>
-<li><code>Everything</code></li>
-<li><code>Utools</code></li>
-</ul>
-
-<h2 id="接口文档工具">接口文档工具</h2>
-
-<ul>
-<li><code>apidoc</code></li>
-<li><code>swagger</code></li>
-<li><code>yapi</code></li>
-</ul>
-
-<h2 id="终端">终端</h2>
-
-<ul>
-<li><code>cmder</code></li>
-<li><code>Windows Termial</code></li>
-</ul>
+<p><img src="../../../../images/redo log.png" alt="" /></p>
 
     </div>
 
@@ -274,7 +204,7 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2019-12-01
+        2020-06-05
         
     </span>
   </p>
@@ -283,17 +213,12 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/software/">software</a>
-          <a href="/tags/awesome/">awesome</a>
+          <a href="/tags/mysql/">mysql</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/database/mysql/ch1-mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">MySQL的基础架构</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/python/loguru/">
-            <span class="next-text nav-default">日志库Loguru使用教程</span>
+        
+        <a class="next" href="/post/database/mysql/ch2-%E4%BA%8B%E5%8A%A1/">
+            <span class="next-text nav-default">事务</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
