@@ -1,12 +1,160 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 14 Jun 2020 16:02:15 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h1 id="dns-和域名">DNS 和域名&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 18 Jun 2020 12:22:57 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>IP</title><link>https://huangkai1008.github.io/p/ip/</link><pubDate>Thu, 18 Jun 2020 12:22:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/ip/</guid><description>&lt;h1 id="ip">IP&lt;/h1>
+&lt;h2 id="ip地址概述">IP地址概述&lt;/h2>
+&lt;blockquote>
+&lt;p>**IP 地址(&lt;code>Internet Protocol address&lt;/code>)**是用于识别 IP 网络中的设备的一个唯一地址，32 个二进制位分成了 4 个八位组（1 个八位组 = 8 个二进制位）。&lt;/p>
+&lt;p>每个八位组转换成了十进制并由句点（点）分隔。 因此，可以说 IP 地址是用点分十进制格式表示的（例如，172.16.81.100）。 每个八位组值的范围从 0 到 255（十进制）或从 00000000 到 11111111（二进制）。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash"> 10. 1. 23. &lt;span class="m">19&lt;/span> &lt;span class="o">(&lt;/span>decimal&lt;span class="o">)&lt;/span>
+00001010.00000001.00010111.00010011 &lt;span class="o">(&lt;/span>binary&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="ip-地址编址方式">IP 地址编址方式&lt;/h2>
+&lt;p>IP 地址的编址方式经历了三个历史阶段：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>分类&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>子网划分&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>无分类&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h3 id="1-分类">1. 分类&lt;/h3>
+&lt;hr>
+&lt;p>IP地址由两部分组成，&lt;strong>网络号&lt;/strong>和&lt;strong>主机号&lt;/strong>，其中不同分类具有不同的网络号长度，并且是固定的&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>网络号&lt;/strong>(&lt;code>net-id&lt;/code>)：标志主机或路由器连接的网络，一个网络号在整个因特网内是唯一的&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>&lt;strong>主机号&lt;/strong>(&lt;code>host-id&lt;/code>)：标志该主机（或路由器）。一个主机号在它前面的网络号所指明的网络范围内必须是唯一的&lt;/p>
+&lt;/blockquote>
+&lt;p>简而言之，&lt;strong>IP 地址 ::= {&amp;lt; 网络号 &amp;gt;, &amp;lt; 主机号 &amp;gt;}&lt;/strong>&lt;/p>
+&lt;p>根据 IP 地址的范围，由此便划分出A、B、C三类及特殊地址D、E：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">类别&lt;/th>
+&lt;th style="text-align:center">起始位&lt;/th>
+&lt;th style="text-align:center">开始&lt;/th>
+&lt;th style="text-align:center">结束&lt;/th>
+&lt;th style="text-align:center">点分十进制掩码&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">A&lt;/td>
+&lt;td style="text-align:center">0&lt;/td>
+&lt;td style="text-align:center">0.0.0.0&lt;/td>
+&lt;td style="text-align:center">127.0.0.0&lt;/td>
+&lt;td style="text-align:center">255.0.0.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">B&lt;/td>
+&lt;td style="text-align:center">10&lt;/td>
+&lt;td style="text-align:center">128.0.0.0&lt;/td>
+&lt;td style="text-align:center">191.255.0.0&lt;/td>
+&lt;td style="text-align:center">255.255.0.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">C&lt;/td>
+&lt;td style="text-align:center">110&lt;/td>
+&lt;td style="text-align:center">192.0.0.0&lt;/td>
+&lt;td style="text-align:center">223.255.255.0&lt;/td>
+&lt;td style="text-align:center">255.255.255.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="2-子网划分">2. 子网划分&lt;/h3>
+&lt;hr>
+&lt;h4 id="子网掩码">子网掩码&lt;/h4>
+&lt;blockquote>
+&lt;p>子网掩码(subnet mask)又叫网络掩码、地址掩码、子网络遮罩，它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。&lt;/p>
+&lt;/blockquote>
+&lt;p>通常情况下，子网掩码的表示方法和地址本身的表示方法是一样的。在IPv4中，就是点分十进制四组表示法（四个取值从0到255的数字由点隔开，比如255.128.0.0）或表示为一个八位十六进制数（如FF.80.00.00，它等同于255.128.0.0），后者用得较少。&lt;/p>
+&lt;p>另一种更为简短的形式叫做&lt;a class="link" href="https://zh.wikipedia.org/wiki/%e6%97%a0%e7%b1%bb%e5%88%ab%e5%9f%9f%e9%97%b4%e8%b7%af%e7%94%b1" target="_blank" rel="noopener"
+>无类别域间路由&lt;/a>（CIDR）表示法，它给出的是一个地址加上一个斜杠以及网络掩码的二进制表示法中“1”的位数（即网络号中和网络掩码相关的是哪些位）。例如，192.0.2.96/28表示的是一个前28位被用作网络号的IP地址（和255.255.255.240的意思一样）。&lt;/p>
+&lt;p>&lt;strong>子网掩码是由32位二进制数字组成的四组数字，左边是网络位，用二进制数字1表示，1的个数等于网络位数的长度，右边是主机位，用二进制数字0表示，0的个数等于主机位的长度。&lt;/strong>&lt;/p>
+&lt;p>当给定一个IP地址后，我们&lt;strong>通过相应的子网掩码即可得出该地址所在网络的网络号位数，以此判断该网络能够容纳的机器的个数（即主机号位数）&lt;/strong>。另外的一个作用就是可以通过运算判断两台机器是否处在同一子网。&lt;/p>
+&lt;p>&lt;strong>特点&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>与IP地址一一对应&lt;/li>
+&lt;li>1和0永远是连续的，不会交叉出现&lt;/li>
+&lt;li>左边永远是1，右边永远是0&lt;/li>
+&lt;/ul>
+&lt;h4 id="21--判断该网络能够容纳的机器的个数">2.1 判断该网络能够容纳的机器的个数&lt;/h4>
+&lt;p>​ 主机号有N位，那么这个地址中，就只能有&lt;code>2 ** n − 2&lt;/code>个主机，因为其中全0作为网络地址，全1作为广播地址&lt;/p>
+&lt;h5 id="22--判断两台机器是否处在同一子网网段">2.2 判断两台机器是否处在同一子网（网段）&lt;/h5>
+&lt;p>​ 将IP地址与子网掩码做&lt;code>与运算&lt;/code>，如果得出的结果一样，则这两个IP地址是同一个子网当中&lt;/p>
+&lt;h4 id="3广播地址broadcast-address">3.广播地址(&lt;code>Broadcast address&lt;/code>)&lt;/h4>
+&lt;blockquote>
+&lt;p>广播地址是专门用于同时向该网络中所有主机进行广播的一个地址。这就好像我们去收听一个广播频道，广播频道本身就是一个广播地址，播音员向这个地址去进行推送，那么只要能够收到这个频道的听众就都能够听到广播。那么这个广播的覆盖面到底有多广呢，这还是取决于我们的网络号。我们知道，一个完整的IP地址是由网络号和主机号两部分组成的，那么广播的覆盖范围就是其所在网络下的所有主机。&lt;/p>
+&lt;/blockquote>
+&lt;p>只要把主机号所在的二进制位全部变为1即可得到广播地址。&lt;/p>
+&lt;ul>
+&lt;li>局域网地址：192.168.211.32/24（斜杠后的数字代表子网掩码的二进制位数，那么主机号的位数为32-24=8），所以广播地址为：192.168.211.255&lt;/li>
+&lt;/ul></description></item><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Wed, 17 Jun 2020 11:22:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>&lt;h1 id="计算机网络">计算机网络&lt;/h1>
+&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;h3 id="互联网因特网和万维网">互联网、因特网和万维网&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>互联网(&lt;code>internet&lt;/code>)&lt;/strong>：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互连网是&lt;strong>网络的网络&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210928080734.gif" alt="互联网" />&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;blockquote>
+&lt;p>&lt;strong>因特网(&lt;code>Internet&lt;/code>)&lt;/strong>：世界范围的计算机网络（&lt;code>computer network&lt;/code>）&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>&lt;strong>万维网(&lt;code>World Wide Web, WWW&lt;/code>)&lt;/strong>：万维网是互联网的主要服务，提供网页和音视频等服务&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="关系">关系&lt;/h4>
+&lt;p>&lt;strong>互联网（广义）&amp;gt; 因特网 &amp;gt; 万维网&lt;/strong>&lt;/p>
+&lt;h2 id="二因特网">二、因特网&lt;/h2>
+&lt;p>&lt;strong>因特网&lt;/strong>包含了全世界数十亿计算设备，在今天，这些设备一般被称为&lt;strong>主机（&lt;code>host&lt;/code>）&lt;/strong> 或者&lt;strong>端系统（&lt;code>end system&lt;/code>）&lt;/strong>，&lt;strong>端系统&lt;/strong>通过&lt;strong>通信链路（&lt;code>communication link&lt;/code>）&lt;/strong> 和 &lt;strong>分组交换机（&lt;code>packet switch&lt;/code>）&lt;/strong> 连接到一起。&lt;/p>
+&lt;h3 id="isp">ISP&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>因特网服务提供商（Internet Service Provider, ISP）&lt;/strong>，ISP 可以从互联网管理机构申请到很多 IP 地址，然后一些机构和个人从某个 ISP 获取 IP 地址的使用权，并可通过该 ISP 连接到互联网&lt;/p>
+&lt;/blockquote>
+&lt;p>例如中国移动、中国移动、中国电信就是有名的&lt;strong>ISP&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154857.png" alt="ISP" />&lt;/p>
+&lt;h3 id="协议">协议&lt;/h3>
+&lt;blockquote>
+&lt;p>**协议（&lt;code>protocol&lt;/code>）**定义了在两个或者多个通信实体之间交换的报文的格式和顺序，以及报文发送和/或接收一条报文或其他事件所采取的动作&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="接入网">接入网&lt;/h3>
+&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211002115311.png" alt="接入网" />&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="电路交换与分组交换">电路交换与分组交换&lt;/h3>
+&lt;p>通过网络链路和交换机移动数据有两种基本方法：&lt;strong>电路交换（&lt;code>circult switching&lt;/code>）&lt;strong>和&lt;/strong>分组交换（&lt;code>packet switching&lt;/code>）&lt;/strong>&lt;/p>
+&lt;h4 id="电路交换circuit-switching">&lt;strong>电路交换（&lt;code>circuit switching&lt;/code>）&lt;/strong>&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>电路交换&lt;/strong>需要建立一条专用的数据通信路径，这条路径上可能包含许多中间节点。这条通信路径在整个通信过程中将被独占，直到通信结束才会释放资源。&lt;strong>电路交换适合实时性要求较高的大量数据传输的情况。&lt;/strong>&lt;/p>
+&lt;p>电路交换最显著的特点：&lt;strong>独占资源&lt;/strong>，最典型的电路交换：&lt;strong>传统电话网络&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="电路交换中的多路复用multiplexing">电路交换中的多路复用（&lt;code>multiplexing&lt;/code>）&lt;/h5>
+&lt;blockquote>
+&lt;p>物理链路的通信能力远远大于一路通信所需要的能力，可以通过&lt;strong>多路复用&lt;/strong>提高信道利用率，同时各个通信线路之间又互不影响。&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;strong>频分多路复用（&lt;code>Frequency-Division Multiplexing, FDM&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>时分多路复用（&lt;code>Time-Division Multiplexing, TDM&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>码分多路复用（&lt;code>Code-Division Multiplexing, CDM&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>波分多路复用（&lt;code>Wavelength-Division Multiplexing, WDM&lt;/code>）&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h5 id="优势">优势&lt;/h5>
+&lt;ul>
+&lt;li>通信延时小。通信双方通过专用线路进行通信，数据可以直达。当数据传输量较大时，优点将十分显著。&lt;/li>
+&lt;li>线路独占，没有冲突。&lt;/li>
+&lt;li>实时性强。一旦通信线路建立，双方可以实时通信。&lt;/li>
+&lt;/ul>
+&lt;h5 id="劣势">劣势&lt;/h5>
+&lt;ul>
+&lt;li>线路独占，利用率太低。&lt;/li>
+&lt;li>连接建立时间过长。&lt;/li>
+&lt;/ul>
+&lt;h4 id="分组交换packet-switching">分组交换（&lt;code>packet switching&lt;/code>）&lt;/h4></description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h1 id="dns-和域名">DNS 和域名&lt;/h1>
 &lt;h2 id="一域名">一、域名&lt;/h2>
 &lt;p>&lt;strong>网域名称&lt;/strong>（英语：Domain Name，简称：Domain），简称&lt;strong>域名&lt;/strong>、&lt;strong>网域&lt;/strong>，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个&lt;a class="link" href="IP.md" >IP&lt;/a>地址的代称，目的是为了便于记忆后者。&lt;/p>
 &lt;h3 id="域名的层级">域名的层级&lt;/h3>
 &lt;p>&lt;code>www.example.com&lt;/code> 真正的域名是 &lt;code>www.example.com.root&lt;/code> ，简写为 &lt;code>www.example.com.&lt;/code> 。因为，根域名 &lt;code>.root&lt;/code> 对于所有域名都是一样的，所以平时是省略的。&lt;/p>
 &lt;p>根域名的下一级，叫做&lt;strong>顶级域名（&lt;code>top-level domain，缩写为TLD&lt;/code>）&lt;/strong>，比如 &lt;code>.com&lt;/code> 、 &lt;code>.net&lt;/code> ；再下一级叫做&lt;strong>次级域名（&lt;code>second-level domain，缩写为SLD&lt;/code>）&lt;/strong>，比如 &lt;code>www.example.com&lt;/code> 里面的 &lt;code>.example&lt;/code> ，这一级域名是用户可以注册的；再下一级是&lt;strong>主机名（&lt;code>host&lt;/code>）&lt;/strong>，比如&lt;code>www.example.com&lt;/code>里面的&lt;code>www&lt;/code>，又称为&lt;strong>三级域名&lt;/strong>，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。&lt;/p>
 &lt;blockquote>
-&lt;p>主机名.次级域名.顶级域名.根域名
-host.sld.tld.root&lt;/p>
+&lt;p>主机名.次级域名.顶级域名.根域名&lt;/p>
+&lt;p>host.sld.tld.root&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="二dns">二、DNS&lt;/h2>
 &lt;p>&lt;strong>域名系统&lt;/strong>（英语：&lt;strong>D&lt;/strong>omain &lt;strong>N&lt;/strong>ame &lt;strong>S&lt;/strong>ystem，缩写：&lt;strong>DNS&lt;/strong>）是一个分布式数据库，提供了&lt;strong>域名&lt;/strong>和 &lt;a class="link" href="IP.md" >IP&lt;/a>地址之间相互转换的服务。&lt;/p>
@@ -84,6 +232,14 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;ul>
 &lt;li>如果返回的响应超过的 512 字节（UDP 最大只支持 512 字节的数据）&lt;/li>
 &lt;li>区域传送（区域传送是主域名服务器向辅助域名服务器传送变化的那部分数据）&lt;/li>
+&lt;/ul>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ul>
+&lt;li>【日】户根勤. (2017). 网络是怎样连接的. 人民邮电出版社.&lt;/li>
+&lt;li>&lt;a class="link" href="https://en.wikipedia.org/wiki/Domain_Name_System" target="_blank" rel="noopener"
+>Wikipedia : DNS&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.ruanyifeng.com/blog/2016/06/dns.html" target="_blank" rel="noopener"
+>阮一峰的网络日志: DNS 原理入门&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>HTTP</title><link>https://huangkai1008.github.io/p/http/</link><pubDate>Fri, 12 Jun 2020 12:22:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/http/</guid><description>&lt;h1 id="http">HTTP&lt;/h1>
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;h3 id="请求和响应报文">请求和响应报文&lt;/h3>
@@ -475,37 +631,47 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;li>值为0时即为默认，执行COMMIT后提交该显式事务并结束该事务。&lt;/li>
 &lt;li>值为1时，执行COMMIT后除了有值为0时的默认行为外，随后会自动开始一个相同隔离级别的事务。术语为&lt;code>COMMIT AND CHAIN&lt;/code>&lt;/li>
 &lt;li>值为2时，执行COMMIT后除了有值为0时的默认行为外，随后会断开与服务器的连接。术语为&lt;code>COMMIT AND RELEASE&lt;/code>&lt;/li>
-&lt;/ul></description></item><item><title>MySQL的基础架构</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jun 2020 21:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</guid><description>&lt;h2 id="逻辑架构">逻辑架构&lt;/h2>
+&lt;/ul></description></item><item><title>MySQL的基础架构</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jun 2020 21:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</guid><description>&lt;h1 id="mysql的基础架构">MySQL的基础架构&lt;/h1>
+&lt;h2 id="逻辑架构">逻辑架构&lt;/h2>
 &lt;p>MySQL可以大体分为&lt;code>Server层&lt;/code>和&lt;code>存储引擎层&lt;/code>两部分, 见图1&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133932.png" alt="图1 Mysql逻辑架构图" />&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154957.png" alt="图1 Mysql逻辑架构图" />&lt;/p>
 &lt;!-- raw HTML omitted -->
 &lt;ul>
 &lt;li>&lt;strong>Server 层&lt;/strong>包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。&lt;/li>
 &lt;li>&lt;strong>存储引擎层&lt;/strong>负责数据的存储和提取。其架构模式是&lt;code>插件式&lt;/code>的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 &lt;code>InnoDB&lt;/code>，它从 MySQL 5.5.5 版本开始成为了默认存储引擎&lt;/li>
 &lt;/ul>
-&lt;h3 id="连接器connector">连接器(Connector)&lt;/h3>
-&lt;p>​ 连接器负责和客户端建立连接、获取权限、维持和管理连接。&lt;/p>
+&lt;h3 id="连接器connector">连接器(&lt;code>Connector&lt;/code>)&lt;/h3>
+&lt;p>连接器负责和客户端建立连接、获取权限、维持和管理连接。&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="c1"># Mysql连接命令
 &lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">mysql&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">h&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="n">ip&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">P&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="n">port&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">u&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="k">user&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>MySQL客户端和服务端完成TCP握手后，连接器需要认证身份&lt;/p>
 &lt;ul>
-&lt;li>如果用户名或密码不对，你就会收到一个&amp;quot;Access denied for user&amp;quot;的错误，然后客户端程序结束执行。&lt;/li>
-&lt;li>如果用户名密码认证通过，连接器会到权限表里面查出拥有的权限，之后这个连接里面的权限判断逻辑，都将依赖于此时读到的权限，这就意味着，一个用户成功建立连接后，即使这个用户的权限做了修改，也不会影响已经存在连接的权限。修改完成后，只有再新建的连接才会使用新的权限设置。&lt;/li>
+&lt;li>
+&lt;p>如果用户名或密码不对，你就会收到一个 &lt;strong>Access denied for user&lt;/strong> 的错误，然后客户端程序结束执行。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如果用户名密码认证通过，连接器会到权限表里面查出拥有的权限，之后这个连接里面的权限判断逻辑，都将依赖于此时读到的权限，这就意味着，一个用户成功建立连接后，即使这个用户的权限做了修改，也不会影响已经存在连接的权限。修改完成后，只有再新建的连接才会使用新的权限设置。&lt;/p>
+&lt;/li>
 &lt;/ul>
-&lt;h3 id="查询缓存query-cache">查询缓存(Query Cache)&lt;/h3>
-&lt;p>​ 在连接建立完成后，MySQL 拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。之前执行过的语句及其结果可能会以 key-value 对的形式，被直接缓存在内存中。key 是查询的语句，value 是查询的结果。如果你的查询能够直接在这个缓存中找到 key，那么这个 value 就会被直接返回给客户端。&lt;/p>
+&lt;h4 id="长连接">&lt;strong>长连接&lt;/strong>&lt;/h4>
 &lt;blockquote>
-&lt;p>MySQL 8.0 版本的查询缓存功能被移除了&lt;/p>
+&lt;p>长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接。短
+连接则是指每次执行完很少的几次查询就断开连接，下次查询再重新建立一个。&lt;/p>
 &lt;/blockquote>
-&lt;h3 id="分析器parser">分析器(Parser)&lt;/h3>
+&lt;h3 id="查询缓存query-cache">查询缓存(&lt;code>Query Cache&lt;/code>)&lt;/h3>
+&lt;p>在连接建立完成后，MySQL 拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。之前执行过的语句及其结果可能会以 key-value 对的形式，被直接缓存在内存中。key 是查询的语句，value 是查询的结果。如果你的查询能够直接在这个缓存中找到 key，那么这个 value 就会被直接返回给客户端。&lt;/p>
+&lt;blockquote>
+&lt;p>注：MySQL 8.0 版本的查询缓存功能被移除了&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="分析器parser">分析器(&lt;code>Parser&lt;/code>)&lt;/h3>
 &lt;p>分析器的主要功能是对SQL语句做解析&lt;/p>
 &lt;ul>
 &lt;li>分析器会先做&lt;code>词法分析&lt;/code>，再做&lt;code>语法分析&lt;/code>，语法分析器会根据语法规则，判断 SQL 语句是否满足 MySQL 语法&lt;/li>
 &lt;/ul>
-&lt;h3 id="优化器query-optimizer">优化器(Query Optimizer)&lt;/h3>
-&lt;p>​ 优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序。优化器并不关心表使用的是什么存储引擎，但存储引擎对于优化查询是有影响的。优化器会请求存储引擎提供容量或某个具体操作的开销信息，以及表数据的统计信息等。例如，某些存储引擎的某种索引，可能对一些特定的查询有优化。&lt;/p>
-&lt;h3 id="执行器query-execution-engine">执行器(Query execution engine)&lt;/h3>
-&lt;p>​ 开始执行的时候，要先判断一下对于表有没有执行操作的权限，如果没有，就会返回没有权限的错误。如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。&lt;/p>
+&lt;h3 id="优化器query-optimizer">优化器(&lt;code>Query Optimizer&lt;/code>)&lt;/h3>
+&lt;p>优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序。优化器并不关心表使用的是什么存储引擎，但存储引擎对于优化查询是有影响的。优化器会请求存储引擎提供容量或某个具体操作的开销信息，以及表数据的统计信息等。例如，某些存储引擎的某种索引，可能对一些特定的查询有优化。&lt;/p>
+&lt;h3 id="执行器query-execution-engine">执行器(&lt;code>Query execution engine&lt;/code>)&lt;/h3>
+&lt;p>开始执行的时候，要先判断一下对于表有没有执行操作的权限，如果没有，就会返回没有权限的错误。如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。&lt;/p>
 &lt;p>对于一个特定的例子&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">select&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="k">from&lt;/span> &lt;span class="k">user&lt;/span> &lt;span class="k">where&lt;/span> &lt;span class="n">ID&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>假定ID字段没有索引，那么执行器的执行流程是这样的：&lt;/p>
