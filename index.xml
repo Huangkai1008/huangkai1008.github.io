@@ -482,16 +482,15 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;blockquote>
 &lt;p>MySQL主要有两种日志类型，一种是&lt;strong>物理日志&lt;/strong>（记录在某个数据页上做了什么修改)，一种是&lt;strong>逻辑日志&lt;/strong>(存储了逻辑SQL修改语句)。&lt;/p>
 &lt;p>&lt;code>redo log&lt;/code>属于物理日志，&lt;code>binlog&lt;/code>和&lt;code>undo log&lt;/code>属于逻辑日志，其中物理日志的恢复速度远快于逻辑日志。&lt;/p>
-&lt;p>&lt;code>redo log&lt;/code>和&lt;code>undo log&lt;/code>都属于&lt;strong>InnoDB&lt;/strong>引擎层下的&lt;strong>事务日志（&lt;code>transaction log&lt;/code>）&lt;/strong>。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="二重做日志redo-log">二、重做日志(redo log)&lt;/h2>
-&lt;h3 id="重做日志的基本概念">重做日志的基本概念&lt;/h3>
+&lt;h3 id="基本概念">基本概念&lt;/h3>
 &lt;blockquote>
 &lt;p>重做日志（redo log）是 InnoDB 引擎层的日志，用来记录事务操作引起数据的变化，记录的是数据页的物理修改，提供&lt;strong>前滚&lt;/strong>操作。&lt;strong>MySQL 通过 redo log 保证事务的持久性&lt;/strong>。&lt;/p>
 &lt;/blockquote>
 &lt;p>重做日志由两部分组成，一是内存中的&lt;strong>重做日志缓冲区 (&lt;code>redo log buffer&lt;/code>)&lt;/strong>，它是&lt;strong>易失的&lt;/strong>，另一个就是在磁盘上的&lt;strong>重做日志文件 (&lt;code>redo log file&lt;/code>)&lt;/strong>，它是&lt;strong>持久的&lt;/strong>。&lt;/p>
 &lt;p>InnoDB 引擎对数据更新，是先将更新记录写入到重做日志，在系统空闲时或者按照设定的更新策略再将日志中的内容更新到磁盘中，这就是&lt;strong>预写式技术 (&lt;code>Write Ahead logging, WAL&lt;/code>)&lt;/strong>，这种技术可以大大减少IO操作的频率，提升数据刷新的效率。&lt;/p>
-&lt;h3 id="重做日志的逻辑结构">重做日志的逻辑结构&lt;/h3>
+&lt;h3 id="逻辑结构">逻辑结构&lt;/h3>
 &lt;p>redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，&lt;code>checkpoint&lt;/code>和&lt;code>write pos&lt;/code>。&lt;code>checkpoint&lt;/code>表示记录擦除的位置，&lt;code>write pos&lt;/code>表示记录写入的位置。当&lt;code>write pos&lt;/code>标志到了日志结尾时，会从结尾跳至日志头部循环写入，所以redo log的逻辑结构并不是线性的，可以看做一个圆周运动，逻辑结构见下图：&lt;/p>
 &lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413231000.png" alt="redo log的逻辑结构" />&lt;/p>
 &lt;!-- raw HTML omitted -->
@@ -499,9 +498,9 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;blockquote>
 &lt;p>&lt;strong>checkpoint规则&lt;/strong>：checkpoint触发后，将buffer中脏数据页和脏日志页都刷到磁盘。所谓的脏数据页就是指内存中未刷到磁盘的数据&lt;/p>
 &lt;/blockquote>
-&lt;h3 id="重做日志的刷盘">重做日志的刷盘&lt;/h3>
+&lt;h3 id="刷盘">刷盘&lt;/h3>
 &lt;blockquote>
-&lt;p>&lt;code>redo log buffer&lt;/code> 写入磁盘上的&lt;code>redo log file&lt;/code>的过程叫做&lt;strong>刷盘&lt;/strong>。&lt;/p>
+&lt;p>&lt;code>redo log buffer&lt;/code> 数据页写入磁盘中的&lt;code>redo log file&lt;/code>的过程叫做&lt;strong>刷盘&lt;/strong>。&lt;/p>
 &lt;/blockquote>
 &lt;p>在计算机操作系统中，用户空间(&lt;code>user space&lt;/code>)下的缓冲区数据一般情况下是无法直接写入磁盘的，中间必须经过操作系统内核空间(&lt;code>kernel space&lt;/code>)的缓冲区(&lt;code>OS Buffer&lt;/code>)。因此，&lt;code>redo log buffer&lt;/code>写入&lt;code>redo log file&lt;/code>实际上是先写入&lt;code>OS Buffer&lt;/code>，然后再通过系统调用&lt;code>fsync()&lt;/code>将其刷到&lt;code>redo log file&lt;/code>中，流程如下图：&lt;/p>
 &lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211019163050.png" alt="" />&lt;/p>
@@ -539,15 +538,97 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;/tbody>
 &lt;/table>
 &lt;p>&lt;strong>为了保证事务的&lt;code>持久性&lt;/code>，一般使用默认值，将 &lt;code>innodb_flush_log_at_trx_commit&lt;/code> 设置为&lt;code>1&lt;/code>即可。&lt;/strong>&lt;/p>
-&lt;h2 id="三回滚日志-undo-log">三、回滚日志 (undo log)&lt;/h2>
+&lt;h2 id="三二进制日志-binlog">三、二进制日志 (binlog)&lt;/h2>
+&lt;h3 id="基本概念-1">基本概念&lt;/h3>
 &lt;blockquote>
-&lt;p>回滚日志的作用就是对数据进行回滚。当事务对数据库进行修改，InnoDB引擎不仅会记录redo log，还会生成对应的undo log日志；如果事务执行失败或调用了rollback，导致事务需要回滚，就可以利用undo log中的信息将数据回滚到修改之前的状态。&lt;/p>
-&lt;p>但是undo log和redo log不一样，它属于逻辑日志。它对SQL语句执行相关的信息进行记录。当发生回滚时，InnoDB引擎会根据undo log日志中的记录做与之前相反的工作。比如对于每个数据插入操作（insert），回滚时会执行数据删除操作（delete）；对于每个数据删除操作（delete），回滚时会执行数据插入操作（insert）；对于每个数据更新操作（update），回滚时会执行一个相反的数据更新操作（update），把数据改回去。undo log有两个作用，一是提供&lt;code>回滚&lt;/code>，二是实现&lt;code>MVCC&lt;/code>。&lt;/p>
+&lt;p>&lt;code>binlog&lt;/code>（&lt;strong>二进制日志&lt;/strong>、&lt;strong>归档日志&lt;/strong>），用于记录数据库执行的写入性操作信息，以二进制的形式保存在磁盘中。&lt;/p>
 &lt;/blockquote>
-&lt;h2 id="四二进制日志-binlog">四、二进制日志 (binlog)&lt;/h2>
+&lt;h3 id="使用场景">使用场景&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>主从复制&lt;/strong>：从库利用主库上的 binlog 进行重播，实现主从同步&lt;/li>
+&lt;li>&lt;strong>数据恢复&lt;/strong>：用于数据库的基于时间点、位点等的还原操作（&lt;code>mysqlbinlog&lt;/code>）&lt;/li>
+&lt;/ol>
+&lt;h3 id="日志格式">日志格式&lt;/h3>
+&lt;p>&lt;code>binlog&lt;/code>日志有三种格式，分别为&lt;code>STATMENT&lt;/code>、&lt;code>ROW&lt;/code>和&lt;code>MIXED&lt;/code>。&lt;/p>
 &lt;blockquote>
-&lt;p>二进制日志binlog是服务层的日志，还被称为归档日志。binlog主要记录数据库的变化情况，内容包括数据库所有的更新操作。所有涉及数据变动的操作，都要记录进二进制日志中。因此有了binlog可以很方便的对数据进行复制和备份，因而也常用作主从库的同步。&lt;/p>
-&lt;/blockquote></description></item><item><title>事务</title><link>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</link><pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</guid><description>&lt;h2 id="概念">概念&lt;/h2>
+&lt;p>在 MySQL 5.7.7之前，默认的格式是&lt;code>STATEMENT&lt;/code>，MySQL 5.7.7之后，默认值是&lt;code>ROW&lt;/code>。日志格式通过&lt;code>binlog-format&lt;/code>指定。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="statement">&lt;strong>&lt;code>STATEMENT&lt;/code>&lt;/strong>&lt;/h4>
+&lt;p>&lt;code>STATMENT&lt;/code> &lt;strong>基于SQL语句的复制(&lt;code>statement-based replication, SBR&lt;/code>)&lt;/strong>，会记录每一条修改数据的SQL语句和执行语句的上下文信息&lt;/p>
+&lt;h5 id="优点">&lt;strong>优点&lt;/strong>&lt;/h5>
+&lt;p>&lt;code>STATMENT&lt;/code> 模式不需要记录每一行的变化，减少了&lt;code>binlog&lt;/code>的日志量，节省了I/O和存储资源,，从而提高了性能&lt;/p>
+&lt;h5 id="缺点">&lt;strong>缺点&lt;/strong>&lt;/h5>
+&lt;p>&lt;code>STATMENT&lt;/code> 模式在某些情况下会导致主从数据不一致，比如执行&lt;code>sysdate()&lt;/code>、&lt;code>sleep()&lt;/code>等&lt;/p>
+&lt;h4 id="row">&lt;strong>&lt;code>ROW&lt;/code>&lt;/strong>&lt;/h4>
+&lt;p>&lt;code>ROW&lt;/code> &lt;strong>基于行的复制(&lt;code>row-based replication, RBR&lt;/code>)&lt;/strong>，会记录每一行数据被修改的形式&lt;/p>
+&lt;h5 id="优点-1">&lt;strong>优点&lt;/strong>&lt;/h5>
+&lt;p>&lt;code>ROW&lt;/code> 模式下的日志内容会非常清楚的记录下每一行数据的修改细节，非常容易理解，而且不会出现某些特定情况下的存储过程和 function，以及 trigger 的调用和触发无法被正确复制问题&lt;/p>
+&lt;h5 id="缺点-1">&lt;strong>缺点&lt;/strong>&lt;/h5>
+&lt;p>&lt;code>ROW&lt;/code> 模式下会产生大量的日志&lt;/p>
+&lt;h4 id="mixed">&lt;strong>MIXED&lt;/strong>&lt;/h4>
+&lt;p>&lt;code>MIXED&lt;/code> &lt;strong>基于&lt;code>STATMENT&lt;/code>和&lt;code>ROW&lt;/code>两种模式的混合复制(&lt;code>mixed-based replication, MBR&lt;/code>)&lt;/strong>，一般的复制使用&lt;code>STATEMENT&lt;/code>模式保存，对于&lt;code>STATEMENT&lt;/code>模式无法复制的操作使用&lt;code>ROW&lt;/code>模式保存&lt;/p>
+&lt;h3 id="刷盘策略-1">刷盘策略&lt;/h3>
+&lt;p>&lt;strong>MySQL 只有在事务提交的时候才会记录 binlog 日志&lt;/strong>，此时日志还在内存中，MySQL 通过&lt;code>sync_binlog&lt;/code>参数控制 biglog 的刷盘时机，取值范围是&lt;code>0-N&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>0&lt;/strong>： 不做强制要求，由系统自行判断何时写入磁盘&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>1&lt;/strong>：每次事务提交时 binlog 都会写入磁盘&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>N&lt;/strong>：每N个事务 binlog 会写入磁盘&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>sync_binlog&lt;/code>最安全的是设置是&lt;strong>1&lt;/strong>，这也是 MySQL 5.7.7之后版本的默认值，但是也可以设置一个大一些的值可以提升数据库性能，因此实际情况下也可以将值适当调大，牺牲一定的一致性来获取更好的性能。&lt;/p>
+&lt;h3 id="与重做日志的区别">与重做日志的区别&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">&lt;/th>
+&lt;th>&lt;code>redo log&lt;/code>&lt;/th>
+&lt;th>&lt;code>binlog&lt;/code>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>实现方式&lt;/strong>&lt;/td>
+&lt;td>InnoDB引擎特有的&lt;/td>
+&lt;td>MySQL的Server层实现的，所有引擎都可以使用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>日志类型&lt;/strong>&lt;/td>
+&lt;td>物理日志&lt;/td>
+&lt;td>逻辑日志&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>写入方式&lt;/strong>&lt;/td>
+&lt;td>循环写，空间固定会用完&lt;/td>
+&lt;td>追加写入，binlog文件写到一定大小后会切换到下一个&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>适用场景&lt;/strong>&lt;/td>
+&lt;td>崩溃恢复(&lt;code>crash-safe&lt;/code>)&lt;/td>
+&lt;td>主从复制和数据恢复&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="两阶段提交two-phase-commit2pc">两阶段提交（&lt;code>Two-phase Commit，2PC&lt;/code>）&lt;/h3>
+&lt;p>MySQL 事务提交的时候，需要同时完成 &lt;code>redo log&lt;/code> 和 &lt;code>binlog&lt;/code> 的提交，为了让两份日志之间的逻辑一致，需要用到&lt;strong>两阶段提交&lt;/strong>，这个场景下的两阶段提交发生在 MySQL 内部，和分布式系统的两阶段提交是两个概念。&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211020170253.svg" alt="" />&lt;/p>
+&lt;h2 id="四回滚日志-undo-log">四、回滚日志 (undo log)&lt;/h2>
+&lt;blockquote>
+&lt;p>当事务对数据库进行修改，InnoDB引擎不仅会记录redo log，还会生成对应的undo log日志；如果事务执行失败或调用了rollback，导致事务需要回滚，就可以利用undo log中的信息将数据回滚到修改之前的状态。&lt;strong>MySQL 通过 undo log 保证事务的原子性&lt;/strong>。undo log有两个作用，一是提供&lt;strong>回滚&lt;/strong>，二是实现 &lt;strong>&lt;code>MVCC&lt;/code>&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;p>回滚日志并不能将数据库物理地恢复到执行语句或者事务之前的样子；它是逻辑日志，当回滚日志被使用时，它只会按照日志逻辑地将数据库中的修改撤销掉，可以理解为，我们在事务中使用的每一条 &lt;code>INSERT&lt;/code> 都对应了一条 &lt;code>DELETE&lt;/code>，每一条 &lt;code>UPDATE&lt;/code> 也都对应一条相反的 &lt;code>UPDATE&lt;/code> 语句。&lt;/p>
+&lt;h3 id="事务日志">事务日志&lt;/h3>
+&lt;p>在数据库系统中，事务的&lt;strong>原子性&lt;/strong>和&lt;strong>持久性&lt;/strong>是由&lt;strong>事务日志（&lt;code>transaction log&lt;/code>）&lt;strong>保证的，而&lt;code>redo log&lt;/code>和&lt;code>undo log&lt;/code>都属于&lt;/strong>InnoDB&lt;/strong>引擎层下的&lt;strong>事务日志（&lt;code>transaction log&lt;/code>）&lt;/strong>。这两种事务日志可以保证：&lt;/p>
+&lt;ol>
+&lt;li>发生错误或者需要回滚的事务能够成功回滚（原子性）&lt;/li>
+&lt;li>在事务提交后，数据没来得及写会磁盘就宕机时，在下次重新启动后能够成功恢复数据（持久性）&lt;/li>
+&lt;/ol>
+&lt;p>在数据库中，这两种日志经常都是一起工作的，可以将它们整体看做一条事务日志，其中包含了事务的 ID、修改的行元素以及修改前后的值。&lt;/p>
+&lt;p>一条事务日志同时包含了修改前后的值，能够非常简单的进行回滚和重做两种操作。&lt;/p></description></item><item><title>事务</title><link>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</link><pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</guid><description>&lt;h2 id="概念">概念&lt;/h2>
 &lt;blockquote>
 &lt;p>事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。&lt;strong>在 MySQL 中，事务支持是在引擎层实现的。&lt;/strong>&lt;/p>
 &lt;/blockquote>
@@ -672,12 +753,12 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;li>值为2时，执行COMMIT后除了有值为0时的默认行为外，随后会断开与服务器的连接。术语为&lt;code>COMMIT AND RELEASE&lt;/code>&lt;/li>
 &lt;/ul></description></item><item><title>MySQL的基础架构</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jun 2020 21:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</guid><description>&lt;h1 id="mysql的基础架构">MySQL的基础架构&lt;/h1>
 &lt;h2 id="逻辑架构">逻辑架构&lt;/h2>
-&lt;p>MySQL可以大体分为&lt;code>Server层&lt;/code>和&lt;code>存储引擎层&lt;/code>两部分, 见图1&lt;/p>
+&lt;p>MySQL可以大体分为&lt;strong>Server层&lt;/strong>和&lt;strong>存储引擎层&lt;/strong>两部分, 见图1&lt;/p>
 &lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154957.png" alt="图1 Mysql逻辑架构图" />&lt;/p>
 &lt;!-- raw HTML omitted -->
 &lt;ul>
 &lt;li>&lt;strong>Server 层&lt;/strong>包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。&lt;/li>
-&lt;li>&lt;strong>存储引擎层&lt;/strong>负责数据的存储和提取。其架构模式是&lt;code>插件式&lt;/code>的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 &lt;code>InnoDB&lt;/code>，它从 MySQL 5.5.5 版本开始成为了默认存储引擎&lt;/li>
+&lt;li>&lt;strong>存储引擎层&lt;/strong>负责数据的存储和提取。其架构模式是&lt;strong>插件式&lt;/strong>的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 &lt;strong>InnoDB&lt;/strong>，它从 MySQL 5.5.5 版本开始成为了默认存储引擎&lt;/li>
 &lt;/ul>
 &lt;h3 id="连接器connector">连接器(&lt;code>Connector&lt;/code>)&lt;/h3>
 &lt;p>连接器负责和客户端建立连接、获取权限、维持和管理连接。&lt;/p>
@@ -705,7 +786,7 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;h3 id="分析器parser">分析器(&lt;code>Parser&lt;/code>)&lt;/h3>
 &lt;p>分析器的主要功能是对SQL语句做解析&lt;/p>
 &lt;ul>
-&lt;li>分析器会先做&lt;code>词法分析&lt;/code>，再做&lt;code>语法分析&lt;/code>，语法分析器会根据语法规则，判断 SQL 语句是否满足 MySQL 语法&lt;/li>
+&lt;li>分析器会先做&lt;strong>词法分析&lt;/strong>，再做&lt;strong>语法分析&lt;/strong>，语法分析器会根据语法规则，判断 SQL 语句是否满足 MySQL 语法&lt;/li>
 &lt;/ul>
 &lt;h3 id="优化器query-optimizer">优化器(&lt;code>Query Optimizer&lt;/code>)&lt;/h3>
 &lt;p>优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序。优化器并不关心表使用的是什么存储引擎，但存储引擎对于优化查询是有影响的。优化器会请求存储引擎提供容量或某个具体操作的开销信息，以及表数据的统计信息等。例如，某些存储引擎的某种索引，可能对一些特定的查询有优化。&lt;/p>

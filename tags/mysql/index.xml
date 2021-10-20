@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mysql on Huanghuang's Blog</title><link>https://huangkai1008.github.io/tags/mysql/</link><description>Recent content in mysql on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 05 Jun 2020 22:07:21 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>MySQL的日志系统</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/</link><pubDate>Fri, 05 Jun 2020 22:07:21 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/</guid><description>MySQL的日志系统 一、日志类型 MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑SQL修改语句)。
 redo log属于物理日志，binlog和undo log属于逻辑日志，其中物理日志的恢复速度远快于逻辑日志。
-redo log和undo log都属于InnoDB引擎层下的事务日志（transaction log）。
-二、重做日志(redo log) 重做日志的基本概念 重做日志（redo log）是 InnoDB 引擎层的日志，用来记录事务操作引起数据的变化，记录的是数据页的物理修改，提供前滚操作。MySQL 通过 redo log 保证事务的持久性。
+二、重做日志(redo log) 基本概念 重做日志（redo log）是 InnoDB 引擎层的日志，用来记录事务操作引起数据的变化，记录的是数据页的物理修改，提供前滚操作。MySQL 通过 redo log 保证事务的持久性。
 重做日志由两部分组成，一是内存中的重做日志缓冲区 (redo log buffer)，它是易失的，另一个就是在磁盘上的重做日志文件 (redo log file)，它是持久的。
 InnoDB 引擎对数据更新，是先将更新记录写入到重做日志，在系统空闲时或者按照设定的更新策略再将日志中的内容更新到磁盘中，这就是预写式技术 (Write Ahead logging, WAL)，这种技术可以大大减少IO操作的频率，提升数据刷新的效率。
-重做日志的逻辑结构 redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，checkpoint和write pos。checkpoint表示记录擦除的位置，write pos表示记录写入的位置。当write pos标志到了日志结尾时，会从结尾跳至日志头部循环写入，所以redo log的逻辑结构并不是线性的，可以看做一个圆周运动，逻辑结构见下图：
+逻辑结构 redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，checkpoint和write pos。checkpoint表示记录擦除的位置，write pos表示记录写入的位置。当write pos标志到了日志结尾时，会从结尾跳至日志头部循环写入，所以redo log的逻辑结构并不是线性的，可以看做一个圆周运动，逻辑结构见下图：
 当write_pos追上checkpoint时，表示redo log日志已经写满。这时不能继续执行新的数据库更新语句，需要停下来先删除一些记录，执行checkpoint规则腾出可写空间。
 checkpoint规则：checkpoint触发后，将buffer中脏数据页和脏日志页都刷到磁盘。所谓的脏数据页就是指内存中未刷到磁盘的数据
-重做日志的刷盘 redo log buffer 写入磁盘上的redo log file的过程叫做刷盘。
-在计算机操作系统中，用户空间(user space)下的缓冲区数据一般情况下是无法直接写入磁盘的，中间必须经过操作系统内核空间(kernel space)的缓冲区(OS Buffer)。因此，redo log buffer写入redo log file实际上是先写入OS Buffer，然后再通过系统调用fsync()将其刷到redo log file中，流程如下图：</description></item><item><title>事务</title><link>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</link><pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</guid><description>概念 事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。在 MySQL 中，事务支持是在引擎层实现的。
+刷盘 redo log buffer 数据页写入磁盘中的redo log file的过程叫做刷盘。
+在计算机操作系统中，用户空间(user space)下的缓冲区数据一般情况下是无法直接写入磁盘的，中间必须经过操作系统内核空间(kernel space)的缓冲区(OS Buffer)。因此，redo log buffer写入redo log file实际上是先写入OS Buffer，然后再通过系统调用fsync()将其刷到redo log file中，流程如下图：
+当数据修改时，除了修改buffer pool中的数据，还会在redo log中记录这次操作。如果MySQL宕机，重启时可以读取redo log中的数据，对数据库进行恢复，从而保证了事务的持久性，使得数据库获得crash-safe能力。</description></item><item><title>事务</title><link>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</link><pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</guid><description>概念 事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。在 MySQL 中，事务支持是在引擎层实现的。
 ACID特性 原子性（Atomicity）：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行
 一致性（Consistency）：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束。
 隔离性（Isolation）：通常来说，一个事务所做的修改在最终提交以前，对其他事务是不可见的。
