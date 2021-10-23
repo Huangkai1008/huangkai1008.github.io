@@ -6,7 +6,7 @@
 主机号(host-id)：标志该主机（或路由器）。一个主机号在它前面的网络号所指明的网络范围内必须是唯一的
 简而言之，IP 地址 ::= {&amp;lt; 网络号 &amp;gt;, &amp;lt; 主机号 &amp;gt;}
 根据 IP 地址的范围，由此便划分出A、B、C三类及特殊地址D、E：
-类别 起始位 开始 结束 点分十进制掩码 A 0 0.</description></item><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Wed, 17 Jun 2020 11:22:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>计算机网络 一、概述 互联网、因特网和万维网 互联网(internet)：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互连网是网络的网络
+类别 起始位 开始 结束 点分十进制掩码 A 0 0.</description></item><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Wed, 17 Jun 2020 11:22:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>计算机网络 一、概述 互联网、因特网和万维网 互联网(internet)：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互联网是网络的网络
 因特网(Internet)：世界范围的计算机网络（computer network）
 万维网(World Wide Web, WWW)：万维网是互联网的主要服务，提供网页和音视频等服务
 关系 互联网（广义）&amp;gt; 因特网 &amp;gt; 万维网
@@ -14,11 +14,11 @@
 ISP 因特网服务提供商（Internet Service Provider, ISP），ISP 可以从互联网管理机构申请到很多 IP 地址，然后一些机构和个人从某个 ISP 获取 IP 地址的使用权，并可通过该 ISP 连接到互联网
 例如中国移动、中国移动、中国电信就是有名的ISP
 协议 **协议（protocol）**定义了在两个或者多个通信实体之间交换的报文的格式和顺序，以及报文发送和/或接收一条报文或其他事件所采取的动作
-接入网 电路交换与分组交换 通过网络链路和交换机移动数据有两种基本方法：电路交换（circult switching）和分组交换（packet switching）
+接入网 三、电路交换与分组交换 通过网络链路和交换机移动数据有两种基本方法：电路交换（circult switching）和分组交换（packet switching）
 电路交换（circuit switching） 电路交换需要建立一条专用的数据通信路径，这条路径上可能包含许多中间节点。这条通信路径在整个通信过程中将被独占，直到通信结束才会释放资源。电路交换适合实时性要求较高的大量数据传输的情况。
 电路交换最显著的特点：独占资源，最典型的电路交换：传统电话网络
-电路交换中的多路复用（multiplexing） 物理链路的通信能力远远大于一路通信所需要的能力，可以通过多路复用提高信道利用率，同时各个通信线路之间又互不影响。
-频分多路复用（Frequency-Division Multiplexing, FDM） 时分多路复用（Time-Division Multiplexing, TDM） 码分多路复用（Code-Division Multiplexing, CDM） 波分多路复用（Wavelength-Division Multiplexing, WDM） 优势 通信延时小。通信双方通过专用线路进行通信，数据可以直达。当数据传输量较大时，优点将十分显著。 线路独占，没有冲突。 实时性强。一旦通信线路建立，双方可以实时通信。 劣势 线路独占，利用率太低。 连接建立时间过长。 分组交换（packet switching）</description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>DNS 和域名 一、域名 网域名称（英语：Domain Name，简称：Domain），简称域名、网域，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个IP地址的代称，目的是为了便于记忆后者。
+电路交换中的多路复用（multiplexing） 物理链路的通信能力远远大于一路通信所需要的能力，可以通过多路复用提高信道利用率，同时各个通信线路之间又互不影响
+频分多路复用（Frequency-Division Multiplexing, FDM） 时分多路复用（Time-Division Multiplexing, TDM） 码分多路复用（Code-Division Multiplexing, CDM） 波分多路复用（Wavelength-Division Multiplexing, WDM） 优势 通信延时小。通信双方通过专用线路进行通信，数据可以直达。当数据传输量较大时，优点将十分显著 线路独占，没有冲突 实时性强。一旦通信线路，建立，双方可以实时通信 劣势 线路独占，利用率太低 连接建立时间过长 分组交换（packet switching） 分组 在网络应用中，端系统彼此交换报文（message）。</description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>DNS 和域名 一、域名 网域名称（英语：Domain Name，简称：Domain），简称域名、网域，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个IP地址的代称，目的是为了便于记忆后者。
 域名的层级 www.example.com 真正的域名是 www.example.com.root ，简写为 www.example.com. 。因为，根域名 .root 对于所有域名都是一样的，所以平时是省略的。
 根域名的下一级，叫做顶级域名（top-level domain，缩写为TLD），比如 .com 、 .net ；再下一级叫做次级域名（second-level domain，缩写为SLD），比如 www.example.com 里面的 .example ，这一级域名是用户可以注册的；再下一级是主机名（host），比如www.example.com里面的www，又称为三级域名，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。
 主机名.次级域名.顶级域名.根域名

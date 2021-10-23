@@ -38,8 +38,10 @@ systemctl start mysqld 设置mysql开机自启
 systemctl enable mysqld 查看初始密码
 grep &amp;#39;temporary password&amp;#39; /var/log/mysqld.log 进入mysql
 mysql -u root -p 修改密码
-ALTER USER &amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39; IDENTIFIED BY &amp;#39;Huang|12345&amp;#39; 查看版本
-select version(); +-----------+ | version() | +-----------+ | 8.</description></item><item><title>Golang安装</title><link>https://huangkai1008.github.io/p/golang%E5%AE%89%E8%A3%85/</link><pubDate>Tue, 31 Jul 2018 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/golang%E5%AE%89%E8%A3%85/</guid><description>安装 Platform: Centos7
+ALTERUSER&amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39;IDENTIFIEDBY&amp;#39;Huang|12345&amp;#39; 查看版本
+selectversion();+-----------+|version()|+-----------+|8.0.16|+-----------+1rowinset(0.00sec) 查看端口
+showglobalvariableslike&amp;#39;port&amp;#39;;+---------------+-------+|Variable_name|Value|+---------------+-------+|port|3306|+---------------+-------+1rowinset(0.04sec) 远程访问
+usemysql;updateusersethost=&amp;#39;%&amp;#39;whereuser=&amp;#39;root&amp;#39;;flushprivileges</description></item><item><title>Golang安装</title><link>https://huangkai1008.github.io/p/golang%E5%AE%89%E8%A3%85/</link><pubDate>Tue, 31 Jul 2018 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/golang%E5%AE%89%E8%A3%85/</guid><description>安装 Platform: Centos7
 version: 1.12
 安装
 cd /opt wget https://studygolang.com/dl/golang/go1.12.4.linux-amd64.tar.gz tar xzvf go1.12.4.linux-amd64.tar.gz # 安装 配置环境变量

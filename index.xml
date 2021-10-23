@@ -4,7 +4,7 @@
 &lt;p>**IP 地址(&lt;code>Internet Protocol address&lt;/code>)**是用于识别 IP 网络中的设备的一个唯一地址，32 个二进制位分成了 4 个八位组（1 个八位组 = 8 个二进制位）。&lt;/p>
 &lt;p>每个八位组转换成了十进制并由句点（点）分隔。 因此，可以说 IP 地址是用点分十进制格式表示的（例如，172.16.81.100）。 每个八位组值的范围从 0 到 255（十进制）或从 00000000 到 11111111（二进制）。&lt;/p>
 &lt;/blockquote>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash"> 10. 1. 23. &lt;span class="m">19&lt;/span> &lt;span class="o">(&lt;/span>decimal&lt;span class="o">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash"> 10. 1. 23. &lt;span class="m">19&lt;/span> &lt;span class="o">(&lt;/span>decimal&lt;span class="o">)&lt;/span>
 00001010.00000001.00010111.00010011 &lt;span class="o">(&lt;/span>binary&lt;span class="o">)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;hr>
 &lt;h2 id="ip-地址编址方式">IP 地址编址方式&lt;/h2>
@@ -91,7 +91,7 @@
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;h3 id="互联网因特网和万维网">互联网、因特网和万维网&lt;/h3>
 &lt;blockquote>
-&lt;p>&lt;strong>互联网(&lt;code>internet&lt;/code>)&lt;/strong>：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互连网是&lt;strong>网络的网络&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>互联网(&lt;code>internet&lt;/code>)&lt;/strong>：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互联网是&lt;strong>网络的网络&lt;/strong>&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210928080734.gif" alt="互联网" />&lt;/p>
 &lt;!-- raw HTML omitted -->
@@ -118,16 +118,16 @@
 &lt;h3 id="接入网">接入网&lt;/h3>
 &lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211002115311.png" alt="接入网" />&lt;/p>
 &lt;!-- raw HTML omitted -->
-&lt;h3 id="电路交换与分组交换">电路交换与分组交换&lt;/h3>
+&lt;h3 id="三电路交换与分组交换">三、电路交换与分组交换&lt;/h3>
 &lt;p>通过网络链路和交换机移动数据有两种基本方法：&lt;strong>电路交换（&lt;code>circult switching&lt;/code>）&lt;strong>和&lt;/strong>分组交换（&lt;code>packet switching&lt;/code>）&lt;/strong>&lt;/p>
-&lt;h4 id="电路交换circuit-switching">&lt;strong>电路交换（&lt;code>circuit switching&lt;/code>）&lt;/strong>&lt;/h4>
+&lt;h3 id="电路交换circuit-switching">&lt;strong>电路交换（&lt;code>circuit switching&lt;/code>）&lt;/strong>&lt;/h3>
 &lt;blockquote>
 &lt;p>&lt;strong>电路交换&lt;/strong>需要建立一条专用的数据通信路径，这条路径上可能包含许多中间节点。这条通信路径在整个通信过程中将被独占，直到通信结束才会释放资源。&lt;strong>电路交换适合实时性要求较高的大量数据传输的情况。&lt;/strong>&lt;/p>
 &lt;p>电路交换最显著的特点：&lt;strong>独占资源&lt;/strong>，最典型的电路交换：&lt;strong>传统电话网络&lt;/strong>&lt;/p>
 &lt;/blockquote>
-&lt;h5 id="电路交换中的多路复用multiplexing">电路交换中的多路复用（&lt;code>multiplexing&lt;/code>）&lt;/h5>
+&lt;h4 id="电路交换中的多路复用multiplexing">电路交换中的多路复用（&lt;code>multiplexing&lt;/code>）&lt;/h4>
 &lt;blockquote>
-&lt;p>物理链路的通信能力远远大于一路通信所需要的能力，可以通过&lt;strong>多路复用&lt;/strong>提高信道利用率，同时各个通信线路之间又互不影响。&lt;/p>
+&lt;p>物理链路的通信能力远远大于一路通信所需要的能力，可以通过&lt;strong>多路复用&lt;/strong>提高信道利用率，同时各个通信线路之间又互不影响&lt;/p>
 &lt;/blockquote>
 &lt;ul>
 &lt;li>&lt;strong>频分多路复用（&lt;code>Frequency-Division Multiplexing, FDM&lt;/code>）&lt;/strong>&lt;/li>
@@ -135,18 +135,66 @@
 &lt;li>&lt;strong>码分多路复用（&lt;code>Code-Division Multiplexing, CDM&lt;/code>）&lt;/strong>&lt;/li>
 &lt;li>&lt;strong>波分多路复用（&lt;code>Wavelength-Division Multiplexing, WDM&lt;/code>）&lt;/strong>&lt;/li>
 &lt;/ul>
-&lt;h5 id="优势">优势&lt;/h5>
+&lt;h4 id="优势">优势&lt;/h4>
 &lt;ul>
-&lt;li>通信延时小。通信双方通过专用线路进行通信，数据可以直达。当数据传输量较大时，优点将十分显著。&lt;/li>
-&lt;li>线路独占，没有冲突。&lt;/li>
-&lt;li>实时性强。一旦通信线路建立，双方可以实时通信。&lt;/li>
+&lt;li>通信延时小。通信双方通过专用线路进行通信，数据可以直达。当数据传输量较大时，优点将十分显著&lt;/li>
+&lt;li>线路独占，没有冲突&lt;/li>
+&lt;li>实时性强。一旦通信线路，建立，双方可以实时通信&lt;/li>
 &lt;/ul>
-&lt;h5 id="劣势">劣势&lt;/h5>
+&lt;h4 id="劣势">劣势&lt;/h4>
 &lt;ul>
-&lt;li>线路独占，利用率太低。&lt;/li>
-&lt;li>连接建立时间过长。&lt;/li>
+&lt;li>线路独占，利用率太低&lt;/li>
+&lt;li>连接建立时间过长&lt;/li>
 &lt;/ul>
-&lt;h4 id="分组交换packet-switching">分组交换（&lt;code>packet switching&lt;/code>）&lt;/h4></description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h1 id="dns-和域名">DNS 和域名&lt;/h1>
+&lt;h3 id="分组交换packet-switching">分组交换（&lt;code>packet switching&lt;/code>）&lt;/h3>
+&lt;h4 id="分组">&lt;strong>分组&lt;/strong>&lt;/h4>
+&lt;p>在网络应用中，端系统彼此交换&lt;strong>报文（&lt;code>message&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;blockquote>
+&lt;p>为了从源端系统向目的端系统发送一个报文，源将长报文划分为小的数据块，这些小的数据块被称为分组（&lt;code>packet&lt;/code>）&lt;/p>
+&lt;/blockquote>
+&lt;p>在源和目的地之间，每个分组都通过&lt;strong>通信链路（&lt;code>communication link&lt;/code>）&lt;/strong> 和 **分组交换机（&lt;code>packet switch&lt;/code>）**传送，分组以等于该链路最大传输速率的速度传输通过通信链路。&lt;/p>
+&lt;h4 id="存储转发传输">&lt;strong>存储转发传输&lt;/strong>&lt;/h4>
+&lt;p>多数分组交换机在链路的输入端使用&lt;strong>存储转发传输&lt;/strong>机制。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>存储转发传输（&lt;code>store-and-forward transmission&lt;/code>）&lt;/strong>：交换机能够向输出链路传输该分组的第一个比特前，必须接收到整个分组&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="节点时延">&lt;strong>节点时延&lt;/strong>&lt;/h4>
+&lt;h5 id="处理时延nodal-processing-delay">&lt;strong>处理时延(&lt;code>nodal processing delay&lt;/code>)&lt;/strong>&lt;/h5>
+&lt;blockquote>
+&lt;p>交换机、路由器等网络设备在收到报文后要进行解封装分析首部，提取数据，差错检验，路由选择等处理，此类时间被称为&lt;strong>节点处理时延&lt;/strong>。一般来说，高速路由器的处理时延通常是微秒或者更低的数量级。&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="排队时延queuing-delay">&lt;strong>排队时延（&lt;code>queuing delay&lt;/code>）&lt;/strong>&lt;/h5>
+&lt;blockquote>
+&lt;p>路由器或交换机等网络设备处理数据包排队所消耗的时间被称为&lt;strong>排队时延&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="传输时延transmission-delay">&lt;strong>传输时延（&lt;code>transmission delay&lt;/code>）&lt;/strong>&lt;/h5>
+&lt;blockquote>
+&lt;p>路由器、交换机等网络设备将所有分组的比特推向链路所需要的时间被称为&lt;strong>传输时延&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>如果用 L 比特表示分组的长度，用R bps(b/s) 表示从路由器A到路由器B的链路传输速率，传输时延是 L/R 。&lt;/p>
+&lt;p>即：
+$$
+d_{trans} = \frac{L}{R}
+$$&lt;/p>
+&lt;h5 id="传播时延propagation-delay">&lt;strong>传播时延（&lt;code>propagation delay&lt;/code>）&lt;/strong>&lt;/h5>
+&lt;blockquote>
+&lt;p>报文在实际的物理链路上传播数据所需要的时间被称为&lt;strong>传播时延&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>如果 d 是路由器 A 到路由器 B 之间的距离，s 是该链路之间的传播速率（传播速率取决于链路的物理媒体），传播时延是 d/s 。&lt;/p>
+&lt;p>即：
+$$
+d_{prop} = \frac{d}{s}
+$$&lt;/p>
+&lt;h5 id="节点的总时延total-nodal-delay">&lt;strong>节点的总时延（&lt;code>total nodal delay&lt;/code>）&lt;/strong>&lt;/h5>
+&lt;p>&lt;strong>节点的总时延&lt;/strong> 为处理时延、排队时延、传输时延和传播时延的和，即：
+$$
+d_{nodal} = d_{proc} + d_{queue} + d_{trans} + d_{prop}
+$$&lt;/p>
+&lt;h4 id="端到端时延">&lt;strong>端到端时延&lt;/strong>&lt;/h4>
+&lt;p>通过由 N 条速率均为 R 的链路组成的路径，此时在源和目的地之间有 N - 1 台路由器，从源到目的地发送一个分组，因为&lt;a class="link" href="#%e5%ad%98%e5%82%a8%e8%bd%ac%e5%8f%91%e4%bc%a0%e8%be%93" >存储转发传输&lt;/a>机制，端到端时延是：&lt;/p>
+&lt;p>$$
+d = N\frac{L}{R}
+$$&lt;/p></description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h1 id="dns-和域名">DNS 和域名&lt;/h1>
 &lt;h2 id="一域名">一、域名&lt;/h2>
 &lt;p>&lt;strong>网域名称&lt;/strong>（英语：Domain Name，简称：Domain），简称&lt;strong>域名&lt;/strong>、&lt;strong>网域&lt;/strong>，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个&lt;a class="link" href="IP.md" >IP&lt;/a>地址的代称，目的是为了便于记忆后者。&lt;/p>
 &lt;h3 id="域名的层级">域名的层级&lt;/h3>
@@ -170,7 +218,7 @@
 &lt;li>从&amp;quot;次级域名服务器&amp;quot;查出&amp;quot;主机名&amp;quot;的IP地址&lt;/li>
 &lt;/ol>
 &lt;/blockquote>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">dig math.stackexchange.com
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">dig math.stackexchange.com
 &lt;span class="p">;&lt;/span> &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.11.3-1ubuntu1.15-Ubuntu &amp;lt;&amp;lt;&amp;gt;&amp;gt; math.stackexchange.com
 &lt;span class="p">;;&lt;/span> global options: +cmd
 &lt;span class="p">;;&lt;/span> Got answer:
@@ -245,7 +293,7 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;h3 id="请求和响应报文">请求和响应报文&lt;/h3>
 &lt;p>客户端发送一个请求报文给服务器，服务器根据请求报文中的信息进行处理，并将处理结果放入响应报文中返回给客户端。&lt;/p>
 &lt;h4 id="请求消息requests">&lt;strong>请求消息（&lt;code>requests&lt;/code>）&lt;/strong>&lt;/h4>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="nf">GET&lt;/span> &lt;span class="nn">/&lt;/span> &lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="nf">GET&lt;/span> &lt;span class="nn">/&lt;/span> &lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span>
 &lt;span class="n">Host&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">developer.mozilla.org&lt;/span>
 &lt;span class="n">Accept-Language&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">fr&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
@@ -265,7 +313,7 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;/li>
 &lt;/ul>
 &lt;h4 id="响应消息responses">&lt;strong>响应消息(&lt;code>responses&lt;/code>)&lt;/strong>&lt;/h4>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span> &lt;span class="m">200&lt;/span> &lt;span class="ne">OK&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span> &lt;span class="m">200&lt;/span> &lt;span class="ne">OK&lt;/span>
 &lt;span class="n">Date&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">Sat, 09 Oct 2010 14:28:02 GMT&lt;/span>
 &lt;span class="n">Server&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">Apache&lt;/span>
 &lt;span class="n">Last-Modified&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">Tue, 01 Dec 2009 20:18:22 GMT&lt;/span>
@@ -507,14 +555,15 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;p>当数据修改时，除了修改&lt;code>buffer pool&lt;/code>中的数据，还会在redo log中记录这次操作。如果MySQL宕机，重启时可以读取redo log中的数据，对数据库进行恢复，从而保证了事务的持久性，&lt;strong>使得数据库获得&lt;code>crash-safe&lt;/code>能力。&lt;/strong>&lt;/p>
 &lt;h4 id="刷盘策略">刷盘策略&lt;/h4>
 &lt;p>在提交事务的时候，InnoDB会根据配置的策略来将 redo log 刷盘，这个可以通过&lt;code>innodb_flush_log_at_trx_commit&lt;/code> 参数来配置。&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span> &lt;span class="n">VARIABLES&lt;/span> &lt;span class="k">LIKE&lt;/span> &lt;span class="s1">&amp;#39;innodb_flush_log_at_trx_commit&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;span class="o">+--------------------------------+-------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="n">Variable_name&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="n">Value&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+--------------------------------+-------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="n">innodb_flush_log_at_trx_commit&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+--------------------------------+-------+&lt;/span>
-&lt;span class="mi">1&lt;/span> &lt;span class="n">row&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="kt">set&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span> &lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>各参数的含义如下表：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">VARIABLES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LIKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;innodb_flush_log_at_trx_commit&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+--------------------------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+--------------------------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">innodb_flush_log_at_trx_commit&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+--------------------------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>各参数的含义如下表：&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -715,39 +764,40 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;blockquote>
 &lt;p>查看MySQL的隔离级别&lt;/p>
 &lt;/blockquote>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span> &lt;span class="n">VARIABLES&lt;/span> &lt;span class="k">LIKE&lt;/span> &lt;span class="s1">&amp;#39;transaction_isolation&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;span class="o">+-----------------------+-----------------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="n">Variable_name&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="n">Value&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+-----------------------+-----------------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="n">transaction_isolation&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="n">REPEATABLE&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="k">READ&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+-----------------------+-----------------+&lt;/span>
-&lt;span class="mi">1&lt;/span> &lt;span class="n">row&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="kt">set&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="nf">warning&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span> &lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">VARIABLES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LIKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;transaction_isolation&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------------------+-----------------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------------------+-----------------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">transaction_isolation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">REPEATABLE&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="k">READ&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------------------+-----------------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">warning&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>设置当前会话的隔离级别&lt;/p>
 &lt;/blockquote>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="kt">SET&lt;/span> &lt;span class="n">SESSION&lt;/span> &lt;span class="n">TRANSACTION&lt;/span> &lt;span class="n">ISOLATION&lt;/span> &lt;span class="n">LEVEL&lt;/span> &lt;span class="k">READ&lt;/span> &lt;span class="n">COMMITTED&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1"># 设置当前会话为RC级别，下个事务生效
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="kt">SET&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">SESSION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TRANSACTION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ISOLATION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LEVEL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">READ&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">COMMITTED&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 设置当前会话为RC级别，下个事务生效
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="事务类型">事务类型&lt;/h2>
 &lt;h3 id="隐式事务">隐式事务&lt;/h3>
 &lt;p>DML操作的语句都会隐式的开启事务，并且在语句执行后没有错误的话隐式提交。可以通过将MySQL的&lt;code>autocommit&lt;/code>这个变量（默认为1）设置为0将事务的&lt;code>隐式提交&lt;/code>关闭，但需要注意，DML语句的隐式事务仍会启动，只是区别在于需要手动COMMIT显式提交这个事务，也就是将隐式事务转化为长事务了。&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span> &lt;span class="n">VARIABLES&lt;/span> &lt;span class="k">LIKE&lt;/span> &lt;span class="s1">&amp;#39;autocommit&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1"># 查看隐式事务提交方式
-&lt;/span>&lt;span class="c1">&lt;/span>
-&lt;span class="o">+---------------+-------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="n">Variable_name&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="n">Value&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+---------------+-------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="n">autocommit&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="k">ON&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+---------------+-------+&lt;/span>
-&lt;span class="mi">1&lt;/span> &lt;span class="n">row&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="kt">set&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="nf">warning&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span> &lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="显式事务">显式事务&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="c1"># 1.显式开启一个事务
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">START&lt;/span> &lt;span class="n">TRANSACTION&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;span class="n">BEGIN&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;span class="c1"># 2.提交事务
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">COMMIT&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;span class="c1"># 3.回滚事务
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">ROLLBACK&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;span class="c1"># 4.在事务中创建保存点，可以在同一事务中创建多个，以便通过ROLLBACK更灵活的回滚
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">SAVEPOINT&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>显式开启一个事务时，如果还有未提交的事务会自动提交，并且&lt;code>autocommit&lt;/code>会被禁用直到该事务结束。对于显式事务，存在&lt;code>completion_type&lt;/code>这样一个变量控制显式事务的行为。有下列三种情况：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">VARIABLES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LIKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;autocommit&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 查看隐式事务提交方式
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">autocommit&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">warning&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="显式事务">显式事务&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="c1"># 1.显式开启一个事务
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">START&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TRANSACTION&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="n">BEGIN&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c1"># 2.提交事务
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">COMMIT&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c1"># 3.回滚事务
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">ROLLBACK&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c1"># 4.在事务中创建保存点，可以在同一事务中创建多个，以便通过ROLLBACK更灵活的回滚
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">SAVEPOINT&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>显式开启一个事务时，如果还有未提交的事务会自动提交，并且&lt;code>autocommit&lt;/code>会被禁用直到该事务结束。对于显式事务，存在&lt;code>completion_type&lt;/code>这样一个变量控制显式事务的行为。有下列三种情况：&lt;/p>
 &lt;ul>
 &lt;li>值为0时即为默认，执行COMMIT后提交该显式事务并结束该事务。&lt;/li>
 &lt;li>值为1时，执行COMMIT后除了有值为0时的默认行为外，随后会自动开始一个相同隔离级别的事务。术语为&lt;code>COMMIT AND CHAIN&lt;/code>&lt;/li>
@@ -763,9 +813,9 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;/ul>
 &lt;h3 id="连接器connector">连接器(&lt;code>Connector&lt;/code>)&lt;/h3>
 &lt;p>连接器负责和客户端建立连接、获取权限、维持和管理连接。&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="c1"># Mysql连接命令
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">mysql&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">h&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="n">ip&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">P&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="n">port&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">u&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="k">user&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>MySQL客户端和服务端完成TCP握手后，连接器需要认证身份&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="c1"># Mysql连接命令
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">mysql&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">h&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="n">ip&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">P&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="n">port&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">u&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>MySQL客户端和服务端完成TCP握手后，连接器需要认证身份&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>如果用户名或密码不对，你就会收到一个 &lt;strong>Access denied for user&lt;/strong> 的错误，然后客户端程序结束执行。&lt;/p>
@@ -794,8 +844,8 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;h3 id="执行器query-execution-engine">执行器(&lt;code>Query execution engine&lt;/code>)&lt;/h3>
 &lt;p>开始执行的时候，要先判断一下对于表有没有执行操作的权限，如果没有，就会返回没有权限的错误。如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。&lt;/p>
 &lt;p>对于一个特定的例子&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">select&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="k">from&lt;/span> &lt;span class="k">user&lt;/span> &lt;span class="k">where&lt;/span> &lt;span class="n">ID&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>假定ID字段没有索引，那么执行器的执行流程是这样的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>假定ID字段没有索引，那么执行器的执行流程是这样的：&lt;/p>
 &lt;ol>
 &lt;li>调用 InnoDB 引擎接口取这个表的第一行，判断 ID 值是不是 10，如果不是则跳过，如果是则将这行存在结果集中；&lt;/li>
 &lt;li>调用引擎接口取“下一行”，重复相同的判断逻辑，直到取到这个表的最后一行。&lt;/li>
@@ -865,41 +915,41 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;li>&lt;code>Windows Termial&lt;/code>&lt;/li>
 &lt;/ul></description></item><item><title>日志库Loguru使用教程</title><link>https://huangkai1008.github.io/p/%E6%97%A5%E5%BF%97%E5%BA%93loguru%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</link><pubDate>Fri, 22 Nov 2019 15:19:35 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E6%97%A5%E5%BF%97%E5%BA%93loguru%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</guid><description>&lt;p>Loguru是一个好用的第三方python日志库&lt;/p>
 &lt;h2 id="安装">安装&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">pip install loguru
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pip install loguru
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="初步使用">初步使用&lt;/h2>
 &lt;h3 id="添加日志到标准输出流">添加日志到标准输出流&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
-&lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">stderr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">format&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;{time} {level} {message}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">filter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;my module&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">level&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;INFO&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">stderr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">format&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">{time}&lt;/span>&lt;span class="s1"> &lt;/span>&lt;span class="si">{level}&lt;/span>&lt;span class="s1"> &lt;/span>&lt;span class="si">{message}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">filter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;my module&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">level&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;INFO&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加日志到文件">添加日志到文件&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
 &lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;file_1.log&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rotation&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;500 MB&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Automatically rotate too big file&lt;/span>
 &lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;file_2.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rotation&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;12:00&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># New file is created each day at noon&lt;/span>
 &lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;file_3.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rotation&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;1 week&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Once the file is too old, it&amp;#39;s rotated&lt;/span>
 &lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;file_X.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">retention&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;10 days&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Cleanup after some time&lt;/span>
 &lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;file_Y.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">compression&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;zip&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Save some loved space&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="捕获异常">捕获异常&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
-&lt;span class="nd">@logger.catch&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
+&lt;span class="nd">@logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">catch&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">my_function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">z&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="c1"># An error? It&amp;#39;s caught anyway!&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">z&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="为日志添加颜色">为日志添加颜色&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
-&lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">stdout&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">colorize&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">True&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">format&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;green&amp;gt;{time}&amp;lt;/green&amp;gt; &amp;lt;level&amp;gt;{message}&amp;lt;/level&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">stdout&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">colorize&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">format&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;green&amp;gt;&lt;/span>&lt;span class="si">{time}&lt;/span>&lt;span class="s2">&amp;lt;/green&amp;gt; &amp;lt;level&amp;gt;&lt;/span>&lt;span class="si">{message}&lt;/span>&lt;span class="s2">&amp;lt;/level&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="异步线程安全多进程安全">异步、线程安全、多进程安全&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
-&lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;file.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">enqueue&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
+&lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;file.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">enqueue&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="完全描述异常">完全描述异常&lt;/h3>
 &lt;blockquote>
 &lt;p>记录代码中发生的异常对于跟踪错误很重要，但是如果您不知道为什么失败，则记录日志就毫无用处。
 Loguru通过允许显示整个堆栈跟踪（包括变量值）来帮助您发现问题&lt;/p>
 &lt;/blockquote>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
-&lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;output.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">backtrace&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">True&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">diagnose&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">True&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Set &amp;#39;False&amp;#39; to not leak sensitive data in prod&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">loguru&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">logger&lt;/span>
+&lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;output.log&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">backtrace&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">diagnose&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Set &amp;#39;False&amp;#39; to not leak sensitive data in prod&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="配置到flask">配置到flask&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">logging&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">logging&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">pathlib&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Path&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">flask&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Flask&lt;/span>
@@ -913,19 +963,19 @@ Loguru通过允许显示整个堆栈跟踪（包括变量值）来帮助您发�
 &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;配置日志&amp;#34;&amp;#34;&amp;#34;&lt;/span>
 &lt;span class="n">path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Path&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flask_app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;LOG_PATH&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exists&lt;/span>&lt;span class="p">():&lt;/span>
-&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mkdir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">parents&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mkdir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">parents&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="n">log_name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Path&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;sips.log&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="n">logging&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">basicConfig&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">handlers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">InterceptHandler&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">level&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;INFO&amp;#39;&lt;/span>&lt;span class="p">)],&lt;/span> &lt;span class="n">level&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;INFO&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">configure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">handlers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[{&lt;/span>&lt;span class="s2">&amp;#34;sink&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">stderr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;level&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s1">&amp;#39;INFO&amp;#39;&lt;/span>&lt;span class="p">}])&lt;/span> &lt;span class="c1"># 配置日志到标准输出流&lt;/span>
 &lt;span class="n">logger&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;span class="n">log_name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rotation&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;500 MB&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">colorize&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">False&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">level&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;INFO&amp;#39;&lt;/span>
+&lt;span class="n">log_name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rotation&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;500 MB&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">colorize&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">level&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;INFO&amp;#39;&lt;/span>
 &lt;span class="p">)&lt;/span> &lt;span class="c1"># 配置日志到输出到文件&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Eventlet使用</title><link>https://huangkai1008.github.io/p/eventlet%E4%BD%BF%E7%94%A8/</link><pubDate>Fri, 22 Nov 2019 11:20:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/eventlet%E4%BD%BF%E7%94%A8/</guid><description>&lt;p>Evenlet是一个Python的基于携程的网络库，它改变了你代码运行的方式，但是没有改变你怎么写代码&lt;/p>
 &lt;h2 id="安装">安装&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">pip install eventlet
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pip install eventlet
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="简单使用">简单使用&lt;/h2>
 &lt;h3 id="从eventletgreen导入相关库">从eventlet.green导入相关库&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">eventlet&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">eventlet&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">eventlet.green&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">urllib2&lt;/span>
 &lt;span class="n">urls&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>
 &lt;span class="s2">&amp;#34;https://www.google.com/intl/en_ALL/images/logo.gif&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
@@ -933,23 +983,23 @@ Loguru通过允许显示整个堆栈跟踪（包括变量值）来帮助您发�
 &lt;span class="s2">&amp;#34;http://us.i1.yimg.com/us.yimg.com/i/ww/beta/y3.gif&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;span class="p">]&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">fetch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;opening&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;opening&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="n">body&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">urllib2&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlopen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;done with&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;done with&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">body&lt;/span>
 &lt;span class="n">pool&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">eventlet&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">GreenPool&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">200&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="k">for&lt;/span> &lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">body&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">pool&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">imap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fetch&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">urls&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;got body from&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;of length&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;got body from&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;of length&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="p">))&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用spawn使用协程">使用spawn使用协程&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">eventlet&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">green_thread_1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">eventlet&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">greenthread&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s1">&amp;#39;green_thread_1 get result {num}&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;green_thread_1 get result &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">green_thread_2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">eventlet&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">greenthread&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s1">&amp;#39;green_thread_2 get result {num}&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;green_thread_2 get result &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">y&lt;/span>
 &lt;span class="n">time1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">perf_counter&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">eventlet&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">spawn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">green_thread_1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
@@ -957,7 +1007,7 @@ Loguru通过允许显示整个堆栈跟踪（包括变量值）来帮助您发�
 &lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">wait&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="n">y&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">wait&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="n">time2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">perf_counter&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">time2&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">time1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">time2&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">time1&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">green_thread_1&lt;/span> &lt;span class="n">get&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="mi">1&lt;/span>
 &lt;span class="n">green_thread_2&lt;/span> &lt;span class="n">get&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="mi">2&lt;/span>
 &lt;span class="mf">2.0049271&lt;/span>
@@ -966,7 +1016,7 @@ Loguru通过允许显示整个堆栈跟踪（包括变量值）来帮助您发�
 程序就会切换到下一个协程，切换协程由调度器决定&lt;/p>
 &lt;/blockquote>
 &lt;h3 id="使用monkey-patch">使用monkey-patch&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">eventlet&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">monkey_patch&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">eventlet&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">monkey_patch&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">eventlet&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">GreenPool&lt;/span>
 &lt;span class="n">green_pool&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">GreenPool&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="n">monkey_patch&lt;/span>&lt;span class="p">()&lt;/span>
@@ -979,7 +1029,7 @@ Loguru通过允许显示整个堆栈跟踪（包括变量值）来帮助您发�
 &lt;span class="n">green_pool&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">waitall&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="和gunicorn一起使用">和gunicorn一起使用&lt;/h3>
 &lt;p>以flask应用为例&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">gunicorn --worker-class eventlet -b 0.0.0.0:5000 -w &lt;span class="m">1&lt;/span> run:app
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">gunicorn --worker-class eventlet -b 0.0.0.0:5000 -w &lt;span class="m">1&lt;/span> run:app
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Git工作流</title><link>https://huangkai1008.github.io/p/git%E5%B7%A5%E4%BD%9C%E6%B5%81/</link><pubDate>Sat, 12 Oct 2019 14:36:49 +0800</pubDate><guid>https://huangkai1008.github.io/p/git%E5%B7%A5%E4%BD%9C%E6%B5%81/</guid><description>&lt;h2 id="gitflow">GitFlow&lt;/h2>
 &lt;h3 id="基本介绍">基本介绍&lt;/h3>
 &lt;p>Gitflow 提倡使用 &lt;code>feature branches&lt;/code> 模式来开发各个相互独立的功能，同时分成不同的分支以便进行集成和发布&lt;/p>
@@ -1038,13 +1088,13 @@ Loguru通过允许显示整个堆栈跟踪（包括变量值）来帮助您发�
 &lt;p>​&lt;/p></description></item><item><title>Black安装和使用</title><link>https://huangkai1008.github.io/p/black%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link><pubDate>Fri, 27 Sep 2019 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/black%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid><description>&lt;p>Black是一个毫不妥协的python代码格式化工具, 特点是可配置项较少
 Black依赖于python3.6+, 官方地址在https://github.com/psf/black&lt;/p>
 &lt;h2 id="install">Install&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">pip install black
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pip install black
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="configure">Configure&lt;/h2>
 &lt;ul>
 &lt;li>
 &lt;p>&lt;strong>pyproject.toml&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="p">[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">black&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;span class="nx">skip&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">string&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">normalization&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="c"># 禁用双引号风格&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="p">[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">black&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="nx">skip-string-normalization&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="c"># 禁用双引号风格&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>&lt;strong>pycharm&lt;/strong>&lt;/p>
@@ -1066,16 +1116,16 @@ Black依赖于python3.6+, 官方地址在https://github.com/psf/black&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>&lt;strong>custom installer&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py &lt;span class="p">|&lt;/span> python
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py &lt;span class="p">|&lt;/span> python
 &lt;span class="nb">source&lt;/span> &lt;span class="nv">$HOME&lt;/span>/.poetry/env
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>&lt;strong>pip&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">pip install poetry &lt;span class="c1"># 不推荐, 可能会有冲突&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pip install poetry &lt;span class="c1"># 不推荐, 可能会有冲突&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;p>&lt;strong>验证安装&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">poetry --version
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">poetry --version
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用">使用&lt;/h2>
 &lt;ul>
 &lt;li>
@@ -1083,7 +1133,7 @@ Black依赖于python3.6+, 官方地址在https://github.com/psf/black&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>从pipenv/pip等工具迁移&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">poetry init &lt;span class="c1"># 进入交互式命令行填写项目信息, 会生成pyproject.toml&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">poetry init &lt;span class="c1"># 进入交互式命令行填写项目信息, 会生成pyproject.toml&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code>
 &lt;/code>&lt;/pre>&lt;/li>
 &lt;li>
@@ -1091,13 +1141,13 @@ Black依赖于python3.6+, 官方地址在https://github.com/psf/black&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>添加包&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">poetry add
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">poetry add
 poetry add &lt;span class="nv">fastapi&lt;/span>&lt;span class="o">=&lt;/span>0.38.1 -E all &lt;span class="c1"># pipenv install fastapi[all]&lt;/span>
 poetry add celery --extras &lt;span class="s2">&amp;#34;librabbitmq redis auth msgpack&amp;#34;&lt;/span> &lt;span class="c1"># pip install &amp;#34;celery[librabbitmq,redis,auth,msgpack]&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>依赖安装&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">poetry install &lt;span class="c1"># 会从pyproject.toml文件里读取, 如果有poetry.lock文件则会从lock文件中读取锁定依赖并安装&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">poetry install &lt;span class="c1"># 会从pyproject.toml文件里读取, 如果有poetry.lock文件则会从lock文件中读取锁定依赖并安装&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>虚拟环境地址&lt;/p>
@@ -1113,14 +1163,14 @@ poetry add celery --extras &lt;span class="s2">&amp;#34;librabbitmq redis auth m
 &lt;li>
 &lt;p>&lt;strong>添加源&lt;/strong>&lt;/p>
 &lt;p>修改pyproject.toml&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="p">[[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">poetry&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="p">[[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">poetry&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">]]&lt;/span>
 &lt;span class="nx">name&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;tsinghua&amp;#34;&lt;/span>
 &lt;span class="nx">url&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;https://pypi.tuna.tsinghua.edu.cn/simple/&amp;#34;&lt;/span>
 &lt;span class="nx">verify_ssl&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;h2 id="完整的实例">完整的实例&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="p">[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">poetry&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="p">[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">poetry&lt;/span>&lt;span class="p">]&lt;/span>
 &lt;span class="nx">name&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;market-admin&amp;#34;&lt;/span>
 &lt;span class="nx">version&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.1.0&amp;#34;&lt;/span>
 &lt;span class="nx">description&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;market-admin is a Market background management system with fastapi&amp;#34;&lt;/span>
@@ -1129,23 +1179,23 @@ poetry add celery --extras &lt;span class="s2">&amp;#34;librabbitmq redis auth m
 &lt;span class="p">[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">poetry&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">dependencies&lt;/span>&lt;span class="p">]&lt;/span>
 &lt;span class="nx">python&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;^3.7&amp;#34;&lt;/span>
 &lt;span class="nx">fastapi&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.38.1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">extras&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;all&amp;#34;&lt;/span>&lt;span class="p">]}&lt;/span>
-&lt;span class="nx">python&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">dotenv&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.10.2&amp;#34;&lt;/span>
-&lt;span class="nx">tortoise&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">orm&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.13.5&amp;#34;&lt;/span>
+&lt;span class="nx">python-dotenv&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.10.2&amp;#34;&lt;/span>
+&lt;span class="nx">tortoise-orm&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.13.5&amp;#34;&lt;/span>
 &lt;span class="nx">aiomysql&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.0.20&amp;#34;&lt;/span>
 &lt;span class="nx">loguru&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;^0.3.2&amp;#34;&lt;/span>
-&lt;span class="p">[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">poetry&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">dev&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">dependencies&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="p">[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">poetry&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">dev-dependencies&lt;/span>&lt;span class="p">]&lt;/span>
 &lt;span class="nx">pytest&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;6.2.1&amp;#34;&lt;/span>
 &lt;span class="nx">coverage&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;5.3.1&amp;#34;&lt;/span>
 &lt;span class="p">[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">black&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="c"># Black工具配置&lt;/span>
-&lt;span class="nx">target&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;py37&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;span class="nx">skip&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">string&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">normalization&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;span class="nx">target-version&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;py37&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="nx">skip-string-normalization&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
 &lt;span class="p">[[&lt;/span>&lt;span class="nx">tool&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">poetry&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c"># 源配置&lt;/span>
 &lt;span class="nx">name&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;tsinghua&amp;#34;&lt;/span>
 &lt;span class="nx">url&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;https://pypi.tuna.tsinghua.edu.cn/simple/&amp;#34;&lt;/span>
 &lt;span class="nx">default&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
-&lt;span class="p">[&lt;/span>&lt;span class="nx">build&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">system&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="p">[&lt;/span>&lt;span class="nx">build-system&lt;/span>&lt;span class="p">]&lt;/span>
 &lt;span class="nx">requires&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;poetry&amp;gt;=0.12&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;span class="nx">build&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">backend&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;poetry.masonry.api&amp;#34;&lt;/span>
+&lt;span class="nx">build-backend&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;poetry.masonry.api&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Nginx安装和基本使用</title><link>https://huangkai1008.github.io/p/nginx%E5%AE%89%E8%A3%85%E5%92%8C%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link><pubDate>Mon, 26 Aug 2019 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/nginx%E5%AE%89%E8%A3%85%E5%92%8C%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid><description>&lt;p>Nginx (engine x) 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP/POP3/SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。
 其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，nginx 1.0.4发布。
 Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，在BSD-like 协议下发行。其特点是占有内存少，并发能力强&lt;/p>
@@ -1159,7 +1209,7 @@ Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（I
 &lt;/li>
 &lt;li>
 &lt;p>安装&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">wget http://nginx.org/download/nginx-1.16.1.tar.gz
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">wget http://nginx.org/download/nginx-1.16.1.tar.gz
 tar -zxvf nginx-1.16.1.tar.gz
 &lt;span class="nb">cd&lt;/span> nginx-1.16.1
 sudo ./configure &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> make &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> make install
@@ -1170,16 +1220,16 @@ whereis nginx &lt;span class="c1"># 查看nginx安装地址 /usr/local/nginx&lt;
 &lt;ul>
 &lt;li>
 &lt;p>启动&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>重启&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">cd&lt;/span> /usr/local/nginx/sbin
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">cd&lt;/span> /usr/local/nginx/sbin
 ./nginx -s reload
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;h2 id="example-conf">Example Conf&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="c1"># /usr/local/nginx/conf/nginx.conf
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="c1"># /usr/local/nginx/conf/nginx.conf
 &lt;/span>&lt;span class="c1">&lt;/span>
 &lt;span class="c1">#user nobody;
 &lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">worker_processes&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
@@ -1286,7 +1336,7 @@ whereis nginx &lt;span class="c1"># 查看nginx安装地址 /usr/local/nginx&lt;
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1"># }
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">#}
 &lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="c1"># /usr/local/nginx/conf/aps/aps.conf
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="c1"># /usr/local/nginx/conf/aps/aps.conf
 &lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="kn">listen&lt;/span> &lt;span class="mi">10050&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="kn">server_name&lt;/span> &lt;span class="s">localhost&lt;/span>&lt;span class="p">;&lt;/span>
@@ -1320,16 +1370,16 @@ whereis nginx &lt;span class="c1"># 查看nginx安装地址 /usr/local/nginx&lt;
 &lt;ol>
 &lt;li>
 &lt;p>删除bumblebee或者开源驱动&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mhwd -r pci nonfree &lt;span class="m">0300&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mhwd -r pci nonfree &lt;span class="m">0300&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>安装nvidia私有闭源驱动&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>方法一:&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mhwd -i pci video-nvidia
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mhwd -i pci video-nvidia
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>或&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mhwd -i pci video-nvidia-390xx &lt;span class="c1"># 390xx或者435xx, 数字是驱动版本...&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mhwd -i pci video-nvidia-390xx &lt;span class="c1"># 390xx或者435xx, 数字是驱动版本...&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>方法二
@@ -1339,7 +1389,7 @@ whereis nginx &lt;span class="c1"># 查看nginx安装地址 /usr/local/nginx&lt;
 &lt;/li>
 &lt;li>
 &lt;p>安装依赖&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S linuxXXX-headers acpi_call-dkms xorg-xrandr xf86-video-intel git
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S linuxXXX-headers acpi_call-dkms xorg-xrandr xf86-video-intel git
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>注: XXX 为内核版本， 本来我的5.3有点问题，降级成4.19才可以，以4.19为例便是
 &lt;code>linux419-headers&lt;/code>&lt;/p>
@@ -1347,11 +1397,11 @@ whereis nginx &lt;span class="c1"># 查看nginx安装地址 /usr/local/nginx&lt;
 &lt;/li>
 &lt;li>
 &lt;p>注入&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo modprobe acpi_call
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo modprobe acpi_call
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>使用github上的脚本&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">cd&lt;/span> ~ &lt;span class="c1"># 建议在用户目录下操作&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">cd&lt;/span> ~ &lt;span class="c1"># 建议在用户目录下操作&lt;/span>
 git clone https://github.com/dglt1/optimus-switch-sddm.git
 &lt;span class="nb">cd&lt;/span> optimus-switch-sddm
 chmod +x install.sh
@@ -1527,11 +1577,11 @@ sudo ./install.sh
 &lt;ul>
 &lt;li>
 &lt;p>install Erlang&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">yum install erlang
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yum install erlang
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>install rabbitMQ&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># rpm安装&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># rpm安装&lt;/span>
 wget https://github.com/rabbitmq/rabbitmq-server/releases/download/rabbitmq_v3_6_14/rabbitmq-server-3.6.14-1.el7.noarch.rpm
 yum install rabbitmq-server-3.6.14-1.el7.noarch.rpm
 &lt;span class="c1"># yum安装&lt;/span>
@@ -1542,28 +1592,28 @@ yum install rabbitmq-server
 &lt;ul>
 &lt;li>
 &lt;p>启动远程访问&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">[{&lt;/span>rabbit,
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">[{&lt;/span>rabbit,
 &lt;span class="o">[&lt;/span>
 &lt;span class="o">{&lt;/span>loopback_users, &lt;span class="o">[]}&lt;/span>
 &lt;span class="o">]}]&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>安装插件&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">/sbin/rabbitmq-plugins &lt;span class="nb">enable&lt;/span> rabbitmq_management
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">/sbin/rabbitmq-plugins &lt;span class="nb">enable&lt;/span> rabbitmq_management
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;h2 id="使用">使用&lt;/h2>
 &lt;ul>
 &lt;li>
 &lt;p>服务命令&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">systemctl start rabbitmq-server.service &lt;span class="c1"># 启动&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">systemctl start rabbitmq-server.service &lt;span class="c1"># 启动&lt;/span>
 systemctl status rabbitmq-server.service &lt;span class="c1"># 查看状态&lt;/span>
 systemctl restart rabbitmq-server.service &lt;span class="c1"># 重启&lt;/span>
 systemctl &lt;span class="nb">enable&lt;/span> rabbitmq-server.service &lt;span class="c1"># 开机自启&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>添加用户&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">rabbitmqctl add_user root root123 &lt;span class="c1"># 添加新用户，用户名为 &amp;#34;root&amp;#34; ，密码为 &amp;#34;root123&amp;#34;&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">rabbitmqctl add_user root root123 &lt;span class="c1"># 添加新用户，用户名为 &amp;#34;root&amp;#34; ，密码为 &amp;#34;root123&amp;#34;&lt;/span>
 rabbitmqctl set_permissions -p / root &lt;span class="s2">&amp;#34;.*&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;.*&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;.*&amp;#34;&lt;/span> &lt;span class="c1"># 为root用户添加所有权限&lt;/span>
 rabbitmqctl set_user_tags root administrator &lt;span class="c1"># 设置root 用户为管理员角色&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
@@ -1587,7 +1637,7 @@ rabbitmqctl set_user_tags root administrator &lt;span class="c1"># 设置root �
 &lt;/li>
 &lt;li>
 &lt;p>安装&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">wget http://download.redis.io/releases/redis-5.0.0.tar.gz &lt;span class="c1"># 获取包&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">wget http://download.redis.io/releases/redis-5.0.0.tar.gz &lt;span class="c1"># 获取包&lt;/span>
 tar -zxvf redis-5.0.0.tar.gz
 mv redis-5.0.0 /usr/local/redis
 make &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> make install
@@ -1597,12 +1647,12 @@ make &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> make install
 &lt;ul>
 &lt;li>
 &lt;p>设置配置文件目录&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">mkdir -p /etc/redis
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">mkdir -p /etc/redis
 cp redis.conf /etc/redis
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>修改配置文件&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">vim /etc/redis/redis.conf
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">vim /etc/redis/redis.conf
 daemonize yes &lt;span class="o">(&lt;/span>no -&amp;gt; yes&lt;span class="o">)&lt;/span> &lt;span class="c1"># 守护进程&lt;/span>
 &lt;span class="nb">bind&lt;/span> 0.0.0.0 &lt;span class="o">(&lt;/span>127.0.0.1 -&amp;gt; 0.0.0.0&lt;span class="o">)&lt;/span> &lt;span class="c1"># 远程登录&lt;/span>
 protected-mode no &lt;span class="o">(&lt;/span>yes -&amp;gt; no&lt;span class="o">)&lt;/span> &lt;span class="c1"># 关闭保护模式/或者添加密码&lt;/span>
@@ -1612,22 +1662,22 @@ protected-mode no &lt;span class="o">(&lt;/span>yes -&amp;gt; no&lt;span class="
 &lt;ul>
 &lt;li>
 &lt;p>启动&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">/usr/local/bin/redis-server /etc/redis/redis.conf
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">/usr/local/bin/redis-server /etc/redis/redis.conf
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>查看启动&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">ps -ef &lt;span class="p">|&lt;/span> grep redis
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ps -ef &lt;span class="p">|&lt;/span> grep redis
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>客户端使用&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">redis-cli &lt;span class="c1"># 进入&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">redis-cli &lt;span class="c1"># 进入&lt;/span>
 127.0.0.1:6379&amp;gt;set name Huang
 Ok
 redis-cli shutdown &lt;span class="c1"># 关闭客户端&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>开机启动配置&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># 开机启动要配置在 rc.local 中，而 /etc/profile 文件，要有用户登录了，才会被执行。&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># 开机启动要配置在 rc.local 中，而 /etc/profile 文件，要有用户登录了，才会被执行。&lt;/span>
 &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;/usr/local/bin/redis-server /etc/redis/redis.conf &amp;amp;&amp;#34;&lt;/span> &amp;gt;&amp;gt; /etc/rc.local
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
@@ -1635,15 +1685,15 @@ redis-cli shutdown &lt;span class="c1"># 关闭客户端&lt;/span>
 &lt;ul>
 &lt;li>
 &lt;p>更改redis配置&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">vim /etc/redis/redis.conf
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">vim /etc/redis/redis.conf
 daemonize no &lt;span class="o">(&lt;/span>yes -&amp;gt; no&lt;span class="o">)&lt;/span> &lt;span class="c1"># 取消守护进程&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>创建supervisor对redis的配置文件&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">vim /etc/supervisord.d/redis.ini
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">vim /etc/supervisord.d/redis.ini
 &lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code> `redis.ini`文件如下
 &lt;/code>&lt;/pre>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">[&lt;/span>program:redis&lt;span class="o">]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">[&lt;/span>program:redis&lt;span class="o">]&lt;/span>
 &lt;span class="nv">command&lt;/span>&lt;span class="o">=&lt;/span>redis-server /etc/redis/redis.conf &lt;span class="c1"># 启动Redis的命令&lt;/span>
 &lt;span class="nv">autostart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> &lt;span class="c1"># supervisord启动时，该程序也启动&lt;/span>
 &lt;span class="nv">autorestart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> &lt;span class="c1"># 异常退出时，自动启动&lt;/span>
@@ -1653,12 +1703,12 @@ daemonize no &lt;span class="o">(&lt;/span>yes -&amp;gt; no&lt;span class="o">)&
 &lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code>&lt;/code>&lt;/pre>&lt;/li>
 &lt;/ul></description></item><item><title>Angular Starter</title><link>https://huangkai1008.github.io/p/angular-starter/</link><pubDate>Tue, 09 Oct 2018 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/angular-starter/</guid><description>&lt;h2 id="安装angular">安装Angular&lt;/h2>
 &lt;h3 id="确保nodenpm已安装">确保node/npm已安装&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">node -v 查看node版本
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">node -v 查看node版本
 npm -v 查看npm版本
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装typescript">安装typescript&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">npm install -g typescript
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">npm install -g typescript
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装angular-cli">安装Angular CLI&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">npm install -g @angular/cli
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">npm install -g @angular/cli
 ng version &lt;span class="c1"># 验证angular-cli版本&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="建立一个新的angular项目">建立一个新的Angular项目&lt;/h2>
 &lt;p>Angular CLI 为我们提供了两种方式，用于创建新的应用程序：&lt;/p>
@@ -1672,7 +1722,7 @@ ng version &lt;span class="c1"># 验证angular-cli版本&lt;/span>
 &lt;/li>
 &lt;/ul>
 &lt;h3 id="创建应用">创建应用&lt;/h3>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">ng new my-app
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ng new my-app
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="可用选项">可用选项&lt;/h3>
 &lt;ul>
 &lt;li>&lt;code>--dry-run&lt;/code>: boolean, 默认为 &lt;code>false&lt;/code>, 若设置 &lt;code>dry-run&lt;/code> 则不会创建任何文件&lt;/li>
@@ -1700,14 +1750,14 @@ ng version &lt;span class="c1"># 验证angular-cli版本&lt;/span>
 &lt;/li>
 &lt;li>
 &lt;p>&lt;strong>Install&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">yum install -y mariadb-server
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yum install -y mariadb-server
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;h2 id="mariadb配置使用">MariaDB配置使用&lt;/h2>
 &lt;ul>
 &lt;li>
 &lt;p>&lt;strong>Using&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">systemctl start mariadb.service &lt;span class="c1"># 启动&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">systemctl start mariadb.service &lt;span class="c1"># 启动&lt;/span>
 systemctl &lt;span class="nb">enable&lt;/span> mariadb.service &lt;span class="c1"># 开机自启&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
@@ -1747,12 +1797,12 @@ systemctl &lt;span class="nb">enable&lt;/span> mariadb.service &lt;span class="c
 &lt;p>开启远程访问&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">GRANT&lt;/span> &lt;span class="k">ALL&lt;/span> &lt;span class="k">PRIVILEGES&lt;/span> &lt;span class="k">ON&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="k">TO&lt;/span> &lt;span class="s1">&amp;#39;root&amp;#39;&lt;/span>&lt;span class="o">@&lt;/span>&lt;span class="s1">&amp;#39;%&amp;#39;&lt;/span>&lt;span class="k">IDENTIFIED&lt;/span> &lt;span class="k">BY&lt;/span> &lt;span class="s1">&amp;#39;123456&amp;#39;&lt;/span> &lt;span class="k">WITH&lt;/span> &lt;span class="k">GRANT&lt;/span> &lt;span class="k">OPTION&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">GRANT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ALL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">PRIVILEGES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TO&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;root&amp;#39;&lt;/span>&lt;span class="o">@&lt;/span>&lt;span class="s1">&amp;#39;%&amp;#39;&lt;/span>&lt;span class="k">IDENTIFIED&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">BY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;123456&amp;#39;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">WITH&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">GRANT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">OPTION&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>刷新权限&lt;/li>
 &lt;/ul>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">flush&lt;/span> &lt;span class="k">privileges&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">flush&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">privileges&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>配置文件地址
 &lt;!-- raw HTML omitted -->
 &lt;/li>
@@ -1762,64 +1812,66 @@ systemctl &lt;span class="nb">enable&lt;/span> mariadb.service &lt;span class="c
 &lt;ul>
 &lt;li>版本: 8.0&lt;/li>
 &lt;li>添加源
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">yum &lt;span class="nb">local&lt;/span> install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yum &lt;span class="nb">local&lt;/span> install https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>安装
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">yum install mysql-community-server
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yum install mysql-community-server
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;h2 id="mysql配置">Mysql配置&lt;/h2>
 &lt;ul>
 &lt;li>
 &lt;p>初始化&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mysqld --initialize --user&lt;span class="o">=&lt;/span>mysql --basedir&lt;span class="o">=&lt;/span>/usr --datadir&lt;span class="o">=&lt;/span>/var/lib/mysql
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mysqld --initialize --user&lt;span class="o">=&lt;/span>mysql --basedir&lt;span class="o">=&lt;/span>/usr --datadir&lt;span class="o">=&lt;/span>/var/lib/mysql
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>启动mysql&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">systemctl start mysqld
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">systemctl start mysqld
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>设置mysql开机自启&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">systemctl &lt;span class="nb">enable&lt;/span> mysqld
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">systemctl &lt;span class="nb">enable&lt;/span> mysqld
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>查看初始密码&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash"> grep &lt;span class="s1">&amp;#39;temporary password&amp;#39;&lt;/span> /var/log/mysqld.log
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash"> grep &lt;span class="s1">&amp;#39;temporary password&amp;#39;&lt;/span> /var/log/mysqld.log
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>进入mysql&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">mysql -u root -p
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">mysql -u root -p
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>修改密码&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">ALTER&lt;/span> &lt;span class="k">USER&lt;/span> &lt;span class="s1">&amp;#39;root&amp;#39;&lt;/span>&lt;span class="o">@&lt;/span>&lt;span class="s1">&amp;#39;localhost&amp;#39;&lt;/span> &lt;span class="k">IDENTIFIED&lt;/span> &lt;span class="k">BY&lt;/span> &lt;span class="s1">&amp;#39;Huang|12345&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">USER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;root&amp;#39;&lt;/span>&lt;span class="o">@&lt;/span>&lt;span class="s1">&amp;#39;localhost&amp;#39;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">IDENTIFIED&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">BY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;Huang|12345&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>查看版本&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">select&lt;/span> &lt;span class="nf">version&lt;/span>&lt;span class="p">();&lt;/span>
-&lt;span class="o">+-----------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="nf">version&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+-----------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">16&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+-----------+&lt;/span>
-&lt;span class="mi">1&lt;/span> &lt;span class="n">row&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="kt">set&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span> &lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">version&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">version&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">16&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>查看端口&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">show&lt;/span> &lt;span class="n">global&lt;/span> &lt;span class="n">variables&lt;/span> &lt;span class="k">like&lt;/span> &lt;span class="s1">&amp;#39;port&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;span class="o">+---------------+-------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="n">Variable_name&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="n">Value&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+---------------+-------+&lt;/span>
-&lt;span class="o">|&lt;/span> &lt;span class="n">port&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="mi">3306&lt;/span> &lt;span class="o">|&lt;/span>
-&lt;span class="o">+---------------+-------+&lt;/span>
-&lt;span class="mi">1&lt;/span> &lt;span class="n">row&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="kt">set&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">04&lt;/span> &lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">show&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">global&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">variables&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">like&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;port&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">port&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">3306&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">04&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>远程访问&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">use&lt;/span> &lt;span class="n">mysql&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;span class="k">update&lt;/span> &lt;span class="k">user&lt;/span> &lt;span class="kt">set&lt;/span> &lt;span class="n">host&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;%&amp;#39;&lt;/span> &lt;span class="k">where&lt;/span> &lt;span class="k">user&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;root&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;span class="k">flush&lt;/span> &lt;span class="k">privileges&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">use&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">mysql&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="k">update&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">host&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;%&amp;#39;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;root&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="k">flush&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">privileges&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul></description></item><item><title>数据库系统概论-介绍</title><link>https://huangkai1008.github.io/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA-%E4%BB%8B%E7%BB%8D/</link><pubDate>Sun, 09 Sep 2018 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA-%E4%BB%8B%E7%BB%8D/</guid><description>&lt;h2 id="数据库系统的目的purpose-of-database-systems">数据库系统的目的(&lt;code>Purpose of Database Systems&lt;/code>)&lt;/h2>
 &lt;p>在早期，数据库应用程序直接建立在文件系统之上，导致一系列的问题&lt;/p>
 &lt;ul>
@@ -1909,12 +1961,12 @@ systemctl &lt;span class="nb">enable&lt;/span> mariadb.service &lt;span class="c
 &lt;blockquote>
 &lt;p>定义数据库模式的规范表示法&lt;/p>
 &lt;/blockquote>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sql" data-lang="sql"> &lt;span class="k">create&lt;/span> &lt;span class="k">table&lt;/span> &lt;span class="n">instructor&lt;/span> &lt;span class="p">(&lt;/span>
-&lt;span class="n">ID&lt;/span> &lt;span class="nb">char&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;span class="n">name&lt;/span> &lt;span class="nb">varchar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;span class="n">dept_name&lt;/span> &lt;span class="nb">varchar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;span class="n">salary&lt;/span> &lt;span class="nb">numeric&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>DDL编译器生成一组存储表模板信息的数据字典（&lt;code>data dictionary&lt;/code>)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="w"> &lt;/span>&lt;span class="k">create&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">table&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">instructor&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ID&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">char&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">varchar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">dept_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">varchar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">salary&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">numeric&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>DDL编译器生成一组存储表模板信息的数据字典（&lt;code>data dictionary&lt;/code>)&lt;/p>
 &lt;p>数据字典包含元信息(&lt;code>metadata&lt;/code>)&lt;/p>
 &lt;ul>
 &lt;li>数据库模式(&lt;code>database schema&lt;/code>)&lt;/li>
@@ -1985,13 +2037,13 @@ systemctl &lt;span class="nb">enable&lt;/span> mariadb.service &lt;span class="c
 &lt;/li>
 &lt;li>
 &lt;p>安装&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">cd&lt;/span> /opt
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">cd&lt;/span> /opt
 wget https://studygolang.com/dl/golang/go1.12.4.linux-amd64.tar.gz
 tar xzvf go1.12.4.linux-amd64.tar.gz &lt;span class="c1"># 安装&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>配置环境变量&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">vim ~/.zshrc &lt;span class="c1"># 如果用bash就是vim ~/.bashrc&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">vim ~/.zshrc &lt;span class="c1"># 如果用bash就是vim ~/.bashrc&lt;/span>
 &lt;span class="c1"># 追加golang配置&lt;/span>
 &lt;span class="nb">export&lt;/span> &lt;span class="nv">GOROOT&lt;/span>&lt;span class="o">=&lt;/span>/opt/go
 &lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$PATH&lt;/span>:&lt;span class="nv">$GOROOT&lt;/span>/bin
@@ -2002,7 +2054,7 @@ go version
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul></description></item><item><title>扩展Python Json Encoder</title><link>https://huangkai1008.github.io/p/%E6%89%A9%E5%B1%95python-json-encoder/</link><pubDate>Mon, 09 Apr 2018 22:49:14 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E6%89%A9%E5%B1%95python-json-encoder/</guid><description>&lt;p>Python默认的json模块序列化并不是很全面，只能序列化基本的数据类型, 像一些时间格式或者自定义类型都不能序列化，所以在有些时候需要扩展json模块的json encoder&lt;/p>
 &lt;h2 id="扩展">扩展&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">datetime&lt;/span> &lt;span class="kn">as&lt;/span> &lt;span class="nn">dt&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">datetime&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">dt&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">decimal&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">json&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">enum&lt;/span>
@@ -2025,24 +2077,24 @@ go version
 &lt;li>
 &lt;p>&lt;strong>日常格式化&lt;/strong>&lt;/p>
 &lt;p>例如对于日期格式的格式化&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">datetime&lt;/span> &lt;span class="kn">as&lt;/span> &lt;span class="nn">dt&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">datetime&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">dt&lt;/span>
 &lt;span class="n">now&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">dt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">datetime&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">now&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>对于now如果使用json.dumps(t_now)便会触发&lt;!-- raw HTML omitted -->TypeError: Object of type datetime is not JSON serializable&lt;!-- raw HTML omitted -->
 使用扩展的Encoder&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python"> &lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">json&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dumps&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">now&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="bp">cls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">ExtendedEncoder&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python"> &lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">json&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dumps&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">now&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="bp">cls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">ExtendedEncoder&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="s1">&amp;#39;2018-04-09 23:04:49&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>&lt;strong>Flask&lt;/strong>&lt;/p>
 &lt;p>修改flask类的json_encoder&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">flask&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Flask&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">_Flask&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">flask&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Flask&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">_Flask&lt;/span>
 &lt;span class="k">class&lt;/span> &lt;span class="nc">QuizFlask&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_Flask&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;
 &lt;/span>&lt;span class="s2"> 自定义flask
 &lt;/span>&lt;span class="s2"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
 &lt;span class="n">json_encoder&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ExtendedEncoder&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">make_response&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">rv&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="n">rv&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="bp">None&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="n">rv&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="n">rv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">dict&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="nb">isinstance&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Iterator&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">rv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rv&lt;/span>&lt;span class="p">)&lt;/span>
@@ -2051,13 +2103,13 @@ go version
 &lt;li>
 &lt;p>&lt;strong>Tortoise-orm&lt;/strong>&lt;/p>
 &lt;p>模型jsonfield的encoder&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">json&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">json&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">tortoise&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">fields&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">tortoise.models&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Model&lt;/span>
 &lt;span class="n">__all__&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;OurModel&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
 &lt;span class="k">class&lt;/span> &lt;span class="nc">OurModel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Model&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;示例model&amp;#34;&amp;#34;&amp;#34;&lt;/span>
-&lt;span class="nb">id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">fields&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">IntField&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pk&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">fields&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">IntField&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pk&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="n">cat_ids&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">fields&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">JSONField&lt;/span>&lt;span class="p">(&lt;/span>
 &lt;span class="n">encoder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">ExtendedEncoder&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">decoder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">json&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decoder&lt;/span>
 &lt;span class="p">)&lt;/span> &lt;span class="c1"># JsonField的encoder&lt;/span>
@@ -2069,7 +2121,7 @@ go version
 &lt;p>2.当一个线程完成的时候，主线程能够立即知道。&lt;/p>
 &lt;p>3.让多线程和多进程的编码接口一致。&lt;/p>
 &lt;h2 id="基本使用">基本使用&lt;/h2>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">get_page&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
@@ -2078,21 +2130,21 @@ go version
 &lt;span class="n">task1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">submit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">get_page&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="n">task2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">submit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">get_page&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 通过submit提交执行的函数到线程池中&lt;/span>
 &lt;span class="n">task3&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">submit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">get_page&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s2">&amp;#34;task1: {task1.done()}&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 通过done来判断线程是否完成&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s2">&amp;#34;task2: {task2.done()}&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s2">&amp;#34;task3: {task3.done()}&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;task1: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">task1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">done&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 通过done来判断线程是否完成&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;task2: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">task2&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">done&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;task3: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">task3&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">done&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">2.5&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s2">&amp;#34;task1: {task1.done()}&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s2">&amp;#34;task2: {task2.done()}&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s2">&amp;#34;task3: {task3.done()}&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">task1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1"># 通过result来获取返回值&lt;/span>
-&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">task1&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="bp">False&lt;/span>
-&lt;span class="n">task2&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="bp">False&lt;/span>
-&lt;span class="n">task3&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="bp">False&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;task1: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">task1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">done&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;task2: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">task2&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">done&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;task3: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">task3&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">done&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">task1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1"># 通过result来获取返回值&lt;/span>
+&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">task1&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;span class="n">task2&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;span class="n">task3&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">False&lt;/span>
 &lt;span class="o">...&lt;/span>
-&lt;span class="n">task1&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="bp">True&lt;/span>
-&lt;span class="n">task2&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="bp">True&lt;/span>
-&lt;span class="n">task3&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="bp">False&lt;/span>
+&lt;span class="n">task1&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;span class="n">task2&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;span class="n">task3&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">False&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="api">Api&lt;/h2>
 &lt;h3 id="as_completed">as_completed&lt;/h3>
 &lt;blockquote>
@@ -2107,7 +2159,7 @@ go version
 &lt;blockquote>
 &lt;p>此方法的返回顺序为哪个线程先失败/完成就返回&lt;/p>
 &lt;/blockquote>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">as_completed&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">as_completed&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">get_page&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
@@ -2116,7 +2168,7 @@ go version
 &lt;span class="n">tasks&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">t&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">submit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">get_page&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">page&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">page&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">)]&lt;/span>
 &lt;span class="k">for&lt;/span> &lt;span class="n">future&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">as_completed&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tasks&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">future&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span>
 &lt;span class="mi">2&lt;/span>
 &lt;span class="mi">3&lt;/span>
@@ -2156,7 +2208,7 @@ go version
 &lt;/blockquote>
 &lt;pre>&lt;code>函数将在所有可等待对象结束或取消时返回。
 &lt;/code>&lt;/pre>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">wait&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">wait&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">get_page&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
@@ -2164,8 +2216,8 @@ go version
 &lt;span class="k">with&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">max_workers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 创建一个最大容纳数量为5的线程池&lt;/span>
 &lt;span class="n">tasks&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">t&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">submit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">get_page&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">page&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">page&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">)]&lt;/span>
 &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">wait&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tasks&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Future&lt;/span> &lt;span class="n">at&lt;/span> &lt;span class="mh">0x1c071fb1f28&lt;/span> &lt;span class="n">state&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">finished&lt;/span> &lt;span class="n">returned&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Future&lt;/span> &lt;span class="n">at&lt;/span> &lt;span class="mh">0x1c071fb1d68&lt;/span> &lt;span class="n">state&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">finished&lt;/span> &lt;span class="n">returned&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Future&lt;/span> &lt;span class="n">at&lt;/span> &lt;span class="mh">0x1c071f9fd68&lt;/span> &lt;span class="n">state&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">finished&lt;/span> &lt;span class="n">returned&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Future&lt;/span> &lt;span class="n">at&lt;/span> &lt;span class="mh">0x1c071d78278&lt;/span> &lt;span class="n">state&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">finished&lt;/span> &lt;span class="n">returned&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">}&lt;/span>
 &lt;span class="nb">set&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="map">map&lt;/h3>
@@ -2181,7 +2233,7 @@ go version
 &lt;blockquote>
 &lt;p>&lt;strong>timeout&lt;/strong>: 第三个参数 timeout 跟 wait() 的 timeout 一样，但由于 map 是返回线程执行的结果，如果 timeout小于线程执行时间会抛异常 TimeoutError&lt;/p>
 &lt;/blockquote>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">get_page&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
@@ -2189,20 +2241,20 @@ go version
 &lt;span class="n">URLS&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">url&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">url&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)]&lt;/span>
 &lt;span class="k">with&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">max_workers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">executor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 创建一个最大容纳数量为5的线程池&lt;/span>
 &lt;span class="k">for&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">executor&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">get_page&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">URLS&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span>
 &lt;span class="mi">2&lt;/span>
 &lt;span class="mi">3&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="回调函数">回调函数&lt;/h2>
 &lt;p>回调函数(add_done_callback)是在调用线程完成后再调用的&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">wait&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">concurrent.futures&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">wait&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">threading&lt;/span>
 &lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">get_page&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">url&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">call_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worker&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s1">&amp;#39;tid: {threading.current_thread().ident}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worker&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;tid: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">threading&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">current_thread&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ident&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worker&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">())&lt;/span>
 &lt;span class="k">with&lt;/span> &lt;span class="n">ThreadPoolExecutor&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="n">tasks&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
 &lt;span class="k">for&lt;/span> &lt;span class="n">page&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">):&lt;/span>
@@ -2218,9 +2270,9 @@ go version
 &lt;ul>
 &lt;li>通过添加回调函数的方法处理异常&lt;/li>
 &lt;/ul>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">logging&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">import&lt;/span> &lt;span class="nn">logging&lt;/span>
 &lt;span class="k">def&lt;/span> &lt;span class="nf">executor_callback&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worker&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="n">logging&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="s1">&amp;#39;finished&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">logging&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;finished&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="n">worker_exception&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">worker&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exception&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="n">worker_exception&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="n">logging&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exception&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worker_exception&lt;/span>&lt;span class="p">)&lt;/span>
@@ -2239,7 +2291,7 @@ go version
 &lt;ul>
 &lt;li>
 &lt;p>&lt;strong>Uninstall old versions&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo yum remove docker &lt;span class="se">\
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo yum remove docker &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> docker-client &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> docker-client-latest &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> docker-common &lt;span class="se">\
@@ -2250,7 +2302,7 @@ go version
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>&lt;strong>Install Docker CE&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo yum install -y yum-utils &lt;span class="se">\
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo yum install -y yum-utils &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> device-mapper-persistent-data &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> lvm2
 &lt;span class="c1"># 设置stable源&lt;/span>
@@ -2264,32 +2316,32 @@ sudo yum install docker-ce docker-ce-cli containerd.io
 &lt;h2 id="启动">启动&lt;/h2>
 &lt;ul>
 &lt;li>Docker启动
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo systemctl start docker &lt;span class="c1"># 启动Docker&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo systemctl start docker &lt;span class="c1"># 启动Docker&lt;/span>
 sudo systemctl status docker &lt;span class="c1"># 查看Docker状态&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul></description></item><item><title>Sqlalchemy使用注意</title><link>https://huangkai1008.github.io/p/sqlalchemy%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F/</link><pubDate>Wed, 14 Jun 2017 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/sqlalchemy%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F/</guid><description>&lt;ul>
 &lt;li>
 &lt;p>遇到in查询之类的批量删除或者更新，可以使用&lt;strong>synchronize_session=False&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">db&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">delete&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">synchronize_session&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">False&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">db&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">delete&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">synchronize_session&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>使用&lt;strong>find_in_set&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sqlalchemy.sql.expression&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">func&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sqlalchemy.sql.expression&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">func&lt;/span>
 &lt;span class="n">db&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">query&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Post&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">func&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_in_set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;10&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Post&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">tag_id&lt;/span>&lt;span class="p">))&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>批量增加删除&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">db.session.add_all&lt;span class="o">(&lt;/span>instances&lt;span class="o">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">db.session.add_all&lt;span class="o">(&lt;/span>instances&lt;span class="o">)&lt;/span>
 db.session.delete_all&lt;span class="o">(&lt;/span>instances&lt;span class="o">)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>Mysql IS NULL判断&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">isnot&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">isnot&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="n">is_&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>Mysql 联合主键&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sqlalchemy&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">PrimaryKeyConstraint&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sqlalchemy&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">PrimaryKeyConstraint&lt;/span>
 &lt;span class="k">class&lt;/span> &lt;span class="nc">Node&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Model&lt;/span>&lt;span class="p">):&lt;/span>
 &lt;span class="n">__table_args__&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>
 &lt;span class="n">PrimaryKeyConstraint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;pk1&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;pk2&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span>
@@ -2297,16 +2349,16 @@ db.session.delete_all&lt;span class="o">(&lt;/span>instances&lt;span class="o">)
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>Flask_sqlalchemy支持Double精度类型字段&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sqlalchemy&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Column&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sqlalchemy&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Column&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">sqlalchemy.dialects.mysql&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">DOUBLE&lt;/span>
 &lt;span class="kn">from&lt;/span> &lt;span class="nn">app&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">db&lt;/span>
 &lt;span class="k">class&lt;/span> &lt;span class="nc">BaseModel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Model&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="nb">id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">db&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Column&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">db&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Integer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">primary_key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">True&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Flask_sqlalchemy&lt;/span>
+&lt;span class="nb">id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">db&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Column&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">db&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Integer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">primary_key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Flask_sqlalchemy&lt;/span>
 &lt;span class="n">double_column&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Column&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">DOUBLE&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">comment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;双精度字段&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Sqlalchemy mysql double column&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>subquery使用实例&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">conditions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">conditions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="k">for&lt;/span> &lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">value&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">material_period&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="p">():&lt;/span>
 &lt;span class="n">condition&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">and_&lt;/span>&lt;span class="p">(&lt;/span>
 &lt;span class="n">CraftEntityAttrs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">attr_number&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">CraftEntityAttrs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">attr_value&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">value&lt;/span>
@@ -2326,7 +2378,7 @@ db.session.delete_all&lt;span class="o">(&lt;/span>instances&lt;span class="o">)
 &lt;span class="n">CraftEntityPeriodHours&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">major_wrapper_skill_level&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;span class="n">stmt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cat_number&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">CraftEntityPeriodHours&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">entity_id&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">stmt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">entity_id&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">stmt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">stmt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>
 &lt;span class="n">db&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">query&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ProducePlan&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">row_id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ProducePlan&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">row_seq&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="o">.&lt;/span>&lt;span class="n">filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ProducePlan&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">proc_number&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">in_&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">constants&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">COIL_PROC_NUMBERS&lt;/span>&lt;span class="p">))&lt;/span>
 &lt;span class="o">.&lt;/span>&lt;span class="n">distinct&lt;/span>&lt;span class="p">()&lt;/span>
@@ -2364,14 +2416,14 @@ db.session.delete_all&lt;span class="o">(&lt;/span>instances&lt;span class="o">)
 &lt;span class="p">)&lt;/span>
 &lt;span class="o">.&lt;/span>&lt;span class="n">order_by&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RowProject&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">BatchDetail&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">batch_id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">BatchDetail&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">batch_seq&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">stmt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="n">stmt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>
 &lt;span class="n">db&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">query&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ProducePlan&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">project_id&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="o">.&lt;/span>&lt;span class="n">outerjoin&lt;/span>&lt;span class="p">(&lt;/span>
 &lt;span class="n">ProducePlanCompletion&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ProducePlan&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">plan_id&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">ProducePlanCompletion&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">plan_id&lt;/span>
 &lt;span class="p">)&lt;/span>
 &lt;span class="o">.&lt;/span>&lt;span class="n">filter&lt;/span>&lt;span class="p">(&lt;/span>
 &lt;span class="n">or_&lt;/span>&lt;span class="p">(&lt;/span>
-&lt;span class="n">ProducePlanCompletion&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">completion&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">None&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="n">ProducePlanCompletion&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">completion&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">),&lt;/span>
 &lt;span class="n">ProducePlanCompletion&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">completion&lt;/span>
 &lt;span class="o">==&lt;/span> &lt;span class="n">constants&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ProducePlanCompletion&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">not_scheduled&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;span class="p">)&lt;/span>
@@ -2393,28 +2445,28 @@ db.session.delete_all&lt;span class="o">(&lt;/span>instances&lt;span class="o">)
 &lt;/li>
 &lt;li>
 &lt;p>安装编译环境&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">yum install zlib-devel bzip2-devel openssl-devel ncurses-devel libffi-devel
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">yum install zlib-devel bzip2-devel openssl-devel ncurses-devel libffi-devel
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>下载&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">wget --no-check-certificate https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">wget --no-check-certificate https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>创建安装目录解压&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mkdir /usr/local/python3
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo mkdir /usr/local/python3
 tar -zxvf Python-3.7.4.tgz
 &lt;span class="nb">cd&lt;/span> Python-3.7.4/
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>编译安装&lt;/p>
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo ./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/python3 &lt;span class="c1"># 指定创建的目录&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo ./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/python3 &lt;span class="c1"># 指定创建的目录&lt;/span>
 make &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> make install &lt;span class="c1"># 编译安装&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;h2 id="软链接">软链接&lt;/h2>
 &lt;ul>
 &lt;li>创建python和pip软链接
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">ln -s /usr/local/python3/bin/python3 /usr/bin/python3 &lt;span class="c1"># python3 软链接&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">ln -s /usr/local/python3/bin/python3 /usr/bin/python3 &lt;span class="c1"># python3 软链接&lt;/span>
 ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3 &lt;span class="c1"># pip3软链接&lt;/span>
 ln -s /usr/local/python3/bin/pipenv /usr/bin/pipenv &lt;span class="c1"># pipenv软链接&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
@@ -2423,25 +2475,25 @@ ln -s /usr/local/python3/bin/pipenv /usr/bin/pipenv &lt;span class="c1"># pipenv
 &lt;h3 id="安装pyenv">安装pyenv&lt;/h3>
 &lt;ul>
 &lt;li>安装脚本
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">curl https://pyenv.run &lt;span class="p">|&lt;/span> bash
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">curl https://pyenv.run &lt;span class="p">|&lt;/span> bash
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>manjaro
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S pyenv
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sudo pacman -S pyenv
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;h3 id="pyenv基本使用">pyenv基本使用&lt;/h3>
 &lt;ul>
 &lt;li>展示可以安装的版本
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">pyenv install --list
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pyenv install --list
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>安装python
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">pyenv install 3.7.4
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">pyenv install 3.7.4
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>manjaro如遇到ModuleNotFoundError: No module named &amp;lsquo;_ctypes&amp;rsquo;, 可执行&lt;code>sudo pacman -S pkgconf libffi&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;/li>
 &lt;li>查看可使用的版本，带*表示当前使用的版本
-&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ pyenv versions
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ pyenv versions
 * system &lt;span class="o">(&lt;/span>&lt;span class="nb">set&lt;/span> by /home/huangkai/.pyenv/version&lt;span class="o">)&lt;/span>
 3.7.4
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
