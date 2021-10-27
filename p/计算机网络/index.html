@@ -177,7 +177,7 @@ ISP  因特网服务提供商（Internet Service Provider, ISP），ISP 可以�
 <blockquote>
 <p>为了从源端系统向目的端系统发送一个报文，源将长报文划分为小的数据块，这些小的数据块被称为分组（<code>packet</code>）</p>
 </blockquote>
-<p>在源和目的地之间，每个分组都通过<strong>通信链路（<code>communication link</code>）</strong> 和 **分组交换机（<code>packet switch</code>）**传送，分组以等于该链路最大传输速率的速度传输通过通信链路。</p>
+<p>在源和目的地之间，每个分组都通过<strong>通信链路（<code>communication link</code>）</strong> 和 <strong>分组交换机（<code>packet switch</code>）</strong> 传送，分组以等于该链路最大传输速率的速度传输通过通信链路。</p>
 <h4 id=存储转发传输>存储转发传输</h4>
 <p>多数分组交换机在链路的输入端使用<strong>存储转发传输</strong>机制。</p>
 <blockquote>
@@ -295,6 +295,32 @@ traceroute to www.baidu.com <span class=o>(</span>183.232.231.172<span class=o>)
 <blockquote>
 <p>从服务器到客户机通过计算机网络传送一个大文件，任意时刻客户机接收该文件的速率叫做<strong>瞬时吞吐量（<code>instantaneous throughput</code>）</strong>，假设客户机接收该文件的所有 F 比特用了 T 秒，那么 F/T 就叫做<strong>平均吞吐量（<code>average throughput</code>）</strong></p>
 </blockquote>
+<h2 id=五-计算机网络体系结构>五、 计算机网络体系结构</h2>
+<h3 id=协议分层>协议分层</h3>
+<blockquote>
+<p>网络设计者以 <strong>分层（<code>layer</code>）</strong> 的形式组织 <strong>协议（<code>protocol</code>）</strong> 以及实现这些协议的网络硬件和软件，各层的所有协议被称为<strong>协议栈（<code>protocol stack</code>）</strong></p>
+</blockquote>
+<h4 id=优点>优点</h4>
+<ul>
+<li>各层之间是独立的，某一层不需要知道其下层实现</li>
+<li>灵活性好</li>
+<li>结构上可分割开</li>
+<li>易于实现和维护</li>
+<li>能促进标准化工作</li>
+</ul>
+<h4 id=潜在缺点>潜在缺点</h4>
+<ul>
+<li>一层可能冗余较低层的功能</li>
+<li>某层功能可能需要仅在其他某层才出现的信息（如时间戳值），这违反了层次分离的目标</li>
+</ul>
+<p>现在比较常见的一共有三种协议分层模型，分别为<strong>五层协议模型（因特网协议栈）</strong>、<strong>TCP/IP 模型</strong>、<strong>OSI 分层模型</strong>。</p>
+<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211027205459.png alt=协议分层></p>
+<h4 id=因特网协议栈>因特网协议栈</h4>
+<p>因特网协议栈由<strong>应用层（<code>application layer</code>)</strong>、<strong>运输层（<code>transport layer</code>）</strong>、<strong>网络层（<code>internet layer</code>）</strong>、<strong>链路层（<code>link layer</code>）</strong>、<strong>物理层 （<code>physical layer</code>）</strong> 7 个层次组成。</p>
+<h4 id=osi-模型>OSI 模型</h4>
+<p>OSI 模型由<strong>应用层（<code>application layer</code>)</strong>、<strong>表示层（<code>presentation layer</code>）</strong>、 <strong>会话层（<code>session layer</code>）</strong>、<strong>运输层（<code>transport layer</code>）</strong>、<strong>网络层（<code>internet layer</code>）</strong>、<strong>链路层（<code>link layer</code>）</strong>、<strong>物理层 （<code>physical layer</code>）</strong> 5 个层次组成。</p>
+<h4 id=tcpip-模型>TCP/IP 模型</h4>
+<p>TCP/IP 模型由<strong>应用层（<code>application layer</code>)</strong>、<strong>运输层（<code>transport layer</code>）</strong>、<strong>网际层（<code>internet layer</code>）</strong>、<strong>链路层（<code>link layer</code>）</strong>、<strong>网络接口层 （<code>network access layer</code>）</strong> 5 个层次组成。</p>
 </section>
 <footer class=article-footer>
 <section class=article-tags>

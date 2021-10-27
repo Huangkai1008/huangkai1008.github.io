@@ -152,7 +152,7 @@
 &lt;blockquote>
 &lt;p>为了从源端系统向目的端系统发送一个报文，源将长报文划分为小的数据块，这些小的数据块被称为分组（&lt;code>packet&lt;/code>）&lt;/p>
 &lt;/blockquote>
-&lt;p>在源和目的地之间，每个分组都通过&lt;strong>通信链路（&lt;code>communication link&lt;/code>）&lt;/strong> 和 **分组交换机（&lt;code>packet switch&lt;/code>）**传送，分组以等于该链路最大传输速率的速度传输通过通信链路。&lt;/p>
+&lt;p>在源和目的地之间，每个分组都通过&lt;strong>通信链路（&lt;code>communication link&lt;/code>）&lt;/strong> 和 &lt;strong>分组交换机（&lt;code>packet switch&lt;/code>）&lt;/strong> 传送，分组以等于该链路最大传输速率的速度传输通过通信链路。&lt;/p>
 &lt;h4 id="存储转发传输">存储转发传输&lt;/h4>
 &lt;p>多数分组交换机在链路的输入端使用&lt;strong>存储转发传输&lt;/strong>机制。&lt;/p>
 &lt;blockquote>
@@ -268,7 +268,33 @@ traceroute to www.baidu.com &lt;span class="o">(&lt;/span>183.232.231.172&lt;spa
 &lt;h4 id="瞬时吞吐量和平均吞吐量">瞬时吞吐量和平均吞吐量&lt;/h4>
 &lt;blockquote>
 &lt;p>从服务器到客户机通过计算机网络传送一个大文件，任意时刻客户机接收该文件的速率叫做&lt;strong>瞬时吞吐量（&lt;code>instantaneous throughput&lt;/code>）&lt;/strong>，假设客户机接收该文件的所有 F 比特用了 T 秒，那么 F/T 就叫做&lt;strong>平均吞吐量（&lt;code>average throughput&lt;/code>）&lt;/strong>&lt;/p>
-&lt;/blockquote></description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h1 id="dns-和域名">DNS 和域名&lt;/h1>
+&lt;/blockquote>
+&lt;h2 id="五-计算机网络体系结构">五、 计算机网络体系结构&lt;/h2>
+&lt;h3 id="协议分层">协议分层&lt;/h3>
+&lt;blockquote>
+&lt;p>网络设计者以 &lt;strong>分层（&lt;code>layer&lt;/code>）&lt;/strong> 的形式组织 &lt;strong>协议（&lt;code>protocol&lt;/code>）&lt;/strong> 以及实现这些协议的网络硬件和软件，各层的所有协议被称为&lt;strong>协议栈（&lt;code>protocol stack&lt;/code>）&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="优点">优点&lt;/h4>
+&lt;ul>
+&lt;li>各层之间是独立的，某一层不需要知道其下层实现&lt;/li>
+&lt;li>灵活性好&lt;/li>
+&lt;li>结构上可分割开&lt;/li>
+&lt;li>易于实现和维护&lt;/li>
+&lt;li>能促进标准化工作&lt;/li>
+&lt;/ul>
+&lt;h4 id="潜在缺点">潜在缺点&lt;/h4>
+&lt;ul>
+&lt;li>一层可能冗余较低层的功能&lt;/li>
+&lt;li>某层功能可能需要仅在其他某层才出现的信息（如时间戳值），这违反了层次分离的目标&lt;/li>
+&lt;/ul>
+&lt;p>现在比较常见的一共有三种协议分层模型，分别为&lt;strong>五层协议模型（因特网协议栈）&lt;/strong>、&lt;strong>TCP/IP 模型&lt;/strong>、&lt;strong>OSI 分层模型&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211027205459.png" alt="协议分层" />&lt;/p>
+&lt;h4 id="因特网协议栈">因特网协议栈&lt;/h4>
+&lt;p>因特网协议栈由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 7 个层次组成。&lt;/p>
+&lt;h4 id="osi-模型">OSI 模型&lt;/h4>
+&lt;p>OSI 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>表示层（&lt;code>presentation layer&lt;/code>）&lt;/strong>、 &lt;strong>会话层（&lt;code>session layer&lt;/code>）&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p>
+&lt;h4 id="tcpip-模型">TCP/IP 模型&lt;/h4>
+&lt;p>TCP/IP 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网际层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>网络接口层 （&lt;code>network access layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p></description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h1 id="dns-和域名">DNS 和域名&lt;/h1>
 &lt;h2 id="一域名">一、域名&lt;/h2>
 &lt;p>&lt;strong>网域名称&lt;/strong>（英语：Domain Name，简称：Domain），简称&lt;strong>域名&lt;/strong>、&lt;strong>网域&lt;/strong>，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个&lt;a class="link" href="IP.md" >IP&lt;/a>地址的代称，目的是为了便于记忆后者。&lt;/p>
 &lt;h3 id="域名的层级">域名的层级&lt;/h3>
