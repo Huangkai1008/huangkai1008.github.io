@@ -1,0 +1,299 @@
+<!doctype html><html lang=zh-cn>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="应用层 一、概述 应用层包括大多数应用程序使用的协议，用于通过较低级别的协议建立的网络连接提供用户服务或交换应用程序数据。
+网络应用程序体系结构 客户-服务器体系结构  存在总是打开的主机称为服务器（server），服务于其他来自客户（client）主机的请求，此种模式称为客户-服务器体系结构（client-server architecture）
+ 特征  客户相互之间不直接通信 服务器具有固定的、周知的地址（IP 地址） 数据中心（data center） 用于扩展  示例  web 应用程序  P2P体系结构  以对等方式进行通信，并不区分客户端和服务端，而是平等关系进行通信。在对等方式下，可以把每个相连的主机当成既是服务端又是客户端，可以互相下载对方的共享文件。此种模式称为端到端体系结构（peer-to-peer architecture, P2P architecture）
+ 特征  任意端系统直接通信 对等点从其他对等点请求服务，向其他对等点提供服务 自扩展性（self-scalability）：例如在 P2P 文件共享场景下，尽管每个对等方都由于请求文件产生工作负载，但每个对等方通过向其他对等方分发文件也为文件共享系统增加服务能力  示例  文件共享（BitTorrent） 对等方协助下载加速器（迅雷） 因特网电话和视频应用（Skype）  进程通信 在不同端系统上的进程（process），通过跨越计算机网络发送报文（message）
+客户与服务器进程  在一对进程之间的通信会话场景中，发起通信（即在该会话开始时发起与其他进程的联系）的进程被标识为客户，在会话开始时等待被联系的进程是服务器进程
+ 对于 web 而言，浏览器是一个客户进程，Web 服务器是一个服务器进程；
+对于 P2P 文件共享，下载文件的对等方标识为客户，上载文件的对等方标识为服务器。
+进程与计算机网络间的接口 进程通过套接字向网络发送报文和从网络接收报文。
+ 套接字（socket） 是同一台主机内应用层与运输层之间的接口。由于该套接字是建立网络应用的可编程接口，因此套接字也称为应用程序和网络之间的应用程序编程接口（Application Programming Interface, API）
+ 应用程序开发者可以控制套接字在应用层端的一切，但是对该套接字的运输层端控制仅限于：
+ 选择运输层协议 设定运输层一些参数，比如最大缓存和最大报文段长度等  应用程序建立在选择的运输层协议提供的运输层服务之上。"><title>应用层</title>
+<link rel=canonical href=https://huangkai1008.github.io/p/%E5%BA%94%E7%94%A8%E5%B1%82/>
+<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="应用层">
+<meta property="og:description" content="应用层 一、概述 应用层包括大多数应用程序使用的协议，用于通过较低级别的协议建立的网络连接提供用户服务或交换应用程序数据。
+网络应用程序体系结构 客户-服务器体系结构  存在总是打开的主机称为服务器（server），服务于其他来自客户（client）主机的请求，此种模式称为客户-服务器体系结构（client-server architecture）
+ 特征  客户相互之间不直接通信 服务器具有固定的、周知的地址（IP 地址） 数据中心（data center） 用于扩展  示例  web 应用程序  P2P体系结构  以对等方式进行通信，并不区分客户端和服务端，而是平等关系进行通信。在对等方式下，可以把每个相连的主机当成既是服务端又是客户端，可以互相下载对方的共享文件。此种模式称为端到端体系结构（peer-to-peer architecture, P2P architecture）
+ 特征  任意端系统直接通信 对等点从其他对等点请求服务，向其他对等点提供服务 自扩展性（self-scalability）：例如在 P2P 文件共享场景下，尽管每个对等方都由于请求文件产生工作负载，但每个对等方通过向其他对等方分发文件也为文件共享系统增加服务能力  示例  文件共享（BitTorrent） 对等方协助下载加速器（迅雷） 因特网电话和视频应用（Skype）  进程通信 在不同端系统上的进程（process），通过跨越计算机网络发送报文（message）
+客户与服务器进程  在一对进程之间的通信会话场景中，发起通信（即在该会话开始时发起与其他进程的联系）的进程被标识为客户，在会话开始时等待被联系的进程是服务器进程
+ 对于 web 而言，浏览器是一个客户进程，Web 服务器是一个服务器进程；
+对于 P2P 文件共享，下载文件的对等方标识为客户，上载文件的对等方标识为服务器。
+进程与计算机网络间的接口 进程通过套接字向网络发送报文和从网络接收报文。
+ 套接字（socket） 是同一台主机内应用层与运输层之间的接口。由于该套接字是建立网络应用的可编程接口，因此套接字也称为应用程序和网络之间的应用程序编程接口（Application Programming Interface, API）
+ 应用程序开发者可以控制套接字在应用层端的一切，但是对该套接字的运输层端控制仅限于：
+ 选择运输层协议 设定运输层一些参数，比如最大缓存和最大报文段长度等  应用程序建立在选择的运输层协议提供的运输层服务之上。">
+<meta property="og:url" content="https://huangkai1008.github.io/p/%E5%BA%94%E7%94%A8%E5%B1%82/">
+<meta property="og:site_name" content="Huanghuang's Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-25T22:20:45+08:00"><meta property="article:modified_time" content="2020-06-25T22:20:45+08:00">
+<meta name=twitter:title content="应用层">
+<meta name=twitter:description content="应用层 一、概述 应用层包括大多数应用程序使用的协议，用于通过较低级别的协议建立的网络连接提供用户服务或交换应用程序数据。
+网络应用程序体系结构 客户-服务器体系结构  存在总是打开的主机称为服务器（server），服务于其他来自客户（client）主机的请求，此种模式称为客户-服务器体系结构（client-server architecture）
+ 特征  客户相互之间不直接通信 服务器具有固定的、周知的地址（IP 地址） 数据中心（data center） 用于扩展  示例  web 应用程序  P2P体系结构  以对等方式进行通信，并不区分客户端和服务端，而是平等关系进行通信。在对等方式下，可以把每个相连的主机当成既是服务端又是客户端，可以互相下载对方的共享文件。此种模式称为端到端体系结构（peer-to-peer architecture, P2P architecture）
+ 特征  任意端系统直接通信 对等点从其他对等点请求服务，向其他对等点提供服务 自扩展性（self-scalability）：例如在 P2P 文件共享场景下，尽管每个对等方都由于请求文件产生工作负载，但每个对等方通过向其他对等方分发文件也为文件共享系统增加服务能力  示例  文件共享（BitTorrent） 对等方协助下载加速器（迅雷） 因特网电话和视频应用（Skype）  进程通信 在不同端系统上的进程（process），通过跨越计算机网络发送报文（message）
+客户与服务器进程  在一对进程之间的通信会话场景中，发起通信（即在该会话开始时发起与其他进程的联系）的进程被标识为客户，在会话开始时等待被联系的进程是服务器进程
+ 对于 web 而言，浏览器是一个客户进程，Web 服务器是一个服务器进程；
+对于 P2P 文件共享，下载文件的对等方标识为客户，上载文件的对等方标识为服务器。
+进程与计算机网络间的接口 进程通过套接字向网络发送报文和从网络接收报文。
+ 套接字（socket） 是同一台主机内应用层与运输层之间的接口。由于该套接字是建立网络应用的可编程接口，因此套接字也称为应用程序和网络之间的应用程序编程接口（Application Programming Interface, API）
+ 应用程序开发者可以控制套接字在应用层端的一切，但是对该套接字的运输层端控制仅限于：
+ 选择运输层协议 设定运输层一些参数，比如最大缓存和最大报文段长度等  应用程序建立在选择的运输层协议提供的运输层服务之上。">
+<link rel="shortcut icon" href=https://gitee.com/huanghuang927/picture-host/raw/master/20211018164707.jpg>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149768628-1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-149768628-1')</script><style>:root{--article-font-family:"Noto Serif SC", var(--base-font-family)}</style>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</head>
+<body>
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+<aside class="sidebar left-sidebar sticky">
+<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box>
+<span class=hamburger-inner></span>
+</span>
+</button>
+<header class=site-info>
+<figure class=site-avatar>
+<img src=/img/avatar_hu0f5ec07cf580f6796b01d16b0109b2c2_23615_300x0_resize_q75_box.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+<span class=emoji>🍥</span>
+</figure>
+<h1 class=site-name><a href=https://huangkai1008.github.io>Huanghuang's Blog</a></h1>
+<h2 class=site-description>Find and Go ...</h2>
+</header>
+<ol class=menu id=main-menu>
+<li>
+<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>首页</span>
+</a>
+</li>
+<li>
+<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>归档</span>
+</a>
+</li>
+<li>
+<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span>
+</a>
+</li>
+<li>
+<a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span>
+</a>
+</li>
+<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span>
+</li>
+</ol>
+</aside>
+<main class="main full-width">
+<div id=article-toolbar>
+<a href=https://huangkai1008.github.io class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<span>Back</span>
+</a>
+</div>
+<article class=main-article>
+<header class=article-header>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ style=background-color:#2a9d8f;color:#fff>
+计算机网络
+</a>
+</header>
+<h2 class=article-title>
+<a href=/p/%E5%BA%94%E7%94%A8%E5%B1%82/>应用层</a>
+</h2>
+<footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--published>Jun 25, 2020</time>
+</footer></div>
+</header>
+<section class=article-content>
+<h1 id=应用层>应用层</h1>
+<h2 id=一概述>一、概述</h2>
+<p>应用层包括大多数应用程序使用的协议，用于通过较低级别的协议建立的网络连接提供用户服务或交换应用程序数据。</p>
+<h3 id=网络应用程序体系结构>网络应用程序体系结构</h3>
+<h4 id=客户-服务器体系结构>客户-服务器体系结构</h4>
+<blockquote>
+<p>存在总是打开的主机称为<strong>服务器（<code>server</code>）</strong>，服务于其他来自<strong>客户（<code>client</code>）<strong>主机的请求，此种模式称为</strong>客户-服务器体系结构（<code>client-server architecture</code>）</strong></p>
+</blockquote>
+<h5 id=特征>特征</h5>
+<ul>
+<li>客户相互之间不直接通信</li>
+<li>服务器具有固定的、周知的地址（IP 地址）</li>
+<li><strong>数据中心（<code>data center</code>）</strong> 用于扩展</li>
+</ul>
+<h5 id=示例>示例</h5>
+<ul>
+<li>web 应用程序</li>
+</ul>
+<h4 id=p2p体系结构>P2P体系结构</h4>
+<blockquote>
+<p>以对等方式进行通信，并不区分客户端和服务端，而是平等关系进行通信。在对等方式下，可以把每个相连的主机当成既是服务端又是客户端，可以互相下载对方的共享文件。此种模式称为端到端体系结构（<code>peer-to-peer architecture, P2P architecture</code>）</p>
+</blockquote>
+<h5 id=特征-1>特征</h5>
+<ul>
+<li>任意端系统直接通信</li>
+<li>对等点从其他对等点请求服务，向其他对等点提供服务</li>
+<li><strong>自扩展性（<code>self-scalability</code>）</strong>：例如在 P2P 文件共享场景下，尽管每个对等方都由于请求文件产生工作负载，但每个对等方通过向其他对等方分发文件也为文件共享系统增加服务能力</li>
+</ul>
+<h5 id=示例-1>示例</h5>
+<ul>
+<li>文件共享（BitTorrent）</li>
+<li>对等方协助下载加速器（迅雷）</li>
+<li>因特网电话和视频应用（Skype）</li>
+</ul>
+<h3 id=进程通信>进程通信</h3>
+<p>在不同端系统上的<strong>进程（<code>process</code>）</strong>，通过跨越计算机网络发送<strong>报文（<code>message</code>）</strong></p>
+<h4 id=客户与服务器进程>客户与服务器进程</h4>
+<blockquote>
+<p>在一对进程之间的通信会话场景中，发起通信（即在该会话开始时发起与其他进程的联系）的进程被标识为<strong>客户</strong>，在会话开始时等待被联系的进程是<strong>服务器</strong>进程</p>
+</blockquote>
+<p>对于 web 而言，浏览器是一个客户进程，Web 服务器是一个服务器进程；</p>
+<p>对于 P2P 文件共享，下载文件的对等方标识为客户，上载文件的对等方标识为服务器。</p>
+<h4 id=进程与计算机网络间的接口>进程与计算机网络间的接口</h4>
+<p>进程通过<strong>套接字</strong>向网络发送报文和从网络接收报文。</p>
+<blockquote>
+<p><strong>套接字（<code>socket</code>）</strong> 是同一台主机内应用层与运输层之间的接口。由于该套接字是建立网络应用的可编程接口，因此套接字也称为应用程序和网络之间的<strong>应用程序编程接口（Application Programming Interface, API）</strong></p>
+</blockquote>
+<p>应用程序开发者可以控制套接字在应用层端的一切，但是对该套接字的运输层端控制仅限于：</p>
+<ol>
+<li>选择运输层协议</li>
+<li>设定运输层一些参数，比如最大缓存和最大报文段长度等</li>
+</ol>
+<p><strong>应用程序建立在选择的运输层协议提供的运输层服务之上。</strong></p>
+<h4 id=进程寻址>进程寻址</h4>
+<p>为了标识接收进程，需要定义两种信息：</p>
+<ol>
+<li>主机的地址（IP地址）</li>
+<li>在目的主机中指定接收进程的标识符（端口号）</li>
+</ol>
+<h3 id=运输服务要求>运输服务要求</h3>
+<h4 id=可靠数据传输>可靠数据传输</h4>
+<blockquote>
+<p>如果一个协议确保由应用程序的一端发送的数据正确、完全地交付给该应用程序的另一端，那么就认为此协议提供了<strong>可靠数据传输（<code>reliable data transfer</code>）</strong></p>
+</blockquote>
+<p>当运输层协议不能提供可靠数据传输时，此协议可能能被<strong>容忍丢失的应用（<code>loss-tolerant application</code>）</strong> 所接受。</p>
+<h4 id=吞吐量>吞吐量</h4>
+<p>运输层协议能够以某种特定的速率提供确保的可用吞吐量。使用此类服务，应用程序能够请求 r 比特/秒的确保吞吐量，并且该运输协议能够确保可用吞吐量总是为至少 r 比特/秒。</p>
+<p>具有吞吐量要求的应用程序被称为<strong>带宽敏感的应用（<code>bandwidth-sensitive application</code>）</strong>，例如许多当前的多媒体应用；</p>
+<p>相反地，可以根据当时可用带宽利用可供使用吞吐量的应用被称为<strong>弹性应用（<code>elastic application</code>）</strong>，例如电子邮件、文件传输应用。</p>
+<h4 id=定时>定时</h4>
+<h4 id=安全性>安全性</h4>
+<h2 id=二应用层协议>二、应用层协议</h2>
+<blockquote>
+<p><strong>应用层协议（<code>application layer protocol</code>）</strong> 定义了运行在不同端系统上的应用程序进程如何相互传递报文</p>
+</blockquote>
+<p>具体定义内容为：</p>
+<ul>
+<li>交换的报文类型</li>
+<li>报文类型的语法</li>
+<li>字段的语义</li>
+<li>确定一个进程何时以及如何发送报文，对报文进行响应的规则</li>
+</ul>
+<h3 id=web-与-httphttpmd-协议>Web 与 <a class=link href=HTTP.md>HTTP</a> 协议</h3>
+<h3 id=电子邮件及相关应用层协议>电子邮件及相关应用层协议</h3>
+<h3 id=dns域名和dnsmd-协议><a class=link href=%e5%9f%9f%e5%90%8d%e5%92%8cDNS.md>DNS</a> 协议</h3>
+<hr>
+<h2 id=参考资料>参考资料</h2>
+<ul>
+<li>Kurose, J. F., & Ross, K. W. (2018). <em>计算机网络-自顶而下方法</em> (7th ed.). 机械工业出版社.</li>
+</ul>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/>计算机网络</a>
+</section>
+<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span>
+</section>
+</footer>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css integrity=sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js integrity=sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js integrity=sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
+</article>
+<aside class=related-contents--wrapper>
+<h2 class=section-title>相关文章</h2>
+<div class=related-contents>
+<div class="flex article-list--tile">
+<article>
+<a href=/p/ip/>
+<div class=article-details>
+<h2 class=article-title>IP</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/>
+<div class=article-details>
+<h2 class=article-title>计算机网络</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/>
+<div class=article-details>
+<h2 class=article-title>域名和DNS</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/http/>
+<div class=article-details>
+<h2 class=article-title>HTTP</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2021 Huanghuang's Blog
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
+</main>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

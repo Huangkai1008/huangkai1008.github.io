@@ -30,7 +30,7 @@ ISP  因特网服务提供商（Internet Service Provider, ISP），ISP 可以�
   频分多路复用（Frequency-Division Multiplexing, FDM） 时分多路复用（Time-Division Multiplexing, TDM） 码分多路复用（Code-Division Multiplexing, CDM） 波分多路复用（Wavelength-Division Multiplexing, WDM）  优势  通信延时小。通信双方通过专用线路进行通信，数据可以直达。当数据传输量较大时，优点将十分显著 线路独占，没有冲突 实时性强。一旦通信线路，建立，双方可以实时通信  劣势  线路独占，利用率太低 连接建立时间过长  分组交换（packet switching） 分组 在网络应用中，端系统彼此交换报文（message）。">
 <meta property="og:url" content="https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-17T11:22:54+08:00"><meta property="article:modified_time" content="2020-06-24T21:04:51+08:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-17T11:22:54+08:00"><meta property="article:modified_time" content="2020-06-25T22:20:45+08:00">
 <meta name=twitter:title content="计算机网络">
 <meta name=twitter:description content="计算机网络 一、概述 互联网、因特网和万维网  互联网(internet)：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互联网是网络的网络
   因特网(Internet)：世界范围的计算机网络（computer network）
@@ -316,11 +316,17 @@ traceroute to www.baidu.com <span class=o>(</span>183.232.231.172<span class=o>)
 <p>现在比较常见的一共有三种协议分层模型，分别为<strong>五层协议模型（因特网协议栈）</strong>、<strong>TCP/IP 模型</strong>、<strong>OSI 分层模型</strong>。</p>
 <p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211027205459.png alt=协议分层></p>
 <h4 id=因特网协议栈>因特网协议栈</h4>
-<p>因特网协议栈由<strong>应用层（<code>application layer</code>)</strong>、<strong>运输层（<code>transport layer</code>）</strong>、<strong>网络层（<code>internet layer</code>）</strong>、<strong>链路层（<code>link layer</code>）</strong>、<strong>物理层 （<code>physical layer</code>）</strong> 7 个层次组成。</p>
+<p>因特网协议栈由**<a class=link href=%e5%ba%94%e7%94%a8%e5%b1%82.md>应用层</a>（<code>application layer</code>)**、**运输层（<code>transport layer</code>）**、**网络层（<code>internet layer</code>）**、**链路层（<code>link layer</code>）**、**物理层 （<code>physical layer</code>）** 7 个层次组成。</p>
 <h4 id=osi-模型>OSI 模型</h4>
 <p>OSI 模型由<strong>应用层（<code>application layer</code>)</strong>、<strong>表示层（<code>presentation layer</code>）</strong>、 <strong>会话层（<code>session layer</code>）</strong>、<strong>运输层（<code>transport layer</code>）</strong>、<strong>网络层（<code>internet layer</code>）</strong>、<strong>链路层（<code>link layer</code>）</strong>、<strong>物理层 （<code>physical layer</code>）</strong> 5 个层次组成。</p>
 <h4 id=tcpip-模型>TCP/IP 模型</h4>
 <p>TCP/IP 模型由<strong>应用层（<code>application layer</code>)</strong>、<strong>运输层（<code>transport layer</code>）</strong>、<strong>网际层（<code>internet layer</code>）</strong>、<strong>链路层（<code>link layer</code>）</strong>、<strong>网络接口层 （<code>network access layer</code>）</strong> 5 个层次组成。</p>
+<h2 id=参考资料>参考资料</h2>
+<ul>
+<li>Kurose, J. F., & Ross, K. W. (2018). <em>计算机网络-自顶而下方法</em> (7th ed.). 机械工业出版社.</li>
+<li><a class=link href=https://en.wikipedia.org/wiki/Internet_protocol_suite target=_blank rel=noopener>Wikipedia : Internet_protocol_suite</a></li>
+<li><a class=link href=https://en.wikipedia.org/wiki/OSI_model target=_blank rel=noopener>Wikipedia : OSI</a></li>
+</ul>
 </section>
 <footer class=article-footer>
 <section class=article-tags>
@@ -331,7 +337,7 @@ traceroute to www.baidu.com <span class=o>(</span>183.232.231.172<span class=o>)
 </section>
 <section class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <span class=article-time--modified>
-最后更新于 Jun 24, 2020 21:04 +0800
+最后更新于 Jun 25, 2020 22:20 +0800
 </span>
 </section></footer>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css integrity=sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js integrity=sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js integrity=sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
@@ -340,6 +346,13 @@ traceroute to www.baidu.com <span class=o>(</span>183.232.231.172<span class=o>)
 <h2 class=section-title>相关文章</h2>
 <div class=related-contents>
 <div class="flex article-list--tile">
+<article>
+<a href=/p/%E5%BA%94%E7%94%A8%E5%B1%82/>
+<div class=article-details>
+<h2 class=article-title>应用层</h2>
+</div>
+</a>
+</article>
 <article>
 <a href=/p/ip/>
 <div class=article-details>

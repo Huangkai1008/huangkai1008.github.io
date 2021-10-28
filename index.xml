@@ -1,4 +1,93 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 18 Jun 2020 12:22:57 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>IP</title><link>https://huangkai1008.github.io/p/ip/</link><pubDate>Thu, 18 Jun 2020 12:22:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/ip/</guid><description>&lt;h1 id="ip">IP&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Jun 2020 22:20:45 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>应用层</title><link>https://huangkai1008.github.io/p/%E5%BA%94%E7%94%A8%E5%B1%82/</link><pubDate>Thu, 25 Jun 2020 22:20:45 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%BA%94%E7%94%A8%E5%B1%82/</guid><description>&lt;h1 id="应用层">应用层&lt;/h1>
+&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;p>应用层包括大多数应用程序使用的协议，用于通过较低级别的协议建立的网络连接提供用户服务或交换应用程序数据。&lt;/p>
+&lt;h3 id="网络应用程序体系结构">网络应用程序体系结构&lt;/h3>
+&lt;h4 id="客户-服务器体系结构">客户-服务器体系结构&lt;/h4>
+&lt;blockquote>
+&lt;p>存在总是打开的主机称为&lt;strong>服务器（&lt;code>server&lt;/code>）&lt;/strong>，服务于其他来自&lt;strong>客户（&lt;code>client&lt;/code>）&lt;strong>主机的请求，此种模式称为&lt;/strong>客户-服务器体系结构（&lt;code>client-server architecture&lt;/code>）&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="特征">特征&lt;/h5>
+&lt;ul>
+&lt;li>客户相互之间不直接通信&lt;/li>
+&lt;li>服务器具有固定的、周知的地址（IP 地址）&lt;/li>
+&lt;li>&lt;strong>数据中心（&lt;code>data center&lt;/code>）&lt;/strong> 用于扩展&lt;/li>
+&lt;/ul>
+&lt;h5 id="示例">示例&lt;/h5>
+&lt;ul>
+&lt;li>web 应用程序&lt;/li>
+&lt;/ul>
+&lt;h4 id="p2p体系结构">P2P体系结构&lt;/h4>
+&lt;blockquote>
+&lt;p>以对等方式进行通信，并不区分客户端和服务端，而是平等关系进行通信。在对等方式下，可以把每个相连的主机当成既是服务端又是客户端，可以互相下载对方的共享文件。此种模式称为端到端体系结构（&lt;code>peer-to-peer architecture, P2P architecture&lt;/code>）&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="特征-1">特征&lt;/h5>
+&lt;ul>
+&lt;li>任意端系统直接通信&lt;/li>
+&lt;li>对等点从其他对等点请求服务，向其他对等点提供服务&lt;/li>
+&lt;li>&lt;strong>自扩展性（&lt;code>self-scalability&lt;/code>）&lt;/strong>：例如在 P2P 文件共享场景下，尽管每个对等方都由于请求文件产生工作负载，但每个对等方通过向其他对等方分发文件也为文件共享系统增加服务能力&lt;/li>
+&lt;/ul>
+&lt;h5 id="示例-1">示例&lt;/h5>
+&lt;ul>
+&lt;li>文件共享（BitTorrent）&lt;/li>
+&lt;li>对等方协助下载加速器（迅雷）&lt;/li>
+&lt;li>因特网电话和视频应用（Skype）&lt;/li>
+&lt;/ul>
+&lt;h3 id="进程通信">进程通信&lt;/h3>
+&lt;p>在不同端系统上的&lt;strong>进程（&lt;code>process&lt;/code>）&lt;/strong>，通过跨越计算机网络发送&lt;strong>报文（&lt;code>message&lt;/code>）&lt;/strong>&lt;/p>
+&lt;h4 id="客户与服务器进程">客户与服务器进程&lt;/h4>
+&lt;blockquote>
+&lt;p>在一对进程之间的通信会话场景中，发起通信（即在该会话开始时发起与其他进程的联系）的进程被标识为&lt;strong>客户&lt;/strong>，在会话开始时等待被联系的进程是&lt;strong>服务器&lt;/strong>进程&lt;/p>
+&lt;/blockquote>
+&lt;p>对于 web 而言，浏览器是一个客户进程，Web 服务器是一个服务器进程；&lt;/p>
+&lt;p>对于 P2P 文件共享，下载文件的对等方标识为客户，上载文件的对等方标识为服务器。&lt;/p>
+&lt;h4 id="进程与计算机网络间的接口">进程与计算机网络间的接口&lt;/h4>
+&lt;p>进程通过&lt;strong>套接字&lt;/strong>向网络发送报文和从网络接收报文。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>套接字（&lt;code>socket&lt;/code>）&lt;/strong> 是同一台主机内应用层与运输层之间的接口。由于该套接字是建立网络应用的可编程接口，因此套接字也称为应用程序和网络之间的&lt;strong>应用程序编程接口（Application Programming Interface, API）&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;p>应用程序开发者可以控制套接字在应用层端的一切，但是对该套接字的运输层端控制仅限于：&lt;/p>
+&lt;ol>
+&lt;li>选择运输层协议&lt;/li>
+&lt;li>设定运输层一些参数，比如最大缓存和最大报文段长度等&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>应用程序建立在选择的运输层协议提供的运输层服务之上。&lt;/strong>&lt;/p>
+&lt;h4 id="进程寻址">进程寻址&lt;/h4>
+&lt;p>为了标识接收进程，需要定义两种信息：&lt;/p>
+&lt;ol>
+&lt;li>主机的地址（IP地址）&lt;/li>
+&lt;li>在目的主机中指定接收进程的标识符（端口号）&lt;/li>
+&lt;/ol>
+&lt;h3 id="运输服务要求">运输服务要求&lt;/h3>
+&lt;h4 id="可靠数据传输">可靠数据传输&lt;/h4>
+&lt;blockquote>
+&lt;p>如果一个协议确保由应用程序的一端发送的数据正确、完全地交付给该应用程序的另一端，那么就认为此协议提供了&lt;strong>可靠数据传输（&lt;code>reliable data transfer&lt;/code>）&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;p>当运输层协议不能提供可靠数据传输时，此协议可能能被&lt;strong>容忍丢失的应用（&lt;code>loss-tolerant application&lt;/code>）&lt;/strong> 所接受。&lt;/p>
+&lt;h4 id="吞吐量">吞吐量&lt;/h4>
+&lt;p>运输层协议能够以某种特定的速率提供确保的可用吞吐量。使用此类服务，应用程序能够请求 r 比特/秒的确保吞吐量，并且该运输协议能够确保可用吞吐量总是为至少 r 比特/秒。&lt;/p>
+&lt;p>具有吞吐量要求的应用程序被称为&lt;strong>带宽敏感的应用（&lt;code>bandwidth-sensitive application&lt;/code>）&lt;/strong>，例如许多当前的多媒体应用；&lt;/p>
+&lt;p>相反地，可以根据当时可用带宽利用可供使用吞吐量的应用被称为&lt;strong>弹性应用（&lt;code>elastic application&lt;/code>）&lt;/strong>，例如电子邮件、文件传输应用。&lt;/p>
+&lt;h4 id="定时">定时&lt;/h4>
+&lt;h4 id="安全性">安全性&lt;/h4>
+&lt;h2 id="二应用层协议">二、应用层协议&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;strong>应用层协议（&lt;code>application layer protocol&lt;/code>）&lt;/strong> 定义了运行在不同端系统上的应用程序进程如何相互传递报文&lt;/p>
+&lt;/blockquote>
+&lt;p>具体定义内容为：&lt;/p>
+&lt;ul>
+&lt;li>交换的报文类型&lt;/li>
+&lt;li>报文类型的语法&lt;/li>
+&lt;li>字段的语义&lt;/li>
+&lt;li>确定一个进程何时以及如何发送报文，对报文进行响应的规则&lt;/li>
+&lt;/ul>
+&lt;h3 id="web-与-httphttpmd-协议">Web 与 &lt;a class="link" href="HTTP.md" >HTTP&lt;/a> 协议&lt;/h3>
+&lt;h3 id="电子邮件及相关应用层协议">电子邮件及相关应用层协议&lt;/h3>
+&lt;h3 id="dns域名和dnsmd-协议">&lt;a class="link" href="%e5%9f%9f%e5%90%8d%e5%92%8cDNS.md" >DNS&lt;/a> 协议&lt;/h3>
+&lt;hr>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ul>
+&lt;li>Kurose, J. F., &amp;amp; Ross, K. W. (2018). &lt;em>计算机网络-自顶而下方法&lt;/em> (7th ed.). 机械工业出版社.&lt;/li>
+&lt;/ul></description></item><item><title>IP</title><link>https://huangkai1008.github.io/p/ip/</link><pubDate>Thu, 18 Jun 2020 12:22:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/ip/</guid><description>&lt;h1 id="ip">IP&lt;/h1>
 &lt;h2 id="ip地址概述">IP地址概述&lt;/h2>
 &lt;blockquote>
 &lt;p>**IP 地址(&lt;code>Internet Protocol address&lt;/code>)**是用于识别 IP 网络中的设备的一个唯一地址，32 个二进制位分成了 4 个八位组（1 个八位组 = 8 个二进制位）。&lt;/p>
@@ -290,11 +379,19 @@ traceroute to www.baidu.com &lt;span class="o">(&lt;/span>183.232.231.172&lt;spa
 &lt;p>现在比较常见的一共有三种协议分层模型，分别为&lt;strong>五层协议模型（因特网协议栈）&lt;/strong>、&lt;strong>TCP/IP 模型&lt;/strong>、&lt;strong>OSI 分层模型&lt;/strong>。&lt;/p>
 &lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211027205459.png" alt="协议分层" />&lt;/p>
 &lt;h4 id="因特网协议栈">因特网协议栈&lt;/h4>
-&lt;p>因特网协议栈由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 7 个层次组成。&lt;/p>
+&lt;p>因特网协议栈由**&lt;a class="link" href="%e5%ba%94%e7%94%a8%e5%b1%82.md" >应用层&lt;/a>（&lt;code>application layer&lt;/code>)**、**运输层（&lt;code>transport layer&lt;/code>）**、**网络层（&lt;code>internet layer&lt;/code>）**、**链路层（&lt;code>link layer&lt;/code>）**、**物理层 （&lt;code>physical layer&lt;/code>）** 7 个层次组成。&lt;/p>
 &lt;h4 id="osi-模型">OSI 模型&lt;/h4>
 &lt;p>OSI 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>表示层（&lt;code>presentation layer&lt;/code>）&lt;/strong>、 &lt;strong>会话层（&lt;code>session layer&lt;/code>）&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p>
 &lt;h4 id="tcpip-模型">TCP/IP 模型&lt;/h4>
-&lt;p>TCP/IP 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网际层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>网络接口层 （&lt;code>network access layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p></description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h1 id="dns-和域名">DNS 和域名&lt;/h1>
+&lt;p>TCP/IP 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网际层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>网络接口层 （&lt;code>network access layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ul>
+&lt;li>Kurose, J. F., &amp;amp; Ross, K. W. (2018). &lt;em>计算机网络-自顶而下方法&lt;/em> (7th ed.). 机械工业出版社.&lt;/li>
+&lt;li>&lt;a class="link" href="https://en.wikipedia.org/wiki/Internet_protocol_suite" target="_blank" rel="noopener"
+>Wikipedia : Internet_protocol_suite&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://en.wikipedia.org/wiki/OSI_model" target="_blank" rel="noopener"
+>Wikipedia : OSI&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h1 id="dns-和域名">DNS 和域名&lt;/h1>
 &lt;h2 id="一域名">一、域名&lt;/h2>
 &lt;p>&lt;strong>网域名称&lt;/strong>（英语：Domain Name，简称：Domain），简称&lt;strong>域名&lt;/strong>、&lt;strong>网域&lt;/strong>，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个&lt;a class="link" href="IP.md" >IP&lt;/a>地址的代称，目的是为了便于记忆后者。&lt;/p>
 &lt;h3 id="域名的层级">域名的层级&lt;/h3>
