@@ -393,6 +393,18 @@
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=err>Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly
 </span></code></pre></div><p>以下为一个Golang实现的简单的使用 Cookie 的代码示例：</p>
 <script type=application/javascript src=https://gist.github.com/Huangkai1008/84e3f3dd5f399412e7bdae4a348551fe.js></script>
+<h3 id=session>Session</h3>
+<blockquote>
+<p><code>Session</code> 代表着服务器和客户端一次会话的过程。<code>Session</code> 对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的 Web 页之间跳转时，存储在 Session 对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当客户端关闭会话，或者 Session 超时失效时会话结束</p>
+</blockquote>
+<h3 id=cookie-和-session-的不同>Cookie 和 Session 的不同</h3>
+<ul>
+<li><strong>作用范围不同</strong>，<code>Cookie</code> 保存在客户端，<code>Session</code> 保存在服务端</li>
+<li><strong>存取方式的不同</strong>，<code>Cookie</code> <strong>只能保存 ASCII</strong>，<code>Session</code> 可以存任意数据类型，一般情况下我们可以在 Session 中保持一些常用变量信息</li>
+<li><strong>有效期不同</strong>，<code>Cookie</code> 可设置为长时间保持，比如我们经常使用的默认登录功能，Session 一般失效时间较短，客户端关闭或者 Session 超时都会失效</li>
+<li><strong>隐私策略不同</strong>，<code>Cookie</code> 存储在客户端，比较容易遭到不法获取；<code>Session</code> 存储在服务端，安全性相对要好一些</li>
+<li><strong>存储大小不同</strong>， <strong>单个 <code>Cookie</code> 保存的数据不能超过 4KB</strong>，<code>Session</code> 可存储上限远高于 <code>Cookie</code></li>
+</ul>
 <h2 id=参考资料>参考资料</h2>
 <ul>
 <li>【日】户根勤. (2017). 网络是怎样连接的. 人民邮电出版社.</li>
