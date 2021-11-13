@@ -141,7 +141,7 @@
 </code></pre></div><ul>
 <li><strong>状态行（<code>status line</code>)</strong>：
 <ul>
-<li>协议版本，通常为 <code>HTTP/1.1</code>.</li>
+<li><strong>协议版本</strong>，通常为 <code>HTTP/1.1</code>.</li>
 <li><strong>状态码 (<code>status code</code>)</strong>，表明请求是成功或失败。常见的状态码是 <a class=link href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/200 target=_blank rel=noopener><code>200</code></a>，<a class=link href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/404 target=_blank rel=noopener><code>404</code></a>，或 <a class=link href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/302 target=_blank rel=noopener><code>302</code></a></li>
 <li><strong>状态文本 (<code>status text</code>)</strong>：一个简短的，纯粹的信息，通过状态码的文本描述，帮助理解该 HTTP 消息</li>
 </ul>
@@ -356,8 +356,8 @@
 <p>当服务器收到 HTTP 请求时，服务器可以在响应头里面添加一个 Set-Cookie 选项。浏览器收到响应后通常会保存下 Cookie，之后对该服务器每一次请求中都通过 Cookie 请求头部将 Cookie 信息发送给服务器。另外，Cookie 的过期时间、域、路径、有效期、适用站点都可以根据需要来指定。</p>
 <h5 id=set-cookie响应头部和cookie请求头部><strong>Set-Cookie响应头部和Cookie请求头部</strong></h5>
 <p>服务器使用 <a class=link href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie target=_blank rel=noopener><code>Set-Cookie</code></a> 响应头部向用户代理（一般是浏览器）发送 Cookie信息。一个简单的 Cookie 可能像这样：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=err>Set-Cookie: &lt;cookie名&gt;=&lt;cookie值&gt;
-</span></code></pre></div><p>服务器通过该头部告知客户端保存 Cookie 信息，客户端得到响应报文后把 Cookie 内容保存到浏览器中：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Set-Cookie: <span class=p>&lt;</span><span class=nt>cookie名</span><span class=p>&gt;</span>=<span class=p>&lt;</span><span class=nt>cookie值</span><span class=p>&gt;</span>
+</code></pre></div><p>服务器通过该头部告知客户端保存 Cookie 信息，客户端得到响应报文后把 Cookie 内容保存到浏览器中：</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=kr>HTTP</span><span class=o>/</span><span class=m>1.0</span> <span class=m>200</span> <span class=ne>OK</span>
 <span class=n>Content-type</span><span class=o>:</span> <span class=l>text/html</span>
 <span class=n>Set-Cookie</span><span class=o>:</span> <span class=l>yummy_cookie=choco</span>
@@ -373,8 +373,8 @@
 <li><strong>会话期 Cookie</strong>：浏览器关闭之后它会被自动删除，也就是说它仅在会话期内有效</li>
 <li><strong>持久性 Cookie</strong>：指定过期时间（Expires）或有效期（max-age）之后就成为了持久性的 Cookie</li>
 </ul>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=err>Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT;
-</span></code></pre></div><h4 id=作用域>作用域</h4>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT;
+</code></pre></div><h4 id=作用域>作用域</h4>
 <h5 id=domain-标识><strong>Domain 标识</strong></h5>
 <p><code>Domain</code>标识指定了哪些主机可以接受 Cookie。如果不指定，默认为当前文档的主机（不包含子域名）。如果指定了 Domain，则一般包含子域名。例如，如果设置 Domain=mozilla.org，则 Cookie 也包含在子域名中（如 developer.mozilla.org）。</p>
 <h5 id=path-标识><strong>Path 标识</strong></h5>
@@ -390,8 +390,8 @@
 <h5 id=httponly-属性><strong>HttpOnly 属性</strong></h5>
 <p>标记为 <code>HttpOnly</code> 的 Cookie 不能被 JavaScript 脚本调用。<strong>跨站脚本攻击 (XSS)</strong> 常常使用 JavaScript 的 <code>document.cookie</code> API 窃取用户的 Cookie 信息，因此使用 HttpOnly 标记可以在一定程度上避免 XSS 攻击。</p>
 <p>示例：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=err>Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly
-</span></code></pre></div><p>以下为一个Golang实现的简单的使用 Cookie 的代码示例：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly
+</code></pre></div><p>以下为一个Golang实现的简单的使用 Cookie 的代码示例：</p>
 <script type=application/javascript src=https://gist.github.com/Huangkai1008/84e3f3dd5f399412e7bdae4a348551fe.js></script>
 <h3 id=session>Session</h3>
 <blockquote>
@@ -405,13 +405,93 @@
 <li><strong>隐私策略不同</strong>，<code>Cookie</code> 存储在客户端，比较容易遭到不法获取；<code>Session</code> 存储在服务端，安全性相对要好一些</li>
 <li><strong>存储大小不同</strong>， <strong>单个 <code>Cookie</code> 保存的数据不能超过 4KB</strong>，<code>Session</code> 可存储上限远高于 <code>Cookie</code></li>
 </ul>
+<h2 id=七web-缓存>七、Web 缓存</h2>
+<blockquote>
+<p><strong>Web缓存（<code>Web cache</code>）</strong>（或 <strong>HTTP 缓存（<code>HTTP cache</code>）</strong>）是用于临时存储（缓存）Web文档（如HTML页面和图像），以减少服务器延迟的一种信息技术。Web缓存系统会保存下通过这套系统的文档的副本；如果满足某些条件，则可以由缓存满足后续请求。 Web缓存系统既可以指设备，也可以指计算机程序</p>
+</blockquote>
+<h3 id=缓存的种类>缓存的种类</h3>
+<p>缓存的种类有很多,其大致可归为两类：<strong>私有</strong>与<strong>共享缓存</strong>。共享缓存存储的响应能够被多个用户使用。私有缓存只能用于单独用户。</p>
+<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211113114522.png alt=缓存的种类></p>
+<h4 id=私有浏览器缓存><strong>（私有）浏览器缓存</strong></h4>
+<p><strong>私有缓存（<code>local cache</code>/<code>private cache</code>）</strong> 只能用于单独用户。浏览器缓存拥有用户通过 HTTP 下载的所有文件，可以避免再次向服务器发起多余的请求，也可以提供缓存内容的离线浏览。</p>
+<h4 id=共享代理缓存><strong>（共享）代理缓存</strong></h4>
+<p><strong>共享缓存（<code>shared cache</code>/<code>proxy cache</code>）</strong> 可以被多个用户使用。例如，ISP 或者公司可能会架设一个 web 代理来作为本地网络基础的一部分提供给用户，这样热门的资源就会被重复使用，减少网络拥堵与延迟。</p>
+<h3 id=缓存控制>缓存控制</h3>
+<h4 id=cache-control>Cache-Control</h4>
+<p><strong>HTTP/1.1</strong>定义的 <a class=link href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control target=_blank rel=noopener><code>Cache-Control</code></a> 头用来区分对缓存机制的支持情况， 请求头和响应头都支持这个属性。通过它提供的不同的值来定义缓存策略。</p>
+<h5 id=禁止进行缓存><strong>禁止进行缓存</strong></h5>
+<p>缓存中不得存储任何关于客户端请求和服务端响应的内容。每次由客户端发起的请求都会下载完整的响应内容。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Cache-Control: no-store
+</code></pre></div><h5 id=强制确认缓存><strong>强制确认缓存</strong></h5>
+<p>缓存服务器需要先向源服务器验证缓存资源的有效性，只有当缓存资源有效时才能使用该缓存对客户端的请求进行响应。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Cache-Control: no-cache
+</code></pre></div><h5 id=私有缓存和公共缓存><strong>私有缓存和公共缓存</strong></h5>
+<p><strong><code>private</code></strong> 指令规定了将资源作为私有缓存，只能被单独用户使用，一般存储在用户浏览器中。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Cache-Control: private
+</code></pre></div><p><strong><code>public</code></strong> 指令规定了将资源作为公共缓存，可以被任何中间人（比如中间代理、CDN等）缓存，可以被多个用户使用，一般存储在代理服务器中。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Cache-Control: public
+</code></pre></div><h5 id=过期><strong>过期</strong></h5>
+<p><strong><code>max-age</code></strong> 指令出现在请求报文，并且缓存资源的缓存时间小于该指令指定的时间，那么就能接受该缓存，</p>
+<p><strong><code>max-age</code></strong> 指令出现在响应报文，表示缓存资源在缓存服务器中保存的时间：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Cache-Control: max-age=31536000
+</code></pre></div><p><strong><code>Expires</code></strong> 首部字段也可以用于告知缓存服务器该资源什么时候会过期：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Expires: Wed, 04 Jul 2012 08:26:05 GMT
+</code></pre></div><p>在<strong>HTTP/1.1</strong>中，会优先处理 <strong><code>max-age</code></strong> 指令，在<strong>HTTP/1.0</strong>中，会忽略掉 <strong><code>max-age</code></strong> 指令。</p>
+<h5 id=验证方式><strong>验证方式</strong></h5>
+<p>当使用了 <strong><code>must-revalidate</code></strong> 指令，那就意味着缓存在考虑使用一个陈旧的资源时，必须先验证它的状态，已过期的缓存将不被使用。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Cache-Control: must-revalidate
+</code></pre></div><h4 id=新鲜度freshness>新鲜度(<code>freshness</code>)</h4>
+<blockquote>
+<p>服务端和客户端为资源约定一个过期时间，在该过期时间之前，该资源（缓存副本）就是新鲜的，当过了过期时间后，该资源（缓存副本）则变为陈旧的。驱逐算法用于将陈旧的资源（缓存副本）替换为新鲜的，注意，<strong>一个陈旧的资源（缓存副本）是不会直接被清除或忽略的</strong></p>
+</blockquote>
+<p>对于含有特定头信息的请求，会去计算缓存寿命。比如<code>Cache-control: max-age=N</code>的头，相应的缓存的寿命就是<code>N</code>。</p>
+<p>缓存失效时间计算公式如下：
+$$
+expirationTime = responseTime + freshnessLifetime - currentAge
+$$
+其中，<code>responseTime</code> 表示浏览器接收到此响应的时间点。</p>
+<h4 id=缓存验证validation>缓存验证(<code>validation</code>)</h4>
+<h5 id=etag><strong>ETag</strong></h5>
+<blockquote>
+<p><strong><code>ETag</code></strong> 响应头是 URL 的<code>Entity Tag</code>，作为一个URL资源的标识符，作为缓存的一种<strong>强校验器</strong></p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>ETag: &#34;82e22293907ce725faf67773957acd12&#34;
+</code></pre></div><p>当服务端返回资源时，可以根据返回内容计算一个 hash 值或者就是一个数字版本号作为 ETag 的值放到响应首部中，客户端可以在后续的请求的头中可以将缓存资源的 ETag 值放到 <a class=link href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-None-Match target=_blank rel=noopener><code>If-None-Match</code></a> 头首部，服务器收到该请求后，判断缓存资源的 ETag 值和资源的最新 ETag 值是否一致，如果一致则表示缓存资源有效，返回 <code>304 Not Modified</code>。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>If-None-Match: &#34;82e22293907ce725faf67773957acd12&#34;
+</code></pre></div><h5 id=last-modified><strong>Last-Modified</strong></h5>
+<p><strong><code>Last-Modified</code></strong> 响应头可以作为缓存验证的一种<strong>弱校验器</strong>，如果响应头里含有这个信息，客户端可以在后续的请求中带上 <a class=link href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-Modified-Since target=_blank rel=noopener><code>If-Modified-Since</code></a> 来验证缓存。服务器只在所请求的资源在给定的日期时间之后对内容进行过修改的情况下才会将资源返回，状态码为 <code>200 OK</code>。如果请求的资源从那时起未经修改，那么返回一个不带有实体主体的 <code>304 Not Modified</code> 响应报文。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT
+</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>If-Modified-Since: Wed, 21 Oct 2015 07:28:00 GMT
+</code></pre></div><h5 id=etag-与-last-modified的对比>Etag 与 Last-Modified的对比</h5>
+<p><code>Etag</code> 是强校验器，<code>Last-Modified</code> 是弱校验器，都同时出现时，<strong><code>Etag</code>的优先级更高</strong>。<strong><code>Last-Modified</code>的精度只能到秒</strong>，如果一个资源频繁修改，用<code>Last-Modified</code>并不能区分，而<code>Etag</code> 由于每次资源更新时都会生成新的值，会使缓存验证更加准确，缺点是频繁生成的策略可能会额外消耗服务器资源。</p>
+<h3 id=强制缓存与协商缓存>强制缓存与协商缓存</h3>
+<blockquote>
+<p><strong>强制缓存</strong>：浏览器不会向服务器发送任何请求，直接从本地缓存中读取文件并返回状态码<code>200 OK</code>；</p>
+<p><strong>协商缓存</strong>：浏览器向服务器发送请求，服务器会根据这个请求的请求首部来判断是否命中协商缓存，如果命中，则返回<code>304 Not Modified</code>并带上新的响应首部通知浏览器从缓存中读取资源</p>
+</blockquote>
+<h5 id=强制缓存的首部字段>强制缓存的首部字段</h5>
+<ul>
+<li><strong><code>Expires</code></strong></li>
+<li><strong><code>Cache Control</code></strong></li>
+</ul>
+<h5 id=协商缓存的首部字段>协商缓存的首部字段</h5>
+<ul>
+<li>
+<p><strong><code>Etag</code></strong> & <strong><code>If-None-Match</code></strong></p>
+</li>
+<li>
+<p><strong><code>Last-Modifed</code></strong> & <strong><code>If-Modified-Since</code></strong></p>
+</li>
+</ul>
+<p><strong>强制缓存</strong>和<strong>协商缓存</strong>都存在的情况下，先判断<strong>强制缓存</strong>是否生效，如果生效，不用发起请求，直接用缓存。如果<strong>强制缓存</strong>不生效再发起请求判断<strong>协商缓存</strong>。</p>
 <h2 id=参考资料>参考资料</h2>
 <ul>
 <li>【日】户根勤. (2017). 网络是怎样连接的. 人民邮电出版社.</li>
 <li>Kurose, J. F., & Ross, K. W. (2018). <em>计算机网络-自顶而下方法</em> (7th ed.). 机械工业出版社.</li>
 <li><a class=link href=https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol target=_blank rel=noopener>Wikipedia : HTTP</a></li>
 <li><a class=link href=https://developer.mozilla.org/en-US/docs/Web/HTTP target=_blank rel=noopener>MDN : HTTP</a></li>
-<li><a class=link href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies target=_blank rel=noopener>MDN: Cookies</a></li>
+<li><a class=link href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies target=_blank rel=noopener>MDN : Cookies</a></li>
+<li><a class=link href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching target=_blank rel=noopener>MDN : HTTP Caching</a></li>
 </ul>
 </section>
 <footer class=article-footer>
