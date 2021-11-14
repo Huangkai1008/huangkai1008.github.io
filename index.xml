@@ -80,8 +80,31 @@
 &lt;li>字段的语义&lt;/li>
 &lt;li>确定一个进程何时以及如何发送报文，对报文进行响应的规则&lt;/li>
 &lt;/ul>
-&lt;h3 id="web-与-httphttpmd-协议">Web 与 &lt;a class="link" href="HTTP.md" >HTTP&lt;/a> 协议&lt;/h3>
-&lt;h3 id="电子邮件及相关应用层协议">电子邮件及相关应用层协议&lt;/h3>
+&lt;h3 id="web-与-httphttpmd">Web 与 &lt;a class="link" href="HTTP.md" >HTTP&lt;/a>&lt;/h3>
+&lt;h3 id="电子邮件系统">电子邮件系统&lt;/h3>
+&lt;p>&lt;strong>因特网电子邮件系统（&lt;code>email&lt;/code>）&lt;/strong> 有三个主要组成部分：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>用户代理(&lt;code>user agent&lt;/code>)&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>邮件服务器（&lt;code>mail server&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>简单邮件传输协议（&lt;code>Simple Mail Transfer Protocol, SMTP&lt;/code>）&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h4 id="smtp">SMTP&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>&lt;code>SMTP&lt;/code>&lt;/strong> 用于从发送方的邮件服务器发送报文到接收方的邮件服务器，&lt;strong>SMTP 使用 TCP 作为它的支撑运输协议&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;code>SMTP&lt;/code>有两个部分：&lt;/p>
+&lt;ol>
+&lt;li>运行在发送方邮件服务器的客户端&lt;/li>
+&lt;li>运行在接收方邮件服务器的服务端&lt;/li>
+&lt;/ol>
+&lt;p>每台邮件服务器同时运行 SMTP 的客户端也运行 SMTP 的服务端，根据邮件服务器的表现是发送/接收邮件决定它是 SMTP 的 客户端/服务端。&lt;/p>
+&lt;h4 id="邮件访问协议">邮件访问协议&lt;/h4>
+&lt;p>与 &lt;code>HTTP&lt;/code> 不同的是，&lt;code>HTTP&lt;/code>是一个&lt;strong>拉协议（&lt;code>pull protocol&lt;/code>）&lt;/strong>， &lt;code>SMTP&lt;/code> 是一个&lt;strong>推协议(&lt;code>push protocol&lt;/code>)&lt;/strong>，&lt;strong>为了从邮件服务器上获取邮件到客户端，需要引入邮件访问协议&lt;/strong>，当前比较流行的邮件访问协议有：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>第三版的邮局协议（&lt;code>Post Office Protocol--Version 3, POP3&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>因特网邮件访问协议（&lt;code>Internet Mail Access Protocol, IMAP&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>基于 Web 的电子邮件（&lt;code>HTTP&lt;/code>）&lt;/strong>&lt;/li>
+&lt;/ul>
 &lt;h3 id="dns域名和dnsmd-协议">&lt;a class="link" href="%e5%9f%9f%e5%90%8d%e5%92%8cDNS.md" >DNS&lt;/a> 协议&lt;/h3>
 &lt;hr>
 &lt;h2 id="参考资料">参考资料&lt;/h2>
@@ -490,7 +513,7 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;blockquote>
 &lt;p>&lt;strong>超文本传输协议（&lt;code>HyperText Transfer Protocol, HTTP&lt;/code>）&lt;/strong> 是 Web 的核心，HTTP 由客户端程序和服务器程序实现&lt;/p>
 &lt;/blockquote>
-&lt;p>HTTP 使用 TCP 作为它的支撑运输协议，因为 HTTP 服务器并不保存关于客户的任何信息，所以 HTTP 是一个&lt;strong>无状态协议（&lt;code>stateless protocol&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>HTTP 使用 TCP 作为它的支撑运输协议&lt;/strong>，因为 HTTP 服务器并不保存关于客户的任何信息，所以 HTTP 是一个&lt;strong>无状态协议（&lt;code>stateless protocol&lt;/code>）&lt;/strong>。&lt;/p>
 &lt;h3 id="请求和响应报文">请求和响应报文&lt;/h3>
 &lt;p>客户端发送一个请求报文给服务器，服务器根据请求报文中的信息进行处理，并将处理结果放入响应报文中返回给客户端。&lt;/p>
 &lt;h4 id="请求消息requests">&lt;strong>请求消息（&lt;code>requests&lt;/code>）&lt;/strong>&lt;/h4>

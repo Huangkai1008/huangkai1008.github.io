@@ -26,7 +26,7 @@
  选择运输层协议 设定运输层一些参数，比如最大缓存和最大报文段长度等  应用程序建立在选择的运输层协议提供的运输层服务之上。">
 <meta property="og:url" content="https://huangkai1008.github.io/p/%E5%BA%94%E7%94%A8%E5%B1%82/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-25T22:20:45+08:00"><meta property="article:modified_time" content="2020-06-25T22:20:45+08:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-25T22:20:45+08:00"><meta property="article:modified_time" content="2020-07-06T12:06:32+08:00">
 <meta name=twitter:title content="应用层">
 <meta name=twitter:description content="应用层 一、概述 应用层包括大多数应用程序使用的协议，用于通过较低级别的协议建立的网络连接提供用户服务或交换应用程序数据。
 网络应用程序体系结构 客户-服务器体系结构  存在总是打开的主机称为服务器（server），服务于其他来自客户（client）主机的请求，此种模式称为客户-服务器体系结构（client-server architecture）
@@ -190,8 +190,31 @@
 <li>字段的语义</li>
 <li>确定一个进程何时以及如何发送报文，对报文进行响应的规则</li>
 </ul>
-<h3 id=web-与-httphttpmd-协议>Web 与 <a class=link href=HTTP.md>HTTP</a> 协议</h3>
-<h3 id=电子邮件及相关应用层协议>电子邮件及相关应用层协议</h3>
+<h3 id=web-与-httphttpmd>Web 与 <a class=link href=HTTP.md>HTTP</a></h3>
+<h3 id=电子邮件系统>电子邮件系统</h3>
+<p><strong>因特网电子邮件系统（<code>email</code>）</strong> 有三个主要组成部分：</p>
+<ul>
+<li><strong>用户代理(<code>user agent</code>)</strong></li>
+<li><strong>邮件服务器（<code>mail server</code>）</strong></li>
+<li><strong>简单邮件传输协议（<code>Simple Mail Transfer Protocol, SMTP</code>）</strong></li>
+</ul>
+<h4 id=smtp>SMTP</h4>
+<blockquote>
+<p><strong><code>SMTP</code></strong> 用于从发送方的邮件服务器发送报文到接收方的邮件服务器，<strong>SMTP 使用 TCP 作为它的支撑运输协议</strong></p>
+</blockquote>
+<p><code>SMTP</code>有两个部分：</p>
+<ol>
+<li>运行在发送方邮件服务器的客户端</li>
+<li>运行在接收方邮件服务器的服务端</li>
+</ol>
+<p>每台邮件服务器同时运行 SMTP 的客户端也运行 SMTP 的服务端，根据邮件服务器的表现是发送/接收邮件决定它是 SMTP 的 客户端/服务端。</p>
+<h4 id=邮件访问协议>邮件访问协议</h4>
+<p>与 <code>HTTP</code> 不同的是，<code>HTTP</code>是一个<strong>拉协议（<code>pull protocol</code>）</strong>， <code>SMTP</code> 是一个<strong>推协议(<code>push protocol</code>)</strong>，<strong>为了从邮件服务器上获取邮件到客户端，需要引入邮件访问协议</strong>，当前比较流行的邮件访问协议有：</p>
+<ul>
+<li><strong>第三版的邮局协议（<code>Post Office Protocol--Version 3, POP3</code>）</strong></li>
+<li><strong>因特网邮件访问协议（<code>Internet Mail Access Protocol, IMAP</code>）</strong></li>
+<li><strong>基于 Web 的电子邮件（<code>HTTP</code>）</strong></li>
+</ul>
 <h3 id=dns域名和dnsmd-协议><a class=link href=%e5%9f%9f%e5%90%8d%e5%92%8cDNS.md>DNS</a> 协议</h3>
 <hr>
 <h2 id=参考资料>参考资料</h2>
@@ -206,7 +229,11 @@
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
 <span>Licensed under CC BY-NC-SA 4.0</span>
 </section>
-</footer>
+<section class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span class=article-time--modified>
+最后更新于 Jul 06, 2020 12:06 +0800
+</span>
+</section></footer>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css integrity=sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js integrity=sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js integrity=sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
 </article>
 <aside class=related-contents--wrapper>
