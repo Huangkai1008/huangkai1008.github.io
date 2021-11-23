@@ -20,7 +20,7 @@
    响应消息(responses) HTTP/1.1 200 OK Date: Sat, 09 Oct 2010 14:28:02 GMT Server: Apache Last-Modified: Tue, 01 Dec 2009 20:18:22 GMT ETag: &amp;#34;51142bc1-7449-479b075b2891b&amp;#34; Accept-Ranges: bytes Content-Length: 29769 Content-Type: text/html &amp;lt;!">
 <meta property="og:url" content="https://huangkai1008.github.io/p/http/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-12T12:22:57+08:00"><meta property="article:modified_time" content="2020-07-05T14:43:57+08:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:tag" content="HTTP"><meta property="article:published_time" content="2020-06-12T12:22:57+08:00"><meta property="article:modified_time" content="2020-07-05T14:43:57+08:00">
 <meta name=twitter:title content="HTTP">
 <meta name=twitter:description content="HTTP 一、概述  超文本传输协议（HyperText Transfer Protocol, HTTP） 是 Web 的核心，HTTP 由客户端程序和服务器程序实现
  HTTP 使用 TCP 作为它的支撑运输协议，因为 HTTP 服务器并不保存关于客户的任何信息，所以 HTTP 是一个无状态协议（stateless protocol）。
@@ -484,6 +484,8 @@ $$
 </li>
 </ul>
 <p><strong>强制缓存</strong>和<strong>协商缓存</strong>都存在的情况下，先判断<strong>强制缓存</strong>是否生效，如果生效，不用发起请求，直接用缓存。如果<strong>强制缓存</strong>不生效再发起请求判断<strong>协商缓存</strong>。</p>
+<h2 id=八http2http2md>八、<a class=link href=HTTP2.md>HTTP/2</a></h2>
+<p>HTTP/1.1 的持久连接和管道机制允许复用TCP连接，在一个TCP连接中，也可以同时发送多个请求，但是所有的数据通信都是按次序完成的，服务器只有处理完一个回应，才会处理下一个回应。比如客户端需要A、B两个资源，管道机制允许浏览器同时发出 A 请求和 B 请求，但服务器还是按照顺序，先回应 A 请求，完成后再回应 B 请求，这样如果前面的回应特别慢，后面就会有很多请求排队等着，这称为<strong>队头阻塞（<code>Head-of-line blocking</code>）</strong>。</p>
 <h2 id=参考资料>参考资料</h2>
 <ul>
 <li>【日】户根勤. (2017). 网络是怎样连接的. 人民邮电出版社.</li>
@@ -497,6 +499,7 @@ $$
 <footer class=article-footer>
 <section class=article-tags>
 <a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/>计算机网络</a>
+<a href=/tags/http/>http</a>
 </section>
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
 <span>Licensed under CC BY-NC-SA 4.0</span>
@@ -512,6 +515,13 @@ $$
 <h2 class=section-title>相关文章</h2>
 <div class=related-contents>
 <div class="flex article-list--tile">
+<article>
+<a href=/p/http/2/>
+<div class=article-details>
+<h2 class=article-title>HTTP/2</h2>
+</div>
+</a>
+</article>
 <article>
 <a href=/p/%E5%BA%94%E7%94%A8%E5%B1%82/>
 <div class=article-details>
