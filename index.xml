@@ -729,6 +729,12 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
+&lt;h3 id="http方法的安全性">HTTP方法的安全性&lt;/h3>
+&lt;p>如果说一个 HTTP 方法是&lt;strong>安全（&lt;code>safe&lt;/code>）&lt;/strong> 的，是指这是个不会修改服务器的数据的方法。也就是说，这是一个对服务器只读操作的方法。这些方法是安全的：&lt;code>GET&lt;/code>，&lt;code>HEAD&lt;/code> 和 &lt;code>OPTIONS&lt;/code>。所有安全的方法都是幂等的，但并非所有幂等方法都是安全的，例如，&lt;code>PUT&lt;/code> 和 &lt;code>DELETE&lt;/code>都是幂等的，但不是安全的。&lt;/p>
+&lt;h3 id="http方法的幂等性">HTTP方法的幂等性&lt;/h3>
+&lt;p>一个HTTP方法是&lt;strong>幂等（&lt;code>idempotent&lt;/code>）&lt;/strong> 的，指的是同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。在正确实现的条件下， &lt;code>GET&lt;/code>， &lt;code>HEAD&lt;/code>， &lt;code>PUT&lt;/code> 和 &lt;code>DELETE&lt;/code>等方法都是&lt;strong>幂等&lt;/strong>的，而 &lt;code>POST&lt;/code>方法不是。所有的 &lt;strong>安全&lt;/strong>方法也都是幂等的。&lt;/p>
+&lt;p>幂等性只与后端服务器的实际状态有关，而每一次请求接收到的状态码不一定相同。例如，第一次调用 &lt;code>DELETE&lt;/code>方法有可能返回&lt;strong>200&lt;/strong>，但是后续的请求可能会返回 &lt;strong>404&lt;/strong> 。 &lt;code>DELETE&lt;/code> 的言外之意是，开发者不应该使用 &lt;code>DELETE&lt;/code> 法实现具有删除最后条目功能的 RESTful API。&lt;/p>
+&lt;p>需要注意的是，服务器不一定会确保请求方法的幂等性，有些应用可能会错误地打破幂等性约束。&lt;/p>
 &lt;hr>
 &lt;h2 id="三http-首部header">三、HTTP 首部（&lt;code>header&lt;/code>)&lt;/h2>
 &lt;table>
