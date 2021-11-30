@@ -979,6 +979,40 @@ $$
 &lt;p>&lt;strong>强制缓存&lt;/strong>和&lt;strong>协商缓存&lt;/strong>都存在的情况下，先判断&lt;strong>强制缓存&lt;/strong>是否生效，如果生效，不用发起请求，直接用缓存。如果&lt;strong>强制缓存&lt;/strong>不生效再发起请求判断&lt;strong>协商缓存&lt;/strong>。&lt;/p>
 &lt;h2 id="八http2http2md">八、&lt;a class="link" href="HTTP2.md" >HTTP/2&lt;/a>&lt;/h2>
 &lt;p>HTTP/1.1 的持久连接和管道机制允许复用TCP连接，在一个TCP连接中，也可以同时发送多个请求，但是所有的数据通信都是按次序完成的，服务器只有处理完一个回应，才会处理下一个回应。比如客户端需要A、B两个资源，管道机制允许浏览器同时发出 A 请求和 B 请求，但服务器还是按照顺序，先回应 A 请求，完成后再回应 B 请求，这样如果前面的回应特别慢，后面就会有很多请求排队等着，这称为&lt;strong>队头阻塞（&lt;code>Head-of-line blocking&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;h2 id="九https">九、HTTPS&lt;/h2>
+&lt;h3 id="http-的安全性问题">HTTP 的安全性问题&lt;/h3>
+&lt;ul>
+&lt;li>使用明文进行通信，内容可能会被窃听&lt;/li>
+&lt;li>不验证通信方的身份，通信方的身份有可能遭遇伪装&lt;/li>
+&lt;li>无法证明报文的完整性，报文有可能遭篡改&lt;/li>
+&lt;/ul>
+&lt;h3 id="https-概念">HTTPS 概念&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>超文本传输安全协议&lt;/strong>（英语：&lt;strong>H&lt;/strong>yper&lt;strong>T&lt;/strong>ext &lt;strong>T&lt;/strong>ransfer &lt;strong>P&lt;/strong>rotocol &lt;strong>S&lt;/strong>ecure，缩写 &lt;code>HTTPS&lt;/code>；常称为 HTTP over TLS、HTTP over SSL 或HTTP Secure），是一种通过计算机网络进行安全通信的协议。&lt;/p>
+&lt;p>HTTPS 经由 HTTP 进行通信，但利用SSL/TLS来加密数据包。&lt;/p>
+&lt;p>严格来说，&lt;strong>HTTPS&lt;/strong> 并不是单独的协议，而是对工作在一加密连接（TLS或SSL）上的常规HTTP协议的称呼。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="https-作用">HTTPS 作用&lt;/h3>
+&lt;h4 id="加密confidentiality">加密（Confidentiality）&lt;/h4>
+&lt;p>访问者的连接被加密，隐藏了 URL、cookie 和其他敏感的元数据&lt;/p>
+&lt;h4 id="认证authenticity">认证（Authenticity）&lt;/h4>
+&lt;p>确认访问者正在访问真实网站，而不是与冒充者或通过中间人通信&lt;/p>
+&lt;h4 id="完整性保护integrity">完整性保护（Integrity）&lt;/h4>
+&lt;p>访问者与网站之间发送的数据未被篡改或修改&lt;/p>
+&lt;h3 id="加密方式">加密方式&lt;/h3>
+&lt;p>HTTPS 采用混合加密机制&lt;/p>
+&lt;ul>
+&lt;li>使用非对称密钥加密方式，传输对称密钥加密方式所需要的 Secret Key，从而保证安全性&lt;/li>
+&lt;li>获取到 Secret Key 后，再使用对称密钥加密方式进行通信，从而保证效率&lt;/li>
+&lt;/ul>
+&lt;h4 id="对称密钥加密">对称密钥加密&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>对称密钥加密（&lt;code>Symmetric-Key Encryption&lt;/code>）&lt;/strong>，加密和解密使用同一密钥&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="非对称密钥加密">非对称密钥加密&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>非对称密钥加密&lt;/strong>，又称&lt;strong>公开密钥加密（&lt;code>Public-Key Encryption&lt;/code>）&lt;/strong>，加密和解密使用不同的密钥&lt;/p>
+&lt;/blockquote>
 &lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>【日】户根勤. (2017). 网络是怎样连接的. 人民邮电出版社.&lt;/li>
@@ -991,6 +1025,8 @@ $$
 >MDN : Cookies&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching" target="_blank" rel="noopener"
 >MDN : HTTP Caching&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://https.cio.gov/faq/" target="_blank" rel="noopener"
+>Introduction to HTTPS&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>MySQL的日志系统</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/</link><pubDate>Fri, 05 Jun 2020 22:07:21 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/</guid><description>&lt;h1 id="mysql的日志系统">MySQL的日志系统&lt;/h1>
 &lt;h2 id="一日志类型">一、日志类型&lt;/h2>
 &lt;blockquote>
