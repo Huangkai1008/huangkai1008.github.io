@@ -40,7 +40,9 @@ ISP 因特网服务提供商（Internet Service Provider, ISP），ISP 可以从
 电路交换中的多路复用（multiplexing） 物理链路的通信能力远远大于一路通信所需要的能力，可以通过多路复用提高信道利用率，同时各个通信线路之间又互不影响
 频分多路复用（Frequency-Division Multiplexing, FDM） 时分多路复用（Time-Division Multiplexing, TDM） 码分多路复用（Code-Division Multiplexing, CDM） 波分多路复用（Wavelength-Division Multiplexing, WDM） 优势 通信延时小。通信双方通过专用线路进行通信，数据可以直达。当数据传输量较大时，优点将十分显著 线路独占，没有冲突 实时性强。一旦通信线路，建立，双方可以实时通信 劣势 线路独占，利用率太低 连接建立时间过长 分组交换（packet switching） 分组 在网络应用中，端系统彼此交换报文（message）。</description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>DNS 和域名 一、域名 网域名称（英语：Domain Name，简称：Domain），简称域名、网域，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个IP地址的代称，目的是为了便于记忆后者。
 域名的层级 www.example.com 真正的域名是 www.example.com.root ，简写为 www.example.com. 。因为，根域名 .root 对于所有域名都是一样的，所以平时是省略的。
-根域名的下一级，叫做顶级域名（top-level domain，缩写为TLD），比如 .com 、 .net ；再下一级叫做次级域名（second-level domain，缩写为SLD），比如 www.example.com 里面的 .example ，这一级域名是用户可以注册的；再下一级是主机名（host），比如www.example.com里面的www，又称为三级域名，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。
+根域名的下一级，叫做顶级域名（top-level domain，缩写为TLD），比如 .com 、 .net ；
+再下一级叫做次级域名（second-level domain，缩写为SLD），比如 www.example.com 里面的 .example ，这一级域名是用户可以注册的；
+再下一级是主机名（host），比如www.example.com里面的www，又称为三级域名，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。
 主机名.次级域名.顶级域名.根域名
 host.sld.tld.root
 二、DNS 域名系统（英语：Domain Name System，缩写：DNS）是一个分布式数据库，提供了域名和 IP地址之间相互转换的服务。

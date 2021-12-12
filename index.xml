@@ -450,14 +450,14 @@ traceroute to www.baidu.com &lt;span class="o">(&lt;/span>183.232.231.172&lt;spa
 &lt;li>一层可能冗余较低层的功能&lt;/li>
 &lt;li>某层功能可能需要仅在其他某层才出现的信息（如时间戳值），这违反了层次分离的目标&lt;/li>
 &lt;/ul>
-&lt;p>现在比较常见的一共有三种协议分层模型，分别为&lt;strong>五层协议模型（因特网协议栈）&lt;/strong>、&lt;strong>TCP/IP 模型&lt;/strong>、&lt;strong>OSI 分层模型&lt;/strong>。&lt;/p>
+&lt;p>现在比较常见的一共有三种协议分层模型，分别为&lt;strong>OSI 分层模型&lt;/strong>、&lt;strong>五层协议模型（因特网协议栈）&lt;/strong>、&lt;strong>TCP/IP 模型&lt;/strong>。&lt;/p>
 &lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211027205459.png" alt="协议分层" />&lt;/p>
-&lt;h4 id="因特网协议栈">因特网协议栈&lt;/h4>
-&lt;p>因特网协议栈由 &lt;strong>&lt;a class="link" href="%e5%ba%94%e7%94%a8%e5%b1%82.md" >应用层&lt;/a>（&lt;code>application layer&lt;/code>)&lt;/strong> 、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 7 个层次组成。&lt;/p>
 &lt;h4 id="osi-模型">OSI 模型&lt;/h4>
-&lt;p>OSI 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>表示层（&lt;code>presentation layer&lt;/code>）&lt;/strong>、 &lt;strong>会话层（&lt;code>session layer&lt;/code>）&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p>
+&lt;p>&lt;strong>OSI 模型&lt;/strong>由 &lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>表示层（&lt;code>presentation layer&lt;/code>）&lt;/strong>、 &lt;strong>会话层（&lt;code>session layer&lt;/code>）&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 7 个层次组成。&lt;/p>
+&lt;h4 id="因特网协议栈">因特网协议栈&lt;/h4>
+&lt;p>&lt;strong>因特网协议栈&lt;/strong>由 &lt;strong>&lt;a class="link" href="%e5%ba%94%e7%94%a8%e5%b1%82.md" >应用层&lt;/a>（&lt;code>application layer&lt;/code>)&lt;/strong> 、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p>
 &lt;h4 id="tcpip-模型">TCP/IP 模型&lt;/h4>
-&lt;p>TCP/IP 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网际层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>网络接口层 （&lt;code>network access layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p>
+&lt;p>&lt;strong>TCP/IP 模型&lt;/strong>由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网际层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>网络接口层 （&lt;code>network access layer&lt;/code>）&lt;/strong> 4 个层次组成。&lt;/p>
 &lt;h2 id="六代理服务器">六、代理服务器&lt;/h2>
 &lt;blockquote>
 &lt;p>&lt;strong>代理服务器（&lt;code>proxy server&lt;/code>）&lt;/strong> 是一种网络服务，允许一个终端（一般是客户端）通过这个服务与另一个终端（一般为服务端）进行非直接的连接。&lt;/p>
@@ -484,11 +484,14 @@ traceroute to www.baidu.com &lt;span class="o">(&lt;/span>183.232.231.172&lt;spa
 &lt;p>&lt;strong>网域名称&lt;/strong>（英语：Domain Name，简称：Domain），简称&lt;strong>域名&lt;/strong>、&lt;strong>网域&lt;/strong>，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个&lt;a class="link" href="IP.md" >IP&lt;/a>地址的代称，目的是为了便于记忆后者。&lt;/p>
 &lt;h3 id="域名的层级">域名的层级&lt;/h3>
 &lt;p>&lt;code>www.example.com&lt;/code> 真正的域名是 &lt;code>www.example.com.root&lt;/code> ，简写为 &lt;code>www.example.com.&lt;/code> 。因为，根域名 &lt;code>.root&lt;/code> 对于所有域名都是一样的，所以平时是省略的。&lt;/p>
-&lt;p>根域名的下一级，叫做&lt;strong>顶级域名（&lt;code>top-level domain，缩写为TLD&lt;/code>）&lt;/strong>，比如 &lt;code>.com&lt;/code> 、 &lt;code>.net&lt;/code> ；再下一级叫做&lt;strong>次级域名（&lt;code>second-level domain，缩写为SLD&lt;/code>）&lt;/strong>，比如 &lt;code>www.example.com&lt;/code> 里面的 &lt;code>.example&lt;/code> ，这一级域名是用户可以注册的；再下一级是&lt;strong>主机名（&lt;code>host&lt;/code>）&lt;/strong>，比如&lt;code>www.example.com&lt;/code>里面的&lt;code>www&lt;/code>，又称为&lt;strong>三级域名&lt;/strong>，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。&lt;/p>
+&lt;p>根域名的下一级，叫做&lt;strong>顶级域名（&lt;code>top-level domain，缩写为TLD&lt;/code>）&lt;/strong>，比如 &lt;code>.com&lt;/code> 、 &lt;code>.net&lt;/code> ；&lt;/p>
+&lt;p>再下一级叫做&lt;strong>次级域名（&lt;code>second-level domain，缩写为SLD&lt;/code>）&lt;/strong>，比如 &lt;code>www.example.com&lt;/code> 里面的 &lt;code>.example&lt;/code> ，这一级域名是用户可以注册的；&lt;/p>
+&lt;p>再下一级是&lt;strong>主机名（&lt;code>host&lt;/code>）&lt;/strong>，比如&lt;code>www.example.com&lt;/code>里面的&lt;code>www&lt;/code>，又称为&lt;strong>三级域名&lt;/strong>，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。&lt;/p>
 &lt;blockquote>
 &lt;p>主机名.次级域名.顶级域名.根域名&lt;/p>
 &lt;p>host.sld.tld.root&lt;/p>
 &lt;/blockquote>
+&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211212155532.png" alt="" />&lt;/p>
 &lt;h2 id="二dns">二、DNS&lt;/h2>
 &lt;p>&lt;strong>域名系统&lt;/strong>（英语：&lt;strong>D&lt;/strong>omain &lt;strong>N&lt;/strong>ame &lt;strong>S&lt;/strong>ystem，缩写：&lt;strong>DNS&lt;/strong>）是一个分布式数据库，提供了&lt;strong>域名&lt;/strong>和 &lt;a class="link" href="IP.md" >IP&lt;/a>地址之间相互转换的服务。&lt;/p>
 &lt;h3 id="查询过程">查询过程&lt;/h3>
