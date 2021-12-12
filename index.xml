@@ -458,6 +458,20 @@ traceroute to www.baidu.com &lt;span class="o">(&lt;/span>183.232.231.172&lt;spa
 &lt;p>OSI 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>表示层（&lt;code>presentation layer&lt;/code>）&lt;/strong>、 &lt;strong>会话层（&lt;code>session layer&lt;/code>）&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p>
 &lt;h4 id="tcpip-模型">TCP/IP 模型&lt;/h4>
 &lt;p>TCP/IP 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网际层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>网络接口层 （&lt;code>network access layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p>
+&lt;h2 id="六代理服务器">六、代理服务器&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;strong>代理服务器（&lt;code>proxy server&lt;/code>）&lt;/strong> 是一种网络服务，允许一个终端（一般是客户端）通过这个服务与另一个终端（一般为服务端）进行非直接的连接。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="正向代理">正向代理&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>正向代理（&lt;code>forward proxy&lt;/code>）&lt;/strong> 是一个位于客户端和目标服务器之间的代理服务器 (中间服务器)。为了从原始服务器取得内容，客户端向代理服务器发送一个请求，并且指定目标服务器，之后代理向目标服务器转交并且将获得的内容返回给客户端。正向代理的情况下客户端必须要进行一些特殊的配置。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="反向代理">反向代理&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>反向代理（&lt;code>reverse proxy&lt;/code>）&lt;/strong> 代表客户端从一个或多个服务器检索资源。然后这些资源返回给客户端，看起来好像它们来自反向代理服务器本身。主要用于负载均衡。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="正向代理与反向代理的区别">正向代理与反向代理的区别&lt;/h3>
+&lt;p>&lt;strong>正向代理代理的对象是客户端，反向代理代理的对象是服务端。&lt;/strong>&lt;/p>
 &lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>Kurose, J. F., &amp;amp; Ross, K. W. (2018). &lt;em>计算机网络-自顶而下方法&lt;/em> (7th ed.). 机械工业出版社.&lt;/li>
