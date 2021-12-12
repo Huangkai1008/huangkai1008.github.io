@@ -453,7 +453,7 @@ traceroute to www.baidu.com &lt;span class="o">(&lt;/span>183.232.231.172&lt;spa
 &lt;p>现在比较常见的一共有三种协议分层模型，分别为&lt;strong>五层协议模型（因特网协议栈）&lt;/strong>、&lt;strong>TCP/IP 模型&lt;/strong>、&lt;strong>OSI 分层模型&lt;/strong>。&lt;/p>
 &lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211027205459.png" alt="协议分层" />&lt;/p>
 &lt;h4 id="因特网协议栈">因特网协议栈&lt;/h4>
-&lt;p>因特网协议栈由**&lt;a class="link" href="%e5%ba%94%e7%94%a8%e5%b1%82.md" >应用层&lt;/a>（&lt;code>application layer&lt;/code>)**、**运输层（&lt;code>transport layer&lt;/code>）**、**网络层（&lt;code>internet layer&lt;/code>）**、**链路层（&lt;code>link layer&lt;/code>）**、**物理层 （&lt;code>physical layer&lt;/code>）** 7 个层次组成。&lt;/p>
+&lt;p>因特网协议栈由 &lt;strong>&lt;a class="link" href="%e5%ba%94%e7%94%a8%e5%b1%82.md" >应用层&lt;/a>（&lt;code>application layer&lt;/code>)&lt;/strong> 、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 7 个层次组成。&lt;/p>
 &lt;h4 id="osi-模型">OSI 模型&lt;/h4>
 &lt;p>OSI 模型由&lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>表示层（&lt;code>presentation layer&lt;/code>）&lt;/strong>、 &lt;strong>会话层（&lt;code>session layer&lt;/code>）&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 5 个层次组成。&lt;/p>
 &lt;h4 id="tcpip-模型">TCP/IP 模型&lt;/h4>
