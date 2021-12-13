@@ -1,97 +1,27 @@
 <!doctype html><html lang=zh-cn>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="MySQL的日志系统 一、日志类型  MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑SQL修改语句)。
-redo log属于物理日志，binlog和undo log属于逻辑日志，其中物理日志的恢复速度远快于逻辑日志。
- 二、重做日志(redo log) 基本概念  重做日志（redo log）是 InnoDB 引擎层的日志，用来记录事务操作引起数据的变化，记录的是数据页的物理修改，提供前滚操作。MySQL 通过 redo log 保证事务的持久性。
- 重做日志由两部分组成，一是内存中的重做日志缓冲区 (redo log buffer)，它是易失的，另一个就是在磁盘上的重做日志文件 (redo log file)，它是持久的。
-InnoDB 引擎对数据更新，是先将更新记录写入到重做日志，在系统空闲时或者按照设定的更新策略再将日志中的内容更新到磁盘中，这就是预写式技术 (Write Ahead logging, WAL)，这种技术可以大大减少IO操作的频率，提升数据刷新的效率。
-逻辑结构 redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，checkpoint和write pos。checkpoint表示记录擦除的位置，write pos表示记录写入的位置。当write pos标志到了日志结尾时，会从结尾跳至日志头部循环写入，所以redo log的逻辑结构并不是线性的，可以看做一个圆周运动，逻辑结构见下图：
-当write_pos追上checkpoint时，表示redo log日志已经写满。这时不能继续执行新的数据库更新语句，需要停下来先删除一些记录，执行checkpoint规则腾出可写空间。
- checkpoint规则：checkpoint触发后，将buffer中脏数据页和脏日志页都刷到磁盘。所谓的脏数据页就是指内存中未刷到磁盘的数据
- 刷盘  redo log buffer 数据页写入磁盘中的redo log file的过程叫做刷盘。
- 在计算机操作系统中，用户空间(user space)下的缓冲区数据一般情况下是无法直接写入磁盘的，中间必须经过操作系统内核空间(kernel space)的缓冲区(OS Buffer)。因此，redo log buffer写入redo log file实际上是先写入OS Buffer，然后再通过系统调用fsync()将其刷到redo log file中，流程如下图：
-当数据修改时，除了修改buffer pool中的数据，还会在redo log中记录这次操作。如果MySQL宕机，重启时可以读取redo log中的数据，对数据库进行恢复，从而保证了事务的持久性，使得数据库获得crash-safe能力。"><title>MySQL的日志系统</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="MySQL的日志系统 一、日志类型 MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑S"><title>MySQL的日志系统</title>
 <link rel=canonical href=https://huangkai1008.github.io/p/mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/>
 <link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="MySQL的日志系统">
-<meta property="og:description" content="MySQL的日志系统 一、日志类型  MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑SQL修改语句)。
-redo log属于物理日志，binlog和undo log属于逻辑日志，其中物理日志的恢复速度远快于逻辑日志。
- 二、重做日志(redo log) 基本概念  重做日志（redo log）是 InnoDB 引擎层的日志，用来记录事务操作引起数据的变化，记录的是数据页的物理修改，提供前滚操作。MySQL 通过 redo log 保证事务的持久性。
- 重做日志由两部分组成，一是内存中的重做日志缓冲区 (redo log buffer)，它是易失的，另一个就是在磁盘上的重做日志文件 (redo log file)，它是持久的。
-InnoDB 引擎对数据更新，是先将更新记录写入到重做日志，在系统空闲时或者按照设定的更新策略再将日志中的内容更新到磁盘中，这就是预写式技术 (Write Ahead logging, WAL)，这种技术可以大大减少IO操作的频率，提升数据刷新的效率。
-逻辑结构 redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，checkpoint和write pos。checkpoint表示记录擦除的位置，write pos表示记录写入的位置。当write pos标志到了日志结尾时，会从结尾跳至日志头部循环写入，所以redo log的逻辑结构并不是线性的，可以看做一个圆周运动，逻辑结构见下图：
-当write_pos追上checkpoint时，表示redo log日志已经写满。这时不能继续执行新的数据库更新语句，需要停下来先删除一些记录，执行checkpoint规则腾出可写空间。
- checkpoint规则：checkpoint触发后，将buffer中脏数据页和脏日志页都刷到磁盘。所谓的脏数据页就是指内存中未刷到磁盘的数据
- 刷盘  redo log buffer 数据页写入磁盘中的redo log file的过程叫做刷盘。
- 在计算机操作系统中，用户空间(user space)下的缓冲区数据一般情况下是无法直接写入磁盘的，中间必须经过操作系统内核空间(kernel space)的缓冲区(OS Buffer)。因此，redo log buffer写入redo log file实际上是先写入OS Buffer，然后再通过系统调用fsync()将其刷到redo log file中，流程如下图：
-当数据修改时，除了修改buffer pool中的数据，还会在redo log中记录这次操作。如果MySQL宕机，重启时可以读取redo log中的数据，对数据库进行恢复，从而保证了事务的持久性，使得数据库获得crash-safe能力。">
+<meta property="og:description" content="MySQL的日志系统 一、日志类型 MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑S">
 <meta property="og:url" content="https://huangkai1008.github.io/p/mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/">
 <meta property="og:site_name" content="Huanghuang's Blog">
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="mysql"><meta property="article:published_time" content="2020-06-05T22:07:21+08:00"><meta property="article:modified_time" content="2020-06-19T18:08:24+08:00">
 <meta name=twitter:title content="MySQL的日志系统">
-<meta name=twitter:description content="MySQL的日志系统 一、日志类型  MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑SQL修改语句)。
-redo log属于物理日志，binlog和undo log属于逻辑日志，其中物理日志的恢复速度远快于逻辑日志。
- 二、重做日志(redo log) 基本概念  重做日志（redo log）是 InnoDB 引擎层的日志，用来记录事务操作引起数据的变化，记录的是数据页的物理修改，提供前滚操作。MySQL 通过 redo log 保证事务的持久性。
- 重做日志由两部分组成，一是内存中的重做日志缓冲区 (redo log buffer)，它是易失的，另一个就是在磁盘上的重做日志文件 (redo log file)，它是持久的。
-InnoDB 引擎对数据更新，是先将更新记录写入到重做日志，在系统空闲时或者按照设定的更新策略再将日志中的内容更新到磁盘中，这就是预写式技术 (Write Ahead logging, WAL)，这种技术可以大大减少IO操作的频率，提升数据刷新的效率。
-逻辑结构 redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，checkpoint和write pos。checkpoint表示记录擦除的位置，write pos表示记录写入的位置。当write pos标志到了日志结尾时，会从结尾跳至日志头部循环写入，所以redo log的逻辑结构并不是线性的，可以看做一个圆周运动，逻辑结构见下图：
-当write_pos追上checkpoint时，表示redo log日志已经写满。这时不能继续执行新的数据库更新语句，需要停下来先删除一些记录，执行checkpoint规则腾出可写空间。
- checkpoint规则：checkpoint触发后，将buffer中脏数据页和脏日志页都刷到磁盘。所谓的脏数据页就是指内存中未刷到磁盘的数据
- 刷盘  redo log buffer 数据页写入磁盘中的redo log file的过程叫做刷盘。
- 在计算机操作系统中，用户空间(user space)下的缓冲区数据一般情况下是无法直接写入磁盘的，中间必须经过操作系统内核空间(kernel space)的缓冲区(OS Buffer)。因此，redo log buffer写入redo log file实际上是先写入OS Buffer，然后再通过系统调用fsync()将其刷到redo log file中，流程如下图：
-当数据修改时，除了修改buffer pool中的数据，还会在redo log中记录这次操作。如果MySQL宕机，重启时可以读取redo log中的数据，对数据库进行恢复，从而保证了事务的持久性，使得数据库获得crash-safe能力。">
+<meta name=twitter:description content="MySQL的日志系统 一、日志类型 MySQL主要有两种日志类型，一种是物理日志（记录在某个数据页上做了什么修改)，一种是逻辑日志(存储了逻辑S">
 <link rel="shortcut icon" href=https://gitee.com/huanghuang927/picture-host/raw/master/20211018164707.jpg>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149768628-1"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-149768628-1')</script><style>:root{--article-font-family:"Noto Serif SC", var(--base-font-family)}</style>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
 </head>
-<body>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
-<aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header class=site-info>
-<figure class=site-avatar>
-<img src=/img/avatar_hu0f5ec07cf580f6796b01d16b0109b2c2_23615_300x0_resize_q75_box.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
-<span class=emoji>🍥</span>
-</figure>
-<h1 class=site-name><a href=https://huangkai1008.github.io>Huanghuang's Blog</a></h1>
-<h2 class=site-description>Find and Go ...</h2>
-</header>
-<ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>首页</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>归档</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>搜索</span>
-</a>
-</li>
-<li>
-<a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-<span>关于</span>
-</a>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>暗色模式</span>
-</li>
-</ol>
-</aside>
-<main class="main full-width">
+<body class="article-page has-toc">
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex
+extended">
 <div id=article-toolbar>
-<a href=https://huangkai1008.github.io class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
 <span>Back</span>
 </a>
 </div>
+<main class="main full-width">
 <article class=main-article>
 <header class=article-header>
 <div class=article-details>
@@ -103,9 +33,17 @@ mysql
 <h2 class=article-title>
 <a href=/p/mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/>MySQL的日志系统</a>
 </h2>
-<footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
 <time class=article-time--published>Jun 05, 2020</time>
-</footer></div>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+7 minute read
+</time>
+</div>
+</footer>
+</div>
 </header>
 <section class=article-content>
 <h1 id=mysql的日志系统>MySQL的日志系统</h1>
@@ -123,7 +61,12 @@ mysql
 <p>InnoDB 引擎对数据更新，是先将更新记录写入到重做日志，在系统空闲时或者按照设定的更新策略再将日志中的内容更新到磁盘中，这就是<strong>预写式技术 (<code>Write Ahead logging, WAL</code>)</strong>，这种技术可以大大减少IO操作的频率，提升数据刷新的效率。</p>
 <h3 id=逻辑结构>逻辑结构</h3>
 <p>redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，<code>checkpoint</code>和<code>write pos</code>。<code>checkpoint</code>表示记录擦除的位置，<code>write pos</code>表示记录写入的位置。当<code>write pos</code>标志到了日志结尾时，会从结尾跳至日志头部循环写入，所以redo log的逻辑结构并不是线性的，可以看做一个圆周运动，逻辑结构见下图：</p>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20210413231000.png alt="redo log的逻辑结构"></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20210413231000.png>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20210413231000.png loading=lazy alt="redo log的逻辑结构">
+</a>
+<figcaption>redo log的逻辑结构</figcaption>
+</figure></p>
 <p>当<code>write_pos</code>追上<code>checkpoint</code>时，表示redo log日志已经写满。这时不能继续执行新的数据库更新语句，需要停下来先删除一些记录，执行<code>checkpoint</code>规则腾出可写空间。</p>
 <blockquote>
 <p><strong>checkpoint规则</strong>：checkpoint触发后，将buffer中脏数据页和脏日志页都刷到磁盘。所谓的脏数据页就是指内存中未刷到磁盘的数据</p>
@@ -133,7 +76,11 @@ mysql
 <p><code>redo log buffer</code> 数据页写入磁盘中的<code>redo log file</code>的过程叫做<strong>刷盘</strong>。</p>
 </blockquote>
 <p>在计算机操作系统中，用户空间(<code>user space</code>)下的缓冲区数据一般情况下是无法直接写入磁盘的，中间必须经过操作系统内核空间(<code>kernel space</code>)的缓冲区(<code>OS Buffer</code>)。因此，<code>redo log buffer</code>写入<code>redo log file</code>实际上是先写入<code>OS Buffer</code>，然后再通过系统调用<code>fsync()</code>将其刷到<code>redo log file</code>中，流程如下图：</p>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211019163050.png alt></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20211019163050.png>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211019163050.png loading=lazy>
+</a>
+</figure></p>
 <p>当数据修改时，除了修改<code>buffer pool</code>中的数据，还会在redo log中记录这次操作。如果MySQL宕机，重启时可以读取redo log中的数据，对数据库进行恢复，从而保证了事务的持久性，<strong>使得数据库获得<code>crash-safe</code>能力。</strong></p>
 <h4 id=刷盘策略>刷盘策略</h4>
 <p>在提交事务的时候，InnoDB会根据配置的策略来将 redo log 刷盘，这个可以通过<code>innodb_flush_log_at_trx_commit</code> 参数来配置。</p>
@@ -246,7 +193,11 @@ mysql
 </table>
 <h3 id=两阶段提交two-phase-commit2pc>两阶段提交（<code>Two-phase Commit，2PC</code>）</h3>
 <p>MySQL 事务提交的时候，需要同时完成 <code>redo log</code> 和 <code>binlog</code> 的提交，为了让两份日志之间的逻辑一致，需要用到<strong>两阶段提交</strong>，这个场景下的两阶段提交发生在 MySQL 内部，和分布式系统的两阶段提交是两个概念。</p>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211020170253.svg alt></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20211020170253.svg>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211020170253.svg loading=lazy>
+</a>
+</figure></p>
 <h2 id=四回滚日志-undo-log>四、回滚日志 (undo log)</h2>
 <blockquote>
 <p>当事务对数据库进行修改，InnoDB引擎不仅会记录redo log，还会生成对应的undo log日志；如果事务执行失败或调用了rollback，导致事务需要回滚，就可以利用undo log中的信息将数据回滚到修改之前的状态。<strong>MySQL 通过 undo log 保证事务的原子性</strong>。undo log有两个作用，一是提供<strong>回滚</strong>，二是实现 <strong><code>MVCC</code></strong></p>
@@ -259,7 +210,11 @@ mysql
 <li>在事务提交后，数据没来得及写入磁盘就宕机时，在下次重新启动后能够成功恢复数据（持久性）</li>
 </ol>
 <p>在数据库中，这两种日志经常都是一起工作的，可以将它们整体看做一条事务日志，其中包含了事务的 ID、修改的行元素以及修改前后的值。</p>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211020225433.png alt></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20211020225433.png>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211020225433.png loading=lazy>
+</a>
+</figure></p>
 <p>一条事务日志同时包含了修改前后的值，能够非常简单的进行回滚和重做两种操作。</p>
 </section>
 <footer class=article-footer>
@@ -269,15 +224,15 @@ mysql
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
 <span>Licensed under CC BY-NC-SA 4.0</span>
 </section>
-<section class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<span class=article-time--modified>
-最后更新于 Jun 19, 2020 18:08 +0800
+<section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>
+Last updated on Jun 19, 2020 18:08 +0800
 </span>
 </section></footer>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css integrity=sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js integrity=sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js integrity=sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
 </article>
 <aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
+<h2 class=section-title>Related contents</h2>
 <div class=related-contents>
 <div class="flex article-list--tile">
 <article>
@@ -302,16 +257,16 @@ mysql
 </a>
 </article>
 <article>
-<a href=/p/mysql%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/>
+<a href=/p/mariadb%E5%AE%89%E8%A3%85/>
 <div class=article-details>
-<h2 class=article-title>Mysql安装配置</h2>
+<h2 class=article-title>MariaDB安装</h2>
 </div>
 </a>
 </article>
 <article>
-<a href=/p/mariadb%E5%AE%89%E8%A3%85/>
+<a href=/p/mysql%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/>
 <div class=article-details>
-<h2 class=article-title>MariaDB安装</h2>
+<h2 class=article-title>Mysql安装配置</h2>
 </div>
 </a>
 </article>
@@ -334,7 +289,7 @@ mysql
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
 </section>
 </footer>
 <div class=pswp tabindex=-1 role=dialog aria-hidden=true>
@@ -374,6 +329,52 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 </div>
 </div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
 </main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">Table of contents</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#一日志类型>一、日志类型</a></li>
+<li><a href=#二重做日志redo-log>二、重做日志(redo log)</a>
+<ol>
+<li><a href=#基本概念>基本概念</a></li>
+<li><a href=#逻辑结构>逻辑结构</a></li>
+<li><a href=#刷盘>刷盘</a>
+<ol>
+<li><a href=#刷盘策略>刷盘策略</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#三二进制日志-binlog>三、二进制日志 (binlog)</a>
+<ol>
+<li><a href=#基本概念-1>基本概念</a></li>
+<li><a href=#使用场景>使用场景</a></li>
+<li><a href=#日志格式>日志格式</a>
+<ol>
+<li><a href=#statement><strong><code>STATEMENT</code></strong></a></li>
+<li><a href=#row><strong><code>ROW</code></strong></a></li>
+<li><a href=#mixed><strong>MIXED</strong></a></li>
+</ol>
+</li>
+<li><a href=#刷盘策略-1>刷盘策略</a></li>
+<li><a href=#与重做日志的区别>与重做日志的区别</a></li>
+<li><a href=#两阶段提交two-phase-commit2pc>两阶段提交（<code>Two-phase Commit，2PC</code>）</a></li>
+</ol>
+</li>
+<li><a href=#四回滚日志-undo-log>四、回滚日志 (undo log)</a>
+<ol>
+<li><a href=#事务日志>事务日志</a></li>
+</ol>
+</li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
 </div>
 <script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
 <script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>

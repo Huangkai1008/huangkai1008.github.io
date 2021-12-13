@@ -13,7 +13,15 @@
 &lt;/ul>
 &lt;h2 id="三二进制分帧层">三、二进制分帧层&lt;/h2>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 所有性能增强的核心在于新的&lt;strong>二进制分帧层（&lt;code>Binary framing layer&lt;/code>）&lt;/strong>，它定义了如何封装 HTTP 消息并在客户端与服务器之间传输。&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123115225.svg" alt="二进制分帧层" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123115225.svg" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123115225.svg"
+loading="lazy"
+alt="二进制分帧层">
+&lt;/a>
+&lt;figcaption>二进制分帧层&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;p>这里所谓的“层”，指的是位于套接字接口与应用可见的高级 HTTP API 之间一个经过优化的新编码机制: HTTP 的语义（包括各种动词、方法、标头）都不受影响，不同的是传输期间对它们的编码方式变了。 HTTP/1.x 协议以换行符作为纯文本的分隔符，而 HTTP/2 将所有传输的信息分割为更小的消息和帧，并采用二进制格式对它们编码。&lt;/p>
 &lt;p>这样一来，客户端和服务器为了相互理解，都必须使用新的二进制编码机制: HTTP/1.x 客户端无法理解只支持 HTTP/2 的服务器，反之亦然。 现有的应用不必担心这些变化，因为客户端和服务器会替我们完成必要的分帧工作。&lt;/p>
 &lt;h3 id="数据流消息和帧">数据流、消息和帧&lt;/h3>
@@ -32,19 +40,47 @@
 &lt;li>每条消息都是一条逻辑 HTTP 消息（例如请求或响应），包含一个或多个帧。&lt;/li>
 &lt;li>帧是最小的通信单位，承载着特定类型的数据，例如 HTTP 标头、消息负载等等。 来自不同数据流的帧可以交错发送，然后再根据每个帧头的数据流标识符重新组装。&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123143327.svg" alt="" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123143327.svg" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123143327.svg"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 将 HTTP 协议通信分解为二进制编码帧的交换，这些帧对应着特定数据流中的消息。所有这些都在一个 TCP 连接内复用。&lt;/p>
 &lt;h2 id="四请求与响应复用">四、请求与响应复用&lt;/h2>
 &lt;p>在 &lt;strong>HTTP/1.x&lt;/strong> 中，如果客户端要想发起多个并行请求以提升性能，则必须使用多个 TCP 连接。 这是 &lt;strong>HTTP/1.x&lt;/strong> 交付模型的直接结果，该模型可以保证每个连接每次只交付一个响应（响应排队）。 更糟糕的是，这种模型也会导致&lt;strong>队首阻塞&lt;/strong>，从而造成底层 TCP 连接的效率低下。&lt;/p>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 中新的二进制分帧层突破了这些限制，实现了&lt;strong>完整的请求和响应复用&lt;/strong>: 客户端和服务器可以将 HTTP 消息分解为互不依赖的帧，然后交错发送，最后再在另一端把它们重新组装起来。&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170352.svg" alt="" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170352.svg" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170352.svg"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 中的新二进制分帧层解决了 HTTP/1.x 中存在的队首阻塞问题，也消除了并行处理和发送请求及响应时对多个连接的依赖。 结果，应用速度更快、开发更简单、部署成本更低。&lt;/p>
 &lt;h2 id="五服务器推送">五、服务器推送&lt;/h2>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 新增的另一个强大的新功能是，服务器可以对一个客户端请求发送多个响应。 换句话说，除了对最初请求的响应外，服务器还可以向客户端推送额外资源，而无需客户端明确地请求。&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170731.svg" alt="" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170731.svg" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170731.svg"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;h2 id="六标头压缩">六、标头压缩&lt;/h2>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 使用 &lt;strong>HPACK&lt;/strong> 压缩格式压缩请求和响应标头元数据。&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170928.svg" alt="" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170928.svg" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170928.svg"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn" target="_blank" rel="noopener"
@@ -256,7 +292,15 @@
 &lt;blockquote>
 &lt;p>&lt;strong>互联网(&lt;code>internet&lt;/code>)&lt;/strong>：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互联网是&lt;strong>网络的网络&lt;/strong>&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210928080734.gif" alt="互联网" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210928080734.gif" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210928080734.gif"
+loading="lazy"
+alt="互联网">
+&lt;/a>
+&lt;figcaption>互联网&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;!-- raw HTML omitted -->
 &lt;blockquote>
 &lt;p>&lt;strong>因特网(&lt;code>Internet&lt;/code>)&lt;/strong>：世界范围的计算机网络（&lt;code>computer network&lt;/code>）&lt;/p>
@@ -273,13 +317,29 @@
 &lt;p>&lt;strong>因特网服务提供商（Internet Service Provider, ISP）&lt;/strong>，ISP 可以从互联网管理机构申请到很多 IP 地址，然后一些机构和个人从某个 ISP 获取 IP 地址的使用权，并可通过该 ISP 连接到互联网&lt;/p>
 &lt;/blockquote>
 &lt;p>例如中国移动、中国移动、中国电信就是有名的&lt;strong>ISP&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154857.png" alt="ISP" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154857.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154857.png"
+loading="lazy"
+alt="ISP">
+&lt;/a>
+&lt;figcaption>ISP&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;h3 id="协议">协议&lt;/h3>
 &lt;blockquote>
 &lt;p>&lt;strong>协议（&lt;code>protocol&lt;/code>）&lt;/strong> 定义了在两个或者多个通信实体之间交换的报文的格式和顺序，以及报文发送和/或接收一条报文或其他事件所采取的动作&lt;/p>
 &lt;/blockquote>
 &lt;h3 id="接入网">接入网&lt;/h3>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211002115311.png" alt="接入网" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211002115311.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211002115311.png"
+loading="lazy"
+alt="接入网">
+&lt;/a>
+&lt;figcaption>接入网&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;!-- raw HTML omitted -->
 &lt;h2 id="三电路交换与分组交换">三、电路交换与分组交换&lt;/h2>
 &lt;p>通过网络链路和交换机移动数据有两种基本方法：&lt;strong>电路交换（&lt;code>circult switching&lt;/code>）&lt;strong>和&lt;/strong>分组交换（&lt;code>packet switching&lt;/code>）&lt;/strong>&lt;/p>
@@ -451,7 +511,15 @@ traceroute to www.baidu.com &lt;span class="o">(&lt;/span>183.232.231.172&lt;spa
 &lt;li>某层功能可能需要仅在其他某层才出现的信息（如时间戳值），这违反了层次分离的目标&lt;/li>
 &lt;/ul>
 &lt;p>现在比较常见的一共有三种协议分层模型，分别为&lt;strong>OSI 分层模型&lt;/strong>、&lt;strong>五层协议模型（因特网协议栈）&lt;/strong>、&lt;strong>TCP/IP 模型&lt;/strong>。&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211027205459.png" alt="协议分层" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211027205459.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211027205459.png"
+loading="lazy"
+alt="协议分层">
+&lt;/a>
+&lt;figcaption>协议分层&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;h4 id="osi-模型">OSI 模型&lt;/h4>
 &lt;p>&lt;strong>OSI 模型&lt;/strong>由 &lt;strong>应用层（&lt;code>application layer&lt;/code>)&lt;/strong>、&lt;strong>表示层（&lt;code>presentation layer&lt;/code>）&lt;/strong>、 &lt;strong>会话层（&lt;code>session layer&lt;/code>）&lt;/strong>、&lt;strong>运输层（&lt;code>transport layer&lt;/code>）&lt;/strong>、&lt;strong>网络层（&lt;code>internet layer&lt;/code>）&lt;/strong>、&lt;strong>链路层（&lt;code>link layer&lt;/code>）&lt;/strong>、&lt;strong>物理层 （&lt;code>physical layer&lt;/code>）&lt;/strong> 7 个层次组成。&lt;/p>
 &lt;h4 id="因特网协议栈">因特网协议栈&lt;/h4>
@@ -491,7 +559,14 @@ traceroute to www.baidu.com &lt;span class="o">(&lt;/span>183.232.231.172&lt;spa
 &lt;p>主机名.次级域名.顶级域名.根域名&lt;/p>
 &lt;p>host.sld.tld.root&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211212155532.png" alt="" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211212155532.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211212155532.png"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;h2 id="二dns">二、DNS&lt;/h2>
 &lt;p>&lt;strong>域名系统&lt;/strong>（英语：&lt;strong>D&lt;/strong>omain &lt;strong>N&lt;/strong>ame &lt;strong>S&lt;/strong>ystem，缩写：&lt;strong>DNS&lt;/strong>）是一个分布式数据库，提供了&lt;strong>域名&lt;/strong>和 &lt;a class="link" href="IP.md" >IP&lt;/a>地址之间相互转换的服务。&lt;/p>
 &lt;h3 id="查询过程">查询过程&lt;/h3>
@@ -600,7 +675,15 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;/li>
 &lt;li>
 &lt;p>&lt;strong>消息主体（&lt;code>body&lt;/code>）&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210906175921.png" alt="HTTP Requests Example" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210906175921.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210906175921.png"
+loading="lazy"
+alt="HTTP Requests Example">
+&lt;/a>
+&lt;figcaption>HTTP Requests Example&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;hr>
 &lt;/li>
 &lt;/ul>
@@ -629,7 +712,15 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;li>&lt;strong>一个空行&lt;/strong>用来分隔首部和内容主体 Body&lt;/li>
 &lt;li>&lt;strong>消息主体（&lt;code>body&lt;/code>）&lt;/strong>&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210906205815.png" alt="HTTP Responses Example" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210906205815.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210906205815.png"
+loading="lazy"
+alt="HTTP Responses Example">
+&lt;/a>
+&lt;figcaption>HTTP Responses Example&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;hr>
 &lt;h2 id="二http-方法">二、HTTP 方法&lt;/h2>
 &lt;table>
@@ -817,7 +908,15 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="五连接管理">五、连接管理&lt;/h2>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211030124313.png" alt="HTTP 1.X 的连接类型" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211030124313.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211030124313.png"
+loading="lazy"
+alt="HTTP 1.X 的连接类型">
+&lt;/a>
+&lt;figcaption>HTTP 1.X 的连接类型&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;h3 id="非持续连接和持续连接">非持续连接和持续连接&lt;/h3>
 &lt;blockquote>
 &lt;p>每个请求及其响应对经一个单独的 TCP 连接发送，此种方式称为使用&lt;strong>非持续连接（&lt;code>non-persistent connection&lt;/code>）&lt;/strong>，也可以称为&lt;strong>短连接&lt;/strong>；&lt;/p>
@@ -927,7 +1026,15 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;/blockquote>
 &lt;h3 id="缓存的种类">缓存的种类&lt;/h3>
 &lt;p>缓存的种类有很多,其大致可归为两类：&lt;strong>私有&lt;/strong>与&lt;strong>共享缓存&lt;/strong>。共享缓存存储的响应能够被多个用户使用。私有缓存只能用于单独用户。&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211113114522.png" alt="缓存的种类" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211113114522.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211113114522.png"
+loading="lazy"
+alt="缓存的种类">
+&lt;/a>
+&lt;figcaption>缓存的种类&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;h4 id="私有浏览器缓存">&lt;strong>（私有）浏览器缓存&lt;/strong>&lt;/h4>
 &lt;p>&lt;strong>私有缓存（&lt;code>local cache&lt;/code>/&lt;code>private cache&lt;/code>）&lt;/strong> 只能用于单独用户。浏览器缓存拥有用户通过 HTTP 下载的所有文件，可以避免再次向服务器发起多余的请求，也可以提供缓存内容的离线浏览。&lt;/p>
 &lt;h4 id="共享代理缓存">&lt;strong>（共享）代理缓存&lt;/strong>&lt;/h4>
@@ -1077,7 +1184,15 @@ $$
 &lt;p>InnoDB 引擎对数据更新，是先将更新记录写入到重做日志，在系统空闲时或者按照设定的更新策略再将日志中的内容更新到磁盘中，这就是&lt;strong>预写式技术 (&lt;code>Write Ahead logging, WAL&lt;/code>)&lt;/strong>，这种技术可以大大减少IO操作的频率，提升数据刷新的效率。&lt;/p>
 &lt;h3 id="逻辑结构">逻辑结构&lt;/h3>
 &lt;p>redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，&lt;code>checkpoint&lt;/code>和&lt;code>write pos&lt;/code>。&lt;code>checkpoint&lt;/code>表示记录擦除的位置，&lt;code>write pos&lt;/code>表示记录写入的位置。当&lt;code>write pos&lt;/code>标志到了日志结尾时，会从结尾跳至日志头部循环写入，所以redo log的逻辑结构并不是线性的，可以看做一个圆周运动，逻辑结构见下图：&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413231000.png" alt="redo log的逻辑结构" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413231000.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413231000.png"
+loading="lazy"
+alt="redo log的逻辑结构">
+&lt;/a>
+&lt;figcaption>redo log的逻辑结构&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;!-- raw HTML omitted -->
 &lt;p>当&lt;code>write_pos&lt;/code>追上&lt;code>checkpoint&lt;/code>时，表示redo log日志已经写满。这时不能继续执行新的数据库更新语句，需要停下来先删除一些记录，执行&lt;code>checkpoint&lt;/code>规则腾出可写空间。&lt;/p>
 &lt;blockquote>
@@ -1088,7 +1203,14 @@ $$
 &lt;p>&lt;code>redo log buffer&lt;/code> 数据页写入磁盘中的&lt;code>redo log file&lt;/code>的过程叫做&lt;strong>刷盘&lt;/strong>。&lt;/p>
 &lt;/blockquote>
 &lt;p>在计算机操作系统中，用户空间(&lt;code>user space&lt;/code>)下的缓冲区数据一般情况下是无法直接写入磁盘的，中间必须经过操作系统内核空间(&lt;code>kernel space&lt;/code>)的缓冲区(&lt;code>OS Buffer&lt;/code>)。因此，&lt;code>redo log buffer&lt;/code>写入&lt;code>redo log file&lt;/code>实际上是先写入&lt;code>OS Buffer&lt;/code>，然后再通过系统调用&lt;code>fsync()&lt;/code>将其刷到&lt;code>redo log file&lt;/code>中，流程如下图：&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211019163050.png" alt="" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211019163050.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211019163050.png"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;p>当数据修改时，除了修改&lt;code>buffer pool&lt;/code>中的数据，还会在redo log中记录这次操作。如果MySQL宕机，重启时可以读取redo log中的数据，对数据库进行恢复，从而保证了事务的持久性，&lt;strong>使得数据库获得&lt;code>crash-safe&lt;/code>能力。&lt;/strong>&lt;/p>
 &lt;h4 id="刷盘策略">刷盘策略&lt;/h4>
 &lt;p>在提交事务的时候，InnoDB会根据配置的策略来将 redo log 刷盘，这个可以通过&lt;code>innodb_flush_log_at_trx_commit&lt;/code> 参数来配置。&lt;/p>
@@ -1201,7 +1323,14 @@ $$
 &lt;/table>
 &lt;h3 id="两阶段提交two-phase-commit2pc">两阶段提交（&lt;code>Two-phase Commit，2PC&lt;/code>）&lt;/h3>
 &lt;p>MySQL 事务提交的时候，需要同时完成 &lt;code>redo log&lt;/code> 和 &lt;code>binlog&lt;/code> 的提交，为了让两份日志之间的逻辑一致，需要用到&lt;strong>两阶段提交&lt;/strong>，这个场景下的两阶段提交发生在 MySQL 内部，和分布式系统的两阶段提交是两个概念。&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211020170253.svg" alt="" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211020170253.svg" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211020170253.svg"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;h2 id="四回滚日志-undo-log">四、回滚日志 (undo log)&lt;/h2>
 &lt;blockquote>
 &lt;p>当事务对数据库进行修改，InnoDB引擎不仅会记录redo log，还会生成对应的undo log日志；如果事务执行失败或调用了rollback，导致事务需要回滚，就可以利用undo log中的信息将数据回滚到修改之前的状态。&lt;strong>MySQL 通过 undo log 保证事务的原子性&lt;/strong>。undo log有两个作用，一是提供&lt;strong>回滚&lt;/strong>，二是实现 &lt;strong>&lt;code>MVCC&lt;/code>&lt;/strong>&lt;/p>
@@ -1214,7 +1343,14 @@ $$
 &lt;li>在事务提交后，数据没来得及写入磁盘就宕机时，在下次重新启动后能够成功恢复数据（持久性）&lt;/li>
 &lt;/ol>
 &lt;p>在数据库中，这两种日志经常都是一起工作的，可以将它们整体看做一条事务日志，其中包含了事务的 ID、修改的行元素以及修改前后的值。&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211020225433.png" alt="" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211020225433.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211020225433.png"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;p>一条事务日志同时包含了修改前后的值，能够非常简单的进行回滚和重做两种操作。&lt;/p></description></item><item><title>事务</title><link>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</link><pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</guid><description>&lt;h2 id="概念">概念&lt;/h2>
 &lt;blockquote>
 &lt;p>事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。&lt;strong>在 MySQL 中，事务支持是在引擎层实现的。&lt;/strong>&lt;/p>
@@ -1342,7 +1478,15 @@ $$
 &lt;/ul></description></item><item><title>MySQL的基础架构</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jun 2020 21:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</guid><description>&lt;h1 id="mysql的基础架构">MySQL的基础架构&lt;/h1>
 &lt;h2 id="逻辑架构">逻辑架构&lt;/h2>
 &lt;p>MySQL可以大体分为&lt;strong>Server层&lt;/strong>和&lt;strong>存储引擎层&lt;/strong>两部分, 见图1&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154957.png" alt="图1 Mysql逻辑架构图" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154957.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154957.png"
+loading="lazy"
+alt="图1 Mysql逻辑架构图">
+&lt;/a>
+&lt;figcaption>图1 Mysql逻辑架构图&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;!-- raw HTML omitted -->
 &lt;ul>
 &lt;li>&lt;strong>Server 层&lt;/strong>包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。&lt;/li>
@@ -1570,7 +1714,15 @@ Loguru通过允许显示整个堆栈跟踪（包括变量值）来帮助您发�
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Git工作流</title><link>https://huangkai1008.github.io/p/git%E5%B7%A5%E4%BD%9C%E6%B5%81/</link><pubDate>Sat, 12 Oct 2019 14:36:49 +0800</pubDate><guid>https://huangkai1008.github.io/p/git%E5%B7%A5%E4%BD%9C%E6%B5%81/</guid><description>&lt;h2 id="gitflow">GitFlow&lt;/h2>
 &lt;h3 id="基本介绍">基本介绍&lt;/h3>
 &lt;p>Gitflow 提倡使用 &lt;code>feature branches&lt;/code> 模式来开发各个相互独立的功能，同时分成不同的分支以便进行集成和发布&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133752.jpg" alt="Git Workflow" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133752.jpg" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133752.jpg"
+loading="lazy"
+alt="Git Workflow">
+&lt;/a>
+&lt;figcaption>Git Workflow&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;h3 id="分支介绍">分支介绍&lt;/h3>
 &lt;ul>
 &lt;li>
@@ -1641,11 +1793,27 @@ Black依赖于python3.6+, 官方地址在https://github.com/psf/black&lt;/p>
 &lt;blockquote>
 &lt;p>windows: File -&amp;gt; Settings -&amp;gt; Tools -&amp;gt; External Tools&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134138.png" alt="External Tools" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134138.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134138.png"
+loading="lazy"
+alt="External Tools">
+&lt;/a>
+&lt;figcaption>External Tools&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Configure file watcher&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134203.png" alt="File Watcher" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134203.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134203.png"
+loading="lazy"
+alt="File Watcher">
+&lt;/a>
+&lt;figcaption>File Watcher&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;/li>
@@ -2084,11 +2252,25 @@ sudo ./install.sh
 &lt;/li>
 &lt;li>
 &lt;p>选择&lt;code>Spring Initializr&lt;/code>， 点击&lt;code>Next&lt;/code>，填写项目基本信息
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134322.png" alt="" />&lt;/p>
+&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134322.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134322.png"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>项目依赖勾选&lt;code>Spring Web&lt;/code>选择&lt;code>Finish&lt;/code>等待项目构建&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134345.png" alt="" />&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134345.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134345.png"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
 &lt;/li>
 &lt;/ol>
 &lt;p>​&lt;/p></description></item><item><title>WSGI ASGI UWSGI的区别</title><link>https://huangkai1008.github.io/p/wsgi-asgi-uwsgi%E7%9A%84%E5%8C%BA%E5%88%AB/</link><pubDate>Thu, 24 Jan 2019 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/wsgi-asgi-uwsgi%E7%9A%84%E5%8C%BA%E5%88%AB/</guid><description>&lt;h2 id="what-is-wsgi">&lt;strong>What is wsgi&lt;/strong>&lt;/h2>
@@ -2474,7 +2656,15 @@ systemctl &lt;span class="nb">enable&lt;/span> mariadb.service &lt;span class="c
 &lt;/ul>
 &lt;h2 id="数据视图view-of-data">数据视图(&lt;code>View of Data&lt;/code>)&lt;/h2>
 &lt;p>一个数据库系统的结构如下图
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133615.svg" alt="View of data" />&lt;/p>
+&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133615.svg" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133615.svg"
+loading="lazy"
+alt="View of data">
+&lt;/a>
+&lt;figcaption>View of data&lt;/figcaption>
+&lt;/figure>&lt;/p>
 &lt;h3 id="模式与实例instances-and-schema">模式与实例(Instances and Schema)&lt;/h3>
 &lt;p>类似于编程语言中的类型和变量&lt;/p>
 &lt;ul>

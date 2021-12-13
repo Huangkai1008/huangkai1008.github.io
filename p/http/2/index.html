@@ -1,97 +1,27 @@
 <!doctype html><html lang=zh-cn>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="HTTP/2 一、概述  HTTP/2 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的支持。 为达成这些目标，HTTP/2 还给我们带来了大量其他协议层面的辅助实现，例如新的流控制、错误处理和升级机制。
- 为了实现 HTTP 工作组设定的性能目标，HTTP/2 引入了一个新的二进制分帧层，该层无法与之前的 HTTP/1.x 服务器和客户端向后兼容，因此协议的主版本提升到 HTTP/2。
-二、HTTP/1.x的缺陷 HTTP/1.x 实现简单是以牺牲性能为代价的：
- 客户端需要使用多个连接才能实现并发和缩短延迟 不会压缩请求和响应首部，从而导致不必要的网络流量 不支持有效的资源优先级，致使底层 TCP 连接的利用率低下  三、二进制分帧层 HTTP/2 所有性能增强的核心在于新的二进制分帧层（Binary framing layer），它定义了如何封装 HTTP 消息并在客户端与服务器之间传输。
-这里所谓的“层”，指的是位于套接字接口与应用可见的高级 HTTP API 之间一个经过优化的新编码机制: HTTP 的语义（包括各种动词、方法、标头）都不受影响，不同的是传输期间对它们的编码方式变了。 HTTP/1.x 协议以换行符作为纯文本的分隔符，而 HTTP/2 将所有传输的信息分割为更小的消息和帧，并采用二进制格式对它们编码。
-这样一来，客户端和服务器为了相互理解，都必须使用新的二进制编码机制: HTTP/1.x 客户端无法理解只支持 HTTP/2 的服务器，反之亦然。 现有的应用不必担心这些变化，因为客户端和服务器会替我们完成必要的分帧工作。
-数据流、消息和帧  数据流（Stream）：已建立的连接内的双向字节流，可以承载一条或多条消息。
-  消息（Message)：与逻辑请求或响应消息对应的完整的一系列帧
-  帧（Frame）：HTTP/2 通信的最小单位，每个帧都包含帧头，至少也会标识出当前帧所属的数据流
- 所有通信都在一个 TCP 连接上完成，此连接可以承载任意数量的双向数据流：
- 每个数据流都有一个唯一的标识符和可选的优先级信息，用于承载双向消息。 每条消息都是一条逻辑 HTTP 消息（例如请求或响应），包含一个或多个帧。 帧是最小的通信单位，承载着特定类型的数据，例如 HTTP 标头、消息负载等等。 来自不同数据流的帧可以交错发送，然后再根据每个帧头的数据流标识符重新组装。  HTTP/2 将 HTTP 协议通信分解为二进制编码帧的交换，这些帧对应着特定数据流中的消息。所有这些都在一个 TCP 连接内复用。"><title>HTTP/2</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="HTTP/2 一、概述 HTTP/2 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的"><title>HTTP/2</title>
 <link rel=canonical href=https://huangkai1008.github.io/p/http/2/>
 <link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="HTTP/2">
-<meta property="og:description" content="HTTP/2 一、概述  HTTP/2 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的支持。 为达成这些目标，HTTP/2 还给我们带来了大量其他协议层面的辅助实现，例如新的流控制、错误处理和升级机制。
- 为了实现 HTTP 工作组设定的性能目标，HTTP/2 引入了一个新的二进制分帧层，该层无法与之前的 HTTP/1.x 服务器和客户端向后兼容，因此协议的主版本提升到 HTTP/2。
-二、HTTP/1.x的缺陷 HTTP/1.x 实现简单是以牺牲性能为代价的：
- 客户端需要使用多个连接才能实现并发和缩短延迟 不会压缩请求和响应首部，从而导致不必要的网络流量 不支持有效的资源优先级，致使底层 TCP 连接的利用率低下  三、二进制分帧层 HTTP/2 所有性能增强的核心在于新的二进制分帧层（Binary framing layer），它定义了如何封装 HTTP 消息并在客户端与服务器之间传输。
-这里所谓的“层”，指的是位于套接字接口与应用可见的高级 HTTP API 之间一个经过优化的新编码机制: HTTP 的语义（包括各种动词、方法、标头）都不受影响，不同的是传输期间对它们的编码方式变了。 HTTP/1.x 协议以换行符作为纯文本的分隔符，而 HTTP/2 将所有传输的信息分割为更小的消息和帧，并采用二进制格式对它们编码。
-这样一来，客户端和服务器为了相互理解，都必须使用新的二进制编码机制: HTTP/1.x 客户端无法理解只支持 HTTP/2 的服务器，反之亦然。 现有的应用不必担心这些变化，因为客户端和服务器会替我们完成必要的分帧工作。
-数据流、消息和帧  数据流（Stream）：已建立的连接内的双向字节流，可以承载一条或多条消息。
-  消息（Message)：与逻辑请求或响应消息对应的完整的一系列帧
-  帧（Frame）：HTTP/2 通信的最小单位，每个帧都包含帧头，至少也会标识出当前帧所属的数据流
- 所有通信都在一个 TCP 连接上完成，此连接可以承载任意数量的双向数据流：
- 每个数据流都有一个唯一的标识符和可选的优先级信息，用于承载双向消息。 每条消息都是一条逻辑 HTTP 消息（例如请求或响应），包含一个或多个帧。 帧是最小的通信单位，承载着特定类型的数据，例如 HTTP 标头、消息负载等等。 来自不同数据流的帧可以交错发送，然后再根据每个帧头的数据流标识符重新组装。  HTTP/2 将 HTTP 协议通信分解为二进制编码帧的交换，这些帧对应着特定数据流中的消息。所有这些都在一个 TCP 连接内复用。">
+<meta property="og:description" content="HTTP/2 一、概述 HTTP/2 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的">
 <meta property="og:url" content="https://huangkai1008.github.io/p/http/2/">
 <meta property="og:site_name" content="Huanghuang's Blog">
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:tag" content="HTTP"><meta property="article:published_time" content="2020-07-10T15:51:57+08:00"><meta property="article:modified_time" content="2020-07-12T17:11:57+08:00">
 <meta name=twitter:title content="HTTP/2">
-<meta name=twitter:description content="HTTP/2 一、概述  HTTP/2 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的支持。 为达成这些目标，HTTP/2 还给我们带来了大量其他协议层面的辅助实现，例如新的流控制、错误处理和升级机制。
- 为了实现 HTTP 工作组设定的性能目标，HTTP/2 引入了一个新的二进制分帧层，该层无法与之前的 HTTP/1.x 服务器和客户端向后兼容，因此协议的主版本提升到 HTTP/2。
-二、HTTP/1.x的缺陷 HTTP/1.x 实现简单是以牺牲性能为代价的：
- 客户端需要使用多个连接才能实现并发和缩短延迟 不会压缩请求和响应首部，从而导致不必要的网络流量 不支持有效的资源优先级，致使底层 TCP 连接的利用率低下  三、二进制分帧层 HTTP/2 所有性能增强的核心在于新的二进制分帧层（Binary framing layer），它定义了如何封装 HTTP 消息并在客户端与服务器之间传输。
-这里所谓的“层”，指的是位于套接字接口与应用可见的高级 HTTP API 之间一个经过优化的新编码机制: HTTP 的语义（包括各种动词、方法、标头）都不受影响，不同的是传输期间对它们的编码方式变了。 HTTP/1.x 协议以换行符作为纯文本的分隔符，而 HTTP/2 将所有传输的信息分割为更小的消息和帧，并采用二进制格式对它们编码。
-这样一来，客户端和服务器为了相互理解，都必须使用新的二进制编码机制: HTTP/1.x 客户端无法理解只支持 HTTP/2 的服务器，反之亦然。 现有的应用不必担心这些变化，因为客户端和服务器会替我们完成必要的分帧工作。
-数据流、消息和帧  数据流（Stream）：已建立的连接内的双向字节流，可以承载一条或多条消息。
-  消息（Message)：与逻辑请求或响应消息对应的完整的一系列帧
-  帧（Frame）：HTTP/2 通信的最小单位，每个帧都包含帧头，至少也会标识出当前帧所属的数据流
- 所有通信都在一个 TCP 连接上完成，此连接可以承载任意数量的双向数据流：
- 每个数据流都有一个唯一的标识符和可选的优先级信息，用于承载双向消息。 每条消息都是一条逻辑 HTTP 消息（例如请求或响应），包含一个或多个帧。 帧是最小的通信单位，承载着特定类型的数据，例如 HTTP 标头、消息负载等等。 来自不同数据流的帧可以交错发送，然后再根据每个帧头的数据流标识符重新组装。  HTTP/2 将 HTTP 协议通信分解为二进制编码帧的交换，这些帧对应着特定数据流中的消息。所有这些都在一个 TCP 连接内复用。">
+<meta name=twitter:description content="HTTP/2 一、概述 HTTP/2 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的">
 <link rel="shortcut icon" href=https://gitee.com/huanghuang927/picture-host/raw/master/20211018164707.jpg>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149768628-1"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-149768628-1')</script><style>:root{--article-font-family:"Noto Serif SC", var(--base-font-family)}</style>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
 </head>
-<body>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
-<aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header class=site-info>
-<figure class=site-avatar>
-<img src=/img/avatar_hu0f5ec07cf580f6796b01d16b0109b2c2_23615_300x0_resize_q75_box.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
-<span class=emoji>🍥</span>
-</figure>
-<h1 class=site-name><a href=https://huangkai1008.github.io>Huanghuang's Blog</a></h1>
-<h2 class=site-description>Find and Go ...</h2>
-</header>
-<ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>首页</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>归档</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>搜索</span>
-</a>
-</li>
-<li>
-<a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-<span>关于</span>
-</a>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>暗色模式</span>
-</li>
-</ol>
-</aside>
-<main class="main full-width">
+<body class="article-page has-toc">
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex
+extended">
 <div id=article-toolbar>
-<a href=https://huangkai1008.github.io class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
 <span>Back</span>
 </a>
 </div>
+<main class="main full-width">
 <article class=main-article>
 <header class=article-header>
 <div class=article-details>
@@ -103,9 +33,17 @@
 <h2 class=article-title>
 <a href=/p/http/2/>HTTP/2</a>
 </h2>
-<footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
 <time class=article-time--published>Jul 10, 2020</time>
-</footer></div>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+3 minute read
+</time>
+</div>
+</footer>
+</div>
 </header>
 <section class=article-content>
 <h1 id=http2>HTTP/2</h1>
@@ -123,7 +61,12 @@
 </ul>
 <h2 id=三二进制分帧层>三、二进制分帧层</h2>
 <p><strong>HTTP/2</strong> 所有性能增强的核心在于新的<strong>二进制分帧层（<code>Binary framing layer</code>）</strong>，它定义了如何封装 HTTP 消息并在客户端与服务器之间传输。</p>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123115225.svg alt=二进制分帧层></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20211123115225.svg>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123115225.svg loading=lazy alt=二进制分帧层>
+</a>
+<figcaption>二进制分帧层</figcaption>
+</figure></p>
 <p>这里所谓的“层”，指的是位于套接字接口与应用可见的高级 HTTP API 之间一个经过优化的新编码机制: HTTP 的语义（包括各种动词、方法、标头）都不受影响，不同的是传输期间对它们的编码方式变了。 HTTP/1.x 协议以换行符作为纯文本的分隔符，而 HTTP/2 将所有传输的信息分割为更小的消息和帧，并采用二进制格式对它们编码。</p>
 <p>这样一来，客户端和服务器为了相互理解，都必须使用新的二进制编码机制: HTTP/1.x 客户端无法理解只支持 HTTP/2 的服务器，反之亦然。 现有的应用不必担心这些变化，因为客户端和服务器会替我们完成必要的分帧工作。</p>
 <h3 id=数据流消息和帧>数据流、消息和帧</h3>
@@ -142,19 +85,35 @@
 <li>每条消息都是一条逻辑 HTTP 消息（例如请求或响应），包含一个或多个帧。</li>
 <li>帧是最小的通信单位，承载着特定类型的数据，例如 HTTP 标头、消息负载等等。 来自不同数据流的帧可以交错发送，然后再根据每个帧头的数据流标识符重新组装。</li>
 </ul>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123143327.svg alt></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20211123143327.svg>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123143327.svg loading=lazy>
+</a>
+</figure></p>
 <p><strong>HTTP/2</strong> 将 HTTP 协议通信分解为二进制编码帧的交换，这些帧对应着特定数据流中的消息。所有这些都在一个 TCP 连接内复用。</p>
 <h2 id=四请求与响应复用>四、请求与响应复用</h2>
 <p>在 <strong>HTTP/1.x</strong> 中，如果客户端要想发起多个并行请求以提升性能，则必须使用多个 TCP 连接。 这是 <strong>HTTP/1.x</strong> 交付模型的直接结果，该模型可以保证每个连接每次只交付一个响应（响应排队）。 更糟糕的是，这种模型也会导致<strong>队首阻塞</strong>，从而造成底层 TCP 连接的效率低下。</p>
 <p><strong>HTTP/2</strong> 中新的二进制分帧层突破了这些限制，实现了<strong>完整的请求和响应复用</strong>: 客户端和服务器可以将 HTTP 消息分解为互不依赖的帧，然后交错发送，最后再在另一端把它们重新组装起来。</p>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123170352.svg alt></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20211123170352.svg>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123170352.svg loading=lazy>
+</a>
+</figure></p>
 <p><strong>HTTP/2</strong> 中的新二进制分帧层解决了 HTTP/1.x 中存在的队首阻塞问题，也消除了并行处理和发送请求及响应时对多个连接的依赖。 结果，应用速度更快、开发更简单、部署成本更低。</p>
 <h2 id=五服务器推送>五、服务器推送</h2>
 <p><strong>HTTP/2</strong> 新增的另一个强大的新功能是，服务器可以对一个客户端请求发送多个响应。 换句话说，除了对最初请求的响应外，服务器还可以向客户端推送额外资源，而无需客户端明确地请求。</p>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123170731.svg alt></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20211123170731.svg>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123170731.svg loading=lazy>
+</a>
+</figure></p>
 <h2 id=六标头压缩>六、标头压缩</h2>
 <p><strong>HTTP/2</strong> 使用 <strong>HPACK</strong> 压缩格式压缩请求和响应标头元数据。</p>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123170928.svg alt></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20211123170928.svg>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211123170928.svg loading=lazy>
+</a>
+</figure></p>
 <h2 id=参考资料>参考资料</h2>
 <ul>
 <li><a class=link href="https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn" target=_blank rel=noopener>HTTP/2简介</a></li>
@@ -168,15 +127,15 @@
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
 <span>Licensed under CC BY-NC-SA 4.0</span>
 </section>
-<section class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<span class=article-time--modified>
-最后更新于 Jul 12, 2020 17:11 +0800
+<section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>
+Last updated on Jul 12, 2020 17:11 +0800
 </span>
 </section></footer>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css integrity=sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js integrity=sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js integrity=sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
 </article>
 <aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
+<h2 class=section-title>Related contents</h2>
 <div class=related-contents>
 <div class="flex article-list--tile">
 <article>
@@ -233,7 +192,7 @@
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
 </section>
 </footer>
 <div class=pswp tabindex=-1 role=dialog aria-hidden=true>
@@ -273,6 +232,30 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 </div>
 </div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
 </main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">Table of contents</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#一概述>一、概述</a></li>
+<li><a href=#二http1x的缺陷>二、HTTP/1.x的缺陷</a></li>
+<li><a href=#三二进制分帧层>三、二进制分帧层</a>
+<ol>
+<li><a href=#数据流消息和帧>数据流、消息和帧</a></li>
+</ol>
+</li>
+<li><a href=#四请求与响应复用>四、请求与响应复用</a></li>
+<li><a href=#五服务器推送>五、服务器推送</a></li>
+<li><a href=#六标头压缩>六、标头压缩</a></li>
+<li><a href=#参考资料>参考资料</a></li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
 </div>
 <script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
 <script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>

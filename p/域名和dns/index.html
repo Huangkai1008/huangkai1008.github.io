@@ -1,103 +1,27 @@
 <!doctype html><html lang=zh-cn>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="DNS 和域名 一、域名 网域名称（英语：Domain Name，简称：Domain），简称域名、网域，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个IP地址的代称，目的是为了便于记忆后者。
-域名的层级 www.example.com 真正的域名是 www.example.com.root ，简写为 www.example.com. 。因为，根域名 .root 对于所有域名都是一样的，所以平时是省略的。
-根域名的下一级，叫做顶级域名（top-level domain，缩写为TLD），比如 .com 、 .net ；
-再下一级叫做次级域名（second-level domain，缩写为SLD），比如 www.example.com 里面的 .example ，这一级域名是用户可以注册的；
-再下一级是主机名（host），比如www.example.com里面的www，又称为三级域名，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。
- 主机名.次级域名.顶级域名.根域名
-host.sld.tld.root
- 二、DNS 域名系统（英语：Domain Name System，缩写：DNS）是一个分布式数据库，提供了域名和 IP地址之间相互转换的服务。
-查询过程 DNS 服务器根据域名的层级，进行分级查询。
-每一级域名都有自己的NS（Name Server） 记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。
- &amp;ldquo;分级查询&amp;rdquo;，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址
-过程大致为:
- 从&amp;quot;根域名服务器&amp;quot;查到&amp;quot;顶级域名服务器&amp;quot;的NS记录和A记录（IP地址） 从&amp;quot;顶级域名服务器&amp;quot;查到&amp;quot;次级域名服务器&amp;quot;的NS记录和A记录（IP地址） 从&amp;quot;次级域名服务器&amp;quot;查出&amp;quot;主机名&amp;quot;的IP地址   dig math.stackexchange.com ; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.11.3-1ubuntu1.15-Ubuntu &amp;lt;&amp;lt;&amp;gt;&amp;gt; math.stackexchange.com ;; global options: +cmd ;; Got answer: ;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 50719 ;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1 ;; OPT PSEUDOSECTION: ; EDNS: version: 0, flags:; udp: 65494 ;; QUESTION SECTION: ;math."><title>域名和DNS</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="DNS 和域名 一、域名 网域名称（英语：Domain Name，简称：Domain），简称域名、网域，是由一串用点分隔的字符组成的互联网上某一台计算机"><title>域名和DNS</title>
 <link rel=canonical href=https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/>
 <link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="域名和DNS">
-<meta property="og:description" content="DNS 和域名 一、域名 网域名称（英语：Domain Name，简称：Domain），简称域名、网域，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个IP地址的代称，目的是为了便于记忆后者。
-域名的层级 www.example.com 真正的域名是 www.example.com.root ，简写为 www.example.com. 。因为，根域名 .root 对于所有域名都是一样的，所以平时是省略的。
-根域名的下一级，叫做顶级域名（top-level domain，缩写为TLD），比如 .com 、 .net ；
-再下一级叫做次级域名（second-level domain，缩写为SLD），比如 www.example.com 里面的 .example ，这一级域名是用户可以注册的；
-再下一级是主机名（host），比如www.example.com里面的www，又称为三级域名，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。
- 主机名.次级域名.顶级域名.根域名
-host.sld.tld.root
- 二、DNS 域名系统（英语：Domain Name System，缩写：DNS）是一个分布式数据库，提供了域名和 IP地址之间相互转换的服务。
-查询过程 DNS 服务器根据域名的层级，进行分级查询。
-每一级域名都有自己的NS（Name Server） 记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。
- &amp;ldquo;分级查询&amp;rdquo;，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址
-过程大致为:
- 从&amp;quot;根域名服务器&amp;quot;查到&amp;quot;顶级域名服务器&amp;quot;的NS记录和A记录（IP地址） 从&amp;quot;顶级域名服务器&amp;quot;查到&amp;quot;次级域名服务器&amp;quot;的NS记录和A记录（IP地址） 从&amp;quot;次级域名服务器&amp;quot;查出&amp;quot;主机名&amp;quot;的IP地址   dig math.stackexchange.com ; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.11.3-1ubuntu1.15-Ubuntu &amp;lt;&amp;lt;&amp;gt;&amp;gt; math.stackexchange.com ;; global options: +cmd ;; Got answer: ;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 50719 ;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1 ;; OPT PSEUDOSECTION: ; EDNS: version: 0, flags:; udp: 65494 ;; QUESTION SECTION: ;math.">
+<meta property="og:description" content="DNS 和域名 一、域名 网域名称（英语：Domain Name，简称：Domain），简称域名、网域，是由一串用点分隔的字符组成的互联网上某一台计算机">
 <meta property="og:url" content="https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/">
 <meta property="og:site_name" content="Huanghuang's Blog">
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-14T16:02:15+08:00"><meta property="article:modified_time" content="2020-06-14T16:02:15+08:00">
 <meta name=twitter:title content="域名和DNS">
-<meta name=twitter:description content="DNS 和域名 一、域名 网域名称（英语：Domain Name，简称：Domain），简称域名、网域，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个IP地址的代称，目的是为了便于记忆后者。
-域名的层级 www.example.com 真正的域名是 www.example.com.root ，简写为 www.example.com. 。因为，根域名 .root 对于所有域名都是一样的，所以平时是省略的。
-根域名的下一级，叫做顶级域名（top-level domain，缩写为TLD），比如 .com 、 .net ；
-再下一级叫做次级域名（second-level domain，缩写为SLD），比如 www.example.com 里面的 .example ，这一级域名是用户可以注册的；
-再下一级是主机名（host），比如www.example.com里面的www，又称为三级域名，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。
- 主机名.次级域名.顶级域名.根域名
-host.sld.tld.root
- 二、DNS 域名系统（英语：Domain Name System，缩写：DNS）是一个分布式数据库，提供了域名和 IP地址之间相互转换的服务。
-查询过程 DNS 服务器根据域名的层级，进行分级查询。
-每一级域名都有自己的NS（Name Server） 记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。
- &amp;ldquo;分级查询&amp;rdquo;，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址
-过程大致为:
- 从&amp;quot;根域名服务器&amp;quot;查到&amp;quot;顶级域名服务器&amp;quot;的NS记录和A记录（IP地址） 从&amp;quot;顶级域名服务器&amp;quot;查到&amp;quot;次级域名服务器&amp;quot;的NS记录和A记录（IP地址） 从&amp;quot;次级域名服务器&amp;quot;查出&amp;quot;主机名&amp;quot;的IP地址   dig math.stackexchange.com ; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.11.3-1ubuntu1.15-Ubuntu &amp;lt;&amp;lt;&amp;gt;&amp;gt; math.stackexchange.com ;; global options: +cmd ;; Got answer: ;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 50719 ;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1 ;; OPT PSEUDOSECTION: ; EDNS: version: 0, flags:; udp: 65494 ;; QUESTION SECTION: ;math.">
+<meta name=twitter:description content="DNS 和域名 一、域名 网域名称（英语：Domain Name，简称：Domain），简称域名、网域，是由一串用点分隔的字符组成的互联网上某一台计算机">
 <link rel="shortcut icon" href=https://gitee.com/huanghuang927/picture-host/raw/master/20211018164707.jpg>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149768628-1"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-149768628-1')</script><style>:root{--article-font-family:"Noto Serif SC", var(--base-font-family)}</style>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
 </head>
-<body>
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
-<aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header class=site-info>
-<figure class=site-avatar>
-<img src=/img/avatar_hu0f5ec07cf580f6796b01d16b0109b2c2_23615_300x0_resize_q75_box.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
-<span class=emoji>🍥</span>
-</figure>
-<h1 class=site-name><a href=https://huangkai1008.github.io>Huanghuang's Blog</a></h1>
-<h2 class=site-description>Find and Go ...</h2>
-</header>
-<ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>首页</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>归档</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>搜索</span>
-</a>
-</li>
-<li>
-<a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-<span>关于</span>
-</a>
-</li>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>暗色模式</span>
-</li>
-</ol>
-</aside>
-<main class="main full-width">
+<body class="article-page has-toc">
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex
+extended">
 <div id=article-toolbar>
-<a href=https://huangkai1008.github.io class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
 <span>Back</span>
 </a>
 </div>
+<main class="main full-width">
 <article class=main-article>
 <header class=article-header>
 <div class=article-details>
@@ -109,9 +33,17 @@ host.sld.tld.root
 <h2 class=article-title>
 <a href=/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/>域名和DNS</a>
 </h2>
-<footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
 <time class=article-time--published>Jun 14, 2020</time>
-</footer></div>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+3 minute read
+</time>
+</div>
+</footer>
+</div>
 </header>
 <section class=article-content>
 <h1 id=dns-和域名>DNS 和域名</h1>
@@ -126,7 +58,11 @@ host.sld.tld.root
 <p>主机名.次级域名.顶级域名.根域名</p>
 <p>host.sld.tld.root</p>
 </blockquote>
-<p><img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211212155532.png alt></p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20211212155532.png>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20211212155532.png loading=lazy>
+</a>
+</figure></p>
 <h2 id=二dns>二、DNS</h2>
 <p><strong>域名系统</strong>（英语：<strong>D</strong>omain <strong>N</strong>ame <strong>S</strong>ystem，缩写：<strong>DNS</strong>）是一个分布式数据库，提供了<strong>域名</strong>和 <a class=link href=IP.md>IP</a>地址之间相互转换的服务。</p>
 <h3 id=查询过程>查询过程</h3>
@@ -225,10 +161,10 @@ math.stackexchange.com. <span class=m>600</span> IN A 151.101.1.69
 <span>Licensed under CC BY-NC-SA 4.0</span>
 </section>
 </footer>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css integrity=sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js integrity=sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js integrity=sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
 </article>
 <aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
+<h2 class=section-title>Related contents</h2>
 <div class=related-contents>
 <div class="flex article-list--tile">
 <article>
@@ -285,7 +221,7 @@ math.stackexchange.com. <span class=m>600</span> IN A 151.101.1.69
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
 </section>
 </footer>
 <div class=pswp tabindex=-1 role=dialog aria-hidden=true>
@@ -325,6 +261,32 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 </div>
 </div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
 </main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">Table of contents</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#一域名>一、域名</a>
+<ol>
+<li><a href=#域名的层级>域名的层级</a></li>
+</ol>
+</li>
+<li><a href=#二dns>二、DNS</a>
+<ol>
+<li><a href=#查询过程>查询过程</a></li>
+<li><a href=#记录类型>记录类型</a></li>
+<li><a href=#传输方式>传输方式</a></li>
+</ol>
+</li>
+<li><a href=#参考资料>参考资料</a></li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
 </div>
 <script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
 <script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
