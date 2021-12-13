@@ -821,7 +821,7 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;h3 id="非持续连接和持续连接">非持续连接和持续连接&lt;/h3>
 &lt;blockquote>
 &lt;p>每个请求及其响应对经一个单独的 TCP 连接发送，此种方式称为使用&lt;strong>非持续连接（&lt;code>non-persistent connection&lt;/code>）&lt;/strong>，也可以称为&lt;strong>短连接&lt;/strong>；&lt;/p>
-&lt;p>多个请求及其响应经过相同的TCP连接发送，此种方式称为使用&lt;strong>持续连接（&lt;code>persistent connection&lt;/code>）&lt;/strong>，也可以称为&lt;strong>长连接&lt;/strong>；&lt;/p>
+&lt;p>多个请求及其响应经过相同的TCP连接发送，此种方式称为使用&lt;strong>持续连接（&lt;code>persistent connection&lt;/code>）&lt;/strong>，也可以称为&lt;strong>长连接&lt;/strong>、&lt;strong>连接保活（&lt;code>keep alive&lt;/code>）&lt;/strong>、&lt;strong>连接复用（&lt;code>connection reuse&lt;/code>）&lt;/strong>；&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;strong>这里的持续连接（长连接）和非持续连接（短连接）指的都是TCP连接&lt;/strong>。&lt;/p>
 &lt;p>从 &lt;strong>HTTP/1.1&lt;/strong> 开始默认使用持续连接，如果要断开连接，需要由客户端或者服务器端提出断开，使用 &lt;code>Connection : close&lt;/code>；&lt;/p>
@@ -832,12 +832,21 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;li>每一个对象经受两倍 RTT（&lt;code>Round-Trip Time, RTT, 即往返时延&lt;/code>）的交付时延（一个 RTT 创建 TCP，一个RTT请求和接受一个对象），效率较低&lt;/li>
 &lt;/ul>
 &lt;h4 id="持续连接的问题">持续连接的问题&lt;/h4>
-&lt;ul>
-&lt;li>在空闲状态也消耗服务器资源，而且在重负载时，还有可能遭受 &lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Glossary/DOS_attack" target="_blank" rel="noopener"
->DoS&lt;/a> 攻击，对于这种情况一般采取的策略是：
-1.关闭一些长时间没有发生请求的连接
-2.限制每个客户端的最大连接数，避免恶意的客户端影响服务端&lt;/li>
-&lt;/ul>
+&lt;p>持续连接在空闲状态也消耗服务器资源，而且在重负载时，还有可能遭受 &lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Glossary/DOS_attack" target="_blank" rel="noopener"
+>DoS&lt;/a> 攻击，对于这种情况一般采取的策略是：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>关闭一些长时间没有发生请求的连接&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>限制每个客户端的最大连接数，避免恶意的客户端影响服务端&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>以&lt;code>Nginx&lt;/code>为例 ：&lt;/p>
+&lt;ol>
+&lt;li>可以通过 &lt;code>keepalive_timeout&lt;/code> 参数设置长连接的超时时间，如果在一段时间内连接上没有任何数据收发就主动断开连接，避免空闲连接占用系统资源&lt;/li>
+&lt;li>可以通过 &lt;code>keepalive_requests&lt;/code> 参数设置长连接上可发送的最大请求次数。比如设置成 1000，那么当 Nginx 在这个连接上处理了 1000 个请求后，也会主动断开连接&lt;/li>
+&lt;/ol>
 &lt;h2 id="六cookie-和-session">六、Cookie 和 Session&lt;/h2>
 &lt;h3 id="http-cookies">HTTP Cookies&lt;/h3>
 &lt;blockquote>
@@ -994,8 +1003,17 @@ $$
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;strong>强制缓存&lt;/strong>和&lt;strong>协商缓存&lt;/strong>都存在的情况下，先判断&lt;strong>强制缓存&lt;/strong>是否生效，如果生效，不用发起请求，直接用缓存。如果&lt;strong>强制缓存&lt;/strong>不生效再发起请求判断&lt;strong>协商缓存&lt;/strong>。&lt;/p>
-&lt;h2 id="八http2http2md">八、&lt;a class="link" href="HTTP2.md" >HTTP/2&lt;/a>&lt;/h2>
-&lt;p>HTTP/1.1 的持久连接和管道机制允许复用TCP连接，在一个TCP连接中，也可以同时发送多个请求，但是所有的数据通信都是按次序完成的，服务器只有处理完一个回应，才会处理下一个回应。比如客户端需要A、B两个资源，管道机制允许浏览器同时发出 A 请求和 B 请求，但服务器还是按照顺序，先回应 A 请求，完成后再回应 B 请求，这样如果前面的回应特别慢，后面就会有很多请求排队等着，这称为&lt;strong>队头阻塞（&lt;code>Head-of-line blocking&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;h2 id="八http1x-的性能问题及优化方案">八、HTTP/1.x 的性能问题及优化方案&lt;/h2>
+&lt;p>虽然HTTP/1.1 的持久连接和管道机制允许复用TCP连接，在一个TCP连接中，也可以同时发送多个请求，但是所有的数据通信都是按次序完成的，服务器只有处理完一个回应，才会处理下一个回应。&lt;/p>
+&lt;p>比如客户端需要A、B两个资源，管道机制允许浏览器同时发出 A 请求和 B 请求，但服务器还是按照顺序，先回应 A 请求，完成后再回应 B 请求，这样如果前面的回应特别慢，后面就会有很多请求排队等着，这称为&lt;strong>队头阻塞（&lt;code>Head-of-line blocking&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;h3 id="并发连接">并发连接&lt;/h3>
+&lt;p>&lt;strong>HTTP/1.x&lt;/strong> 可以通过对同一个域名发起多个长连接的方式提高通信效率，此种方式称为&lt;strong>并发连接（&lt;code>concurrent connections&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;p>但是如果客户端滥用并发连接会对带宽和服务器都产生影响，一般来说，现在的浏览器支持的并发连接个数为6 ~ 8个。&lt;/p>
+&lt;h3 id="域名分片">域名分片&lt;/h3>
+&lt;p>&lt;strong>域名分片（&lt;code>domain sharding&lt;/code>）&lt;/strong> 会将内容拆分到多个子域名中。当使用多个域名来处理多个资源时，浏览器能够同时下载更多资源，从而缩短了页面加载时间并改善了用户体验。&lt;/p>
+&lt;p>这种方式的问题在于每个域都需要额外的 DNS 查找成本以及建立每个 TCP 连接的开销。&lt;/p>
+&lt;h3 id="http2http2md">&lt;a class="link" href="HTTP2.md" >HTTP/2&lt;/a>&lt;/h3>
+&lt;p>&lt;strong>HTTP/2&lt;/strong> 主要是为了改进 &lt;strong>HTTP/1.x&lt;/strong> 的性能问题而产生的，在现在，&lt;strong>不推荐使用域名分片的手段提高 HTTP 连接性能&lt;/strong>，而是直接升级到 &lt;strong>HTTP/2&lt;/strong>。&lt;/p>
 &lt;h2 id="九https">九、HTTPS&lt;/h2>
 &lt;h3 id="http-的安全性问题">HTTP 的安全性问题&lt;/h3>
 &lt;ul>
@@ -1006,8 +1024,8 @@ $$
 &lt;h3 id="https-概念">HTTPS 概念&lt;/h3>
 &lt;blockquote>
 &lt;p>&lt;strong>超文本传输安全协议&lt;/strong>（英语：&lt;strong>H&lt;/strong>yper&lt;strong>T&lt;/strong>ext &lt;strong>T&lt;/strong>ransfer &lt;strong>P&lt;/strong>rotocol &lt;strong>S&lt;/strong>ecure，缩写 &lt;code>HTTPS&lt;/code>；常称为 HTTP over TLS、HTTP over SSL 或HTTP Secure），是一种通过计算机网络进行安全通信的协议。&lt;/p>
-&lt;p>HTTPS 经由 HTTP 进行通信，但利用SSL/TLS来加密数据包。&lt;/p>
-&lt;p>严格来说，&lt;strong>HTTPS&lt;/strong> 并不是单独的协议，而是对工作在一加密连接（TLS或SSL）上的常规HTTP协议的称呼。&lt;/p>
+&lt;p>HTTPS 经由 HTTP 进行通信，但利用 SSL/TLS 来加密数据包。&lt;/p>
+&lt;p>严格来说，&lt;strong>HTTPS&lt;/strong> 并不是单独的协议，而是对工作在一加密连接（TLS 或 SSL）上的常规HTTP协议的称呼。&lt;/p>
 &lt;/blockquote>
 &lt;h3 id="https-作用">HTTPS 作用&lt;/h3>
 &lt;h4 id="加密confidentiality">加密（Confidentiality）&lt;/h4>
