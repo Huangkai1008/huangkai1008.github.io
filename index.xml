@@ -1,4 +1,215 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 10 Jul 2020 15:51:57 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>HTTP/2</title><link>https://huangkai1008.github.io/p/http/2/</link><pubDate>Fri, 10 Jul 2020 15:51:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/http/2/</guid><description>&lt;h1 id="http2">HTTP/2&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 05 Feb 2022 13:35:54 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Sat, 05 Feb 2022 13:35:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>&lt;h1 id="函数抽象">函数抽象&lt;/h1>
+&lt;h2 id="编程的要素">编程的要素&lt;/h2>
+&lt;p>每个具有描述力的强大的编程语言一般都有这三种机制：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>原始的表达式（&lt;code>expression&lt;/code>）和语句（&lt;code>statement&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>组合（&lt;code>combination&lt;/code>）的方式&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>抽象（&lt;code>abstraction&lt;/code>）的手段&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h3 id="表达式">表达式&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>表达式&lt;/strong> 是用于描述计算过程并得出值的公式。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="表达式的定义">表达式的定义&lt;/h4>
+&lt;ul>
+&lt;li>
+&lt;p>表达式可以通过 &lt;strong>操作符（&lt;code>operator&lt;/code>）&lt;/strong> 定义：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="mi">18&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">69&lt;/span>
+&lt;span class="mi">2&lt;/span> &lt;span class="o">**&lt;/span> &lt;span class="mi">100&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>也可以通过 &lt;strong>函数调用(&lt;code>function call&lt;/code>)&lt;/strong> 的方式：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nb">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">300&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;h4 id="表达式的调用">表达式的调用&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python"> &lt;span class="n">add&lt;/span> &lt;span class="p">(&lt;/span> &lt;span class="mi">18&lt;/span> &lt;span class="p">,&lt;/span> &lt;span class="mi">69&lt;/span> &lt;span class="p">)&lt;/span>
+&lt;span class="o">----------&lt;/span> &lt;span class="o">---------&lt;/span> &lt;span class="o">---------&lt;/span>
+&lt;span class="n">Operator&lt;/span> &lt;span class="n">Operand&lt;/span> &lt;span class="n">Operand&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol>
+&lt;li>评估操作符&lt;/li>
+&lt;li>评估操作数&lt;/li>
+&lt;li>将运算符（函数）应用于计算后的操作数（参数）&lt;/li>
+&lt;/ol>
+&lt;p>操作符和操作数都属于表达式，所以都需要先计算出值。&lt;/p>
+&lt;h3 id="程序program">程序（&lt;code>program&lt;/code>)&lt;/h3>
+&lt;ul>
+&lt;li>程序通过操作值工作&lt;/li>
+&lt;li>程序中的表达式求值
+&lt;ul>
+&lt;li>表达式: &lt;code>'a' + 'hoy'&lt;/code>&lt;/li>
+&lt;li>值：&lt;code>ahoy&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="值value">值（&lt;code>value&lt;/code>）&lt;/h3>
+&lt;blockquote>
+&lt;p>程序操作值，每个值都有自己确定的&lt;strong>类型（&lt;code>data type&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="命名name">命名（&lt;code>name&lt;/code>）&lt;/h3>
+&lt;p>名称可以绑定（&lt;code>bind&lt;/code>）到值，一种绑定的方法是使用 &lt;strong>赋值语句（&lt;code>assignment statement&lt;/code>）&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python"> &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">7&lt;/span>
+&lt;span class="o">-------&lt;/span> &lt;span class="o">-------&lt;/span>
+&lt;span class="n">Name&lt;/span> &lt;span class="n">Value&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>值可以是任意的表达式。&lt;/p>
+&lt;h4 id="命名规范">命名规范&lt;/h4>
+&lt;p>名称应该传达它们所绑定的值的含义或目的。函数名称通常传达它们的效果、行为或者返回值。&lt;/p>
+&lt;p>如果名称代表通用量，则名称可以很短：计数、任意函数、数学运算的参数等。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>n&lt;/code>, &lt;code>k&lt;/code>, &lt;code>i&lt;/code>- 通常是整数&lt;/li>
+&lt;li>&lt;code>x&lt;/code>, &lt;code>y&lt;/code>, &lt;code>z&lt;/code>- 通常是实数或坐标&lt;/li>
+&lt;li>&lt;code>f&lt;/code>, &lt;code>g&lt;/code>, &lt;code>h&lt;/code>- 通常是函数&lt;/li>
+&lt;/ul>
+&lt;h2 id="函数">函数&lt;/h2>
+&lt;blockquote>
+&lt;p>函数是执行特定任务并且可以轻松复用的代码段，
+函数使用 &lt;strong>参数(&lt;code>argument&lt;/code>)&lt;/strong> 作为输入，将 &lt;strong>返回值（&lt;code>return value&lt;/code>）&lt;/strong> 作为输出，
+函数提供了编程语言功能抽象的实现。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="纯函数和副作用">纯函数和副作用&lt;/h3>
+&lt;h4 id="副作用">副作用&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>副作用(&lt;code>side effect&lt;/code>)&lt;/strong> 是指调用一个函数时，除了返回一个值之外，还做了其他一些额外的工作。&lt;/p>
+&lt;/blockquote>
+&lt;p>比较常见的副作用有打印到控制台：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="纯函数">纯函数&lt;/h4>
+&lt;p>&lt;strong>纯函数（&lt;code>pure function&lt;/code>）&lt;/strong> 只返回值，不含有任何副作用：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">y&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>非纯函数（&lt;code>non-pure function&lt;/code>）&lt;/strong> 含有副作用：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">y&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="函数的描述">函数的描述&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">square&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;Returns the square of X.&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">x&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>对于以上的函数有：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">概念&lt;/th>
+&lt;th style="text-align:center">描述&lt;/th>
+&lt;th style="text-align:center">示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">定义域(&lt;code>domain&lt;/code>)&lt;/td>
+&lt;td style="text-align:center">可能作为参数的所有输入的集合&lt;/td>
+&lt;td style="text-align:center">&lt;code>x&lt;/code>是一个数字&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">值域（&lt;code>range&lt;/code>）&lt;/td>
+&lt;td style="text-align:center">可能返回的值的所有输出的集合&lt;/td>
+&lt;td style="text-align:center">&lt;code>square&lt;/code>返回一个非负实数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">表现（&lt;code>behavior&lt;/code>）&lt;/td>
+&lt;td style="text-align:center">纯函数的表现是它在输入和输出之间建立的关系&lt;/td>
+&lt;td style="text-align:center">&lt;code>square&lt;/code>返回&lt;code>x&lt;/code>的平方&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="函数的抽象">函数的抽象&lt;/h3>
+&lt;ul>
+&lt;li>按照 &lt;strong>参数化（&lt;code>parameterization&lt;/code>）&lt;/strong> 抽象&lt;/li>
+&lt;li>按照 &lt;strong>规范（&lt;code>specification&lt;/code>）&lt;/strong> 抽象&lt;/li>
+&lt;/ul>
+&lt;h3 id="函数的设计">函数的设计&lt;/h3>
+&lt;ul>
+&lt;li>每个函数只做一个工作，这个工作可以用一个简短的名称来识别，并且可以在一行文本中进行表征&lt;/li>
+&lt;li>拒绝重复定义（Don&amp;rsquo;t repect yourself, DRY）&lt;/li>
+&lt;li>函数需要通用定义，函数的设计需要适应同一功能下可能发生的各种情况&lt;/li>
+&lt;/ul>
+&lt;h4 id="函数定义文档">函数定义文档&lt;/h4>
+&lt;p>函数的定义通常包括描述函数的文档，此文档一般被称为 &lt;strong>docstring&lt;/strong>。&lt;/p>
+&lt;p>以下的函数示例可以作为参考：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">pressure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">t&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;Compute the pressure in pascals of an ideal gas.
+&lt;/span>&lt;span class="s2">
+&lt;/span>&lt;span class="s2"> Applies the ideal gas law: http://en.wikipedia.org/wiki/Ideal_gas_law
+&lt;/span>&lt;span class="s2">
+&lt;/span>&lt;span class="s2"> Args:
+&lt;/span>&lt;span class="s2"> v: volume of gas, in cubic meters
+&lt;/span>&lt;span class="s2"> t: absolute temperature in degrees kelvin
+&lt;/span>&lt;span class="s2"> n: particles of gas
+&lt;/span>&lt;span class="s2">
+&lt;/span>&lt;span class="s2"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">1.38e-23&lt;/span> &lt;span class="c1"># Boltzmann&amp;#39;s constant&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">v&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以通过&lt;code>help(pressure)&lt;/code>查看此文档。&lt;/p>
+&lt;p>更多参考信息可以查看如下链接：&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.python.org/dev/peps/pep-0257/" target="_blank" rel="noopener"
+>docstring guidelines&lt;/a>&lt;/p>
+&lt;h3 id="高阶函数">高阶函数&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>高阶函数（&lt;code>higher-order function&lt;/code>）&lt;/strong> 的特征是：&lt;/p>
+&lt;ul>
+&lt;li>接受另一个函数作为参数&lt;/li>
+&lt;li>将函数作为返回值&lt;/li>
+&lt;/ul>
+&lt;p>除此之外的函数都被称为 &lt;strong>一阶函数（&lt;code>first-order function&lt;/code>）&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="柯里化">柯里化&lt;/h4>
+&lt;blockquote>
+&lt;p>用高阶函数将一个接受多个参数的函数转换为一个函数链，每个函数接受一个参数。更具体地说，给定一个函数&lt;code>f(x, y)&lt;/code>，我们可以定义一个函数&lt;code>g&lt;/code>使得&lt;code>g(x)(y)&lt;/code>等价于&lt;code>f(x, y)&lt;/code>。这里，&lt;code>g&lt;/code>是一个高阶函数，它接受单个参数&lt;code>x&lt;/code>并返回另一个接受单个参数&lt;code>y&lt;/code>的函数。这种转换称为&lt;strong>柯里化（&lt;code>curry&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>以下为一个柯里化的示例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">curried_pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">h&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">h&lt;/span>
+&lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">curried_pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="mi">8&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="递归函数">递归函数&lt;/h3>
+&lt;blockquote>
+&lt;p>如果函数体直接或间接调用函数本身，则函数称为 &lt;strong>递归（&lt;code>recursive&lt;/code>）&lt;/strong> 函数。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="递归函数的通用模式">递归函数的通用模式&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>基线条件（&lt;code>base case&lt;/code>）&lt;/strong> ：在没有递归调用的情况下进行计算（最小的子问题）&lt;/li>
+&lt;li>&lt;strong>递归条件（&lt;code>recusive case&lt;/code>）&lt;/strong> : 通过递归调用进行计算（进一步分解问题）&lt;/li>
+&lt;li>判断是否是符合基线条件的 &lt;strong>条件语句（&lt;code>conditional statement&lt;/code>）&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">sum_digits&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># BASE CASE&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">n&lt;/span>
+&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># RECURSIVE CASE&lt;/span>
+&lt;span class="n">all_but_last&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;span class="n">last&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">sum_digits&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">all_but_last&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">last&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="相互递归">相互递归&lt;/h4>
+&lt;blockquote>
+&lt;p>当一个递归过程被划分为两个相互调用的函数时，这些函数被称为 &lt;strong>相互递归（&lt;code>mutually recursive&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">is_even&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">is_odd&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">is_odd&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">is_even&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="树递归">树递归&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>树递归（&lt;code>tree recursion&lt;/code>）&lt;/strong> 中一个函数会多次调用自身。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;Count the ways to partition n using parts up to m.&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;span class="k">elif&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;span class="k">elif&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>HTTP/2</title><link>https://huangkai1008.github.io/p/http/2/</link><pubDate>Fri, 10 Jul 2020 15:51:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/http/2/</guid><description>&lt;h1 id="http2">HTTP/2&lt;/h1>
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;blockquote>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的支持。 为达成这些目标，HTTP/2 还给我们带来了大量其他协议层面的辅助实现，例如新的流控制、错误处理和升级机制。&lt;/p>
