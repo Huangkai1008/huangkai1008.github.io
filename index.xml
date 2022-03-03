@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 05 Feb 2022 13:35:54 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Sat, 05 Feb 2022 13:35:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>&lt;h1 id="函数抽象">函数抽象&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 05 Feb 2022 13:35:54 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>计算机导论 函数抽象</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E5%87%BD%E6%95%B0%E6%8A%BD%E8%B1%A1/</link><pubDate>Sat, 05 Feb 2022 13:35:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E5%87%BD%E6%95%B0%E6%8A%BD%E8%B1%A1/</guid><description>&lt;h1 id="函数抽象">函数抽象&lt;/h1>
 &lt;h2 id="编程的要素">编程的要素&lt;/h2>
 &lt;p>每个具有描述力的强大的编程语言一般都有这三种机制：&lt;/p>
 &lt;ul>
@@ -209,7 +209,155 @@
 &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
 &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>HTTP/2</title><link>https://huangkai1008.github.io/p/http/2/</link><pubDate>Fri, 10 Jul 2020 15:51:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/http/2/</guid><description>&lt;h1 id="http2">HTTP/2&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>计算机导论 数据抽象</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1/</link><pubDate>Sat, 05 Feb 2022 13:35:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1/</guid><description>&lt;h1 id="数据抽象">数据抽象&lt;/h1>
+&lt;h2 id="数据抽象的必要性">数据抽象的必要性&lt;/h2>
+&lt;p>程序中的许多数据都是 &lt;strong>复合（&lt;code>compound&lt;/code>）&lt;/strong> 值 ，例如：&lt;/p>
+&lt;ul>
+&lt;li>日期：由年月日组成&lt;/li>
+&lt;li>经纬度：由经度和纬度组成&lt;/li>
+&lt;/ul>
+&lt;p>数据抽象可以让我们将复合的值作为一个整体操作，不需要关注复合值的具体组成细节；&lt;/p>
+&lt;p>数据抽象使程序更容易设计、维护和修改。&lt;/p>
+&lt;blockquote>
+&lt;p>将程序中处理数据表示方式的部分与处理数据处理方式的部分隔离开来的通用技术是一种强大的设计方法，称为 &lt;strong>数据抽象&lt;/strong>（&lt;code>data abstraction&lt;/code>） 。&lt;/p>
+&lt;/blockquote>
+&lt;p>数据抽象在性质上与功能抽象相似。当我们创建一个函数抽象时，一个函数如何实现的细节可以被隐藏，特定函数本身可以被具有相同整体行为的任何其他函数替换。&lt;/p>
+&lt;p>换句话说，我们可以做一个抽象，将函数的使用方式与函数实现的细节分开。类似地，数据抽象也可以将复合数据值的使用方式与其构建方式的细节隔离开来。&lt;/p>
+&lt;h2 id="数据抽象的实例">数据抽象的实例&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>rational(n, d)&lt;/code> 返回具有分子&lt;code>n&lt;/code>和分母&lt;code>d&lt;/code>的有理数&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">fractions&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">gcd&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">g&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">gcd&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">g&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">g&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>numer(x)&lt;/code> 返回有理数&lt;code>x&lt;/code>的分子&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>denom(x)&lt;/code> 返回有理数&lt;code>x&lt;/code>的分母&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>add_rationals(x, y)&lt;/code> 实现两个有理数间的加法操作&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">add_rationals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">nx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">ny&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nx&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">ny&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dx&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dy&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>mul_rationals(x, y)&lt;/code> 实现两个有理数间的乘法操作&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">mul_rationals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>print_rationals(x)&lt;/code> 打印有理数&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">print_rationals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>rationals_are_equal(x, y)&lt;/code> 判断两个有理数是否相等&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">rationals_are_equal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;h2 id="数据抽象的屏障">数据抽象的屏障&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">抽象层&lt;/th>
+&lt;th style="text-align:center">描述&lt;/th>
+&lt;th style="text-align:center">示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">原始表示（&lt;code>Primitive Representation&lt;/code>）&lt;/td>
+&lt;td style="text-align:center">使用语言内建的数据结构和选择符为数据抽象实现选择器和构造器&lt;/td>
+&lt;td style="text-align:center">[n, d] , x[0]&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">数据抽象（&lt;code>Data Abstraction&lt;/code>）&lt;/td>
+&lt;td style="text-align:center">数据抽象的选择器和构造器&lt;/td>
+&lt;td style="text-align:center">rational, numer, denom&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">用户程序（&lt;code>User Program&lt;/code>）&lt;/td>
+&lt;td style="text-align:center">用户计算程序的实现函数&lt;/td>
+&lt;td style="text-align:center">add_rational, mul_rational, rationals_are_equal, print_rational&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>这些函数由更高抽象级别调用较低抽象级别实现。&lt;/p>
+&lt;p>当程序的某个部分可以使用较高层次的函数而转而使用较低层次的函数时，就会发生 &lt;strong>抽象屏障违规（&lt;code>abstraction barrier violation&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;h2 id="树的抽象实现">树的抽象实现&lt;/h2>
+&lt;h3 id="树的描述">树的描述&lt;/h3>
+&lt;h4 id="树的递归描述">树的递归描述&lt;/h4>
+&lt;ul>
+&lt;li>一棵树有一个 &lt;strong>根标签（&lt;code>root label&lt;/code>）&lt;/strong> 和 &lt;strong>分支（&lt;code>branch&lt;/code>）&lt;/strong> 的列表&lt;/li>
+&lt;li>每个分支自身也是一棵树&lt;/li>
+&lt;li>一棵没有分支的树被称为 &lt;strong>叶子（&lt;code>leaf&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>一棵树从根开始&lt;/li>
+&lt;/ul>
+&lt;h4 id="树的相对描述">树的相对描述&lt;/h4>
+&lt;ul>
+&lt;li>树中的每个元素称为一个 &lt;strong>节点（&lt;code>node&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>每个节点都有一个 &lt;strong>标签（&lt;code>label&lt;/code>）&lt;/strong> ，标签可以是任何值&lt;/li>
+&lt;li>一个节点可以是另一个节点的父节点/孩子节点&lt;/li>
+&lt;li>顶部节点是&lt;strong>根节点(&lt;code>root node&lt;/code>)&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h3 id="树的实现">树的实现&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">root_label&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[]):&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="n">branch&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">assert&lt;/span> &lt;span class="n">is_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branch&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="s1">&amp;#39;branches must be trees&amp;#39;&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">root_label&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branches&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">branches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:]&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">is_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nb">list&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="n">branch&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">is_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branch&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">is_leaf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="树的应用">树的应用&lt;/h3>
+&lt;h4 id="斐波那契树">斐波那契树&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">fib_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="n">left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">fib_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">fib_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">fib_n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">right&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fib_n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="分区树">分区树&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">partition_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;span class="k">elif&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="n">left&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">partition_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">partition_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="可变性">可变性&lt;/h2>
+&lt;h3 id="对象">对象&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>对象（&lt;code>object&lt;/code>）&lt;/strong> 是一组数据和 &lt;strong>行为（&lt;code>behavior&lt;/code>）&lt;/strong> 的集合，&lt;/p>
+&lt;p>一种类型的对象称为 &lt;strong>类（&lt;code>class&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>Python 中的每个值都是一个对象&lt;/p>
+&lt;ul>
+&lt;li>所有对象都有属性&lt;/li>
+&lt;li>对象通常有关联的方法&lt;/li>
+&lt;/ul></description></item><item><title>HTTP/2</title><link>https://huangkai1008.github.io/p/http/2/</link><pubDate>Fri, 10 Jul 2020 15:51:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/http/2/</guid><description>&lt;h1 id="http2">HTTP/2&lt;/h1>
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;blockquote>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的支持。 为达成这些目标，HTTP/2 还给我们带来了大量其他协议层面的辅助实现，例如新的流控制、错误处理和升级机制。&lt;/p>

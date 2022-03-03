@@ -1,0 +1,409 @@
+<!doctype html><html lang=zh-cn>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="函数抽象 编程的要素 每个具有描述力的强大的编程语言一般都有这三种机制： 原始的表达式（expression）和语句（statement） 组合（c"><title>计算机导论 函数抽象</title>
+<link rel=canonical href=https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E5%87%BD%E6%95%B0%E6%8A%BD%E8%B1%A1/>
+<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="计算机导论 函数抽象">
+<meta property="og:description" content="函数抽象 编程的要素 每个具有描述力的强大的编程语言一般都有这三种机制： 原始的表达式（expression）和语句（statement） 组合（c">
+<meta property="og:url" content="https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E5%87%BD%E6%95%B0%E6%8A%BD%E8%B1%A1/">
+<meta property="og:site_name" content="Huanghuang's Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机导论"><meta property="article:tag" content="计算机课程"><meta property="article:published_time" content="2022-02-05T13:35:54+08:00"><meta property="article:modified_time" content="2022-02-05T13:35:54+08:00">
+<meta name=twitter:title content="计算机导论 函数抽象">
+<meta name=twitter:description content="函数抽象 编程的要素 每个具有描述力的强大的编程语言一般都有这三种机制： 原始的表达式（expression）和语句（statement） 组合（c">
+<link rel="shortcut icon" href=https://gitee.com/huanghuang927/picture-host/raw/master/20211018164707.jpg>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
+</head>
+<body class="article-page has-toc">
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex
+extended">
+<div id=article-toolbar>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<span>Back</span>
+</a>
+</div>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%BE%E7%A8%8B/>
+计算机课程
+</a>
+</header>
+<h2 class=article-title>
+<a href=/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E5%87%BD%E6%95%B0%E6%8A%BD%E8%B1%A1/>计算机导论 函数抽象</a>
+</h2>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Feb 05, 2022</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+4 minute read
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<h1 id=函数抽象>函数抽象</h1>
+<h2 id=编程的要素>编程的要素</h2>
+<p>每个具有描述力的强大的编程语言一般都有这三种机制：</p>
+<ul>
+<li><strong>原始的表达式（<code>expression</code>）和语句（<code>statement</code>）</strong></li>
+<li><strong>组合（<code>combination</code>）的方式</strong></li>
+<li><strong>抽象（<code>abstraction</code>）的手段</strong></li>
+</ul>
+<h3 id=表达式>表达式</h3>
+<blockquote>
+<p><strong>表达式</strong> 是用于描述计算过程并得出值的公式。</p>
+</blockquote>
+<h4 id=表达式的定义>表达式的定义</h4>
+<ul>
+<li>
+<p>表达式可以通过 <strong>操作符（<code>operator</code>）</strong> 定义：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=mi>18</span> <span class=o>+</span> <span class=mi>69</span>
+
+<span class=mi>2</span> <span class=o>**</span> <span class=mi>100</span>
+</code></pre></div></li>
+<li>
+<p>也可以通过 <strong>函数调用(<code>function call</code>)</strong> 的方式：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=nb>pow</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>100</span><span class=p>)</span>
+
+<span class=nb>max</span><span class=p>(</span><span class=mi>50</span><span class=p>,</span> <span class=mi>300</span><span class=p>)</span>
+</code></pre></div></li>
+</ul>
+<h4 id=表达式的调用>表达式的调用</h4>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python>   <span class=n>add</span>     <span class=p>(</span>   <span class=mi>18</span>     <span class=p>,</span>   <span class=mi>69</span>    <span class=p>)</span>
+<span class=o>----------</span>  <span class=o>---------</span>  <span class=o>---------</span>
+ <span class=n>Operator</span>    <span class=n>Operand</span>    <span class=n>Operand</span>
+</code></pre></div><ol>
+<li>评估操作符</li>
+<li>评估操作数</li>
+<li>将运算符（函数）应用于计算后的操作数（参数）</li>
+</ol>
+<p>操作符和操作数都属于表达式，所以都需要先计算出值。</p>
+<h3 id=程序program>程序（<code>program</code>)</h3>
+<ul>
+<li>程序通过操作值工作</li>
+<li>程序中的表达式求值
+<ul>
+<li>表达式: <code>'a' + 'hoy'</code></li>
+<li>值：<code>ahoy</code></li>
+</ul>
+</li>
+</ul>
+<h3 id=值value>值（<code>value</code>）</h3>
+<blockquote>
+<p>程序操作值，每个值都有自己确定的<strong>类型（<code>data type</code>）</strong>。</p>
+</blockquote>
+<h3 id=命名name>命名（<code>name</code>）</h3>
+<p>名称可以绑定（<code>bind</code>）到值，一种绑定的方法是使用 <strong>赋值语句（<code>assignment statement</code>）</strong></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python>    <span class=n>x</span>     <span class=o>=</span>     <span class=mi>7</span>
+ <span class=o>-------</span>     <span class=o>-------</span>
+   <span class=n>Name</span>       <span class=n>Value</span>
+</code></pre></div><p>值可以是任意的表达式。</p>
+<h4 id=命名规范>命名规范</h4>
+<p>名称应该传达它们所绑定的值的含义或目的。函数名称通常传达它们的效果、行为或者返回值。</p>
+<p>如果名称代表通用量，则名称可以很短：计数、任意函数、数学运算的参数等。</p>
+<ul>
+<li><code>n</code>, <code>k</code>, <code>i</code>- 通常是整数</li>
+<li><code>x</code>, <code>y</code>, <code>z</code>- 通常是实数或坐标</li>
+<li><code>f</code>, <code>g</code>, <code>h</code>- 通常是函数</li>
+</ul>
+<h2 id=函数>函数</h2>
+<blockquote>
+<p>函数是执行特定任务并且可以轻松复用的代码段，
+函数使用 <strong>参数(<code>argument</code>)</strong> 作为输入，将 <strong>返回值（<code>return value</code>）</strong> 作为输出，
+函数提供了编程语言功能抽象的实现。</p>
+</blockquote>
+<h3 id=纯函数和副作用>纯函数和副作用</h3>
+<h4 id=副作用>副作用</h4>
+<blockquote>
+<p><strong>副作用(<code>side effect</code>)</strong> 是指调用一个函数时，除了返回一个值之外，还做了其他一些额外的工作。</p>
+</blockquote>
+<p>比较常见的副作用有打印到控制台：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=nb>print</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+</code></pre></div><h4 id=纯函数>纯函数</h4>
+<p><strong>纯函数（<code>pure function</code>）</strong> 只返回值，不含有任何副作用：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>add</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>):</span>
+    <span class=k>return</span> <span class=n>x</span> <span class=o>+</span> <span class=n>y</span>
+</code></pre></div><p><strong>非纯函数（<code>non-pure function</code>）</strong> 含有副作用：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>add</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>):</span>
+    <span class=nb>print</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>)</span>
+    <span class=k>return</span> <span class=n>x</span> <span class=o>+</span> <span class=n>y</span>
+</code></pre></div><h3 id=函数的描述>函数的描述</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>square</span><span class=p>(</span><span class=n>x</span><span class=p>):</span>
+    <span class=s2>&#34;&#34;&#34;Returns the square of X.&#34;&#34;&#34;</span>
+    <span class=k>return</span> <span class=n>x</span> <span class=o>*</span> <span class=n>x</span>
+</code></pre></div><p>对于以上的函数有：</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>概念</th>
+<th style=text-align:center>描述</th>
+<th style=text-align:center>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>定义域(<code>domain</code>)</td>
+<td style=text-align:center>可能作为参数的所有输入的集合</td>
+<td style=text-align:center><code>x</code>是一个数字</td>
+</tr>
+<tr>
+<td style=text-align:center>值域（<code>range</code>）</td>
+<td style=text-align:center>可能返回的值的所有输出的集合</td>
+<td style=text-align:center><code>square</code>返回一个非负实数</td>
+</tr>
+<tr>
+<td style=text-align:center>表现（<code>behavior</code>）</td>
+<td style=text-align:center>纯函数的表现是它在输入和输出之间建立的关系</td>
+<td style=text-align:center><code>square</code>返回<code>x</code>的平方</td>
+</tr>
+</tbody>
+</table>
+<h3 id=函数的抽象>函数的抽象</h3>
+<ul>
+<li>按照 <strong>参数化（<code>parameterization</code>）</strong> 抽象</li>
+<li>按照 <strong>规范（<code>specification</code>）</strong> 抽象</li>
+</ul>
+<h3 id=函数的设计>函数的设计</h3>
+<ul>
+<li>每个函数只做一个工作，这个工作可以用一个简短的名称来识别，并且可以在一行文本中进行表征</li>
+<li>拒绝重复定义（Don&rsquo;t repect yourself, DRY）</li>
+<li>函数需要通用定义，函数的设计需要适应同一功能下可能发生的各种情况</li>
+</ul>
+<h4 id=函数定义文档>函数定义文档</h4>
+<p>函数的定义通常包括描述函数的文档，此文档一般被称为 <strong>docstring</strong>。</p>
+<p>以下的函数示例可以作为参考：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>pressure</span><span class=p>(</span><span class=n>v</span><span class=p>,</span> <span class=n>t</span><span class=p>,</span> <span class=n>n</span><span class=p>):</span>
+    <span class=s2>&#34;&#34;&#34;Compute the pressure in pascals of an ideal gas.
+</span><span class=s2>    
+</span><span class=s2>    Applies the ideal gas law: http://en.wikipedia.org/wiki/Ideal_gas_law
+</span><span class=s2>    
+</span><span class=s2>    Args:
+</span><span class=s2>        v: volume of gas, in cubic meters
+</span><span class=s2>        t: absolute temperature in degrees kelvin
+</span><span class=s2>        n: particles of gas
+</span><span class=s2>
+</span><span class=s2>    &#34;&#34;&#34;</span>
+    <span class=n>k</span> <span class=o>=</span> <span class=mf>1.38e-23</span>  <span class=c1># Boltzmann&#39;s constant</span>
+    <span class=k>return</span> <span class=n>n</span> <span class=o>*</span> <span class=n>k</span> <span class=o>*</span> <span class=n>t</span> <span class=o>/</span> <span class=n>v</span>
+</code></pre></div><p>可以通过<code>help(pressure)</code>查看此文档。</p>
+<p>更多参考信息可以查看如下链接：</p>
+<p><a class=link href=https://www.python.org/dev/peps/pep-0257/ target=_blank rel=noopener>docstring guidelines</a></p>
+<h3 id=高阶函数>高阶函数</h3>
+<blockquote>
+<p><strong>高阶函数（<code>higher-order function</code>）</strong> 的特征是：</p>
+<ul>
+<li>接受另一个函数作为参数</li>
+<li>将函数作为返回值</li>
+</ul>
+<p>除此之外的函数都被称为 <strong>一阶函数（<code>first-order function</code>）</strong></p>
+</blockquote>
+<h4 id=柯里化>柯里化</h4>
+<blockquote>
+<p>用高阶函数将一个接受多个参数的函数转换为一个函数链，每个函数接受一个参数。更具体地说，给定一个函数<code>f(x, y)</code>，我们可以定义一个函数<code>g</code>使得<code>g(x)(y)</code>等价于<code>f(x, y)</code>。这里，<code>g</code>是一个高阶函数，它接受单个参数<code>x</code>并返回另一个接受单个参数<code>y</code>的函数。这种转换称为<strong>柯里化（<code>curry</code>）</strong>。</p>
+</blockquote>
+<p>以下为一个柯里化的示例：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>curried_pow</span><span class=p>(</span><span class=n>x</span><span class=p>):</span>
+    <span class=k>def</span> <span class=nf>h</span><span class=p>(</span><span class=n>y</span><span class=p>):</span>
+        <span class=k>return</span> <span class=nb>pow</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>)</span>
+    <span class=k>return</span> <span class=n>h</span>
+
+<span class=o>&gt;&gt;</span> <span class=n>curried_pow</span><span class=p>(</span><span class=mi>2</span><span class=p>)(</span><span class=mi>3</span><span class=p>)</span>
+<span class=mi>8</span>
+</code></pre></div><h3 id=递归函数>递归函数</h3>
+<blockquote>
+<p>如果函数体直接或间接调用函数本身，则函数称为 <strong>递归（<code>recursive</code>）</strong> 函数。</p>
+</blockquote>
+<h4 id=递归函数的通用模式>递归函数的通用模式</h4>
+<ul>
+<li><strong>基线条件（<code>base case</code>）</strong> ：在没有递归调用的情况下进行计算（最小的子问题）</li>
+<li><strong>递归条件（<code>recusive case</code>）</strong> : 通过递归调用进行计算（进一步分解问题）</li>
+<li>判断是否是符合基线条件的 <strong>条件语句（<code>conditional statement</code>）</strong></li>
+</ul>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>sum_digits</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
+    <span class=k>if</span> <span class=n>n</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>:</span> <span class=c1># BASE CASE</span>
+        <span class=k>return</span> <span class=n>n</span>
+    <span class=k>else</span><span class=p>:</span>         <span class=c1># RECURSIVE CASE</span>
+        <span class=n>all_but_last</span> <span class=o>=</span> <span class=n>n</span> <span class=o>//</span> <span class=mi>10</span>
+        <span class=n>last</span> <span class=o>=</span> <span class=n>n</span> <span class=o>%</span> <span class=mi>10</span>
+    <span class=k>return</span> <span class=n>sum_digits</span><span class=p>(</span><span class=n>all_but_last</span><span class=p>)</span> <span class=o>+</span> <span class=n>last</span>
+</code></pre></div><h4 id=相互递归>相互递归</h4>
+<blockquote>
+<p>当一个递归过程被划分为两个相互调用的函数时，这些函数被称为 <strong>相互递归（<code>mutually recursive</code>）</strong>。</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>is_even</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
+    <span class=k>if</span> <span class=n>n</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+        <span class=k>return</span> <span class=kc>True</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=k>return</span> <span class=n>is_odd</span><span class=p>(</span><span class=n>n</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
+
+<span class=k>def</span> <span class=nf>is_odd</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
+    <span class=k>if</span> <span class=n>n</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+        <span class=k>return</span> <span class=kc>False</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=k>return</span> <span class=n>is_even</span><span class=p>(</span><span class=n>n</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
+</code></pre></div><h4 id=树递归>树递归</h4>
+<blockquote>
+<p><strong>树递归（<code>tree recursion</code>）</strong> 中一个函数会多次调用自身。</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>count_partitions</span><span class=p>(</span><span class=n>n</span><span class=p>,</span> <span class=n>m</span><span class=p>):</span>
+    <span class=s2>&#34;&#34;&#34;Count the ways to partition n using parts up to m.&#34;&#34;&#34;</span>
+    <span class=k>if</span> <span class=n>n</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+        <span class=k>return</span> <span class=mi>1</span>
+    <span class=k>elif</span> <span class=n>n</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>:</span>
+        <span class=k>return</span> <span class=mi>0</span>
+    <span class=k>elif</span> <span class=n>m</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+        <span class=k>return</span> <span class=mi>0</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=k>return</span> <span class=n>count_partitions</span><span class=p>(</span><span class=n>n</span> <span class=o>-</span> <span class=n>m</span><span class=p>,</span> <span class=n>m</span><span class=p>)</span> <span class=o>+</span> <span class=n>count_partitions</span><span class=p>(</span><span class=n>n</span><span class=p>,</span> <span class=n>m</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
+</code></pre></div>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA/>计算机导论</a>
+<a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AF%BE%E7%A8%8B/>计算机课程</a>
+</section>
+<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span>
+</section>
+</footer>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
+</article>
+<aside class=related-contents--wrapper>
+<h2 class=section-title>Related contents</h2>
+<div class=related-contents>
+<div class="flex article-list--tile">
+<article>
+<a href=/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1/>
+<div class=article-details>
+<h2 class=article-title>计算机导论 数据抽象</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<div class=disqus-container>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hugo-theme-stack.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
+<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2022 Huanghuang's Blog
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">Table of contents</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#编程的要素>编程的要素</a>
+<ol>
+<li><a href=#表达式>表达式</a>
+<ol>
+<li><a href=#表达式的定义>表达式的定义</a></li>
+<li><a href=#表达式的调用>表达式的调用</a></li>
+</ol>
+</li>
+<li><a href=#程序program>程序（<code>program</code>)</a></li>
+<li><a href=#值value>值（<code>value</code>）</a></li>
+<li><a href=#命名name>命名（<code>name</code>）</a>
+<ol>
+<li><a href=#命名规范>命名规范</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#函数>函数</a>
+<ol>
+<li><a href=#纯函数和副作用>纯函数和副作用</a>
+<ol>
+<li><a href=#副作用>副作用</a></li>
+<li><a href=#纯函数>纯函数</a></li>
+</ol>
+</li>
+<li><a href=#函数的描述>函数的描述</a></li>
+<li><a href=#函数的抽象>函数的抽象</a></li>
+<li><a href=#函数的设计>函数的设计</a>
+<ol>
+<li><a href=#函数定义文档>函数定义文档</a></li>
+</ol>
+</li>
+<li><a href=#高阶函数>高阶函数</a>
+<ol>
+<li><a href=#柯里化>柯里化</a></li>
+</ol>
+</li>
+<li><a href=#递归函数>递归函数</a>
+<ol>
+<li><a href=#递归函数的通用模式>递归函数的通用模式</a></li>
+<li><a href=#相互递归>相互递归</a></li>
+<li><a href=#树递归>树递归</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
