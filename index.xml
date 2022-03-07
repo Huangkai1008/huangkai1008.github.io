@@ -1967,7 +1967,133 @@ loading="lazy"
 >
 &lt;/a>
 &lt;/figure>&lt;/p>
-&lt;p>一条事务日志同时包含了修改前后的值，能够非常简单的进行回滚和重做两种操作。&lt;/p></description></item><item><title>事务</title><link>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</link><pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</guid><description>&lt;h2 id="概念">概念&lt;/h2>
+&lt;p>一条事务日志同时包含了修改前后的值，能够非常简单的进行回滚和重做两种操作。&lt;/p></description></item><item><title>MySQL的事务</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E4%BA%8B%E5%8A%A1/</link><pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E4%BA%8B%E5%8A%A1/</guid><description>&lt;h2 id="一概念">一、概念&lt;/h2>
+&lt;blockquote>
+&lt;p>事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。&lt;strong>在 MySQL 中，事务支持是在引擎层实现的。&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="隔离级别isolation-level">隔离级别（Isolation level）&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>READ UNCOMMITTED（读未提交）&lt;/strong>&lt;/p>
+&lt;p>事务中的修改，即使没有提交，对其他事务也都是可见的。事务可以读取未提交的数据，这也被称为&lt;code>脏读（Dirty Read）&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>READ COMMITTED（读提交）&lt;/strong>&lt;/p>
+&lt;p>Oracle和SQL Server的默认隔离级别。一个事务可以读取另一个已提交的事务。换句话说，一个事务从开始直到提交之前，所做的任何修改对其他事务都是不可见的。这个级别有时候也叫做不可重复读（nonrepeatable read），因为两次执行同样的查询，可能会得到不一样的结果。&lt;strong>MySQL的InnoDB引擎在提交读级别通过MVCC解决了不可重复读的问题。&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>REPEATABLE READ（可重复读）&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>MySQL的默认隔离级别&lt;/strong>。一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。当然在可重复读隔离级别下，未提交变更对其他事务也是不可见的。&lt;strong>MySQL的InnoDB引擎在可重复读级别通过间隙锁解决了幻读问题&lt;/strong>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>SERIALIZABLE（可串行化）&lt;/strong>&lt;/p>
+&lt;p>SERIALIZABLE是最高的隔离级别。它通过强制事务串行执行，避免了前面说的幻读的问题。简单来说，SERIALIZABLE会在读取的每一行数据上都加锁，所以可能导致大量的超时和锁争用的问题。实际应用中也很少用到这个隔离级别，只有在非常需要确保数据的一致性而且可以接受没有并发的情况下，才考虑采用该级别。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">隔离级别&lt;/th>
+&lt;th style="text-align:center">脏读可能性&lt;/th>
+&lt;th style="text-align:center">不可重复读可能性&lt;/th>
+&lt;th style="text-align:center">幻读可能性&lt;/th>
+&lt;th style="text-align:center">加锁读&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">READ UNCOMMITTED&lt;/td>
+&lt;td style="text-align:center">√&lt;/td>
+&lt;td style="text-align:center">√&lt;/td>
+&lt;td style="text-align:center">√&lt;/td>
+&lt;td style="text-align:center">×&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">READ COMMITTED&lt;/td>
+&lt;td style="text-align:center">×&lt;/td>
+&lt;td style="text-align:center">√&lt;/td>
+&lt;td style="text-align:center">√&lt;/td>
+&lt;td style="text-align:center">×&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">REPEATABLE READ&lt;/td>
+&lt;td style="text-align:center">×&lt;/td>
+&lt;td style="text-align:center">×&lt;/td>
+&lt;td style="text-align:center">√&lt;/td>
+&lt;td style="text-align:center">×&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">SERIALIZABLE&lt;/td>
+&lt;td style="text-align:center">×&lt;/td>
+&lt;td style="text-align:center">×&lt;/td>
+&lt;td style="text-align:center">×&lt;/td>
+&lt;td style="text-align:center">√&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>查看MySQL的隔离级别&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">VARIABLES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LIKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;transaction_isolation&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------------------+-----------------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------------------+-----------------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">transaction_isolation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">REPEATABLE&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="k">READ&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------------------+-----------------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">warning&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>设置当前会话的隔离级别&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="kt">SET&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">SESSION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TRANSACTION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ISOLATION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LEVEL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">READ&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">COMMITTED&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 设置当前会话为RC级别，下个事务生效
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="事务类型">事务类型&lt;/h3>
+&lt;h4 id="隐式事务">&lt;strong>隐式事务&lt;/strong>&lt;/h4>
+&lt;p>DML操作的语句都会隐式的开启事务，并且在语句执行后没有错误的话隐式提交。可以通过将MySQL的&lt;code>autocommit&lt;/code>这个变量（默认为1）设置为0将事务的&lt;code>隐式提交&lt;/code>关闭，但需要注意，DML语句的隐式事务仍会启动，只是区别在于需要手动COMMIT显式提交这个事务，也就是将隐式事务转化为长事务了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">VARIABLES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LIKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;autocommit&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 查看隐式事务提交方式
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">autocommit&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">warning&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="显式事务">&lt;strong>显式事务&lt;/strong>&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="c1"># 1.显式开启一个事务
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">START&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TRANSACTION&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="n">BEGIN&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c1"># 2.提交事务
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">COMMIT&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c1"># 3.回滚事务
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">ROLLBACK&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c1"># 4.在事务中创建保存点，可以在同一事务中创建多个，以便通过ROLLBACK更灵活的回滚
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">SAVEPOINT&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>显式开启一个事务时，如果还有未提交的事务会自动提交，并且&lt;code>autocommit&lt;/code>会被禁用直到该事务结束。对于显式事务，存在&lt;code>completion_type&lt;/code>这样一个变量控制显式事务的行为。有下列三种情况：&lt;/p>
+&lt;ul>
+&lt;li>值为0时即为默认，执行COMMIT后提交该显式事务并结束该事务。&lt;/li>
+&lt;li>值为1时，执行COMMIT后除了有值为0时的默认行为外，随后会自动开始一个相同隔离级别的事务。术语为&lt;code>COMMIT AND CHAIN&lt;/code>&lt;/li>
+&lt;li>值为2时，执行COMMIT后除了有值为0时的默认行为外，随后会断开与服务器的连接。术语为&lt;code>COMMIT AND RELEASE&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="二事务acid特性">二、事务ACID特性&lt;/h2>
+&lt;h3 id="持久性durability">持久性（Durability)&lt;/h3>
+&lt;blockquote>
+&lt;p>已被提交的事务对数据库的修改应该永久保存在数据库中&lt;/p>
+&lt;/blockquote>
+&lt;p>一个实现了ACID的数据库，相比没有实现ACID的数据库，通常会需要更强的CPU处理能力、更大的内存和更多的磁盘空间。&lt;/p>
+&lt;h3 id="原子性atomicity">原子性（Atomicity）&lt;/h3>
+&lt;blockquote>
+&lt;p>事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行&lt;/p>
+&lt;/blockquote>
+&lt;p>想要保证事务的原子性，就需要在异常发生时，对已经执行的操作进行&lt;strong>回滚&lt;/strong>，而在 MySQL 中，恢复机制是通过&lt;a class="link" href="ch2-MySQL%e7%9a%84%e6%97%a5%e5%bf%97%e7%b3%bb%e7%bb%9f.md#%e5%9b%9b%e3%80%81%e5%9b%9e%e6%bb%9a%e6%97%a5%e5%bf%97%20undo%20log" >四、回滚日志 undo log&lt;/a>实现的&lt;/p>
+&lt;h3 id="一致性consistency">一致性（Consistency）&lt;/h3>
+&lt;blockquote>
+&lt;p>事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束。&lt;/p>
+&lt;p>数据库对于 ACID 中的一致性的定义是这样的：如果一个事务原子地在一个一致地数据库中独立运行，那么在它执行之后，数据库的状态一定是一致的。对于这个概念，它的第一层意思就是对于数据完整性的约束，包括主键约束、引用约束以及一些约束检查等等，在事务的执行的前后以及过程中不会违背对数据完整性的约束，所有对数据库写入的操作都应该是合法的，并不能产生不合法的数据状态。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="隔离性isolation">隔离性（Isolation）&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>通常来说&lt;/strong>，一个事务所做的修改在最终提交以前，对其他事务是不可见的。&lt;/p>
+&lt;/blockquote></description></item><item><title>事务</title><link>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</link><pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</guid><description>&lt;h2 id="概念">概念&lt;/h2>
 &lt;blockquote>
 &lt;p>事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。&lt;strong>在 MySQL 中，事务支持是在引擎层实现的。&lt;/strong>&lt;/p>
 &lt;/blockquote>
