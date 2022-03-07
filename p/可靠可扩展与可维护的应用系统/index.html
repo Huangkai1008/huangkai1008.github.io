@@ -1,0 +1,296 @@
+<!doctype html><html lang=zh-cn>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="可靠、可扩展与可维护的应用系统 数据密集型应用 数据密集型应用（Data-Intensive Application) 的制约因素通常是“数据”，包括数据的规模、数据的复"><title>可靠、可扩展与可维护的应用系统</title>
+<link rel=canonical href=https://huangkai1008.github.io/p/%E5%8F%AF%E9%9D%A0%E5%8F%AF%E6%89%A9%E5%B1%95%E4%B8%8E%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/>
+<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="可靠、可扩展与可维护的应用系统">
+<meta property="og:description" content="可靠、可扩展与可维护的应用系统 数据密集型应用 数据密集型应用（Data-Intensive Application) 的制约因素通常是“数据”，包括数据的规模、数据的复">
+<meta property="og:url" content="https://huangkai1008.github.io/p/%E5%8F%AF%E9%9D%A0%E5%8F%AF%E6%89%A9%E5%B1%95%E4%B8%8E%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/">
+<meta property="og:site_name" content="Huanghuang's Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="系统设计"><meta property="article:tag" content="DDIA"><meta property="article:tag" content="database"><meta property="article:published_time" content="2022-02-13T11:13:32+08:00"><meta property="article:modified_time" content="2022-02-13T11:13:32+08:00">
+<meta name=twitter:title content="可靠、可扩展与可维护的应用系统">
+<meta name=twitter:description content="可靠、可扩展与可维护的应用系统 数据密集型应用 数据密集型应用（Data-Intensive Application) 的制约因素通常是“数据”，包括数据的规模、数据的复">
+<link rel="shortcut icon" href=https://gitee.com/huanghuang927/picture-host/raw/master/20211018164707.jpg>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
+</head>
+<body class="article-page has-toc">
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex
+extended">
+<div id=article-toolbar>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<span>Back</span>
+</a>
+</div>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/>
+系统设计
+</a>
+</header>
+<h2 class=article-title>
+<a href=/p/%E5%8F%AF%E9%9D%A0%E5%8F%AF%E6%89%A9%E5%B1%95%E4%B8%8E%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/>可靠、可扩展与可维护的应用系统</a>
+</h2>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Feb 13, 2022</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+7 minute read
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<h1 id=可靠可扩展与可维护的应用系统>可靠、可扩展与可维护的应用系统</h1>
+<h2 id=数据密集型应用>数据密集型应用</h2>
+<blockquote>
+<p><strong>数据密集型应用（<code>Data-Intensive Application</code>)</strong> 的制约因素通常是“数据”，包括数据的规模、数据的复杂度或者数据产生与变化的速率；<strong>计算密集型应用（<code>Compute-Intensive</code>）</strong> 的瓶颈通常在CPU。</p>
+</blockquote>
+<h3 id=数据系统>数据系统</h3>
+<p>数据密集型应用通常也是基于标准模块构建而成，每个模块负责单一的常用功能，这些模块都属于 <strong>数据处理系统（<code>data systems</code>）</strong>：</p>
+<ul>
+<li><strong>数据库（<code>databases</code>）</strong> ：存储数据，使得应用可以再次访问</li>
+<li><strong>高速缓存（<code>caches</code>)</strong> ：缓存复杂或操作代价昂贵的结果，以加快下一次访问</li>
+<li><strong>索引（<code>search indexes</code>）</strong> ： 用户可以按关键字搜索数据并支持各种过滤方式</li>
+<li><strong>流处理（<code>stream processing</code>）</strong> ：持续发送消息到另一个进程，处理采用异步的方式</li>
+<li><strong>批处理（<code>batch processing</code>）</strong> ：定期处理大量的累积数据</li>
+</ul>
+<p>数据系统之间的界限正在变得模糊，例如 Redis 既可以用于数据存储也可以用于消息队列，Kafka 作为消息队列也具备持久化存储保证。</p>
+<p>其次，越来越多的应用程序需求广泛，单个工具不足以满足所有的数据处理和存储需求。因此需要将任务分解，每个组件负责高效完成其中一部分，多个组件依靠应用层代码驱动有机衔接起来。</p>
+<p>下图1-1展示了一种数据系统架构：</p>
+<p><figure>
+<a href=https://gitee.com/huanghuang927/picture-host/raw/master/20220213102553.png>
+<img src=https://gitee.com/huanghuang927/picture-host/raw/master/20220213102553.png loading=lazy alt="图1-1 一种数据系统架构">
+</a>
+<figcaption>图1-1 一种数据系统架构</figcaption>
+</figure></p>
+<h3 id=目标>目标</h3>
+<ul>
+<li><strong>可靠性（<code>Reliability</code>）</strong> ： 当出现意外情况如硬件、软件故障、人为失误等，系统应可以继续正常运转并确保功能的正确性</li>
+<li><strong>可扩展性（<code>Scalability</code>）</strong>：也被称为可伸缩性，随着规模的增长，例如数据量、流量或复杂性，系统应以合理的方式来匹配这种增长</li>
+<li><strong>可维护性（<code>Maintainability</code>）</strong>：许多新的人员在不同的生命周期参与到系统开发或者运维，系统都可以合理工作（系统会保持现有行为，并适应新的应用场景）</li>
+</ul>
+<h2 id=可靠性>可靠性</h2>
+<h3 id=可靠的定义>可靠的定义</h3>
+<ul>
+<li>应用程序执行用户所期望的功能</li>
+<li>可以容忍用户出现不正确的软件使用方法</li>
+<li>性能可以应对典型场景、合理的负载压力和数据量</li>
+<li>系统可以防止任何未经授权的访问和滥用</li>
+</ul>
+<p>可靠性大致意味着：即使发生了某些错误，系统仍可以继续正常工作。</p>
+<h3 id=故障与失效>故障与失效</h3>
+<p>可能出错的事情称为 <strong>错误（<code>faults</code>）</strong> 或故障，系统可以应对错误的特性称为 <strong>容错（<code>tolerant</code>）</strong> 或 <strong>弹性（<code>resilient</code>）</strong> 。</p>
+<p>故障与 <strong>失效（<code>failure</code>）</strong> 不完全一致。故障通常被定义为组件偏离正常规格，失效意味着系统作为一个整体停止，无法向用户提供所需的服务。故障不太可能降低到零，因此通常设计容错机制避免从故障引发系统失效。比较重要的事情是<strong>如何在不可靠组件基础上构建可靠性系统</strong>。</p>
+<h4 id=硬件故障hardware-faults>硬件故障（<code>hardware faults</code>）</h4>
+<p>在机器足够多的情况，硬件故障的情况迟早会发生。</p>
+<p>对于硬件故障的场景，一般采用两种思路去减少系统故障率：</p>
+<ol>
+<li>
+<p>为硬件添加冗余，可以减少单台机器完全失效的概率：</p>
+<p>磁盘配置RAID，服务器配备双电源，热插拔CPU，数据中心添加备用电源、发电机等</p>
+</li>
+<li>
+<p>增加软件容错的方式</p>
+</li>
+</ol>
+<h4 id=软件故障>软件故障</h4>
+<ul>
+<li>接受特定的错误输入，便导致所有应用服务器实例崩溃的 BUG</li>
+<li>失控进程会用尽一些共享资源，包括 CPU 时间、内存、磁盘空间或网络带宽</li>
+<li>系统依赖的服务变慢，没有响应，或者开始返回错误的响应</li>
+<li>级联故障，一个组件中的小故障触发另一个组件中的故障，进而触发更多的故障</li>
+</ul>
+<h4 id=人为失误>人为失误</h4>
+<p>应对的方法有：</p>
+<ul>
+<li>以最小化出错的方式设计系统，例如精心设计的抽象层、API 和管理后台</li>
+<li>分离出最容易出错的地方、容易引发故障的接口，提供一个功能齐全但非生产用的沙箱环境</li>
+<li>充分测试，包括单元测试到全系统集成测试以及手动测试</li>
+<li>提供快速的回滚恢复机制</li>
+<li>设置详细而清晰的监控子系统，包括性能指标和错误率</li>
+<li>推动管理流程并加以培训</li>
+</ul>
+<h2 id=可扩展性>可扩展性</h2>
+<p><strong>可扩展性</strong> 是用来描述系统应对负载增长能力的术语。</p>
+<h3 id=负载的定义>负载的定义</h3>
+<p>负载可以用一些称为 <strong>负载参数（<code>load parameters</code>）</strong> 的数字来描述。参数的最佳选择取决于系统架构，它可能是 Web 服务器的每秒请求处理次数、数据库中写入的比例、同时活跃的用户数量、缓存命中率等。有时平均值很重要，有时系统瓶颈来自于少数峰值。</p>
+<h3 id=性能的定义>性能的定义</h3>
+<p>在系统负载变化的情况下，一般需要从两个方面考虑性能：</p>
+<ol>
+<li>负载增加，但系统资源（CPU、内存、网络带宽等）保持不变，系统性能会发生什么变化</li>
+<li>负载增加，如果需要保持性能不变，需要增加多少系统资源</li>
+</ol>
+<p>对于系统性能的定义，不同类型的系统考虑的角度有很大差异：</p>
+<p>对于Hadoop这样的批处理系统，我们通常关心 <strong>吞吐量（<code>throughput</code>）</strong>，即每秒可处理的记录条数，或者在特定规模数据集上运行作业的总时间 ；而在线系统通常更看重服务的 <strong>响应时间（<code>response time</code>）</strong>，即客户端从发送请求到接收响应之前的间隔。</p>
+<blockquote>
+<p><strong>延迟（<code>latency</code>）</strong> 和 <strong>响应时间（<code>response time</code>）</strong> 的不同：</p>
+<p>响应时间通常指的是客户端看到的，除了<strong>处理请求时间（服务时间，<code>service time</code>）</strong> 外，还包括网络延迟和排队延迟；延迟是指某个请求等待处理的持续时长，在此期间它处于 <strong>休眠（<code>latent</code>）</strong> 状态，并等待服务返回结果。</p>
+</blockquote>
+<h4 id=响应时间的性能指标>响应时间的性能指标</h4>
+<p>即使不断重复发送相同的请求，每次得到的响应时间也都会有所不同，所以需要将响应时间视为一个可以测量的数值 <strong>分布（<code>distribution</code>）</strong>，而不是单个数值。</p>
+<p>相比 <strong>算数平均值（<code>arithmetic mean</code>）</strong> 而言，用<strong>百分位点（<code>percentiles</code>）</strong> 这个指标去得到 <strong>典型（<code>typical</code>）</strong> 的响应时间更好。</p>
+<p>例如第 95、99 和 99.9 百分位点（缩写为 p95，p99 和 p999）。它们意味着 95%、99% 或 99.9% 的请求响应时间要比该阈值快，例如：如果第 95 百分位点响应时间是 1.5 秒，则意味着 100 个请求中的 95 个响应时间快于 1.5 秒，而 100 个请求中的 5 个响应时间超过 1.5 秒。</p>
+<p>采用较高的响应时间百分位数（<code>tail latencies</code>，尾部效应或长尾效应）很重要。百分位点通常用于 <strong>服务级别目标（<code>SLO, service level objectives</code>）</strong> 和 <strong>服务级别协议（<code>SLA, service level agreements</code>）</strong>，即定义服务预期性能和可用性的合同。 SLA 可能会声明，如果服务响应时间的中位数小于 200 毫秒，且 99.9 百分位点低于 1 秒，则认为服务工作正常（如果响应时间更长，就认为服务不达标）。这些指标为客户设定了期望值，并允许客户在 SLA 未达标的情况下要求退款。</p>
+<p><strong>排队延迟（<code>queueing delay</code>）</strong> 通常占了高百分位点处响应时间的很大一部分。由于服务器只能并行处理少量的事务（如受其 CPU 核数的限制），所以只要有少量缓慢的请求就能阻碍后续请求的处理，这种效应有时被称为 <strong>头部阻塞（<code>head-of-line blocking</code>）</strong> 。<strong>当一个请求需要多个后端请求时，单个后端慢请求就会拖慢整个终端用户的请求</strong></p>
+<h3 id=如何应对负载增加>如何应对负载增加</h3>
+<p>通常来说，针对特定级别负载而设计的架构不太可能应付超出预设目标10倍的实际负载，因此当目标服务处于快速增长阶段，需要认真考虑每增加一个数量级的负载，架构如何重新设计。</p>
+<h4 id=垂直扩展和水平扩展>垂直扩展和水平扩展</h4>
+<ul>
+<li><strong>垂直扩展（<code>scaling up</code>，<code>vertical scaling</code>）</strong>：升级到更强大的机器</li>
+<li><strong>水平扩展（<code>scaling out</code>，<code>horizental scaling</code>）</strong> ：将负载分布到多个更小的机器，跨多台机器分配负载也被称为 <strong>无共享（<code>shared-nothing</code>）</strong> 架构。</li>
+</ul>
+<p>现实世界中的优秀架构需要将这两种方法务实地结合。</p>
+<h4 id=自动扩展与手动扩展>自动扩展与手动扩展</h4>
+<p>有些系统是 <strong>弹性（<code>elastic</code>）</strong> 的，这意味着可以在检测到负载增加时自动增加计算资源，而其他系统则是手动扩展 （人工分析容量并决定向系统添加更多的机器）。如果负载极难预测，则弹性系统可能很有用，但手动扩展系统更简单，并且意外操作可能会更少。</p>
+<h4 id=分布式扩展>分布式扩展</h4>
+<p>跨多台机器部署 <strong>无状态服务（<code>stateless services</code>）</strong> 非常简单，但将带状态的数据系统从单节点变为分布式配置则可能引入许多额外复杂度。出于这个原因，常识告诉我们应该将数据库放在单个节点上（采用垂直扩展策略），直到高扩展性或者高可用性的需求迫使其不得不改成分布式。</p>
+<h2 id=可维护性>可维护性</h2>
+<p>可维护性一般关注软件系统的三个设计原则：</p>
+<ul>
+<li><strong>可操作性（<code>Operability</code>）</strong>：便于运维团队保持系统平稳运行</li>
+<li><strong>简单性（<code>Simplicity</code>）</strong> ：从系统中消除尽可能多的 <strong>复杂度（<code>complexity</code>）</strong>，使新工程师也能轻松理解系统（注意这和用户接口的简单性不一样）</li>
+<li><strong>可演化性（<code>evolvability</code>）</strong> ：使工程师在未来能轻松地对系统进行更改，当需求变化时为新应用场景做适配。也称为 <strong>可伸缩性（<code>extensibility</code>）</strong> 、<strong>可修改性（<code>modifiability</code>）</strong> 或 <strong>可塑性（<code>plasticity</code>）</strong></li>
+</ul>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/>系统设计</a>
+<a href=/tags/ddia/>DDIA</a>
+<a href=/tags/database/>database</a>
+</section>
+<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span>
+</section>
+</footer>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
+</article>
+<aside class=related-contents--wrapper>
+<h2 class=section-title>Related contents</h2>
+<div class=related-contents>
+<div class="flex article-list--tile">
+<article>
+<a href=/p/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/>
+<div class=article-details>
+<h2 class=article-title>数据模型与查询语言</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<div class=disqus-container>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hugo-theme-stack.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
+<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2022 Huanghuang's Blog
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">Table of contents</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#数据密集型应用>数据密集型应用</a>
+<ol>
+<li><a href=#数据系统>数据系统</a></li>
+<li><a href=#目标>目标</a></li>
+</ol>
+</li>
+<li><a href=#可靠性>可靠性</a>
+<ol>
+<li><a href=#可靠的定义>可靠的定义</a></li>
+<li><a href=#故障与失效>故障与失效</a>
+<ol>
+<li><a href=#硬件故障hardware-faults>硬件故障（<code>hardware faults</code>）</a></li>
+<li><a href=#软件故障>软件故障</a></li>
+<li><a href=#人为失误>人为失误</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#可扩展性>可扩展性</a>
+<ol>
+<li><a href=#负载的定义>负载的定义</a></li>
+<li><a href=#性能的定义>性能的定义</a>
+<ol>
+<li><a href=#响应时间的性能指标>响应时间的性能指标</a></li>
+</ol>
+</li>
+<li><a href=#如何应对负载增加>如何应对负载增加</a>
+<ol>
+<li><a href=#垂直扩展和水平扩展>垂直扩展和水平扩展</a></li>
+<li><a href=#自动扩展与手动扩展>自动扩展与手动扩展</a></li>
+<li><a href=#分布式扩展>分布式扩展</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#可维护性>可维护性</a></li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

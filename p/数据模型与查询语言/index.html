@@ -1,0 +1,323 @@
+<!doctype html><html lang=zh-cn>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="数据模型与查询语言 数据模型 多数应用使用层层叠加的数据模型来构建，例如： 作为应用开发人员，观察现实世界（其中包括人员、组织、货物、行为、资金流"><title>数据模型与查询语言</title>
+<link rel=canonical href=https://huangkai1008.github.io/p/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/>
+<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="数据模型与查询语言">
+<meta property="og:description" content="数据模型与查询语言 数据模型 多数应用使用层层叠加的数据模型来构建，例如： 作为应用开发人员，观察现实世界（其中包括人员、组织、货物、行为、资金流">
+<meta property="og:url" content="https://huangkai1008.github.io/p/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/">
+<meta property="og:site_name" content="Huanghuang's Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="系统设计"><meta property="article:tag" content="DDIA"><meta property="article:tag" content="database"><meta property="article:published_time" content="2022-02-19T11:13:32+08:00"><meta property="article:modified_time" content="2022-03-05T09:12:32+08:00">
+<meta name=twitter:title content="数据模型与查询语言">
+<meta name=twitter:description content="数据模型与查询语言 数据模型 多数应用使用层层叠加的数据模型来构建，例如： 作为应用开发人员，观察现实世界（其中包括人员、组织、货物、行为、资金流">
+<link rel="shortcut icon" href=https://gitee.com/huanghuang927/picture-host/raw/master/20211018164707.jpg>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
+</head>
+<body class="article-page has-toc">
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex
+extended">
+<div id=article-toolbar>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<span>Back</span>
+</a>
+</div>
+<main class="main full-width">
+<article class=main-article>
+<header class=article-header>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/>
+系统设计
+</a>
+</header>
+<h2 class=article-title>
+<a href=/p/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/>数据模型与查询语言</a>
+</h2>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Feb 19, 2022</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+6 minute read
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<h1 id=数据模型与查询语言>数据模型与查询语言</h1>
+<h2 id=数据模型>数据模型</h2>
+<p>多数应用使用层层叠加的数据模型来构建，例如：</p>
+<ol>
+<li>作为应用开发人员，观察现实世界（其中包括人员、组织、货物、行为、资金流向、传感器等），并通过对象或数据结构，以及操控那些数据结构的 API 来进行建模。这些结构通常是特定于该应用程序。</li>
+<li>当需要存储那些数据结构时，可以利用通用数据模型来表示它们，如 JSON 或 XML 文档、关系数据库中的表或图模型。</li>
+<li>数据库软件的工程师决定如何以内存、磁盘或网络上的字节来表示 JSON / XML/ 关系 / 图数据。数据表示需要支持多种方式的查询、搜索、操作和处理。</li>
+<li>在更低的层次上，硬件工程师则需要考虑用电流、光脉冲、磁场或者其他东西来表示字节的方法。</li>
+</ol>
+<p>复杂的应用程序可能会有更多的中间层，但是基本思想相同：<strong>每层都通过提供一个简洁的数据模型来隐藏下层的复杂性。</strong></p>
+<h3 id=关系模型与文档模型>关系模型与文档模型</h3>
+<h4 id=数据模型的演变>数据模型的演变</h4>
+<ul>
+<li><strong>层次模型（<code>hieranchical model</code>）</strong>：将所有数据表示为嵌套在记录中的记录树，和 JSON 结构有一些类似。在20世纪70年代 IBM 公司的信息管理系统（IMS）中使用。</li>
+<li><strong>网状模型（<code>network model</code>）</strong>：网状模型由一个称为数据系统语言会议（CODASYL）的委员会进行了标准化，并被数个不同的数据库厂商实现。它也被称为 CODASYL 模型，CODASYL 模型是层次模型的推广。</li>
+<li><strong>关系模型（<code>relational model</code>）</strong>：数据被组织成 <strong>关系</strong>，其中每个关系是 <strong>元组</strong>的无序集合。SQL 基于关系模型，其中 SQL 中的<strong>表</strong>对应关系模型中的关系，<strong>行</strong>对应关系模型中的元组。</li>
+<li><strong>文档模型（<code>document-oriented model</code>）</strong></li>
+<li><strong>图模型（<code>graphical model</code>）</strong></li>
+<li><strong>图模型（<code>graphical model</code>）</strong></li>
+</ul>
+<h4 id=对象-关系不匹配>对象-关系不匹配</h4>
+<p>应用层的数据模型和 SQL 数据模型中存在差异，需要一个转换层，模型之间的不连贯有时被称为 <strong>阻抗不匹配（<code>impedance mismatch</code>）</strong> ，<strong>对象-关系映射（<code>ORM，object-relational mapping</code>）</strong> 框架可以减少转换层的工作量，但是无法完全隐藏两个模型之间的差异。一般来说，<strong>文档模型可以减少应用程序代码和存储层之间的阻抗不匹配</strong>，具有更好的 <strong>局部性（<code>locality</code>）</strong></p>
+<p>对于一个像简历这样自包含文档的数据结构而言，JSON 表示是非常合适的。</p>
+<p>例：用 JSON 文档表示一个 LinkedIn 简介</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+  <span class=nt>&#34;user_id&#34;</span><span class=p>:</span> <span class=mi>251</span><span class=p>,</span>
+  <span class=nt>&#34;first_name&#34;</span><span class=p>:</span> <span class=s2>&#34;Bill&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;last_name&#34;</span><span class=p>:</span> <span class=s2>&#34;Gates&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;summary&#34;</span><span class=p>:</span> <span class=s2>&#34;Co-chair of the Bill &amp; Melinda Gates... Active blogger.&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;region_id&#34;</span><span class=p>:</span> <span class=s2>&#34;us:91&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;industry_id&#34;</span><span class=p>:</span> <span class=mi>131</span><span class=p>,</span>
+  <span class=nt>&#34;photo_url&#34;</span><span class=p>:</span> <span class=s2>&#34;/p/7/000/253/05b/308dd6e.jpg&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;positions&#34;</span><span class=p>:</span> <span class=p>[</span>
+    <span class=p>{</span>
+      <span class=nt>&#34;job_title&#34;</span><span class=p>:</span> <span class=s2>&#34;Co-chair&#34;</span><span class=p>,</span>
+      <span class=nt>&#34;organization&#34;</span><span class=p>:</span> <span class=s2>&#34;Bill &amp; Melinda Gates Foundation&#34;</span>
+    <span class=p>},</span>
+    <span class=p>{</span>
+      <span class=nt>&#34;job_title&#34;</span><span class=p>:</span> <span class=s2>&#34;Co-founder, Chairman&#34;</span><span class=p>,</span>
+      <span class=nt>&#34;organization&#34;</span><span class=p>:</span> <span class=s2>&#34;Microsoft&#34;</span>
+    <span class=p>}</span>
+  <span class=p>],</span>
+  <span class=nt>&#34;education&#34;</span><span class=p>:</span> <span class=p>[</span>
+    <span class=p>{</span>
+      <span class=nt>&#34;school_name&#34;</span><span class=p>:</span> <span class=s2>&#34;Harvard University&#34;</span><span class=p>,</span>
+      <span class=nt>&#34;start&#34;</span><span class=p>:</span> <span class=mi>1973</span><span class=p>,</span>
+      <span class=nt>&#34;end&#34;</span><span class=p>:</span> <span class=mi>1975</span>
+    <span class=p>},</span>
+    <span class=p>{</span>
+      <span class=nt>&#34;school_name&#34;</span><span class=p>:</span> <span class=s2>&#34;Lakeside School, Seattle&#34;</span><span class=p>,</span>
+      <span class=nt>&#34;start&#34;</span><span class=p>:</span> <span class=kc>null</span><span class=p>,</span>
+      <span class=nt>&#34;end&#34;</span><span class=p>:</span> <span class=kc>null</span>
+    <span class=p>}</span>
+  <span class=p>],</span>
+  <span class=nt>&#34;contact_info&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;blog&#34;</span><span class=p>:</span> <span class=s2>&#34;http://thegatesnotes.com&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;twitter&#34;</span><span class=p>:</span> <span class=s2>&#34;http://twitter.com/BillGates&#34;</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div><h4 id=多对一与多对多的关系>多对一与多对多的关系</h4>
+<p>对于关系数据库，由于支持联结操作，可以很方便地通过 ID 来引用其他表中的行。而在文档数据库中，一对多的树结构不需要联结，对于联结的支持通常也很弱。</p>
+<p>在表示多对一和多对多的关系时，关系数据库和文档数据库并没有根本的不同：在这两种情况下，相关项目都被一个唯一的标识符引用，这个标识符在关系模型中被称为 <strong>外键</strong>，在文档模型中称为 <strong>文档引用</strong>。</p>
+<h4 id=关系数据库与文档数据库的对比>关系数据库与文档数据库的对比</h4>
+<h5 id=适合的场景>适合的场景</h5>
+<p>如果应用数据具有类似文档的结构（即一对多关系树，通常一次性加载整个树），这种场景下适合使用文档模型。</p>
+<p>对于使用多对多关系或者高度关联的数据，关系模型可以胜任此场景，但是图模型是最适合的。</p>
+<h5 id=模式灵活性>模式灵活性</h5>
+<p>文档数据库有时称为 <strong>无模式（<code>schemaless</code>）</strong> ，更精确的术语应该是 <strong>读时模式（<code>schema-on-read</code>，数据的结构是隐式的，只有在读取时才解释）</strong>，与 <strong>写时模式（<code>schema-on-write</code>，关系数据库的一种传统方法，模式是显式的，并且数据库确保数据写入时都必需遵循）</strong> 相对应。</p>
+<h5 id=查询的数据局部性>查询的数据局部性</h5>
+<p>如果应用程序需要频繁访问整个文档，那么存储局部性会带来性能优势。如果将数据分割到多个表中，则需要进行多次索引查找才能将其全部检索出来，这可能需要更多的磁盘查找并花费更多的时间。</p>
+<p>局部性仅仅适用于同时需要文档绝大部分内容的情况。</p>
+<h3 id=图数据模型>图数据模型</h3>
+<p>图由两种对象组成：<strong>顶点（<code>vertex</code>，也称为节点（<code>node</code>）/ 实体（<code>entity</code>））</strong> 和 <strong>边（<code>edge</code>，也称为关系(<code>relationship</code>) / 弧（<code>arc</code>））</strong>。</p>
+<p>很多数据可以建模为图，图很适合用来处理大量多对多关系的场景，典型的例子包括：</p>
+<ul>
+<li>
+<p>社交网络</p>
+<p>顶点是人，边指示哪些人彼此认识。</p>
+</li>
+<li>
+<p>web 图</p>
+<p>顶点是网页，边表示与其他页面的 HTML 链接。</p>
+</li>
+<li>
+<p>公路或铁路网</p>
+<p>顶点是交叉路口，边表示它们之间的公路或铁路线路</p>
+</li>
+</ul>
+<p>可以将很多著名的算法运用到这些图上。例如，汽车导航系统搜索道路网络中两点之间的最短路径，PageRank 可以计算 web 图上网页的流行度，从而确定搜索排名。</p>
+<p>另外·，图并不局限于以上提到的同构数据，图也提供了单个数据存储区中保存完全不同类型对象的一致性方式。</p>
+<h4 id=属性图>属性图</h4>
+<p>在 **属性图模型（<code>property graph</code>）**中，</p>
+<p>每个顶点包括：</p>
+<ul>
+<li>唯一的标识符</li>
+<li>出边的集合（<code>outgoing edges</code>）</li>
+<li>入边的集合（<code>ingoing edges</code>）</li>
+<li>属性的集合（键值对）</li>
+</ul>
+<p>每个边包括：</p>
+<ul>
+<li>唯一的标识符</li>
+<li>边的起点（尾部顶点，<code>tail vertex</code>）</li>
+<li>边的终点（头部顶点，<code>head vertex</code>）</li>
+<li>描述两个顶点间关系类型的标签</li>
+<li>属性的集合（键值对）</li>
+</ul>
+<p><strong>使用属性图构建的数据库有 <code>Neo4j</code>、<code>Titan</code>、<code>InfiniteGraph</code> 等。</strong></p>
+<h3 id=三元存储模型>三元存储模型</h3>
+<p>在 <strong>三元存储（<code>triple-store</code>）</strong> 中，所有信息都以非常简单的三部分形式存储：<strong>主语、谓语、宾语</strong>。</p>
+<p>三元组的主语相当于图中的一个顶点。而宾语包括以下两种：</p>
+<ol>
+<li>原始数据类型中的值，例如字符串和数字。在这种情况下，三元组的谓语和宾语相当于主语顶点上的属性的键和值。</li>
+<li>图中的另一个顶点。此时，谓语是图中的边，主语是尾部顶点，宾语是头部顶点。</li>
+</ol>
+<h3 id=混合持久化>混合持久化</h3>
+<p>不同的应用程序有不同的需求，某个用例的最佳技术选择未必适合另一个用例。因此，在可预见的将来，关系数据库可能会继续与各种非关系数据库一起使用 - 这种思路有时也被称为 <strong>混合持久化（<code>polyglot persistence</code>）</strong>。</p>
+<h2 id=数据查询语言>数据查询语言</h2>
+<h3 id=命令式与声明式>命令式与声明式</h3>
+<p>命令式语言告诉计算机以特定顺序执行某些操作；</p>
+<p>声明式查询语言只需指定所需的数据模式，结果需满足什么条件，以及如何转换数据（例如，排序、分组和聚合），而不需指明如何实现这一目标。数据库系统的查询优化器会决定采用哪些索引和联结，以及用何种顺序来执行查询的各个语句。</p>
+<p>声明式查询语言比命令式 API 更加简洁易用，更重要的是，<strong>它还隐藏了数据库引擎的实现细节，这使得数据库系统可以在无需对查询做任何更改的情况下提高性能。</strong></p>
+<p><strong>声明式语言对于并行执行更加友好。</strong></p>
+<p>例如查询动物物种列表中的鲨鱼这个场景：</p>
+<p>javascript 的写法是这样的：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=kd>function</span> <span class=nx>getSharks</span><span class=p>()</span> <span class=p>{</span>
+    <span class=kd>var</span> <span class=nx>sharks</span> <span class=o>=</span> <span class=p>[];</span>
+    <span class=k>for</span> <span class=p>(</span><span class=kd>var</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>animals</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+        <span class=k>if</span> <span class=p>(</span><span class=nx>animals</span><span class=p>[</span><span class=nx>i</span><span class=p>].</span><span class=nx>family</span> <span class=o>===</span> <span class=s2>&#34;Sharks&#34;</span><span class=p>)</span> <span class=p>{</span>
+            <span class=nx>sharks</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>animals</span><span class=p>[</span><span class=nx>i</span><span class=p>]);</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=k>return</span> <span class=nx>sharks</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></div><p>关系代数的写法是这样的：
+$$
+sharks = σ_{family = &ldquo;sharks&rdquo;}(animals)
+$$
+SQL 的写法是这样的：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>animals</span><span class=w> </span><span class=k>WHERE</span><span class=w> </span><span class=n>family</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;sharks&#39;</span><span class=p>;</span><span class=w>
+</span></code></pre></div><h3 id=mapreduce-查询>MapReduce 查询</h3>
+<blockquote>
+<p>MapReduce 是一种编程模型，用于在多台机器上批量处理大规模的数据。</p>
+</blockquote>
+<p>MapReduce 既不是一个声明式的查询语言，也不是一个完全命令式的查询 API。</p>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/>系统设计</a>
+<a href=/tags/ddia/>DDIA</a>
+<a href=/tags/database/>database</a>
+</section>
+<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span>
+</section>
+<section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>
+Last updated on Mar 05, 2022 09:12 +0800
+</span>
+</section></footer>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
+</article>
+<aside class=related-contents--wrapper>
+<h2 class=section-title>Related contents</h2>
+<div class=related-contents>
+<div class="flex article-list--tile">
+<article>
+<a href=/p/%E5%8F%AF%E9%9D%A0%E5%8F%AF%E6%89%A9%E5%B1%95%E4%B8%8E%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/>
+<div class=article-details>
+<h2 class=article-title>可靠、可扩展与可维护的应用系统</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<div class=disqus-container>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//hugo-theme-stack.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
+<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2022 Huanghuang's Blog
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">Table of contents</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#数据模型>数据模型</a>
+<ol>
+<li><a href=#关系模型与文档模型>关系模型与文档模型</a>
+<ol>
+<li><a href=#数据模型的演变>数据模型的演变</a></li>
+<li><a href=#对象-关系不匹配>对象-关系不匹配</a></li>
+<li><a href=#多对一与多对多的关系>多对一与多对多的关系</a></li>
+<li><a href=#关系数据库与文档数据库的对比>关系数据库与文档数据库的对比</a></li>
+</ol>
+</li>
+<li><a href=#图数据模型>图数据模型</a>
+<ol>
+<li><a href=#属性图>属性图</a></li>
+</ol>
+</li>
+<li><a href=#三元存储模型>三元存储模型</a></li>
+<li><a href=#混合持久化>混合持久化</a></li>
+</ol>
+</li>
+<li><a href=#数据查询语言>数据查询语言</a>
+<ol>
+<li><a href=#命令式与声明式>命令式与声明式</a></li>
+<li><a href=#mapreduce-查询>MapReduce 查询</a></li>
+</ol>
+</li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

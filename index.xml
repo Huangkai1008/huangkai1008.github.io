@@ -1,4 +1,409 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 05 Feb 2022 13:35:54 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>计算机导论 函数抽象</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E5%87%BD%E6%95%B0%E6%8A%BD%E8%B1%A1/</link><pubDate>Sat, 05 Feb 2022 13:35:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E5%87%BD%E6%95%B0%E6%8A%BD%E8%B1%A1/</guid><description>&lt;h1 id="函数抽象">函数抽象&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huanghuang's Blog</title><link>https://huangkai1008.github.io/</link><description>Recent content on Huanghuang's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 19 Feb 2022 11:13:32 +0800</lastBuildDate><atom:link href="https://huangkai1008.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>数据模型与查询语言</title><link>https://huangkai1008.github.io/p/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/</link><pubDate>Sat, 19 Feb 2022 11:13:32 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80/</guid><description>&lt;h1 id="数据模型与查询语言">数据模型与查询语言&lt;/h1>
+&lt;h2 id="数据模型">数据模型&lt;/h2>
+&lt;p>多数应用使用层层叠加的数据模型来构建，例如：&lt;/p>
+&lt;ol>
+&lt;li>作为应用开发人员，观察现实世界（其中包括人员、组织、货物、行为、资金流向、传感器等），并通过对象或数据结构，以及操控那些数据结构的 API 来进行建模。这些结构通常是特定于该应用程序。&lt;/li>
+&lt;li>当需要存储那些数据结构时，可以利用通用数据模型来表示它们，如 JSON 或 XML 文档、关系数据库中的表或图模型。&lt;/li>
+&lt;li>数据库软件的工程师决定如何以内存、磁盘或网络上的字节来表示 JSON / XML/ 关系 / 图数据。数据表示需要支持多种方式的查询、搜索、操作和处理。&lt;/li>
+&lt;li>在更低的层次上，硬件工程师则需要考虑用电流、光脉冲、磁场或者其他东西来表示字节的方法。&lt;/li>
+&lt;/ol>
+&lt;p>复杂的应用程序可能会有更多的中间层，但是基本思想相同：&lt;strong>每层都通过提供一个简洁的数据模型来隐藏下层的复杂性。&lt;/strong>&lt;/p>
+&lt;h3 id="关系模型与文档模型">关系模型与文档模型&lt;/h3>
+&lt;h4 id="数据模型的演变">数据模型的演变&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>层次模型（&lt;code>hieranchical model&lt;/code>）&lt;/strong>：将所有数据表示为嵌套在记录中的记录树，和 JSON 结构有一些类似。在20世纪70年代 IBM 公司的信息管理系统（IMS）中使用。&lt;/li>
+&lt;li>&lt;strong>网状模型（&lt;code>network model&lt;/code>）&lt;/strong>：网状模型由一个称为数据系统语言会议（CODASYL）的委员会进行了标准化，并被数个不同的数据库厂商实现。它也被称为 CODASYL 模型，CODASYL 模型是层次模型的推广。&lt;/li>
+&lt;li>&lt;strong>关系模型（&lt;code>relational model&lt;/code>）&lt;/strong>：数据被组织成 &lt;strong>关系&lt;/strong>，其中每个关系是 &lt;strong>元组&lt;/strong>的无序集合。SQL 基于关系模型，其中 SQL 中的&lt;strong>表&lt;/strong>对应关系模型中的关系，&lt;strong>行&lt;/strong>对应关系模型中的元组。&lt;/li>
+&lt;li>&lt;strong>文档模型（&lt;code>document-oriented model&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>图模型（&lt;code>graphical model&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>图模型（&lt;code>graphical model&lt;/code>）&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h4 id="对象-关系不匹配">对象-关系不匹配&lt;/h4>
+&lt;p>应用层的数据模型和 SQL 数据模型中存在差异，需要一个转换层，模型之间的不连贯有时被称为 &lt;strong>阻抗不匹配（&lt;code>impedance mismatch&lt;/code>）&lt;/strong> ，&lt;strong>对象-关系映射（&lt;code>ORM，object-relational mapping&lt;/code>）&lt;/strong> 框架可以减少转换层的工作量，但是无法完全隐藏两个模型之间的差异。一般来说，&lt;strong>文档模型可以减少应用程序代码和存储层之间的阻抗不匹配&lt;/strong>，具有更好的 &lt;strong>局部性（&lt;code>locality&lt;/code>）&lt;/strong>&lt;/p>
+&lt;p>对于一个像简历这样自包含文档的数据结构而言，JSON 表示是非常合适的。&lt;/p>
+&lt;p>例：用 JSON 文档表示一个 LinkedIn 简介&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;user_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">251&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;first_name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Bill&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;last_name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Gates&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;summary&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Co-chair of the Bill &amp;amp; Melinda Gates... Active blogger.&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;region_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;us:91&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;industry_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">131&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;photo_url&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;/p/7/000/253/05b/308dd6e.jpg&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;positions&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;job_title&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Co-chair&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;organization&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Bill &amp;amp; Melinda Gates Foundation&amp;#34;&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;job_title&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Co-founder, Chairman&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;organization&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Microsoft&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">],&lt;/span>
+&lt;span class="nt">&amp;#34;education&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;school_name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Harvard University&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;start&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1973&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;end&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1975&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;school_name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Lakeside School, Seattle&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;start&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;end&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">null&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">],&lt;/span>
+&lt;span class="nt">&amp;#34;contact_info&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;blog&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;http://thegatesnotes.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;twitter&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;http://twitter.com/BillGates&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="多对一与多对多的关系">多对一与多对多的关系&lt;/h4>
+&lt;p>对于关系数据库，由于支持联结操作，可以很方便地通过 ID 来引用其他表中的行。而在文档数据库中，一对多的树结构不需要联结，对于联结的支持通常也很弱。&lt;/p>
+&lt;p>在表示多对一和多对多的关系时，关系数据库和文档数据库并没有根本的不同：在这两种情况下，相关项目都被一个唯一的标识符引用，这个标识符在关系模型中被称为 &lt;strong>外键&lt;/strong>，在文档模型中称为 &lt;strong>文档引用&lt;/strong>。&lt;/p>
+&lt;h4 id="关系数据库与文档数据库的对比">关系数据库与文档数据库的对比&lt;/h4>
+&lt;h5 id="适合的场景">适合的场景&lt;/h5>
+&lt;p>如果应用数据具有类似文档的结构（即一对多关系树，通常一次性加载整个树），这种场景下适合使用文档模型。&lt;/p>
+&lt;p>对于使用多对多关系或者高度关联的数据，关系模型可以胜任此场景，但是图模型是最适合的。&lt;/p>
+&lt;h5 id="模式灵活性">模式灵活性&lt;/h5>
+&lt;p>文档数据库有时称为 &lt;strong>无模式（&lt;code>schemaless&lt;/code>）&lt;/strong> ，更精确的术语应该是 &lt;strong>读时模式（&lt;code>schema-on-read&lt;/code>，数据的结构是隐式的，只有在读取时才解释）&lt;/strong>，与 &lt;strong>写时模式（&lt;code>schema-on-write&lt;/code>，关系数据库的一种传统方法，模式是显式的，并且数据库确保数据写入时都必需遵循）&lt;/strong> 相对应。&lt;/p>
+&lt;h5 id="查询的数据局部性">查询的数据局部性&lt;/h5>
+&lt;p>如果应用程序需要频繁访问整个文档，那么存储局部性会带来性能优势。如果将数据分割到多个表中，则需要进行多次索引查找才能将其全部检索出来，这可能需要更多的磁盘查找并花费更多的时间。&lt;/p>
+&lt;p>局部性仅仅适用于同时需要文档绝大部分内容的情况。&lt;/p>
+&lt;h3 id="图数据模型">图数据模型&lt;/h3>
+&lt;p>图由两种对象组成：&lt;strong>顶点（&lt;code>vertex&lt;/code>，也称为节点（&lt;code>node&lt;/code>）/ 实体（&lt;code>entity&lt;/code>））&lt;/strong> 和 &lt;strong>边（&lt;code>edge&lt;/code>，也称为关系(&lt;code>relationship&lt;/code>) / 弧（&lt;code>arc&lt;/code>））&lt;/strong>。&lt;/p>
+&lt;p>很多数据可以建模为图，图很适合用来处理大量多对多关系的场景，典型的例子包括：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>社交网络&lt;/p>
+&lt;p>顶点是人，边指示哪些人彼此认识。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>web 图&lt;/p>
+&lt;p>顶点是网页，边表示与其他页面的 HTML 链接。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>公路或铁路网&lt;/p>
+&lt;p>顶点是交叉路口，边表示它们之间的公路或铁路线路&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>可以将很多著名的算法运用到这些图上。例如，汽车导航系统搜索道路网络中两点之间的最短路径，PageRank 可以计算 web 图上网页的流行度，从而确定搜索排名。&lt;/p>
+&lt;p>另外·，图并不局限于以上提到的同构数据，图也提供了单个数据存储区中保存完全不同类型对象的一致性方式。&lt;/p>
+&lt;h4 id="属性图">属性图&lt;/h4>
+&lt;p>在 **属性图模型（&lt;code>property graph&lt;/code>）**中，&lt;/p>
+&lt;p>每个顶点包括：&lt;/p>
+&lt;ul>
+&lt;li>唯一的标识符&lt;/li>
+&lt;li>出边的集合（&lt;code>outgoing edges&lt;/code>）&lt;/li>
+&lt;li>入边的集合（&lt;code>ingoing edges&lt;/code>）&lt;/li>
+&lt;li>属性的集合（键值对）&lt;/li>
+&lt;/ul>
+&lt;p>每个边包括：&lt;/p>
+&lt;ul>
+&lt;li>唯一的标识符&lt;/li>
+&lt;li>边的起点（尾部顶点，&lt;code>tail vertex&lt;/code>）&lt;/li>
+&lt;li>边的终点（头部顶点，&lt;code>head vertex&lt;/code>）&lt;/li>
+&lt;li>描述两个顶点间关系类型的标签&lt;/li>
+&lt;li>属性的集合（键值对）&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>使用属性图构建的数据库有 &lt;code>Neo4j&lt;/code>、&lt;code>Titan&lt;/code>、&lt;code>InfiniteGraph&lt;/code> 等。&lt;/strong>&lt;/p>
+&lt;h3 id="三元存储模型">三元存储模型&lt;/h3>
+&lt;p>在 &lt;strong>三元存储（&lt;code>triple-store&lt;/code>）&lt;/strong> 中，所有信息都以非常简单的三部分形式存储：&lt;strong>主语、谓语、宾语&lt;/strong>。&lt;/p>
+&lt;p>三元组的主语相当于图中的一个顶点。而宾语包括以下两种：&lt;/p>
+&lt;ol>
+&lt;li>原始数据类型中的值，例如字符串和数字。在这种情况下，三元组的谓语和宾语相当于主语顶点上的属性的键和值。&lt;/li>
+&lt;li>图中的另一个顶点。此时，谓语是图中的边，主语是尾部顶点，宾语是头部顶点。&lt;/li>
+&lt;/ol>
+&lt;h3 id="混合持久化">混合持久化&lt;/h3>
+&lt;p>不同的应用程序有不同的需求，某个用例的最佳技术选择未必适合另一个用例。因此，在可预见的将来，关系数据库可能会继续与各种非关系数据库一起使用 - 这种思路有时也被称为 &lt;strong>混合持久化（&lt;code>polyglot persistence&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;h2 id="数据查询语言">数据查询语言&lt;/h2>
+&lt;h3 id="命令式与声明式">命令式与声明式&lt;/h3>
+&lt;p>命令式语言告诉计算机以特定顺序执行某些操作；&lt;/p>
+&lt;p>声明式查询语言只需指定所需的数据模式，结果需满足什么条件，以及如何转换数据（例如，排序、分组和聚合），而不需指明如何实现这一目标。数据库系统的查询优化器会决定采用哪些索引和联结，以及用何种顺序来执行查询的各个语句。&lt;/p>
+&lt;p>声明式查询语言比命令式 API 更加简洁易用，更重要的是，&lt;strong>它还隐藏了数据库引擎的实现细节，这使得数据库系统可以在无需对查询做任何更改的情况下提高性能。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>声明式语言对于并行执行更加友好。&lt;/strong>&lt;/p>
+&lt;p>例如查询动物物种列表中的鲨鱼这个场景：&lt;/p>
+&lt;p>javascript 的写法是这样的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kd">function&lt;/span> &lt;span class="nx">getSharks&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">sharks&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">animals&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">animals&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">family&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;Sharks&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">sharks&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">animals&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">sharks&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>关系代数的写法是这样的：
+$$
+sharks = σ_{family = &amp;ldquo;sharks&amp;rdquo;}(animals)
+$$
+SQL 的写法是这样的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="k">SELECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">FROM&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">animals&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">WHERE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">family&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;sharks&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="mapreduce-查询">MapReduce 查询&lt;/h3>
+&lt;blockquote>
+&lt;p>MapReduce 是一种编程模型，用于在多台机器上批量处理大规模的数据。&lt;/p>
+&lt;/blockquote>
+&lt;p>MapReduce 既不是一个声明式的查询语言，也不是一个完全命令式的查询 API。&lt;/p></description></item><item><title>可靠、可扩展与可维护的应用系统</title><link>https://huangkai1008.github.io/p/%E5%8F%AF%E9%9D%A0%E5%8F%AF%E6%89%A9%E5%B1%95%E4%B8%8E%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/</link><pubDate>Sun, 13 Feb 2022 11:13:32 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%8F%AF%E9%9D%A0%E5%8F%AF%E6%89%A9%E5%B1%95%E4%B8%8E%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/</guid><description>&lt;h1 id="可靠可扩展与可维护的应用系统">可靠、可扩展与可维护的应用系统&lt;/h1>
+&lt;h2 id="数据密集型应用">数据密集型应用&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;strong>数据密集型应用（&lt;code>Data-Intensive Application&lt;/code>)&lt;/strong> 的制约因素通常是“数据”，包括数据的规模、数据的复杂度或者数据产生与变化的速率；&lt;strong>计算密集型应用（&lt;code>Compute-Intensive&lt;/code>）&lt;/strong> 的瓶颈通常在CPU。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="数据系统">数据系统&lt;/h3>
+&lt;p>数据密集型应用通常也是基于标准模块构建而成，每个模块负责单一的常用功能，这些模块都属于 &lt;strong>数据处理系统（&lt;code>data systems&lt;/code>）&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>数据库（&lt;code>databases&lt;/code>）&lt;/strong> ：存储数据，使得应用可以再次访问&lt;/li>
+&lt;li>&lt;strong>高速缓存（&lt;code>caches&lt;/code>)&lt;/strong> ：缓存复杂或操作代价昂贵的结果，以加快下一次访问&lt;/li>
+&lt;li>&lt;strong>索引（&lt;code>search indexes&lt;/code>）&lt;/strong> ： 用户可以按关键字搜索数据并支持各种过滤方式&lt;/li>
+&lt;li>&lt;strong>流处理（&lt;code>stream processing&lt;/code>）&lt;/strong> ：持续发送消息到另一个进程，处理采用异步的方式&lt;/li>
+&lt;li>&lt;strong>批处理（&lt;code>batch processing&lt;/code>）&lt;/strong> ：定期处理大量的累积数据&lt;/li>
+&lt;/ul>
+&lt;p>数据系统之间的界限正在变得模糊，例如 Redis 既可以用于数据存储也可以用于消息队列，Kafka 作为消息队列也具备持久化存储保证。&lt;/p>
+&lt;p>其次，越来越多的应用程序需求广泛，单个工具不足以满足所有的数据处理和存储需求。因此需要将任务分解，每个组件负责高效完成其中一部分，多个组件依靠应用层代码驱动有机衔接起来。&lt;/p>
+&lt;p>下图1-1展示了一种数据系统架构：&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20220213102553.png" >
+&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20220213102553.png"
+loading="lazy"
+alt="图1-1 一种数据系统架构">
+&lt;/a>
+&lt;figcaption>图1-1 一种数据系统架构&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h3 id="目标">目标&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>可靠性（&lt;code>Reliability&lt;/code>）&lt;/strong> ： 当出现意外情况如硬件、软件故障、人为失误等，系统应可以继续正常运转并确保功能的正确性&lt;/li>
+&lt;li>&lt;strong>可扩展性（&lt;code>Scalability&lt;/code>）&lt;/strong>：也被称为可伸缩性，随着规模的增长，例如数据量、流量或复杂性，系统应以合理的方式来匹配这种增长&lt;/li>
+&lt;li>&lt;strong>可维护性（&lt;code>Maintainability&lt;/code>）&lt;/strong>：许多新的人员在不同的生命周期参与到系统开发或者运维，系统都可以合理工作（系统会保持现有行为，并适应新的应用场景）&lt;/li>
+&lt;/ul>
+&lt;h2 id="可靠性">可靠性&lt;/h2>
+&lt;h3 id="可靠的定义">可靠的定义&lt;/h3>
+&lt;ul>
+&lt;li>应用程序执行用户所期望的功能&lt;/li>
+&lt;li>可以容忍用户出现不正确的软件使用方法&lt;/li>
+&lt;li>性能可以应对典型场景、合理的负载压力和数据量&lt;/li>
+&lt;li>系统可以防止任何未经授权的访问和滥用&lt;/li>
+&lt;/ul>
+&lt;p>可靠性大致意味着：即使发生了某些错误，系统仍可以继续正常工作。&lt;/p>
+&lt;h3 id="故障与失效">故障与失效&lt;/h3>
+&lt;p>可能出错的事情称为 &lt;strong>错误（&lt;code>faults&lt;/code>）&lt;/strong> 或故障，系统可以应对错误的特性称为 &lt;strong>容错（&lt;code>tolerant&lt;/code>）&lt;/strong> 或 &lt;strong>弹性（&lt;code>resilient&lt;/code>）&lt;/strong> 。&lt;/p>
+&lt;p>故障与 &lt;strong>失效（&lt;code>failure&lt;/code>）&lt;/strong> 不完全一致。故障通常被定义为组件偏离正常规格，失效意味着系统作为一个整体停止，无法向用户提供所需的服务。故障不太可能降低到零，因此通常设计容错机制避免从故障引发系统失效。比较重要的事情是&lt;strong>如何在不可靠组件基础上构建可靠性系统&lt;/strong>。&lt;/p>
+&lt;h4 id="硬件故障hardware-faults">硬件故障（&lt;code>hardware faults&lt;/code>）&lt;/h4>
+&lt;p>在机器足够多的情况，硬件故障的情况迟早会发生。&lt;/p>
+&lt;p>对于硬件故障的场景，一般采用两种思路去减少系统故障率：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>为硬件添加冗余，可以减少单台机器完全失效的概率：&lt;/p>
+&lt;p>磁盘配置RAID，服务器配备双电源，热插拔CPU，数据中心添加备用电源、发电机等&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>增加软件容错的方式&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="软件故障">软件故障&lt;/h4>
+&lt;ul>
+&lt;li>接受特定的错误输入，便导致所有应用服务器实例崩溃的 BUG&lt;/li>
+&lt;li>失控进程会用尽一些共享资源，包括 CPU 时间、内存、磁盘空间或网络带宽&lt;/li>
+&lt;li>系统依赖的服务变慢，没有响应，或者开始返回错误的响应&lt;/li>
+&lt;li>级联故障，一个组件中的小故障触发另一个组件中的故障，进而触发更多的故障&lt;/li>
+&lt;/ul>
+&lt;h4 id="人为失误">人为失误&lt;/h4>
+&lt;p>应对的方法有：&lt;/p>
+&lt;ul>
+&lt;li>以最小化出错的方式设计系统，例如精心设计的抽象层、API 和管理后台&lt;/li>
+&lt;li>分离出最容易出错的地方、容易引发故障的接口，提供一个功能齐全但非生产用的沙箱环境&lt;/li>
+&lt;li>充分测试，包括单元测试到全系统集成测试以及手动测试&lt;/li>
+&lt;li>提供快速的回滚恢复机制&lt;/li>
+&lt;li>设置详细而清晰的监控子系统，包括性能指标和错误率&lt;/li>
+&lt;li>推动管理流程并加以培训&lt;/li>
+&lt;/ul>
+&lt;h2 id="可扩展性">可扩展性&lt;/h2>
+&lt;p>&lt;strong>可扩展性&lt;/strong> 是用来描述系统应对负载增长能力的术语。&lt;/p>
+&lt;h3 id="负载的定义">负载的定义&lt;/h3>
+&lt;p>负载可以用一些称为 &lt;strong>负载参数（&lt;code>load parameters&lt;/code>）&lt;/strong> 的数字来描述。参数的最佳选择取决于系统架构，它可能是 Web 服务器的每秒请求处理次数、数据库中写入的比例、同时活跃的用户数量、缓存命中率等。有时平均值很重要，有时系统瓶颈来自于少数峰值。&lt;/p>
+&lt;h3 id="性能的定义">性能的定义&lt;/h3>
+&lt;p>在系统负载变化的情况下，一般需要从两个方面考虑性能：&lt;/p>
+&lt;ol>
+&lt;li>负载增加，但系统资源（CPU、内存、网络带宽等）保持不变，系统性能会发生什么变化&lt;/li>
+&lt;li>负载增加，如果需要保持性能不变，需要增加多少系统资源&lt;/li>
+&lt;/ol>
+&lt;p>对于系统性能的定义，不同类型的系统考虑的角度有很大差异：&lt;/p>
+&lt;p>对于Hadoop这样的批处理系统，我们通常关心 &lt;strong>吞吐量（&lt;code>throughput&lt;/code>）&lt;/strong>，即每秒可处理的记录条数，或者在特定规模数据集上运行作业的总时间 ；而在线系统通常更看重服务的 &lt;strong>响应时间（&lt;code>response time&lt;/code>）&lt;/strong>，即客户端从发送请求到接收响应之前的间隔。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>延迟（&lt;code>latency&lt;/code>）&lt;/strong> 和 &lt;strong>响应时间（&lt;code>response time&lt;/code>）&lt;/strong> 的不同：&lt;/p>
+&lt;p>响应时间通常指的是客户端看到的，除了&lt;strong>处理请求时间（服务时间，&lt;code>service time&lt;/code>）&lt;/strong> 外，还包括网络延迟和排队延迟；延迟是指某个请求等待处理的持续时长，在此期间它处于 &lt;strong>休眠（&lt;code>latent&lt;/code>）&lt;/strong> 状态，并等待服务返回结果。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="响应时间的性能指标">响应时间的性能指标&lt;/h4>
+&lt;p>即使不断重复发送相同的请求，每次得到的响应时间也都会有所不同，所以需要将响应时间视为一个可以测量的数值 &lt;strong>分布（&lt;code>distribution&lt;/code>）&lt;/strong>，而不是单个数值。&lt;/p>
+&lt;p>相比 &lt;strong>算数平均值（&lt;code>arithmetic mean&lt;/code>）&lt;/strong> 而言，用&lt;strong>百分位点（&lt;code>percentiles&lt;/code>）&lt;/strong> 这个指标去得到 &lt;strong>典型（&lt;code>typical&lt;/code>）&lt;/strong> 的响应时间更好。&lt;/p>
+&lt;p>例如第 95、99 和 99.9 百分位点（缩写为 p95，p99 和 p999）。它们意味着 95%、99% 或 99.9% 的请求响应时间要比该阈值快，例如：如果第 95 百分位点响应时间是 1.5 秒，则意味着 100 个请求中的 95 个响应时间快于 1.5 秒，而 100 个请求中的 5 个响应时间超过 1.5 秒。&lt;/p>
+&lt;p>采用较高的响应时间百分位数（&lt;code>tail latencies&lt;/code>，尾部效应或长尾效应）很重要。百分位点通常用于 &lt;strong>服务级别目标（&lt;code>SLO, service level objectives&lt;/code>）&lt;/strong> 和 &lt;strong>服务级别协议（&lt;code>SLA, service level agreements&lt;/code>）&lt;/strong>，即定义服务预期性能和可用性的合同。 SLA 可能会声明，如果服务响应时间的中位数小于 200 毫秒，且 99.9 百分位点低于 1 秒，则认为服务工作正常（如果响应时间更长，就认为服务不达标）。这些指标为客户设定了期望值，并允许客户在 SLA 未达标的情况下要求退款。&lt;/p>
+&lt;p>&lt;strong>排队延迟（&lt;code>queueing delay&lt;/code>）&lt;/strong> 通常占了高百分位点处响应时间的很大一部分。由于服务器只能并行处理少量的事务（如受其 CPU 核数的限制），所以只要有少量缓慢的请求就能阻碍后续请求的处理，这种效应有时被称为 &lt;strong>头部阻塞（&lt;code>head-of-line blocking&lt;/code>）&lt;/strong> 。&lt;strong>当一个请求需要多个后端请求时，单个后端慢请求就会拖慢整个终端用户的请求&lt;/strong>&lt;/p>
+&lt;h3 id="如何应对负载增加">如何应对负载增加&lt;/h3>
+&lt;p>通常来说，针对特定级别负载而设计的架构不太可能应付超出预设目标10倍的实际负载，因此当目标服务处于快速增长阶段，需要认真考虑每增加一个数量级的负载，架构如何重新设计。&lt;/p>
+&lt;h4 id="垂直扩展和水平扩展">垂直扩展和水平扩展&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>垂直扩展（&lt;code>scaling up&lt;/code>，&lt;code>vertical scaling&lt;/code>）&lt;/strong>：升级到更强大的机器&lt;/li>
+&lt;li>&lt;strong>水平扩展（&lt;code>scaling out&lt;/code>，&lt;code>horizental scaling&lt;/code>）&lt;/strong> ：将负载分布到多个更小的机器，跨多台机器分配负载也被称为 &lt;strong>无共享（&lt;code>shared-nothing&lt;/code>）&lt;/strong> 架构。&lt;/li>
+&lt;/ul>
+&lt;p>现实世界中的优秀架构需要将这两种方法务实地结合。&lt;/p>
+&lt;h4 id="自动扩展与手动扩展">自动扩展与手动扩展&lt;/h4>
+&lt;p>有些系统是 &lt;strong>弹性（&lt;code>elastic&lt;/code>）&lt;/strong> 的，这意味着可以在检测到负载增加时自动增加计算资源，而其他系统则是手动扩展 （人工分析容量并决定向系统添加更多的机器）。如果负载极难预测，则弹性系统可能很有用，但手动扩展系统更简单，并且意外操作可能会更少。&lt;/p>
+&lt;h4 id="分布式扩展">分布式扩展&lt;/h4>
+&lt;p>跨多台机器部署 &lt;strong>无状态服务（&lt;code>stateless services&lt;/code>）&lt;/strong> 非常简单，但将带状态的数据系统从单节点变为分布式配置则可能引入许多额外复杂度。出于这个原因，常识告诉我们应该将数据库放在单个节点上（采用垂直扩展策略），直到高扩展性或者高可用性的需求迫使其不得不改成分布式。&lt;/p>
+&lt;h2 id="可维护性">可维护性&lt;/h2>
+&lt;p>可维护性一般关注软件系统的三个设计原则：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>可操作性（&lt;code>Operability&lt;/code>）&lt;/strong>：便于运维团队保持系统平稳运行&lt;/li>
+&lt;li>&lt;strong>简单性（&lt;code>Simplicity&lt;/code>）&lt;/strong> ：从系统中消除尽可能多的 &lt;strong>复杂度（&lt;code>complexity&lt;/code>）&lt;/strong>，使新工程师也能轻松理解系统（注意这和用户接口的简单性不一样）&lt;/li>
+&lt;li>&lt;strong>可演化性（&lt;code>evolvability&lt;/code>）&lt;/strong> ：使工程师在未来能轻松地对系统进行更改，当需求变化时为新应用场景做适配。也称为 &lt;strong>可伸缩性（&lt;code>extensibility&lt;/code>）&lt;/strong> 、&lt;strong>可修改性（&lt;code>modifiability&lt;/code>）&lt;/strong> 或 &lt;strong>可塑性（&lt;code>plasticity&lt;/code>）&lt;/strong>&lt;/li>
+&lt;/ul></description></item><item><title>计算机导论 数据抽象</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1/</link><pubDate>Tue, 08 Feb 2022 11:13:32 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1/</guid><description>&lt;h1 id="数据抽象">数据抽象&lt;/h1>
+&lt;h2 id="数据抽象的必要性">数据抽象的必要性&lt;/h2>
+&lt;p>程序中的许多数据都是 &lt;strong>复合（&lt;code>compound&lt;/code>）&lt;/strong> 值 ，例如：&lt;/p>
+&lt;ul>
+&lt;li>日期：由年月日组成&lt;/li>
+&lt;li>经纬度：由经度和纬度组成&lt;/li>
+&lt;/ul>
+&lt;p>数据抽象可以让我们将复合的值作为一个整体操作，不需要关注复合值的具体组成细节；&lt;/p>
+&lt;p>数据抽象使程序更容易设计、维护和修改。&lt;/p>
+&lt;blockquote>
+&lt;p>将程序中处理数据表示方式的部分与处理数据处理方式的部分隔离开来的通用技术是一种强大的设计方法，称为 &lt;strong>数据抽象&lt;/strong>（&lt;code>data abstraction&lt;/code>） 。&lt;/p>
+&lt;/blockquote>
+&lt;p>数据抽象在性质上与功能抽象相似。当我们创建一个函数抽象时，一个函数如何实现的细节可以被隐藏，特定函数本身可以被具有相同整体行为的任何其他函数替换。&lt;/p>
+&lt;p>换句话说，我们可以做一个抽象，将函数的使用方式与函数实现的细节分开。类似地，数据抽象也可以将复合数据值的使用方式与其构建方式的细节隔离开来。&lt;/p>
+&lt;h2 id="数据抽象的实例">数据抽象的实例&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>rational(n, d)&lt;/code> 返回具有分子&lt;code>n&lt;/code>和分母&lt;code>d&lt;/code>的有理数&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">fractions&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">gcd&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">g&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">gcd&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">g&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">g&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>numer(x)&lt;/code> 返回有理数&lt;code>x&lt;/code>的分子&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>denom(x)&lt;/code> 返回有理数&lt;code>x&lt;/code>的分母&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>add_rationals(x, y)&lt;/code> 实现两个有理数间的加法操作&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">add_rationals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="n">nx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">ny&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nx&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">ny&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dx&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dy&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>mul_rationals(x, y)&lt;/code> 实现两个有理数间的乘法操作&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">mul_rationals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>print_rationals(x)&lt;/code> 打印有理数&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">print_rationals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>rationals_are_equal(x, y)&lt;/code> 判断两个有理数是否相等&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">rationals_are_equal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;h2 id="数据抽象的屏障">数据抽象的屏障&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">抽象层&lt;/th>
+&lt;th style="text-align:center">描述&lt;/th>
+&lt;th style="text-align:center">示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">原始表示（&lt;code>Primitive Representation&lt;/code>）&lt;/td>
+&lt;td style="text-align:center">使用语言内建的数据结构和选择符为数据抽象实现选择器和构造器&lt;/td>
+&lt;td style="text-align:center">[n, d] , x[0]&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">数据抽象（&lt;code>Data Abstraction&lt;/code>）&lt;/td>
+&lt;td style="text-align:center">数据抽象的选择器和构造器&lt;/td>
+&lt;td style="text-align:center">rational, numer, denom&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">用户程序（&lt;code>User Program&lt;/code>）&lt;/td>
+&lt;td style="text-align:center">用户计算程序的实现函数&lt;/td>
+&lt;td style="text-align:center">add_rational, mul_rational, rationals_are_equal, print_rational&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>这些函数由更高抽象级别调用较低抽象级别实现。&lt;/p>
+&lt;p>当程序的某个部分可以使用较高层次的函数而转而使用较低层次的函数时，就会发生 &lt;strong>抽象屏障违规（&lt;code>abstraction barrier violation&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;h2 id="树的抽象实现">树的抽象实现&lt;/h2>
+&lt;h3 id="树的描述">树的描述&lt;/h3>
+&lt;h4 id="树的递归描述">树的递归描述&lt;/h4>
+&lt;ul>
+&lt;li>一棵树有一个 &lt;strong>根标签（&lt;code>root label&lt;/code>）&lt;/strong> 和 &lt;strong>分支（&lt;code>branch&lt;/code>）&lt;/strong> 的列表&lt;/li>
+&lt;li>每个分支自身也是一棵树&lt;/li>
+&lt;li>一棵没有分支的树被称为 &lt;strong>叶子（&lt;code>leaf&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>一棵树从根开始&lt;/li>
+&lt;/ul>
+&lt;h4 id="树的相对描述">树的相对描述&lt;/h4>
+&lt;ul>
+&lt;li>树中的每个元素称为一个 &lt;strong>节点（&lt;code>node&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>每个节点都有一个 &lt;strong>标签（&lt;code>label&lt;/code>）&lt;/strong> ，标签可以是任何值&lt;/li>
+&lt;li>一个节点可以是另一个节点的父节点/孩子节点&lt;/li>
+&lt;li>顶部节点是&lt;strong>根节点(&lt;code>root node&lt;/code>)&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h3 id="树的实现">树的实现&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">root_label&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[]):&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="n">branch&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">assert&lt;/span> &lt;span class="n">is_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branch&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="s1">&amp;#39;branches must be trees&amp;#39;&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">root_label&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branches&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">branches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:]&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">is_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nb">list&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="n">branch&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">is_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branch&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;span class="k">def&lt;/span> &lt;span class="nf">is_leaf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="树的应用">树的应用&lt;/h3>
+&lt;h4 id="斐波那契树">斐波那契树&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">fib_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="n">left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">fib_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">fib_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">fib_n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">right&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fib_n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="分区树">分区树&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">partition_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;span class="k">elif&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="n">left&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">partition_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">partition_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="可变性">可变性&lt;/h2>
+&lt;h3 id="对象">对象&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>对象（&lt;code>object&lt;/code>）&lt;/strong> 是一组数据和 &lt;strong>行为（&lt;code>behavior&lt;/code>）&lt;/strong> 的集合，&lt;/p>
+&lt;p>一种类型的对象称为 &lt;strong>类（&lt;code>class&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>Python 中的每个值都是一个对象&lt;/p>
+&lt;ul>
+&lt;li>所有对象都有属性&lt;/li>
+&lt;li>对象通常有关联的方法&lt;/li>
+&lt;/ul></description></item><item><title>计算机导论 函数抽象</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E5%87%BD%E6%95%B0%E6%8A%BD%E8%B1%A1/</link><pubDate>Sat, 05 Feb 2022 13:35:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E5%87%BD%E6%95%B0%E6%8A%BD%E8%B1%A1/</guid><description>&lt;h1 id="函数抽象">函数抽象&lt;/h1>
 &lt;h2 id="编程的要素">编程的要素&lt;/h2>
 &lt;p>每个具有描述力的强大的编程语言一般都有这三种机制：&lt;/p>
 &lt;ul>
@@ -209,155 +614,7 @@
 &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
 &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>计算机导论 数据抽象</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1/</link><pubDate>Sat, 05 Feb 2022 13:35:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AF%BC%E8%AE%BA-%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1/</guid><description>&lt;h1 id="数据抽象">数据抽象&lt;/h1>
-&lt;h2 id="数据抽象的必要性">数据抽象的必要性&lt;/h2>
-&lt;p>程序中的许多数据都是 &lt;strong>复合（&lt;code>compound&lt;/code>）&lt;/strong> 值 ，例如：&lt;/p>
-&lt;ul>
-&lt;li>日期：由年月日组成&lt;/li>
-&lt;li>经纬度：由经度和纬度组成&lt;/li>
-&lt;/ul>
-&lt;p>数据抽象可以让我们将复合的值作为一个整体操作，不需要关注复合值的具体组成细节；&lt;/p>
-&lt;p>数据抽象使程序更容易设计、维护和修改。&lt;/p>
-&lt;blockquote>
-&lt;p>将程序中处理数据表示方式的部分与处理数据处理方式的部分隔离开来的通用技术是一种强大的设计方法，称为 &lt;strong>数据抽象&lt;/strong>（&lt;code>data abstraction&lt;/code>） 。&lt;/p>
-&lt;/blockquote>
-&lt;p>数据抽象在性质上与功能抽象相似。当我们创建一个函数抽象时，一个函数如何实现的细节可以被隐藏，特定函数本身可以被具有相同整体行为的任何其他函数替换。&lt;/p>
-&lt;p>换句话说，我们可以做一个抽象，将函数的使用方式与函数实现的细节分开。类似地，数据抽象也可以将复合数据值的使用方式与其构建方式的细节隔离开来。&lt;/p>
-&lt;h2 id="数据抽象的实例">数据抽象的实例&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;code>rational(n, d)&lt;/code> 返回具有分子&lt;code>n&lt;/code>和分母&lt;code>d&lt;/code>的有理数&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="kn">from&lt;/span> &lt;span class="nn">fractions&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">gcd&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="n">g&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">gcd&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">g&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">g&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>numer(x)&lt;/code> 返回有理数&lt;code>x&lt;/code>的分子&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>denom(x)&lt;/code> 返回有理数&lt;code>x&lt;/code>的分母&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>add_rationals(x, y)&lt;/code> 实现两个有理数间的加法操作&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">add_rationals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="n">nx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="n">ny&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nx&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">ny&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dx&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">dy&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>mul_rationals(x, y)&lt;/code> 实现两个有理数间的乘法操作&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">mul_rationals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>print_rationals(x)&lt;/code> 打印有理数&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">print_rationals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>rationals_are_equal(x, y)&lt;/code> 判断两个有理数是否相等&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">rationals_are_equal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">numer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">denom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;/ul>
-&lt;h2 id="数据抽象的屏障">数据抽象的屏障&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th style="text-align:center">抽象层&lt;/th>
-&lt;th style="text-align:center">描述&lt;/th>
-&lt;th style="text-align:center">示例&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:center">原始表示（&lt;code>Primitive Representation&lt;/code>）&lt;/td>
-&lt;td style="text-align:center">使用语言内建的数据结构和选择符为数据抽象实现选择器和构造器&lt;/td>
-&lt;td style="text-align:center">[n, d] , x[0]&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:center">数据抽象（&lt;code>Data Abstraction&lt;/code>）&lt;/td>
-&lt;td style="text-align:center">数据抽象的选择器和构造器&lt;/td>
-&lt;td style="text-align:center">rational, numer, denom&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:center">用户程序（&lt;code>User Program&lt;/code>）&lt;/td>
-&lt;td style="text-align:center">用户计算程序的实现函数&lt;/td>
-&lt;td style="text-align:center">add_rational, mul_rational, rationals_are_equal, print_rational&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>这些函数由更高抽象级别调用较低抽象级别实现。&lt;/p>
-&lt;p>当程序的某个部分可以使用较高层次的函数而转而使用较低层次的函数时，就会发生 &lt;strong>抽象屏障违规（&lt;code>abstraction barrier violation&lt;/code>）&lt;/strong>。&lt;/p>
-&lt;h2 id="树的抽象实现">树的抽象实现&lt;/h2>
-&lt;h3 id="树的描述">树的描述&lt;/h3>
-&lt;h4 id="树的递归描述">树的递归描述&lt;/h4>
-&lt;ul>
-&lt;li>一棵树有一个 &lt;strong>根标签（&lt;code>root label&lt;/code>）&lt;/strong> 和 &lt;strong>分支（&lt;code>branch&lt;/code>）&lt;/strong> 的列表&lt;/li>
-&lt;li>每个分支自身也是一棵树&lt;/li>
-&lt;li>一棵没有分支的树被称为 &lt;strong>叶子（&lt;code>leaf&lt;/code>）&lt;/strong>&lt;/li>
-&lt;li>一棵树从根开始&lt;/li>
-&lt;/ul>
-&lt;h4 id="树的相对描述">树的相对描述&lt;/h4>
-&lt;ul>
-&lt;li>树中的每个元素称为一个 &lt;strong>节点（&lt;code>node&lt;/code>）&lt;/strong>&lt;/li>
-&lt;li>每个节点都有一个 &lt;strong>标签（&lt;code>label&lt;/code>）&lt;/strong> ，标签可以是任何值&lt;/li>
-&lt;li>一个节点可以是另一个节点的父节点/孩子节点&lt;/li>
-&lt;li>顶部节点是&lt;strong>根节点(&lt;code>root node&lt;/code>)&lt;/strong>&lt;/li>
-&lt;/ul>
-&lt;h3 id="树的实现">树的实现&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">root_label&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[]):&lt;/span>
-&lt;span class="k">for&lt;/span> &lt;span class="n">branch&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;span class="k">assert&lt;/span> &lt;span class="n">is_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branch&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="s1">&amp;#39;branches must be trees&amp;#39;&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">root_label&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branches&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">branches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:]&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">is_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nb">list&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span>
-&lt;span class="k">for&lt;/span> &lt;span class="n">branch&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">is_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branch&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="kc">True&lt;/span>
-&lt;span class="k">def&lt;/span> &lt;span class="nf">is_leaf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">branches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tree&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="树的应用">树的应用&lt;/h3>
-&lt;h4 id="斐波那契树">斐波那契树&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">fib_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;span class="n">left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">fib_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">fib_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="n">fib_n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">right&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fib_n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="p">])&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="分区树">分区树&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="k">def&lt;/span> &lt;span class="nf">partition_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">):&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="kc">True&lt;/span>
-&lt;span class="k">elif&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
-&lt;span class="n">left&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">partition_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="n">right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">partition_tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;span class="k">return&lt;/span> &lt;span class="n">tree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">right&lt;/span>&lt;span class="p">])&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="可变性">可变性&lt;/h2>
-&lt;h3 id="对象">对象&lt;/h3>
-&lt;blockquote>
-&lt;p>&lt;strong>对象（&lt;code>object&lt;/code>）&lt;/strong> 是一组数据和 &lt;strong>行为（&lt;code>behavior&lt;/code>）&lt;/strong> 的集合，&lt;/p>
-&lt;p>一种类型的对象称为 &lt;strong>类（&lt;code>class&lt;/code>）&lt;/strong>。&lt;/p>
-&lt;/blockquote>
-&lt;p>Python 中的每个值都是一个对象&lt;/p>
-&lt;ul>
-&lt;li>所有对象都有属性&lt;/li>
-&lt;li>对象通常有关联的方法&lt;/li>
-&lt;/ul></description></item><item><title>HTTP/2</title><link>https://huangkai1008.github.io/p/http/2/</link><pubDate>Fri, 10 Jul 2020 15:51:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/http/2/</guid><description>&lt;h1 id="http2">HTTP/2&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>HTTP/2</title><link>https://huangkai1008.github.io/p/http/2/</link><pubDate>Fri, 10 Jul 2020 15:51:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/http/2/</guid><description>&lt;h1 id="http2">HTTP/2&lt;/h1>
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;blockquote>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的支持。 为达成这些目标，HTTP/2 还给我们带来了大量其他协议层面的辅助实现，例如新的流控制、错误处理和升级机制。&lt;/p>
