@@ -2238,20 +2238,25 @@ alt="图1 Mysql逻辑架构图">
 &lt;p>连接器负责和客户端建立连接、获取权限、维持和管理连接。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="c1"># Mysql连接命令
 &lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">mysql&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">h&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="n">ip&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">P&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="n">port&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">u&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>MySQL客户端和服务端完成TCP握手后，连接器需要认证身份&lt;/p>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>MySQL 客户端和服务端完成TCP握手后，连接器需要认证身份&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>如果用户名或密码不对，你就会收到一个 &lt;strong>Access denied for user&lt;/strong> 的错误，然后客户端程序结束执行。&lt;/p>
+&lt;p>如果用户名或密码不对，就会收到一个 &lt;strong>Access denied for user&lt;/strong> 的错误，然后客户端程序结束执行。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>如果用户名密码认证通过，连接器会到权限表里面查出拥有的权限，之后这个连接里面的权限判断逻辑，都将依赖于此时读到的权限，这就意味着，一个用户成功建立连接后，即使这个用户的权限做了修改，也不会影响已经存在连接的权限。修改完成后，只有再新建的连接才会使用新的权限设置。&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h4 id="长连接">&lt;strong>长连接&lt;/strong>&lt;/h4>
 &lt;blockquote>
 &lt;p>长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接。短
 连接则是指每次执行完很少的几次查询就断开连接，下次查询再重新建立一个。&lt;/p>
 &lt;/blockquote>
+&lt;h4 id="连接方式">连接方式&lt;/h4>
+&lt;ol>
+&lt;li>TCP/IP&lt;/li>
+&lt;li>命名管道和共享内存&lt;/li>
+&lt;li>UNIX 域套接字&lt;/li>
+&lt;/ol>
 &lt;h3 id="查询缓存query-cache">查询缓存(&lt;code>Query Cache&lt;/code>)&lt;/h3>
 &lt;p>在连接建立完成后，MySQL 拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。之前执行过的语句及其结果可能会以 key-value 对的形式，被直接缓存在内存中。key 是查询的语句，value 是查询的结果。如果你的查询能够直接在这个缓存中找到 key，那么这个 value 就会被直接返回给客户端。&lt;/p>
 &lt;blockquote>
