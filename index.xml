@@ -701,8 +701,7 @@ loading="lazy"
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn" target="_blank" rel="noopener"
 >HTTP/2简介&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>应用层</title><link>https://huangkai1008.github.io/p/%E5%BA%94%E7%94%A8%E5%B1%82/</link><pubDate>Thu, 25 Jun 2020 22:20:45 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%BA%94%E7%94%A8%E5%B1%82/</guid><description>&lt;h1 id="应用层">应用层&lt;/h1>
-&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;/ul></description></item><item><title>应用层</title><link>https://huangkai1008.github.io/p/%E5%BA%94%E7%94%A8%E5%B1%82/</link><pubDate>Thu, 25 Jun 2020 22:20:45 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%BA%94%E7%94%A8%E5%B1%82/</guid><description>&lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;p>应用层包括大多数应用程序使用的协议，用于通过较低级别的协议建立的网络连接提供用户服务或交换应用程序数据。&lt;/p>
 &lt;h3 id="网络应用程序体系结构">网络应用程序体系结构&lt;/h3>
 &lt;h4 id="客户-服务器体系结构">客户-服务器体系结构&lt;/h4>
@@ -771,7 +770,9 @@ loading="lazy"
 &lt;p>具有吞吐量要求的应用程序被称为&lt;strong>带宽敏感的应用（&lt;code>bandwidth-sensitive application&lt;/code>）&lt;/strong>，例如许多当前的多媒体应用；&lt;/p>
 &lt;p>相反地，可以根据当时可用带宽利用可供使用吞吐量的应用被称为&lt;strong>弹性应用（&lt;code>elastic application&lt;/code>）&lt;/strong>，例如电子邮件、文件传输应用。&lt;/p>
 &lt;h4 id="定时">定时&lt;/h4>
+&lt;p>运输层协议也能提供定时保证。这种服务对于实时性的应用十分有吸引力，比如因特网电话、多方游戏和虚拟互动环境等。&lt;/p>
 &lt;h4 id="安全性">安全性&lt;/h4>
+&lt;p>运输层协议可以提供机密性、数据完整性和端点鉴别等安全性服务。&lt;/p>
 &lt;h2 id="二应用层协议">二、应用层协议&lt;/h2>
 &lt;blockquote>
 &lt;p>&lt;strong>应用层协议（&lt;code>application layer protocol&lt;/code>）&lt;/strong> 定义了运行在不同端系统上的应用程序进程如何相互传递报文&lt;/p>
@@ -902,8 +903,7 @@ loading="lazy"
 &lt;p>只要把主机号所在的二进制位全部变为1即可得到广播地址。&lt;/p>
 &lt;ul>
 &lt;li>局域网地址：192.168.211.32/24（斜杠后的数字代表子网掩码的二进制位数，那么主机号的位数为32-24=8），所以广播地址为：192.168.211.255&lt;/li>
-&lt;/ul></description></item><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Wed, 17 Jun 2020 11:22:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>&lt;h1 id="计算机网络">计算机网络&lt;/h1>
-&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;/ul></description></item><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Wed, 17 Jun 2020 11:22:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>&lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;h3 id="互联网因特网和万维网">互联网、因特网和万维网&lt;/h3>
 &lt;blockquote>
 &lt;p>&lt;strong>互联网(&lt;code>internet&lt;/code>)&lt;/strong>：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互联网是&lt;strong>网络的网络&lt;/strong>&lt;/p>
