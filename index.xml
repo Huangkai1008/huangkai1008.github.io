@@ -161,8 +161,8 @@ SQL 的写法是这样的：&lt;/p>
 &lt;p>下图1-1展示了一种数据系统架构：&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20220213102553.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20220213102553.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20220213102553.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20220213102553.png"
 loading="lazy"
 alt="图1-1 一种数据系统架构">
 &lt;/a>
@@ -631,8 +631,8 @@ alt="图1-1 一种数据系统架构">
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 所有性能增强的核心在于新的&lt;strong>二进制分帧层（&lt;code>Binary framing layer&lt;/code>）&lt;/strong>，它定义了如何封装 HTTP 消息并在客户端与服务器之间传输。&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123115225.svg" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123115225.svg"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123115225.svg" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123115225.svg"
 loading="lazy"
 alt="二进制分帧层">
 &lt;/a>
@@ -658,8 +658,8 @@ alt="二进制分帧层">
 &lt;/ul>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123143327.svg" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123143327.svg"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123143327.svg" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123143327.svg"
 loading="lazy"
 >
 &lt;/a>
@@ -670,8 +670,8 @@ loading="lazy"
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 中新的二进制分帧层突破了这些限制，实现了&lt;strong>完整的请求和响应复用&lt;/strong>: 客户端和服务器可以将 HTTP 消息分解为互不依赖的帧，然后交错发送，最后再在另一端把它们重新组装起来。&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170352.svg" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170352.svg"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123170352.svg" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123170352.svg"
 loading="lazy"
 >
 &lt;/a>
@@ -681,8 +681,8 @@ loading="lazy"
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 新增的另一个强大的新功能是，服务器可以对一个客户端请求发送多个响应。 换句话说，除了对最初请求的响应外，服务器还可以向客户端推送额外资源，而无需客户端明确地请求。&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170731.svg" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170731.svg"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123170731.svg" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123170731.svg"
 loading="lazy"
 >
 &lt;/a>
@@ -691,8 +691,8 @@ loading="lazy"
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 使用 &lt;strong>HPACK&lt;/strong> 压缩格式压缩请求和响应标头元数据。&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170928.svg" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211123170928.svg"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123170928.svg" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123170928.svg"
 loading="lazy"
 >
 &lt;/a>
@@ -911,8 +911,8 @@ loading="lazy"
 &lt;/blockquote>
 &lt;p>&lt;figure
 >
-&lt;a href="http://cdn.huanghuang.pro/20210928080734.gif" >
-&lt;img src="http://cdn.huanghuang.pro/20210928080734.gif"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210928080734.gif" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210928080734.gif"
 loading="lazy"
 alt="互联网">
 &lt;/a>
@@ -936,8 +936,8 @@ alt="互联网">
 &lt;p>例如中国移动、中国移动、中国电信就是有名的&lt;strong>ISP&lt;/strong>&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="http://cdn.huanghuang.pro/20211018154857.png" >
-&lt;img src="http://cdn.huanghuang.pro/20211018154857.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018154857.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018154857.png"
 loading="lazy"
 alt="ISP">
 &lt;/a>
@@ -950,8 +950,8 @@ alt="ISP">
 &lt;h3 id="接入网">接入网&lt;/h3>
 &lt;p>&lt;figure
 >
-&lt;a href="http://cdn.huanghuang.pro/20211002115311.png" >
-&lt;img src="http://cdn.huanghuang.pro/20211002115311.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211002115311.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211002115311.png"
 loading="lazy"
 alt="接入网">
 &lt;/a>
@@ -1130,8 +1130,8 @@ traceroute to www.baidu.com &lt;span class="o">(&lt;/span>183.232.231.172&lt;spa
 &lt;p>现在比较常见的一共有三种协议分层模型，分别为&lt;strong>OSI 分层模型&lt;/strong>、&lt;strong>五层协议模型（因特网协议栈）&lt;/strong>、&lt;strong>TCP/IP 模型&lt;/strong>。&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="http://cdn.huanghuang.pro/20211027205459.png" >
-&lt;img src="http://cdn.huanghuang.pro/20211027205459.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211027205459.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211027205459.png"
 loading="lazy"
 alt="协议分层">
 &lt;/a>
@@ -1293,8 +1293,8 @@ math.stackexchange.com. &lt;span class="m">600&lt;/span> IN A 151.101.1.69
 &lt;p>&lt;strong>消息主体（&lt;code>body&lt;/code>）&lt;/strong>&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210906175921.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210906175921.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210906175921.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210906175921.png"
 loading="lazy"
 alt="HTTP Requests Example">
 &lt;/a>
@@ -1330,8 +1330,8 @@ alt="HTTP Requests Example">
 &lt;/ul>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210906205815.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210906205815.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210906205815.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210906205815.png"
 loading="lazy"
 alt="HTTP Responses Example">
 &lt;/a>
@@ -1526,8 +1526,8 @@ alt="HTTP Responses Example">
 &lt;h2 id="五连接管理">五、连接管理&lt;/h2>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211030124313.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211030124313.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211030124313.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211030124313.png"
 loading="lazy"
 alt="HTTP 1.X 的连接类型">
 &lt;/a>
@@ -1644,8 +1644,8 @@ alt="HTTP 1.X 的连接类型">
 &lt;p>缓存的种类有很多,其大致可归为两类：&lt;strong>私有&lt;/strong>与&lt;strong>共享缓存&lt;/strong>。共享缓存存储的响应能够被多个用户使用。私有缓存只能用于单独用户。&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211113114522.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211113114522.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211113114522.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211113114522.png"
 loading="lazy"
 alt="缓存的种类">
 &lt;/a>
@@ -1802,8 +1802,8 @@ $$
 &lt;p>redo log 的大小是固定的，为了能够持续不断的对更新记录进行写入，在redo log日志中设置了两个标志位置，&lt;code>checkpoint&lt;/code>和&lt;code>write pos&lt;/code>。&lt;code>checkpoint&lt;/code>表示记录擦除的位置，&lt;code>write pos&lt;/code>表示记录写入的位置。当&lt;code>write pos&lt;/code>标志到了日志结尾时，会从结尾跳至日志头部循环写入，所以redo log的逻辑结构并不是线性的，可以看做一个圆周运动，逻辑结构见下图：&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413231000.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413231000.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413231000.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413231000.png"
 loading="lazy"
 alt="redo log的逻辑结构">
 &lt;/a>
@@ -1821,8 +1821,8 @@ alt="redo log的逻辑结构">
 &lt;p>在计算机操作系统中，用户空间(&lt;code>user space&lt;/code>)下的缓冲区数据一般情况下是无法直接写入磁盘的，中间必须经过操作系统内核空间(&lt;code>kernel space&lt;/code>)的缓冲区(&lt;code>OS Buffer&lt;/code>)。因此，&lt;code>redo log buffer&lt;/code>写入&lt;code>redo log file&lt;/code>实际上是先写入&lt;code>OS Buffer&lt;/code>，然后再通过系统调用&lt;code>fsync()&lt;/code>将其刷到&lt;code>redo log file&lt;/code>中，流程如下图：&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211019163050.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211019163050.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211019163050.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211019163050.png"
 loading="lazy"
 >
 &lt;/a>
@@ -1941,8 +1941,8 @@ loading="lazy"
 &lt;p>MySQL 事务提交的时候，需要同时完成 &lt;code>redo log&lt;/code> 和 &lt;code>binlog&lt;/code> 的提交，为了让两份日志之间的逻辑一致，需要用到&lt;strong>两阶段提交&lt;/strong>，这个场景下的两阶段提交发生在 MySQL 内部，和分布式系统的两阶段提交是两个概念。&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211020170253.svg" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211020170253.svg"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211020170253.svg" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211020170253.svg"
 loading="lazy"
 >
 &lt;/a>
@@ -1961,8 +1961,8 @@ loading="lazy"
 &lt;p>在数据库中，这两种日志经常都是一起工作的，可以将它们整体看做一条事务日志，其中包含了事务的 ID、修改的行元素以及修改前后的值。&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211020225433.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211020225433.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211020225433.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211020225433.png"
 loading="lazy"
 >
 &lt;/a>
@@ -2093,137 +2093,13 @@ loading="lazy"
 &lt;h3 id="隔离性isolation">隔离性（Isolation）&lt;/h3>
 &lt;blockquote>
 &lt;p>&lt;strong>通常来说&lt;/strong>，一个事务所做的修改在最终提交以前，对其他事务是不可见的。&lt;/p>
-&lt;/blockquote></description></item><item><title>事务</title><link>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</link><pubDate>Tue, 02 Jun 2020 22:25:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E4%BA%8B%E5%8A%A1/</guid><description>&lt;h2 id="概念">概念&lt;/h2>
-&lt;blockquote>
-&lt;p>事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。&lt;strong>在 MySQL 中，事务支持是在引擎层实现的。&lt;/strong>&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="acid特性">ACID特性&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>原子性（Atomicity）&lt;/strong>：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>一致性（Consistency）&lt;/strong>：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>隔离性（Isolation）&lt;/strong>：&lt;strong>通常来说&lt;/strong>，一个事务所做的修改在最终提交以前，对其他事务是不可见的。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>持久性（Durability）&lt;/strong>：已被提交的事务对数据库的修改应该永久保存在数据库中。&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;blockquote>
-&lt;p>一个实现了ACID的数据库，相比没有实现ACID的数据库，通常会需要更强的CPU处理能力、更大的内存和更多的磁盘空间。&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="隔离级别isolation-level">隔离级别（Isolation level）&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;strong>READ UNCOMMITTED（读未提交）&lt;/strong>&lt;/p>
-&lt;p>​ 事务中的修改，即使没有提交，对其他事务也都是可见的。事务可以读取未提交的数据，这也被称为&lt;code>脏读（Dirty Read）&lt;/code>。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>READ COMMITTED（读提交）&lt;/strong>&lt;/p>
-&lt;p>​ Oracle和SQL Server的默认隔离级别。一个事务可以读取另一个已提交的事务。换句话说，一个事务从开始直到提交之前，所做的任何修改对其他事务都是不可见的。这个级别有时候也叫做不可重复读（nonrepeatable read），因为两次执行同样的查询，可能会得到不一样的结果。MySQL的InnoDB引擎在提交读级别通过MVCC解决了不可重复读的问题&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>REPEATABLE READ（可重复读）&lt;/strong>&lt;/p>
-&lt;p>​ &lt;strong>MySQL的默认隔离级别&lt;/strong>。一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。当然在可重复读隔离级别下，未提交变更对其他事务也是不可见的。&lt;strong>MySQL的InnoDB引擎在提交读级别通过MVCC解决了不可重复读的问题，在可重复读级别通过间隙锁解决了幻读问题&lt;/strong>。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>SERIALIZABLE（可串行化）&lt;/strong>&lt;/p>
-&lt;p>​ SERIALIZABLE是最高的隔离级别。它通过强制事务串行执行，避免了前面说的幻读的问题。简单来说，SERIALIZABLE会在读取的每一行数据上都加锁，所以可能导致大量的超时和锁争用的问题。实际应用中也很少用到这个隔离级别，只有在非常需要确保数据的一致性而且可以接受没有并发的情况下，才考虑采用该级别。&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;!-- raw HTML omitted -->
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th style="text-align:center">隔离级别&lt;/th>
-&lt;th style="text-align:center">脏读可能性&lt;/th>
-&lt;th style="text-align:center">不可重复读可能性&lt;/th>
-&lt;th style="text-align:center">幻读可能性&lt;/th>
-&lt;th style="text-align:center">加锁读&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:center">READ UNCOMMITTED&lt;/td>
-&lt;td style="text-align:center">√&lt;/td>
-&lt;td style="text-align:center">√&lt;/td>
-&lt;td style="text-align:center">√&lt;/td>
-&lt;td style="text-align:center">×&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:center">READ COMMITTED&lt;/td>
-&lt;td style="text-align:center">×&lt;/td>
-&lt;td style="text-align:center">√&lt;/td>
-&lt;td style="text-align:center">√&lt;/td>
-&lt;td style="text-align:center">×&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:center">REPEATABLE READ&lt;/td>
-&lt;td style="text-align:center">×&lt;/td>
-&lt;td style="text-align:center">×&lt;/td>
-&lt;td style="text-align:center">√&lt;/td>
-&lt;td style="text-align:center">×&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:center">SERIALIZABLE&lt;/td>
-&lt;td style="text-align:center">×&lt;/td>
-&lt;td style="text-align:center">×&lt;/td>
-&lt;td style="text-align:center">×&lt;/td>
-&lt;td style="text-align:center">√&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;blockquote>
-&lt;p>查看MySQL的隔离级别&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">VARIABLES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LIKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;transaction_isolation&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------------------+-----------------+&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------------------+-----------------+&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">transaction_isolation&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">REPEATABLE&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="k">READ&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+-----------------------+-----------------+&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">warning&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>设置当前会话的隔离级别&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="kt">SET&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">SESSION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TRANSACTION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ISOLATION&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LEVEL&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">READ&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">COMMITTED&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 设置当前会话为RC级别，下个事务生效
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="事务类型">事务类型&lt;/h2>
-&lt;h3 id="隐式事务">隐式事务&lt;/h3>
-&lt;p>DML操作的语句都会隐式的开启事务，并且在语句执行后没有错误的话隐式提交。可以通过将MySQL的&lt;code>autocommit&lt;/code>这个变量（默认为1）设置为0将事务的&lt;code>隐式提交&lt;/code>关闭，但需要注意，DML语句的隐式事务仍会启动，只是区别在于需要手动COMMIT显式提交这个事务，也就是将隐式事务转化为长事务了。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">VARIABLES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LIKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;autocommit&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1"># 查看隐式事务提交方式
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">autocommit&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">ON&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------+-------+&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">warning&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="显式事务">显式事务&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="c1"># 1.显式开启一个事务
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">START&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TRANSACTION&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="n">BEGIN&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c1"># 2.提交事务
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">COMMIT&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c1"># 3.回滚事务
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">ROLLBACK&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c1"># 4.在事务中创建保存点，可以在同一事务中创建多个，以便通过ROLLBACK更灵活的回滚
-&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">SAVEPOINT&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>显式开启一个事务时，如果还有未提交的事务会自动提交，并且&lt;code>autocommit&lt;/code>会被禁用直到该事务结束。对于显式事务，存在&lt;code>completion_type&lt;/code>这样一个变量控制显式事务的行为。有下列三种情况：&lt;/p>
-&lt;ul>
-&lt;li>值为0时即为默认，执行COMMIT后提交该显式事务并结束该事务。&lt;/li>
-&lt;li>值为1时，执行COMMIT后除了有值为0时的默认行为外，随后会自动开始一个相同隔离级别的事务。术语为&lt;code>COMMIT AND CHAIN&lt;/code>&lt;/li>
-&lt;li>值为2时，执行COMMIT后除了有值为0时的默认行为外，随后会断开与服务器的连接。术语为&lt;code>COMMIT AND RELEASE&lt;/code>&lt;/li>
-&lt;/ul></description></item><item><title>MySQL的基础架构</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jun 2020 21:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</guid><description>&lt;h1 id="mysql的基础架构">MySQL的基础架构&lt;/h1>
+&lt;/blockquote></description></item><item><title>MySQL的基础架构</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jun 2020 21:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</guid><description>&lt;h1 id="mysql的基础架构">MySQL的基础架构&lt;/h1>
 &lt;h2 id="逻辑架构">逻辑架构&lt;/h2>
 &lt;p>MySQL可以大体分为&lt;strong>Server层&lt;/strong>和&lt;strong>存储引擎层&lt;/strong>两部分, 见图1&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154957.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20211018154957.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018154957.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018154957.png"
 loading="lazy"
 alt="图1 Mysql逻辑架构图">
 &lt;/a>
@@ -2463,8 +2339,8 @@ Loguru通过允许显示整个堆栈跟踪（包括变量值）来帮助您发�
 &lt;p>Gitflow 提倡使用 &lt;code>feature branches&lt;/code> 模式来开发各个相互独立的功能，同时分成不同的分支以便进行集成和发布&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133752.jpg" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133752.jpg"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413133752.jpg" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413133752.jpg"
 loading="lazy"
 alt="Git Workflow">
 &lt;/a>
@@ -2542,8 +2418,8 @@ Black依赖于python3.6+, 官方地址在https://github.com/psf/black&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134138.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134138.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413134138.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413134138.png"
 loading="lazy"
 alt="External Tools">
 &lt;/a>
@@ -2554,8 +2430,8 @@ alt="External Tools">
 &lt;p>Configure file watcher&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134203.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134203.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413134203.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413134203.png"
 loading="lazy"
 alt="File Watcher">
 &lt;/a>
@@ -3001,8 +2877,8 @@ sudo ./install.sh
 &lt;p>选择&lt;code>Spring Initializr&lt;/code>， 点击&lt;code>Next&lt;/code>，填写项目基本信息
 &lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134322.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134322.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413134322.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413134322.png"
 loading="lazy"
 >
 &lt;/a>
@@ -3012,30 +2888,15 @@ loading="lazy"
 &lt;p>项目依赖勾选&lt;code>Spring Web&lt;/code>选择&lt;code>Finish&lt;/code>等待项目构建&lt;/p>
 &lt;p>&lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134345.png" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413134345.png"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413134345.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413134345.png"
 loading="lazy"
 >
 &lt;/a>
 &lt;/figure>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>​&lt;/p></description></item><item><title>WSGI ASGI UWSGI的区别</title><link>https://huangkai1008.github.io/p/wsgi-asgi-uwsgi%E7%9A%84%E5%8C%BA%E5%88%AB/</link><pubDate>Thu, 24 Jan 2019 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/wsgi-asgi-uwsgi%E7%9A%84%E5%8C%BA%E5%88%AB/</guid><description>&lt;h2 id="what-is-wsgi">&lt;strong>What is wsgi&lt;/strong>&lt;/h2>
-&lt;pre>&lt;code>**CGI(通用网关接口， Common Gateway Interface/CGI)**
-**CGI是定义客户端与web服务器交流方式的程序**。&amp;lt;u&amp;gt;例如正常情况下客户端发来一个请求，根据HTTP协议Web服务器将请求内容解析出来，进过计算后，再将加us安出来的内容封装好，例如服务器返回一个HTML页面，并且根据HTTP协议构建返回内容的响应格式。涉及到TCP连接、HTTP原始请求和相应格式的这些，都由一个软件来完成，这时，以上的工作需要一个程序来完成，而这个程序便是CGI&amp;lt;/u&amp;gt;**
-**WSGI(Web服务器网关接口(Python Web Server Gateway Interface，WSGI)**
-`WSGI`就是基于`Python`的以`CGI`为标准做一些扩展的协议
-&lt;/code>&lt;/pre>
-&lt;h2 id="what-is-uwsgi">&lt;strong>What is uwsgi&lt;/strong>&lt;/h2>
-&lt;p>&lt;code>uWSGI&lt;/code>，是指实现了&lt;strong>WSGI协议&lt;/strong>的一个&lt;strong>web服务器&lt;/strong>。即用来接受客户端请求，转发响应的程序&lt;/p>
-&lt;h2 id="what-is-asgi">&lt;strong>What is asgi&lt;/strong>&lt;/h2>
-&lt;pre>&lt;code>异步网关协议接口，一个介于网络协议服务和`Python`应用之间的标准接口，能够处理多种通用的协议类型，包括`HTTP`，`HTTP2`和`WebSocket`
-&lt;/code>&lt;/pre>
-&lt;p>&lt;code>ASGI&lt;/code>尝试保持在一个简单的应用接口的前提下，提供允许数据能够在任意的时候、被任意应用进程发送和接受的抽象。并且同样描述了一个新的，兼容&lt;code>HTTP&lt;/code>请求响应以及&lt;code>WebSocket&lt;/code>数据帧的序列格式。允许这些协议能通过网络或本地&lt;code>socket&lt;/code>进行传输，以及让不同的协议被分配到不同的进程中&lt;/p>
-&lt;h2 id="difference-between-wsgi--asgi">&lt;strong>Difference between wsgi &amp;amp; asgi&lt;/strong>&lt;/h2>
-&lt;pre>&lt;code>1. Wsgi is based on `Http`, not support `websocket`
-2. Asgi is the extension of wsgi.
-&lt;/code>&lt;/pre></description></item><item><title>RabbitMQ基础安装使用</title><link>https://huangkai1008.github.io/p/rabbitmq%E5%9F%BA%E7%A1%80%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link><pubDate>Mon, 12 Nov 2018 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/rabbitmq%E5%9F%BA%E7%A1%80%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid><description>&lt;h2 id="rabbitmq">RabbitMQ&lt;/h2>
+&lt;p>​&lt;/p></description></item><item><title>RabbitMQ基础安装使用</title><link>https://huangkai1008.github.io/p/rabbitmq%E5%9F%BA%E7%A1%80%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link><pubDate>Mon, 12 Nov 2018 13:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/rabbitmq%E5%9F%BA%E7%A1%80%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid><description>&lt;h2 id="rabbitmq">RabbitMQ&lt;/h2>
 &lt;ul>
 &lt;li>Platform: Centos7&lt;/li>
 &lt;/ul>
@@ -3405,8 +3266,8 @@ systemctl &lt;span class="nb">enable&lt;/span> mariadb.service &lt;span class="c
 &lt;p>一个数据库系统的结构如下图
 &lt;figure
 >
-&lt;a href="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133615.svg" >
-&lt;img src="https://gitee.com/huanghuang927/picture-host/raw/master/20210413133615.svg"
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413133615.svg" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210413133615.svg"
 loading="lazy"
 alt="View of data">
 &lt;/a>
