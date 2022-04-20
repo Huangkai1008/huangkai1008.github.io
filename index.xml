@@ -903,7 +903,8 @@ loading="lazy"
 &lt;p>只要把主机号所在的二进制位全部变为1即可得到广播地址。&lt;/p>
 &lt;ul>
 &lt;li>局域网地址：192.168.211.32/24（斜杠后的数字代表子网掩码的二进制位数，那么主机号的位数为32-24=8），所以广播地址为：192.168.211.255&lt;/li>
-&lt;/ul></description></item><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Wed, 17 Jun 2020 11:22:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;/ul></description></item><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Wed, 17 Jun 2020 11:22:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>&lt;h1 id="计算机网络">计算机网络&lt;/h1>
+&lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;h3 id="互联网因特网和万维网">互联网、因特网和万维网&lt;/h3>
 &lt;blockquote>
 &lt;p>&lt;strong>互联网(&lt;code>internet&lt;/code>)&lt;/strong>：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互联网是&lt;strong>网络的网络&lt;/strong>&lt;/p>
@@ -1163,14 +1164,13 @@ alt="协议分层">
 >Wikipedia : Internet_protocol_suite&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://en.wikipedia.org/wiki/OSI_model" target="_blank" rel="noopener"
 >Wikipedia : OSI&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h1 id="dns-和域名">DNS 和域名&lt;/h1>
-&lt;h2 id="一域名">一、域名&lt;/h2>
-&lt;p>&lt;strong>网域名称&lt;/strong>（英语：Domain Name，简称：Domain），简称&lt;strong>域名&lt;/strong>、&lt;strong>网域&lt;/strong>，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个&lt;a class="link" href="IP.md" >IP&lt;/a>地址的代称，目的是为了便于记忆后者。&lt;/p>
+&lt;/ul></description></item><item><title>域名和DNS</title><link>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</link><pubDate>Sun, 14 Jun 2020 16:02:15 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E5%9F%9F%E5%90%8D%E5%92%8Cdns/</guid><description>&lt;h2 id="一域名">一、域名&lt;/h2>
+&lt;p>&lt;strong>网域名称&lt;/strong>（英语：Domain Name，简称：Domain），简称 &lt;strong>域名&lt;/strong> 、 &lt;strong>网域&lt;/strong> ，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个&lt;a class="link" href="IP.md" >IP&lt;/a>地址的代称，目的是为了便于记忆后者。&lt;/p>
 &lt;h3 id="域名的层级">域名的层级&lt;/h3>
 &lt;p>&lt;code>www.example.com&lt;/code> 真正的域名是 &lt;code>www.example.com.root&lt;/code> ，简写为 &lt;code>www.example.com.&lt;/code> 。因为，根域名 &lt;code>.root&lt;/code> 对于所有域名都是一样的，所以平时是省略的。&lt;/p>
-&lt;p>根域名的下一级，叫做&lt;strong>顶级域名（&lt;code>top-level domain，缩写为TLD&lt;/code>）&lt;/strong>，比如 &lt;code>.com&lt;/code> 、 &lt;code>.net&lt;/code> ；&lt;/p>
-&lt;p>再下一级叫做&lt;strong>次级域名（&lt;code>second-level domain，缩写为SLD&lt;/code>）&lt;/strong>，比如 &lt;code>www.example.com&lt;/code> 里面的 &lt;code>.example&lt;/code> ，这一级域名是用户可以注册的；&lt;/p>
-&lt;p>再下一级是&lt;strong>主机名（&lt;code>host&lt;/code>）&lt;/strong>，比如&lt;code>www.example.com&lt;/code>里面的&lt;code>www&lt;/code>，又称为&lt;strong>三级域名&lt;/strong>，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。&lt;/p>
+&lt;p>根域名的下一级，叫做 &lt;strong>顶级域名（&lt;code>top-level domain，缩写为TLD&lt;/code>）&lt;/strong> ，比如 &lt;code>.com&lt;/code> 、 &lt;code>.net&lt;/code> ；&lt;/p>
+&lt;p>再下一级叫做 &lt;strong>次级域名（&lt;code>second-level domain，缩写为SLD&lt;/code>）&lt;/strong> ，比如 &lt;code>www.example.com&lt;/code> 里面的 &lt;code>.example&lt;/code> ，这一级域名是用户可以注册的；&lt;/p>
+&lt;p>再下一级是 &lt;strong>主机名（&lt;code>host&lt;/code>）&lt;/strong> ，比如 &lt;code>www.example.com&lt;/code> 里面的 &lt;code>www&lt;/code>，又称为 &lt;strong>三级域名&lt;/strong> ，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。&lt;/p>
 &lt;blockquote>
 &lt;p>主机名.次级域名.顶级域名.根域名&lt;/p>
 &lt;p>host.sld.tld.root&lt;/p>
@@ -1186,8 +1186,8 @@ loading="lazy"
 &lt;h2 id="二dns">二、DNS&lt;/h2>
 &lt;p>&lt;strong>域名系统&lt;/strong>（英语：&lt;strong>D&lt;/strong>omain &lt;strong>N&lt;/strong>ame &lt;strong>S&lt;/strong>ystem，缩写：&lt;strong>DNS&lt;/strong>）是一个分布式数据库，提供了&lt;strong>域名&lt;/strong>和 &lt;a class="link" href="IP.md" >IP&lt;/a>地址之间相互转换的服务。&lt;/p>
 &lt;h3 id="查询过程">查询过程&lt;/h3>
-&lt;p>DNS 服务器根据&lt;a class="link" href="#%e5%9f%9f%e5%90%8d%e7%9a%84%e5%b1%82%e7%ba%a7" >域名的层级&lt;/a>，进行&lt;strong>分级查询&lt;/strong>。&lt;/p>
-&lt;p>每一级域名都有自己的&lt;strong>NS（&lt;code>Name Server&lt;/code>）&lt;/strong> 记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。&lt;/p>
+&lt;p>DNS 服务器根据&lt;a class="link" href="#%e5%9f%9f%e5%90%8d%e7%9a%84%e5%b1%82%e7%ba%a7" >域名的层级&lt;/a>，进行 &lt;strong>分级查询&lt;/strong>。&lt;/p>
+&lt;p>每一级域名都有自己的 &lt;strong>NS（&lt;code>Name Server&lt;/code>）&lt;/strong> 记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。&lt;/p>
 &lt;blockquote>
 &lt;p>&amp;ldquo;分级查询&amp;rdquo;，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址&lt;/p>
 &lt;p>过程大致为:&lt;/p>
