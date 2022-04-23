@@ -6,7 +6,7 @@
 <meta property="og:description" content="一、概述 运输层协议为运行在不同主机上的应用进程之间提供了 逻辑通信（logic communication） 功能。 通过逻辑通信，运行不同进程的主">
 <meta property="og:url" content="https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-08-18T09:21:31+08:00"><meta property="article:modified_time" content="2020-08-18T09:21:31+08:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-08-18T09:21:31+08:00"><meta property="article:modified_time" content="2020-09-01T22:13:24+08:00">
 <meta name=twitter:title content="运输层">
 <meta name=twitter:description content="一、概述 运输层协议为运行在不同主机上的应用进程之间提供了 逻辑通信（logic communication） 功能。 通过逻辑通信，运行不同进程的主">
 <link rel="shortcut icon" href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018164707.jpg>
@@ -39,7 +39,7 @@ extended">
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-5 minute read
+6 minute read
 </time>
 </div>
 </footer>
@@ -180,6 +180,38 @@ extended">
 </a>
 <figcaption>rdt 2.0 fsm</figcaption>
 </figure></p>
+<p>当发送方处于等待 ACK 或 NAK 的状态时，它不能从上层获得更多的数据，也即此时<code>rdt_send</code>事件不会发生。因此，除非发送端确认接收端已经正确地收到它当前发送的数据，发送端是不会发送新数据的。实现此类行为特征的协议被称为 <strong>停等协议（<code>stop-and-wait protocol</code>）</strong> 。</p>
+<h4 id=处理acknak分组受损的场景>处理ACK/NAK分组受损的场景</h4>
+<p>rdt 2.0 的实现没有考虑ACK或者NAK分组受损的可能性，在这种场景下，发送端无法知道接收端是否成功接收了上一块发送的数据。</p>
+<p>我们的解决方案是在数据分组中增加一个新字段，让发送端对其数据分组编号，即将发送数据分组的 <strong>序列号（<code>sequence number</code>）</strong> 放在该字段。</p>
+<p>rdt 2.0 作为停止等待协议的一个简单实现，序列号的长度是1位就够了。</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063659653383.jpeg>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063659653383.jpeg loading=lazy alt="rdt 2.1 sender fsm">
+</a>
+<figcaption>rdt 2.1 sender fsm</figcaption>
+</figure></p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063659875543.jpeg>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063659875543.jpeg loading=lazy alt="rdt 2.1 receiver fsm">
+</a>
+<figcaption>rdt 2.1 receiver fsm</figcaption>
+</figure></p>
+<p>rdt 2.1 在发送端和接收端均使用了 ACK/NAK，当接收端收到失序分组时，接收端发送 ACK 。当受损分组到达接收端时，接收端发送 NAK。</p>
+<p>rdt 2.2 要做的改进是当受损分组到达接收端时，接收端不发送 NAK，取而代之的是发送一个对最近正确收到的数据的 ACK 。这时需要给 ACK 分组也添加序列号，当发送端收到这个 ACK 时，发送端可以根据 ACK 分组的序列号去判断这个 ACK 分组代表的是接收端正确接收了它刚发送的数据亦或是接收端正确接受了它上一次发送的数据。
+当发送端收到两个对同一个分组确认的 ACK 时，即收到重复的 ACK ，发送端就可以知道接收端未能正确收到被确认两次的分组的下一个分组。</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063673825018.jpeg>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063673825018.jpeg loading=lazy alt="rdt 2.2 sender fsm">
+</a>
+<figcaption>rdt 2.2 sender fsm</figcaption>
+</figure></p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063675189756.jpeg>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063675189756.jpeg loading=lazy alt="rdt 2.2 receiver fsm">
+</a>
+<figcaption>rdt 2.2 receiver fsm</figcaption>
+</figure></p>
 <hr>
 <h2 id=参考资料>参考资料</h2>
 <ul>
@@ -194,7 +226,11 @@ extended">
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
 <span>MIT</span>
 </section>
-</footer>
+<section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>
+Last updated on Sep 01, 2020 22:13 +0800
+</span>
+</section></footer>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
 </article>
 <aside class=related-contents--wrapper>
@@ -332,6 +368,7 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <ol>
 <li><a href=#arq-协议的定义>ARQ 协议的定义</a></li>
 <li><a href=#arq-协议的实现>ARQ 协议的实现</a></li>
+<li><a href=#处理acknak分组受损的场景>处理ACK/NAK分组受损的场景</a></li>
 </ol>
 </li>
 </ol>
