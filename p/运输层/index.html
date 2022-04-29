@@ -39,7 +39,7 @@ extended">
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-7 minute read
+9 minute read
 </time>
 </div>
 </footer>
@@ -248,11 +248,40 @@ extended">
 a. <strong>回退 N 步（<code>Go-Back-N, GBN</code>）</strong>
 b. <strong>选择重传（<code>Selective Repeat, SR</code>）</strong></li>
 </ol>
+<h4 id=回退n步>回退N步</h4>
+<p>在 GBN 协议中，发送端可以在不需要等待收到 ACK 的情况下，同时发送 N 个分组，这意味着发送端最多能保持 N 个未收到 ACK 的分组，N 也被称为滑动窗口的大小。GBN 协议也常被称为 <strong>滑动窗口协议（<code>sliding-window protocol</code>）</strong> 。</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063778631352.jpeg>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/16063778631352.jpeg loading=lazy alt="Sender&rsquo;s view of sequence numbers in Go-Back-N">
+</a>
+<figcaption>Sender’s view of sequence numbers in Go-Back-N</figcaption>
+</figure></p>
+<p><code>base</code> 定义为最小的未收到 ACK 的分组的序列号，<code>nextseqnum</code> 定义为下一个将被发送的分组的序列号。</p>
+<p>区间 [0, base - 1] 定义为已经发送并且已经收到 ACK 的分组序列号。
+区间 [base, nextseqnum - 1] 定义为已经发送但是还未收到 ACK 的分组序列号。
+区间 [nextseqnum, base + N - 1] 定义为那些要被立刻发送的分组序列号。
+区间 [base + N, +∞] 定义为待发送的分组序列号，需要等到序列号为 base 的分组收到 ACK 后，整个滑动窗口向前滑动，base + N 的分组才能被发送。</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20170727184244495>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20170727184244495 loading=lazy alt="GBN sender">
+</a>
+<figcaption>GBN sender</figcaption>
+</figure></p>
+<p>当发送端的上层调用 <code>rdt_send()</code> 时，发送端首先会检查发送窗口是否已满，如果窗口已满，则拒绝发送分组。当超时事件发生时，发送端启动定时器，且会重新发送所有之前已发送过但未收到 ACK 的分组(即区间 [base, nextseqnum - 1]内的分组）。</p>
+<p>当收到某个分组的 ACK 时，还有已被发送且未收到 ACK 的分组，发送端需要重启定时器。如果没有已发送但未被确认的分组，停止该计时器。</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20170727184357967>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20170727184357967 loading=lazy alt="GBN receiver">
+</a>
+<figcaption>GBN receiver</figcaption>
+</figure></p>
+<p>假设接收端已经接收到前 n - 1 个分组，那么接收端下一个期待的待接收分组的序列号就为 n 。接收端会丢弃所有下一个到来的序列号非 n 的分组，并重新发送最近收到的分组的 ACK （在这个例子中为：ACK n - 1）。GBN 在这种场景下使用 <strong>累积确认（<code>cumulative acknowledgments</code>）</strong> 。</p>
 <hr>
 <h2 id=参考资料>参考资料</h2>
 <ul>
 <li>Kurose, J. F., & Ross, K. W. (2018). <em>计算机网络-自顶而下方法</em> (7th ed.). 机械工业出版社.</li>
 <li><a class=link href=https://en.wikipedia.org/wiki/User_Datagram_Protocol target=_blank rel=noopener>Wikipedia : User Datagram Protocol</a></li>
+<li><a class=link href=https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/go-back-n-protocol/index.html target=_blank rel=noopener>Go-Back-N Protocol</a></li>
 </ul>
 </section>
 <footer class=article-footer>
@@ -408,7 +437,11 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 </ol>
 </li>
 <li><a href=#3-经具有比特差错的丢包信道的可靠数据运输30>3. 经具有比特差错的丢包信道的可靠数据运输：3.0</a></li>
-<li><a href=#4-流水线可靠数据传输协议>4. 流水线可靠数据传输协议</a></li>
+<li><a href=#4-流水线可靠数据传输协议>4. 流水线可靠数据传输协议</a>
+<ol>
+<li><a href=#回退n步>回退N步</a></li>
+</ol>
+</li>
 </ol>
 </li>
 <li><a href=#参考资料>参考资料</a></li>
