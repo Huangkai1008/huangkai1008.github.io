@@ -614,7 +614,7 @@ alt="图1-1 一种数据系统架构">
 &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
 &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>运输层</title><link>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</link><pubDate>Tue, 18 Aug 2020 09:21:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</guid><description>&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>运输层</title><link>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</link><pubDate>Tue, 18 Aug 2020 09:21:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 运输层" />&lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;p>运输层协议为运行在不同主机上的应用进程之间提供了 &lt;strong>逻辑通信（&lt;code>logic communication&lt;/code>）&lt;/strong> 功能。&lt;/p>
 &lt;p>通过逻辑通信，运行不同进程的主机好像直接相连一样。应用进程使用运输层提供的逻辑通信功能彼此发送报文，而无须考虑承载这些报文的物理基础设施的细节。&lt;/p>
 &lt;h3 id="端口号">端口号&lt;/h3>
@@ -919,7 +919,7 @@ alt="选择重传（SR) 发送端与接收端的序号空间">
 >Go-Back-N Protocol&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/selective-repeat-protocol/index.html" target="_blank" rel="noopener"
 >Selective Repeat Protocol&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>HTTP/2</title><link>https://huangkai1008.github.io/p/http/2/</link><pubDate>Fri, 10 Jul 2020 15:51:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/http/2/</guid><description>&lt;h1 id="http2">HTTP/2&lt;/h1>
+&lt;/ul></description></item><item><title>HTTP/2</title><link>https://huangkai1008.github.io/p/http/2/</link><pubDate>Fri, 10 Jul 2020 15:51:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/http/2/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211123115225.svg" alt="Featured image of post HTTP/2" />&lt;h1 id="http2">HTTP/2&lt;/h1>
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;blockquote>
 &lt;p>&lt;strong>HTTP/2&lt;/strong> 的主要目标是通过支持完整的请求与响应复用来减少延迟，通过有效压缩 HTTP 标头字段将协议开销降至最低，同时增加对请求优先级和服务器推送的支持。 为达成这些目标，HTTP/2 还给我们带来了大量其他协议层面的辅助实现，例如新的流控制、错误处理和升级机制。&lt;/p>
