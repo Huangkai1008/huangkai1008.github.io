@@ -1,14 +1,14 @@
 <!doctype html><html lang=zh-cn>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="计算机网络 一、概述 互联网、因特网和万维网 互联网(internet)：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起"><title>计算机网络</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="计算机网络 一、概述 网络是 节点（vertex） 与 边（edge） 构成的与大小形状无关的 图（graph）。 联网的计算机系统，由节点和边构成的网络叫"><title>计算机网络</title>
 <link rel=canonical href=https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/>
 <link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="计算机网络">
-<meta property="og:description" content="计算机网络 一、概述 互联网、因特网和万维网 互联网(internet)：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起">
+<meta property="og:description" content="计算机网络 一、概述 网络是 节点（vertex） 与 边（edge） 构成的与大小形状无关的 图（graph）。 联网的计算机系统，由节点和边构成的网络叫">
 <meta property="og:url" content="https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-17T11:22:54+08:00"><meta property="article:modified_time" content="2020-07-15T16:59:45+08:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-17T11:22:54+08:00"><meta property="article:modified_time" content="2020-10-02T16:59:45+08:00">
 <meta name=twitter:title content="计算机网络">
-<meta name=twitter:description content="计算机网络 一、概述 互联网、因特网和万维网 互联网(internet)：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起">
+<meta name=twitter:description content="计算机网络 一、概述 网络是 节点（vertex） 与 边（edge） 构成的与大小形状无关的 图（graph）。 联网的计算机系统，由节点和边构成的网络叫">
 <link rel="shortcut icon" href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018164707.jpg>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
 </head>
@@ -39,7 +39,7 @@ extended">
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-8 minute read
+10 minute read
 </time>
 </div>
 </footer>
@@ -48,26 +48,53 @@ extended">
 <section class=article-content>
 <h1 id=计算机网络>计算机网络</h1>
 <h2 id=一概述>一、概述</h2>
-<h3 id=互联网因特网和万维网>互联网、因特网和万维网</h3>
-<blockquote>
-<p><strong>互联网(<code>internet</code>)</strong>：凡是由能彼此通信的设备组成的网络就叫互联网，互联网把多种不同的网络连接起来，因此互联网是<strong>网络的网络</strong></p>
-</blockquote>
+<p>网络是 <strong>节点（<code>vertex</code>）</strong> 与 <strong>边（<code>edge</code>）</strong> 构成的与大小形状无关的 <strong>图（<code>graph</code>）</strong>。</p>
+<p><strong>联网的计算机系统，由节点和边构成的网络叫做计算机网络</strong>。在这个网络中，节点是计算设备，边是通信链路。</p>
+<p>广义上讲，凡是由能彼此通信的设备组成的网络就叫 <strong>互联网（<code>internet</code>）</strong> ，互联网把多种不同的网络连接起来，因此互联网是<strong>网络的网络</strong></p>
 <p><figure>
 <a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210928080734.gif>
 <img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20210928080734.gif loading=lazy alt=互联网>
 </a>
 <figcaption>互联网</figcaption>
 </figure></p>
-<blockquote>
-<p><strong>因特网(<code>Internet</code>)</strong>：世界范围的计算机网络（<code>computer network</code>）</p>
-</blockquote>
-<blockquote>
-<p><strong>万维网(<code>World Wide Web, WWW</code>)</strong>：万维网是互联网的主要服务，提供网页和音视频等服务</p>
-</blockquote>
-<h4 id=关系>关系</h4>
-<p><strong>互联网（广义）> 因特网 > 万维网</strong></p>
+<p>以 TCP / IP 协议簇为主的世界范围内的计算机网络称为 <strong>因特网（<code>Internet</code>）</strong>。</p>
+<p><strong>万维网(<code>World Wide Web, WWW</code>)</strong> 是互联网的主要服务，提供网页和音视频等服务</p>
+<p>从关系上来说，<strong>互联网（广义）> 因特网 > 万维网</strong></p>
 <h2 id=二因特网>二、因特网</h2>
+<h3 id=因特网的构成>因特网的构成</h3>
 <p><strong>因特网</strong>包含了全世界数十亿计算设备，在今天，这些设备一般被称为<strong>主机（<code>host</code>）</strong> 或者<strong>端系统（<code>end system</code>）</strong>，<strong>端系统</strong>通过<strong>通信链路（<code>communication link</code>）</strong> 和 <strong>分组交换机（<code>packet switch</code>）</strong> 连接到一起。</p>
+<h4 id=节点与边>节点与边</h4>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Drawing%202022-05-28%2018.40.17.excalidraw.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Drawing%202022-05-28%2018.40.17.excalidraw.png loading=lazy>
+</a>
+</figure></p>
+<p>如上图所示，从源节点到目标节点传送数据的过程中，源节点/目标节点的节点类别为 <strong>主机节点</strong> ，中转节点的节点类别为 <strong>数据交换节点</strong> 。</p>
+<p>连接节点的边是通信链路，其中主机连接到互联网的链路为 <strong>接入网链路（<code>access link</code>）</strong> ，分组交换设备间的链路称为 <strong>主干链路（<code>backbone link</code>）</strong>。</p>
+<h4 id=协议>协议</h4>
+<blockquote>
+<p><strong>协议（<code>protocol</code>）</strong> 定义了在两个或者多个通信实体之间交换的报文的格式和顺序，以及报文发送和/或接收一条报文或其他事件所采取的动作。</p>
+</blockquote>
+<p>协议规范了语法、语义、时序和动作。</p>
+<h3 id=因特网的服务>因特网的服务</h3>
+<p>因特网提供的服务大致分两个部分：</p>
+<ol>
+<li>使用通信设施进行通信的分布式应用。</li>
+<li>通信基础设施为分布式应用提供通信服务（编程接口）。</li>
+</ol>
+<h3 id=网络边缘>网络边缘</h3>
+<p>端系统位于因特网的 <strong>边缘（<code>edge</code>）</strong> ，端系统也称为主机，即<strong>主机 = 端系统</strong>。</p>
+<h3 id=网络核心>网络核心</h3>
+<p>因特网端系统的分组交换机和链路构建的网状网络被称为网络 <strong>核心（<code>core</code>）</strong> 。</p>
+<p>通过网络链路和交换机移动数据有两种基本方法：<strong>电路交换（<code>circult switching</code>）</strong> 和 <strong>分组交换（<code>packet switching</code>）</strong>。</p>
+<p>以上两种交换方式的详细介绍见<a class=link href=%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%bd%91%e7%bb%9c.md#%e4%b8%89%e3%80%81%e7%94%b5%e8%b7%af%e4%ba%a4%e6%8d%a2%e4%b8%8e%e5%88%86%e7%bb%84%e4%ba%a4%e6%8d%a2>电路交换与分组交换</a>。</p>
+<h3 id=接入网>接入网</h3>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211002115311.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211002115311.png loading=lazy alt=接入网>
+</a>
+<figcaption>接入网</figcaption>
+</figure></p>
 <h3 id=isp>ISP</h3>
 <blockquote>
 <p><strong>因特网服务提供商（Internet Service Provider, ISP）</strong>，ISP 可以从互联网管理机构申请到很多 IP 地址，然后一些机构和个人从某个 ISP 获取 IP 地址的使用权，并可通过该 ISP 连接到互联网</p>
@@ -79,19 +106,7 @@ extended">
 </a>
 <figcaption>ISP</figcaption>
 </figure></p>
-<h3 id=协议>协议</h3>
-<blockquote>
-<p><strong>协议（<code>protocol</code>）</strong> 定义了在两个或者多个通信实体之间交换的报文的格式和顺序，以及报文发送和/或接收一条报文或其他事件所采取的动作</p>
-</blockquote>
-<h3 id=接入网>接入网</h3>
-<p><figure>
-<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211002115311.png>
-<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211002115311.png loading=lazy alt=接入网>
-</a>
-<figcaption>接入网</figcaption>
-</figure></p>
 <h2 id=三电路交换与分组交换>三、电路交换与分组交换</h2>
-<p>通过网络链路和交换机移动数据有两种基本方法：<strong>电路交换（<code>circult switching</code>）<strong>和</strong>分组交换（<code>packet switching</code>）</strong></p>
 <h3 id=电路交换circuit-switching>电路交换（<code>circuit switching</code>）</h3>
 <blockquote>
 <p><strong>电路交换</strong>需要建立一条专用的数据通信路径，这条路径上可能包含许多中间节点。这条通信路径在整个通信过程中将被独占，直到通信结束才会释放资源。<strong>电路交换适合实时性要求较高的大量数据传输的情况。</strong></p>
@@ -273,6 +288,27 @@ traceroute to www.baidu.com <span class=o>(</span>183.232.231.172<span class=o>)
 <p><strong>因特网协议栈</strong>由 <strong><a class=link href=%e5%ba%94%e7%94%a8%e5%b1%82.md>应用层</a>（<code>application layer</code>)</strong> 、<strong><a class=link href=%e8%bf%90%e8%be%93%e5%b1%82.md>运输层</a>（<code>transport layer</code>）</strong>、<strong>网络层（<code>internet layer</code>）</strong>、<strong>链路层（<code>link layer</code>）</strong>、<strong>物理层 （<code>physical layer</code>）</strong> 5 个层次组成。</p>
 <h4 id=tcpip-模型>TCP/IP 模型</h4>
 <p><strong>TCP/IP 模型</strong>由<strong>应用层（<code>application layer</code>)</strong>、<strong>运输层（<code>transport layer</code>）</strong>、<strong>网际层（<code>internet layer</code>）</strong>、<strong>网络接口层 （<code>network access layer</code>）</strong> 4 个层次组成。</p>
+<h3 id=服务和服务访问点>服务和服务访问点</h3>
+<p><strong>服务(<code>service</code>)</strong> 指的是低层实体向上层实体提供他们之间的通信的能力。其中有两个角色，一个是 <strong>服务用户（<code>service user</code>）</strong> ，一个是 <strong>服务提供者（<code>service provider</code>）</strong> ，服务提供者向服务用户提供服务。</p>
+<h4 id=原语>原语</h4>
+<p><strong>原语（<code>primitive</code>）</strong> 指的是上层使用下层服务的形式。高层使用低层提供的服务，以及低层向高层提供服务都是通过服务访问原语来进行交互的。</p>
+<p>例如在应用层使用传输层服务的时候，socket api 就是一种原语。</p>
+<h4 id=服务访问点>服务访问点</h4>
+<p><strong>服务访问点（<code>service access point</code>）</strong> 指的是上层使用下层提供的服务通过层间的接口地点。下层的一个实体支撑着上层的多个实体，SAP有标志不同上层实体的作用。</p>
+<p>例如传输层的服务访问点就是 <strong>端口（<code>port</code>）</strong> 。</p>
+<h4 id=服务类型>服务类型</h4>
+<p>服务类型通常有 <strong>面向连接的服务（<code>Connection-oriented Service</code>）</strong> 和 <strong>无连接（<code>Connectionless Service</code>）</strong> 的服务两种。</p>
+<h4 id=服务与协议>服务与协议</h4>
+<p>服务与协议的主要区别在于：</p>
+<ul>
+<li>服务 : 低层实体向上层实体提供它们之间的通信的能力，是通过原语来操作的，垂直</li>
+<li>协议：对等层实体之间在相互通信的过程中，需要遵循的规则的集合，水平</li>
+</ul>
+<p>服务与协议的联系在于：</p>
+<ul>
+<li>本层协议的实现要靠下层提供的服务来实现</li>
+<li>本层实体通过协议为上层提供更高级的服务</li>
+</ul>
 <h2 id=六代理服务器>六、代理服务器</h2>
 <blockquote>
 <p><strong>代理服务器（<code>proxy server</code>）</strong> 是一种网络服务，允许一个终端（一般是客户端）通过这个服务与另一个终端（一般为服务端）进行非直接的连接。</p>
@@ -291,6 +327,7 @@ traceroute to www.baidu.com <span class=o>(</span>183.232.231.172<span class=o>)
 <ul>
 <li>Kurose, J. F., & Ross, K. W. (2018). <em>计算机网络-自顶而下方法</em> (7th ed.). 机械工业出版社.</li>
 <li><a class=link href=https://en.wikipedia.org/wiki/Internet_protocol_suite target=_blank rel=noopener>Wikipedia : Internet_protocol_suite</a></li>
+<li><a class=link href=https://en.wikipedia.org/wiki/Computer_network target=_blank rel=noopener>Computer network</a></li>
 <li><a class=link href=https://en.wikipedia.org/wiki/OSI_model target=_blank rel=noopener>Wikipedia : OSI</a></li>
 </ul>
 </section>
@@ -303,7 +340,7 @@ traceroute to www.baidu.com <span class=o>(</span>183.232.231.172<span class=o>)
 </section>
 <section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <span>
-Last updated on Jul 15, 2020 16:59 +0800
+Last updated on Oct 02, 2020 16:59 +0800
 </span>
 </section></footer>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
@@ -420,20 +457,20 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <div class=widget--toc>
 <nav id=TableOfContents>
 <ol>
-<li><a href=#一概述>一、概述</a>
-<ol>
-<li><a href=#互联网因特网和万维网>互联网、因特网和万维网</a>
-<ol>
-<li><a href=#关系>关系</a></li>
-</ol>
-</li>
-</ol>
-</li>
+<li><a href=#一概述>一、概述</a></li>
 <li><a href=#二因特网>二、因特网</a>
 <ol>
-<li><a href=#isp>ISP</a></li>
+<li><a href=#因特网的构成>因特网的构成</a>
+<ol>
+<li><a href=#节点与边>节点与边</a></li>
 <li><a href=#协议>协议</a></li>
+</ol>
+</li>
+<li><a href=#因特网的服务>因特网的服务</a></li>
+<li><a href=#网络边缘>网络边缘</a></li>
+<li><a href=#网络核心>网络核心</a></li>
 <li><a href=#接入网>接入网</a></li>
+<li><a href=#isp>ISP</a></li>
 </ol>
 </li>
 <li><a href=#三电路交换与分组交换>三、电路交换与分组交换</a>
@@ -482,6 +519,14 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <li><a href=#osi-模型>OSI 模型</a></li>
 <li><a href=#因特网协议栈>因特网协议栈</a></li>
 <li><a href=#tcpip-模型>TCP/IP 模型</a></li>
+</ol>
+</li>
+<li><a href=#服务和服务访问点>服务和服务访问点</a>
+<ol>
+<li><a href=#原语>原语</a></li>
+<li><a href=#服务访问点>服务访问点</a></li>
+<li><a href=#服务类型>服务类型</a></li>
+<li><a href=#服务与协议>服务与协议</a></li>
 </ol>
 </li>
 </ol>
