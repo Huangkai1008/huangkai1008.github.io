@@ -6,7 +6,7 @@
 <meta property="og:description" content="一、概述 运输层协议为运行在不同主机上的应用进程之间提供了 逻辑通信（logic communication） 功能。 通过逻辑通信，运行不同进程的主">
 <meta property="og:url" content="https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-08-18T09:21:31+08:00"><meta property="article:modified_time" content="2020-09-13T22:13:24+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-08-18T09:21:31+08:00"><meta property="article:modified_time" content="2020-10-14T12:57:24+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
 <meta name=twitter:title content="运输层">
 <meta name=twitter:description content="一、概述 运输层协议为运行在不同主机上的应用进程之间提供了 逻辑通信（logic communication） 功能。 通过逻辑通信，运行不同进程的主"><meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
@@ -45,7 +45,7 @@ extended">
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-13 minute read
+18 minute read
 </time>
 </div>
 </footer>
@@ -314,6 +314,9 @@ b. <strong>选择重传（<code>Selective Repeat, SR</code>）</strong></li>
 <p>TCP 连接提供的是 <strong>全双工服务（<code>full-duplex service</code>）</strong> , 如果一台主机上的进程 B 存在一条 TCP 连接，那么应用层数据就可在从进程 B 流向 进程 A 的同时，也从进程 A 流向 进程 B。</p>
 <h4 id=点对点通信>点对点通信</h4>
 <p>TCP 连接总是 <strong>点对点的（<code>point-to-point</code>）</strong> ，即 TCP 连接总存在于单个发送方和单个接收方之间。</p>
+<h4 id=面向字节流>面向字节流</h4>
+<p>TCP 把数据看作一个无结构的、有序的字节流。每个TCP套接口有一个发送缓冲区，如果字节流太长时，TCP会将其拆分进行发送。当字节流太短时，TCP会等待缓冲区中的字节流达到一定程度时再构成报文发送出去，TCP发给对方的数据，对方在收到数据时必须给予确认，只有在收到对方的确认时，本方TCP才会把TCP发送缓冲区中的数据删除。</p>
+<p>TCP 可从缓存中取出并放入报文段中的数据数量受限于 <strong>最大报文段长度（<code>Maximum Segment Size, MSS</code>）</strong> 。</p>
 <h3 id=tcp-的组成>TCP 的组成</h3>
 <p>TCP 连接包括：一台主机上的缓存、变量和与进程连接的套接字，以及另一台主机上的另一组缓存、变量和与进程连接的套接字。</p>
 <h3 id=tcp-报文段结构>TCP 报文段结构</h3>
@@ -345,6 +348,58 @@ b. <strong>选择重传（<code>Selective Repeat, SR</code>）</strong></li>
 </ul>
 </li>
 </ul>
+<h5 id=序号和确认号>序号和确认号</h5>
+<p>TCP 是<a class=link href=%e8%bf%90%e8%be%93%e5%b1%82.md#%e9%9d%a2%e5%90%91%e5%ad%97%e8%8a%82%e6%b5%81>面向字节流</a>的，序号是建立在传送的字节流上，而不是建立在传送的报文段的序列之上，因此 <strong>一个报文段的序号（<code>sequence number for a segment</code>）</strong> 是该报文段首字节的字节流编号。</p>
+<p>假设主机 A 上的一个进程想通过一条 TCP 连接向主机 B 上的一个进程发送一个数据流。主机中的 TCP 将隐式地对数据流中的每一个字节编号。假定数据流由一个包含 500, 000字节的文件组成，其 MSS 为1000字节，数据流的首字节编号是 <code>X</code> ，那么该 TCP 实体将为该数据流构建500个报文段，给第一个报文段分配序号 <code>X</code> ，给第二个报文段分配序号 <code>X + MSS * 1</code>，第 N 个报文段分配序号 <code>X + MSS * (N - 1)</code> 。</p>
+<p>从上面例子可以看到，TCP 的确认号从一个随机的值开始，<strong>这是为了提高安全性，也可以避免被相同端点之间早期连接的旧报文段混淆</strong>。</p>
+<p><strong>确认号是期望从另一方收到的下一个字节的序号</strong>。与上文我们讨论的 rdt 不同的是，这里的确认号<strong>多加了1</strong>。</p>
+<p>例如主机 A 已收到 一个来自主机 B 的包含字节 0 ~ 535 的报文段，以及另一个包含字节 900 ~ 1000 的报文段。由于某种原因，主机 A 还没有收到字节 536 ~ 899 的报文段。在这个例子中，主机 A 为了重新构建主机 B 的数据流，仍在等待字节 536 和其后的字节。因此，A 到 B 的下一个报文段将在确认号中包含 536。因为 TCP 只确认该流中至第一个丢失字节为止的字节，所以 TCP 被称为提供 <strong>累积确认（<code>cumulative acknowledement</code>）</strong> ，在这里和 <a class=link href=%e8%bf%90%e8%be%93%e5%b1%82.md#%e5%9b%9e%e9%80%80N%e6%ad%a5>GBN</a> 协议有些相似。</p>
+<h3 id=tcp-可靠数据传输的实现>TCP 可靠数据传输的实现</h3>
+<p>TCP 在 IP 不可靠的服务上创建了可靠数据传输服务。TCP 的可靠数据传输服务确保一个进程从其接收缓存中读出的数据流是无损坏、无间隙、非冗余和按序的数据流。</p>
+<h4 id=tcp-发送方事件>TCP 发送方事件</h4>
+<p>TCP 发送方的三个主要事件分别是</p>
+<ol>
+<li>从应用层接收数据。</li>
+<li>超时。</li>
+<li>收到确认。</li>
+</ol>
+<p>TCP 通过超时和重复确认两个事件触发重传。</p>
+<p>当定时器超时，TCP 重传具有最小序号但仍未应答的报文段，此表现和 SR 协议相似。
+当 TCP 收到多个重复的确认时，TCP 会执行<a class=link href=%e8%bf%90%e8%be%93%e5%b1%82.md#%e5%bf%ab%e9%80%9f%e9%87%8d%e4%bc%a0>快速重传</a>。</p>
+<h4 id=快速重传>快速重传</h4>
+<p>超时重传的问题之一是超时周期可能相对较长，会增加端到端时延。</p>
+<p>我们通过冗余的 ACK 来检测报文段丢失，如果发送方接收到对于相同数据的3个冗余ACK，这说明跟在这个已被确认过三次的报文段之后的报文段很大可能已经丢失。我们在这种情况下执行 <strong>快速重传（<code>fast retransmit</code>）</strong> ，即在该报文段的定时器过期之前重传丢失的报文段。</p>
+<h3 id=tcp-流量控制>TCP 流量控制</h3>
+<p>TCP 提供了 <strong>流量控制服务（<code>flow-control service</code>）</strong> 以消除发送方使接收方缓存溢出的可能性。</p>
+<h3 id=tcp-连接管理>TCP 连接管理</h3>
+<h4 id=tcp-建立连接>TCP 建立连接</h4>
+<p>TCP 连接的创建过程通常被称为 <strong>三次握手（<code>three-way handshake</code>）</strong>。</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/tcp%20%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/tcp%20%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png loading=lazy alt="TCP 三次握手">
+</a>
+<figcaption>TCP 三次握手</figcaption>
+</figure></p>
+<p>一般地，客户端和服务端开始都处于 <code>CLOSED</code> 状态，服务端主动监听某个端口，状态变更为 <code>LISTEN</code> 状态。</p>
+<p>第一步，客户端会发送一个 <strong>SYN 报文段</strong>。此报文段的 <code>SYN</code> 标志位置为 <strong>1</strong>，首部的序号字段由随机的初始序号（<code>client_isn</code>）填充，此报文段不包含任何应用层数据。在此报文段发送后，客户端 TCP 状态会变更到 <code>SYN_SENT</code>。</p>
+<p>第二步，当服务端收到客户端的 <strong>SYN 报文段</strong> 后，服务端会为该 TCP 连接分配 TCP 缓存和变量， 并发送一个 <strong>SYNACK报文段</strong> 表达对连接请求的允许。此报文段的 <code>SYN</code> 和 <code>ACK</code> 标志位置为 <strong>1</strong> ，首部的序号字段由随机的初始序号（<code>server_isn</code>）填充，首部的确认号字段填入客户端的初始序号 + 1 （<code>client_isn + 1</code>），这个报文段也不包含任何应用层数据。在此报文段发送后，服务端 TCP 状态会变更到 <code>SYN_RCVD</code>。</p>
+<p>第三步，在客户端收到 <strong>SYNACK报文段</strong> 后，客户端也需要为此 TCP 连接分配 TCP 缓存和变量，并发送一个应答报文对服务器的允许连接报文段进行了确认。此报文段的<code>ACK</code> 标志位置为 <strong>1</strong> ，<code>SYN</code> 标志位置为1，首部的序号字段是<code>client_isn + 1</code>，确认号字段是<code>server_isn + 1</code>。<strong>注意，此报文段可以携带应用层数据</strong>。发送此报文段后，客户端状态会变更为 <code>ESTABLISHED</code>，在服务端接收到此报文段后，服务端状态也会变更为 <code>ESTABLISHED</code>。</p>
+<h4 id=tcp-关闭连接>TCP 关闭连接</h4>
+<p>连接双方都可以主动断开连接，断开连接后主机中的资源（即缓存和变量）将被释放。TCP 断开连接的方式通常被称为 <strong>四次挥手（<code>four-way handshake</code>）</strong>。</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/tcp%20%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/tcp%20%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png loading=lazy alt="TCP 四次挥手">
+</a>
+<figcaption>TCP 四次挥手</figcaption>
+</figure></p>
+<p>假设 TCP 客户端想要断开连接，它会发送一个 <strong>FIN 报文段</strong> ，此报文段的 <code>FIN</code> 标志位置为1，此后客户端进入 <code>FIN_WAIT_1</code> 状态。</p>
+<p>服务端收到客户端的 <strong>FIN 报文段</strong> 后，就会向客户端发送 <strong>ACK 报文段</strong> ，此后服务端进入 <code>CLOSED_WAIT</code> 状态。客户端收到服务端的此 <strong>ACK 报文段</strong> 后，会进入 <code>FIN_WAIT_2</code> 状态。</p>
+<p>等待服务端处理数据完成后，服务端会发送它自己的 <strong>FIN 报文段</strong> ，发送后服务端进入 <code>LAST_ACK</code> 阶段。客户端收到服务端的 <strong>FIN 报文段</strong> 后，客户端会回复自己的 <strong>ACK 报文段</strong> ，之后客户端进入 <code>TIME_WAIT</code> 状态。</p>
+<p>服务器收到了 <code>ACK</code> 应答报文后，就进入了 <code>CLOSED</code> 状态，至此服务端已经完成连接的关闭，客户端在经过 <code>2MSL</code> 时间后，自动进入 <code>CLOSED</code> 状态，至此客户端也完成连接的关闭。</p>
+<h5 id=time_wait-状态的必要性>TIME_WAIT 状态的必要性</h5>
+<p><strong>MSL(<code>Maximum Segment Lifetime</code>)</strong> 是 <strong>报文最大生存时间</strong>，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。</p>
+<p><code>TIME_WAIT</code> 等待 2 倍的 MSL，比较合理的解释是： 网络中可能存在来自发送方的数据包，当这些发送方的数据包被接收方处理后又会向对方发送响应，所以 <strong>一来一回需要等待 2 倍的时间</strong>。</p>
+<p>关于为什么 TCP 有 TIME_WAIT 状态，最主要的原因应该是 <strong>保证连接关闭</strong> 。只要客户端等待 2 MSL 的时间，客户端和服务端之间的连接就会正常关闭，新创建的 TCP 连接收到影响的概率也微乎其微，保证了数据传输的可靠性。</p>
 <hr>
 <h2 id=参考资料>参考资料</h2>
 <ul>
@@ -353,6 +408,7 @@ b. <strong>选择重传（<code>Selective Repeat, SR</code>）</strong></li>
 <li><a class=link href=https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/go-back-n-protocol/index.html target=_blank rel=noopener>Go-Back-N Protocol</a></li>
 <li><a class=link href=https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/selective-repeat-protocol/index.html target=_blank rel=noopener>Selective Repeat Protocol</a></li>
 <li><a class=link href=https://en.wikipedia.org/wiki/Transmission_Control_Protocol target=_blank rel=noopener>Wikipedia : Transmission Control Protocol</a></li>
+<li><a class=link href=https://draveness.me/whys-the-design-tcp-time-wait/ target=_blank rel=noopener>为什么 TCP 协议有 TIME_WAIT 状态</a></li>
 </ul>
 </section>
 <footer class=article-footer>
@@ -364,7 +420,7 @@ b. <strong>选择重传（<code>Selective Repeat, SR</code>）</strong></li>
 </section>
 <section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <span>
-Last updated on Sep 13, 2020 22:13 +0800
+Last updated on Oct 14, 2020 12:57 +0800
 </span>
 </section></footer>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
@@ -526,12 +582,26 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <li><a href=#面向连接>面向连接</a></li>
 <li><a href=#全双工服务>全双工服务</a></li>
 <li><a href=#点对点通信>点对点通信</a></li>
+<li><a href=#面向字节流>面向字节流</a></li>
 </ol>
 </li>
 <li><a href=#tcp-的组成>TCP 的组成</a></li>
 <li><a href=#tcp-报文段结构>TCP 报文段结构</a>
 <ol>
 <li><a href=#tcp-报文首部>TCP 报文首部</a></li>
+</ol>
+</li>
+<li><a href=#tcp-可靠数据传输的实现>TCP 可靠数据传输的实现</a>
+<ol>
+<li><a href=#tcp-发送方事件>TCP 发送方事件</a></li>
+<li><a href=#快速重传>快速重传</a></li>
+</ol>
+</li>
+<li><a href=#tcp-流量控制>TCP 流量控制</a></li>
+<li><a href=#tcp-连接管理>TCP 连接管理</a>
+<ol>
+<li><a href=#tcp-建立连接>TCP 建立连接</a></li>
+<li><a href=#tcp-关闭连接>TCP 关闭连接</a></li>
 </ol>
 </li>
 </ol>
