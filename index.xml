@@ -614,7 +614,25 @@ alt="图1-1 一种数据系统架构">
 &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
 &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>运输层</title><link>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</link><pubDate>Tue, 18 Aug 2020 09:21:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 运输层" />&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>网络层</title><link>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</link><pubDate>Wed, 14 Oct 2020 21:07:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 网络层" />&lt;h1 id="网络层">网络层&lt;/h1>
+&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;p>在网络中的每一台主机和路由器都有一个网络层部分。网络层可以被分解为两个相互作用的部分，即 &lt;strong>数据平面（&lt;code>data plane&lt;/code>）&lt;/strong> 和 &lt;strong>控制平面(&lt;code>control plane&lt;/code>)&lt;/strong> 。&lt;/p>
+&lt;h3 id="转发和路由选择">转发和路由选择&lt;/h3>
+&lt;p>网络层的作用从表面上来看极为简单，即&lt;strong>将分组从发送主机移动到接收主机。&lt;/strong> 为此，需要使用两种重要的网络层功能：&lt;strong>转发（&lt;code>forwarding&lt;/code>）&lt;/strong> 和 &lt;strong>路由选择(&lt;code>routing&lt;/code>)&lt;/strong> 。&lt;/p>
+&lt;h4 id="转发">转发&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>转发&lt;/strong> 是指将分组从一个输入链路接口转移到适当的输出链路接口的路由器本地动作。转发是数据平面实现的唯一功能，通常由硬件来实现。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="路由选择">路由选择&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>路由选择&lt;/strong> 是指确定分组从源到目的地所采取的端到端路径的网络范围处理过程。计算这些路径的算法被称为 &lt;strong>路由选择算法（&lt;code>routing algorithm&lt;/code>）&lt;/strong> 。此功能在控制平面由软件实现。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="网络服务模型">网络服务模型&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>网络服务模型（&lt;code>network service model&lt;/code>）&lt;/strong> 定义了分组在发送与接收端系统之间的端到端运输特性。&lt;/p>
+&lt;/blockquote>
+&lt;p>因特网的网络层提供了单一的服务，称为 &lt;strong>尽力而为服务（&lt;code>best-effort service&lt;/code>）&lt;/strong> 。
+高情商说法： “尽力而为”， 低情商说法： “根本无服务”。&lt;/p></description></item><item><title>运输层</title><link>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</link><pubDate>Tue, 18 Aug 2020 09:21:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 运输层" />&lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;p>运输层协议为运行在不同主机上的应用进程之间提供了 &lt;strong>逻辑通信（&lt;code>logic communication&lt;/code>）&lt;/strong> 功能。&lt;/p>
 &lt;p>通过逻辑通信，运行不同进程的主机好像直接相连一样。应用进程使用运输层提供的逻辑通信功能彼此发送报文，而无须考虑承载这些报文的物理基础设施的细节。&lt;/p>
 &lt;h3 id="端口号">端口号&lt;/h3>
