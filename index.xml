@@ -614,7 +614,7 @@ alt="图1-1 一种数据系统架构">
 &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
 &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>网络层</title><link>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</link><pubDate>Wed, 14 Oct 2020 21:07:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 网络层" />&lt;h1 id="网络层">网络层&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>网络层</title><link>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</link><pubDate>Sat, 17 Oct 2020 21:07:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 网络层" />&lt;h1 id="网络层">网络层&lt;/h1>
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;p>在网络中的每一台主机和路由器都有一个网络层部分。网络层可以被分解为两个相互作用的部分，即 &lt;strong>数据平面（&lt;code>data plane&lt;/code>）&lt;/strong> 和 &lt;strong>控制平面(&lt;code>control plane&lt;/code>)&lt;/strong> 。&lt;/p>
 &lt;h3 id="转发和路由选择">转发和路由选择&lt;/h3>
@@ -632,7 +632,33 @@ alt="图1-1 一种数据系统架构">
 &lt;p>&lt;strong>网络服务模型（&lt;code>network service model&lt;/code>）&lt;/strong> 定义了分组在发送与接收端系统之间的端到端运输特性。&lt;/p>
 &lt;/blockquote>
 &lt;p>因特网的网络层提供了单一的服务，称为 &lt;strong>尽力而为服务（&lt;code>best-effort service&lt;/code>）&lt;/strong> 。
-高情商说法： “尽力而为”， 低情商说法： “根本无服务”。&lt;/p></description></item><item><title>运输层</title><link>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</link><pubDate>Tue, 18 Aug 2020 09:21:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 运输层" />&lt;h2 id="一概述">一、概述&lt;/h2>
+高情商说法： “尽力而为”， 低情商说法： “根本无服务”。&lt;/p>
+&lt;h2 id="二路由器的工作原理">二、路由器的工作原理&lt;/h2>
+&lt;p>路由器有4个组件：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>输入端口（&lt;code>Input port&lt;/code>）&lt;/strong> ：&lt;/p>
+&lt;ul>
+&lt;li>执行查找功能；&lt;/li>
+&lt;li>执行终结入物理链路的物理层功能；&lt;/li>
+&lt;li>与位于入链路远端的数据链路层交互来执行数据链路层功能&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>交换结构(&lt;code>Switching fabric&lt;/code>)&lt;/strong> 将输入端口连接到输出端口，是网络路由器的网络。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>输出端口（&lt;code>Output port&lt;/code>）&lt;/strong> 存储从交换结构接收的分组，并通过执行链路层和物理层功能将分组在输出链路上传输。当链路是双向时，输入端口和输出端口将成对出现。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>路由选择处理器（&lt;code>Routing processor&lt;/code>）&lt;/strong> 执行控制平面功能。&lt;/p>
+&lt;ul>
+&lt;li>在传统路由器中，执行路由选择协议，维护路由选择表与关联链路状态信息，并计算转发表；&lt;/li>
+&lt;li>在 SDN 路由器中，负责与远程控制器通信，接收远程控制器计算的转发表，并安装在输入端口。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>输入端口、输出端口和交换结构由硬件实现，控制平面由软件在路由选择器上执行。&lt;/p></description></item><item><title>运输层</title><link>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</link><pubDate>Tue, 18 Aug 2020 09:21:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%BF%90%E8%BE%93%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 运输层" />&lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;p>运输层协议为运行在不同主机上的应用进程之间提供了 &lt;strong>逻辑通信（&lt;code>logic communication&lt;/code>）&lt;/strong> 功能。&lt;/p>
 &lt;p>通过逻辑通信，运行不同进程的主机好像直接相连一样。应用进程使用运输层提供的逻辑通信功能彼此发送报文，而无须考虑承载这些报文的物理基础设施的细节。&lt;/p>
 &lt;h3 id="端口号">端口号&lt;/h3>

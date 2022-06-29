@@ -6,7 +6,7 @@
 <meta property="og:description" content="网络层 一、概述 在网络中的每一台主机和路由器都有一个网络层部分。网络层可以被分解为两个相互作用的部分，即 数据平面（data plane） 和 控制平">
 <meta property="og:url" content="https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:tag" content="网络层"><meta property="article:published_time" content="2020-10-14T21:07:31+08:00"><meta property="article:modified_time" content="2020-10-14T21:07:31+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:tag" content="网络层"><meta property="article:published_time" content="2020-10-17T21:07:31+08:00"><meta property="article:modified_time" content="2020-10-21T19:40:31+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
 <meta name=twitter:title content="网络层">
 <meta name=twitter:description content="网络层 一、概述 在网络中的每一台主机和路由器都有一个网络层部分。网络层可以被分解为两个相互作用的部分，即 数据平面（data plane） 和 控制平"><meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
@@ -41,11 +41,11 @@ extended">
 </h2>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>Oct 14, 2020</time>
+<time class=article-time--published>Oct 17, 2020</time>
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-1 minute read
+2 minute read
 </time>
 </div>
 </footer>
@@ -71,6 +71,32 @@ extended">
 </blockquote>
 <p>因特网的网络层提供了单一的服务，称为 <strong>尽力而为服务（<code>best-effort service</code>）</strong> 。
 高情商说法： “尽力而为”， 低情商说法： “根本无服务”。</p>
+<h2 id=二路由器的工作原理>二、路由器的工作原理</h2>
+<p>路由器有4个组件：</p>
+<ol>
+<li>
+<p><strong>输入端口（<code>Input port</code>）</strong> ：</p>
+<ul>
+<li>执行查找功能；</li>
+<li>执行终结入物理链路的物理层功能；</li>
+<li>与位于入链路远端的数据链路层交互来执行数据链路层功能</li>
+</ul>
+</li>
+<li>
+<p><strong>交换结构(<code>Switching fabric</code>)</strong> 将输入端口连接到输出端口，是网络路由器的网络。</p>
+</li>
+<li>
+<p><strong>输出端口（<code>Output port</code>）</strong> 存储从交换结构接收的分组，并通过执行链路层和物理层功能将分组在输出链路上传输。当链路是双向时，输入端口和输出端口将成对出现。</p>
+</li>
+<li>
+<p><strong>路由选择处理器（<code>Routing processor</code>）</strong> 执行控制平面功能。</p>
+<ul>
+<li>在传统路由器中，执行路由选择协议，维护路由选择表与关联链路状态信息，并计算转发表；</li>
+<li>在 SDN 路由器中，负责与远程控制器通信，接收远程控制器计算的转发表，并安装在输入端口。</li>
+</ul>
+</li>
+</ol>
+<p>输入端口、输出端口和交换结构由硬件实现，控制平面由软件在路由选择器上执行。</p>
 </section>
 <footer class=article-footer>
 <section class=article-tags>
@@ -80,7 +106,11 @@ extended">
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
 <span>MIT</span>
 </section>
-</footer>
+<section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>
+Last updated on Oct 21, 2020 19:40 +0800
+</span>
+</section></footer>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
 </article>
 <aside class=related-contents--wrapper>
@@ -206,6 +236,7 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <li><a href=#网络服务模型>网络服务模型</a></li>
 </ol>
 </li>
+<li><a href=#二路由器的工作原理>二、路由器的工作原理</a></li>
 </ol>
 </nav>
 </div>
