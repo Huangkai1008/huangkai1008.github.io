@@ -614,7 +614,116 @@ alt="图1-1 一种数据系统架构">
 &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
 &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>网络层</title><link>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</link><pubDate>Sat, 17 Oct 2020 21:07:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 网络层" />&lt;h1 id="网络层">网络层&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>IP</title><link>https://huangkai1008.github.io/p/ip/</link><pubDate>Sat, 17 Oct 2020 21:07:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/ip/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/IPv4_Packet.png" alt="Featured image of post IP" />&lt;hr>
+&lt;h1 id="ip">IP&lt;/h1>
+&lt;p>&lt;strong>网际协议（&lt;code>Internet Protocol&lt;/code>）&lt;/strong> 是&lt;a class="link" href="%e7%bd%91%e7%bb%9c%e5%b1%82.md" >网络层&lt;/a>的重要协议。在今天，有两个版本的 IP 正在使用，一个是现阶段仍广泛部署的 &lt;code>IPv4&lt;/code> [RFC 791]，另一个是 &lt;code>IPv6&lt;/code> [RFC2460; RFC 4291]。&lt;/p>
+&lt;h2 id="一ipv4-数据报格式">一、IPv4 数据报格式&lt;/h2>
+&lt;p>&lt;code>IPv4&lt;/code> 数据报中的关键字段有：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>版本号(&lt;code>version&lt;/code>)&lt;/strong> ：长度为 4 bit ，规定了数据报的 IP 协议版本。&lt;/li>
+&lt;li>&lt;strong>首部长度（&lt;code>Header Length&lt;/code>）&lt;/strong> ：长度为 4 bit ，因为一个 IPv4 数据报可能包含可变数量的选项，所以需要用此字段来确定数据报中载荷（例如在这个数据报中被封装的运输层报文段）实际开始的地方。当 IP 数据报不包含选项时，首部长度一般为 20 字节。&lt;/li>
+&lt;li>&lt;strong>服务类型（&lt;code>Type of service, TOS&lt;/code>）&lt;/strong> ：用来区分不同类型的 IP 数据报，例如可以区分实时数据报和非实时数据报。&lt;/li>
+&lt;li>&lt;strong>数据报长度（&lt;code>Datagram length&lt;/code>）&lt;/strong>：长度为16 bit ，标识 IP 数据报的总长度（首部加上数据），用字节来计量，所以 IP 数据报的理论最大长度为 2 ^ 16 - 1 = 65535 字节。&lt;/li>
+&lt;li>&lt;strong>标识（&lt;code>Identifier&lt;/code>）&lt;/strong> 、&lt;strong>标志（&lt;code>Flags&lt;/code>）&lt;/strong> 、 &lt;strong>片位移（&lt;code>Fragmentation offset&lt;/code>）&lt;/strong> ：这三个首部字段与 &lt;a class="link" href="IP.md#%e4%ba%8c%e3%80%81%20IPv4%20%e6%95%b0%e6%8d%ae%e6%8a%a5%e5%88%86%e7%89%87" >IPv4分片&lt;/a>有关。&lt;/li>
+&lt;li>&lt;strong>寿命(&lt;code>Time-to-live, TTL&lt;/code>)&lt;/strong> ：此字段用来防止数据报在网络中无限循环。当一台路由器处理数据报时，TTL 的值减1，当 TTL 为0时，该数据报必须丢弃。&lt;/li>
+&lt;li>&lt;strong>协议（&lt;code>Upper-layer protocol&lt;/code>）&lt;/strong> ：该字段值标识了此数据报应该交给哪个特地的上层传输层协议。&lt;/li>
+&lt;li>&lt;strong>首部检验和（&lt;code>Header checksum&lt;/code>）&lt;/strong> ：此字段用于帮助路由器检测收到的 IP 数据报中的比特错误。&lt;/li>
+&lt;li>&lt;strong>源和目的 IP 地址（&lt;code>Source and destination IP addresses&lt;/code>）&lt;/strong> ：当源生成一个数据报时，在源 IP 地址字段插入它的 IP 地址，在目的 IP 地址字段插入其最终目的地的地址。&lt;/li>
+&lt;li>&lt;strong>选项（&lt;code>Options&lt;/code>）&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>数据/有效载荷（&lt;code>Data/Payload&lt;/code>）&lt;/strong> ：IP 数据报的数据字段包含要交付给目的地的运输层报文段，也可以承载例如 ICMP 报文。&lt;/li>
+&lt;/ul>
+&lt;h2 id="二-ipv4-数据报分片">二、 IPv4 数据报分片&lt;/h2>
+&lt;p>一个链路层帧可以承载的最大数据量叫做 &lt;strong>最大传送单元（&lt;code>Maximum Transmission Unit, MTU&lt;/code>）&lt;/strong> 。MTU 严格限制着 IP 数据报的长度，如果一个 IP 数据报的长度大于 MTU，则需要进行分&lt;strong>片（&lt;code>fragment&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;h2 id="三-ipv4-地址">三、 IPv4 地址&lt;/h2>
+&lt;p>主机与链路之间的边界叫做 &lt;strong>接口（&lt;code>interface&lt;/code>）&lt;/strong> 。对于路由器来说，路由器必须拥有两条及以上的链路与它连接。路由器与它的任意一条链路之间的边界也叫做接口。因此，一台路由器有多个接口。&lt;/p>
+&lt;p>IP 要求每台主机和路由器接口拥有自己的 IP 地址，因此，从技术上来讲，&lt;strong>一个 IP 地址与一个接口相关联，而不是与包括该接口的主机或路由器相关联。&lt;/strong>&lt;/p>
+&lt;h3 id="ipv4-地址的格式">IPv4 地址的格式&lt;/h3>
+&lt;p>每个 &lt;strong>IP 地址（&lt;code>Internet Protocol address&lt;/code>）&lt;/strong> 长度为 32 比特（等价为 4 字节），通常按照 &lt;strong>点分十进制记法（&lt;code>dotted-decimal notation&lt;/code>）&lt;/strong> 记录。&lt;/p>
+&lt;p>所谓点分十进制记法，即32 个二进制位分成了 4 个八位组（1 个八位组 = 8 个二进制位），每个八位组转换成了十进制并由句点（点）分隔。 每个八位组值的范围从 0 到 255（十进制）或从 00000000 到 11111111（二进制）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash"> 10. 1. 23. &lt;span class="m">19&lt;/span> &lt;span class="o">(&lt;/span>decimal&lt;span class="o">)&lt;/span>
+00001010.00000001.00010111.00010011 &lt;span class="o">(&lt;/span>binary&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="ipv4-地址编址方式">IPv4 地址编址方式&lt;/h3>
+&lt;p>IP 地址的编址方式经历了三个历史阶段：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>分类&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>子网划分&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>无分类&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h4 id="分类">分类&lt;/h4>
+&lt;hr>
+&lt;p>IP地址由两部分组成，&lt;strong>网络号&lt;/strong>和&lt;strong>主机号&lt;/strong>，其中不同分类具有不同的网络号长度，并且是固定的&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>网络号&lt;/strong>(&lt;code>net-id&lt;/code>)：标志主机或路由器连接的网络，一个网络号在整个因特网内是唯一的&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>&lt;strong>主机号&lt;/strong>(&lt;code>host-id&lt;/code>)：标志该主机（或路由器）。一个主机号在它前面的网络号所指明的网络范围内必须是唯一的&lt;/p>
+&lt;/blockquote>
+&lt;p>简而言之，&lt;strong>IP 地址 ::= {&amp;lt; 网络号 &amp;gt;, &amp;lt; 主机号 &amp;gt;}&lt;/strong>&lt;/p>
+&lt;p>根据 IP 地址的范围，由此便划分出A、B、C三类及特殊地址D、E：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">类别&lt;/th>
+&lt;th style="text-align:center">起始位&lt;/th>
+&lt;th style="text-align:center">开始&lt;/th>
+&lt;th style="text-align:center">结束&lt;/th>
+&lt;th style="text-align:center">点分十进制掩码&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">A&lt;/td>
+&lt;td style="text-align:center">0&lt;/td>
+&lt;td style="text-align:center">0.0.0.0&lt;/td>
+&lt;td style="text-align:center">127.0.0.0&lt;/td>
+&lt;td style="text-align:center">255.0.0.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">B&lt;/td>
+&lt;td style="text-align:center">10&lt;/td>
+&lt;td style="text-align:center">128.0.0.0&lt;/td>
+&lt;td style="text-align:center">191.255.0.0&lt;/td>
+&lt;td style="text-align:center">255.255.0.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">C&lt;/td>
+&lt;td style="text-align:center">110&lt;/td>
+&lt;td style="text-align:center">192.0.0.0&lt;/td>
+&lt;td style="text-align:center">223.255.255.0&lt;/td>
+&lt;td style="text-align:center">255.255.255.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="子网划分">子网划分&lt;/h4>
+&lt;ol>
+&lt;li>主机号有N位，那么这个地址中，就只能有&lt;code>2 ** n − 2&lt;/code>个主机，因为其中全0作为网络地址，全1作为广播地址。&lt;/li>
+&lt;li>将IP地址与子网掩码做&lt;code>与运算&lt;/code>，如果得出的结果一样，则这两个IP地址是同一个子网当中。&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h4 id="子网掩码">子网掩码&lt;/h4>
+&lt;blockquote>
+&lt;p>子网掩码(subnet mask)又叫网络掩码、地址掩码、子网络遮罩，它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。&lt;/p>
+&lt;/blockquote>
+&lt;p>通常情况下，子网掩码的表示方法和地址本身的表示方法是一样的。在IPv4中，就是点分十进制四组表示法（四个取值从0到255的数字由点隔开，比如255.128.0.0）或表示为一个八位十六进制数（如FF.80.00.00，它等同于255.128.0.0），后者用得较少。&lt;/p>
+&lt;p>另一种更为简短的形式叫做&lt;a class="link" href="https://zh.wikipedia.org/wiki/%e6%97%a0%e7%b1%bb%e5%88%ab%e5%9f%9f%e9%97%b4%e8%b7%af%e7%94%b1" target="_blank" rel="noopener"
+>无类别域间路由&lt;/a>（CIDR）表示法，它给出的是一个地址加上一个斜杠以及网络掩码的二进制表示法中“1”的位数（即网络号中和网络掩码相关的是哪些位）。例如，192.0.2.96/28表示的是一个前28位被用作网络号的IP地址（和255.255.255.240的意思一样）。&lt;/p>
+&lt;p>&lt;strong>子网掩码是由32位二进制数字组成的四组数字，左边是网络位，用二进制数字1表示，1的个数等于网络位数的长度，右边是主机位，用二进制数字0表示，0的个数等于主机位的长度。&lt;/strong>&lt;/p>
+&lt;p>当给定一个IP地址后，我们&lt;strong>通过相应的子网掩码即可得出该地址所在网络的网络号位数，以此判断该网络能够容纳的机器的个数（即主机号位数）&lt;/strong>。另外的一个作用就是可以通过运算判断两台机器是否处在同一子网。&lt;/p>
+&lt;p>&lt;strong>特点&lt;/strong> ：&lt;/p>
+&lt;ul>
+&lt;li>与IP地址一一对应&lt;/li>
+&lt;li>1和0永远是连续的，不会交叉出现&lt;/li>
+&lt;li>左边永远是1，右边永远是0&lt;/li>
+&lt;/ul>
+&lt;h4 id="广播地址broadcast-address">广播地址(&lt;code>Broadcast address&lt;/code>)&lt;/h4>
+&lt;blockquote>
+&lt;p>广播地址是专门用于同时向该网络中所有主机进行广播的一个地址。这就好像我们去收听一个广播频道，广播频道本身就是一个广播地址，播音员向这个地址去进行推送，那么只要能够收到这个频道的听众就都能够听到广播。那么这个广播的覆盖面到底有多广呢，这还是取决于我们的网络号。我们知道，一个完整的IP地址是由网络号和主机号两部分组成的，那么广播的覆盖范围就是其所在网络下的所有主机。&lt;/p>
+&lt;/blockquote>
+&lt;p>只要把主机号所在的二进制位全部变为1即可得到广播地址。&lt;/p>
+&lt;ul>
+&lt;li>局域网地址：192.168.211.32/24（斜杠后的数字代表子网掩码的二进制位数，那么主机号的位数为32-24=8），所以广播地址为：192.168.211.255&lt;/li>
+&lt;/ul></description></item><item><title>网络层</title><link>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</link><pubDate>Sat, 17 Oct 2020 21:07:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E7%BD%91%E7%BB%9C%E5%B1%82/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post 网络层" />&lt;h1 id="网络层">网络层&lt;/h1>
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;p>在网络中的每一台主机和路由器都有一个网络层部分。网络层可以被分解为两个相互作用的部分，即 &lt;strong>数据平面（&lt;code>data plane&lt;/code>）&lt;/strong> 和 &lt;strong>控制平面(&lt;code>control plane&lt;/code>)&lt;/strong> 。&lt;/p>
 &lt;h3 id="转发和路由选择">转发和路由选择&lt;/h3>
@@ -1285,95 +1394,6 @@ loading="lazy"
 &lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>Kurose, J. F., &amp;amp; Ross, K. W. (2018). &lt;em>计算机网络-自顶而下方法&lt;/em> (7th ed.). 机械工业出版社.&lt;/li>
-&lt;/ul></description></item><item><title>IP</title><link>https://huangkai1008.github.io/p/ip/</link><pubDate>Thu, 18 Jun 2020 12:22:57 +0800</pubDate><guid>https://huangkai1008.github.io/p/ip/</guid><description>&lt;h1 id="ip">IP&lt;/h1>
-&lt;h2 id="ip地址概述">IP地址概述&lt;/h2>
-&lt;blockquote>
-&lt;p>**IP 地址(&lt;code>Internet Protocol address&lt;/code>)**是用于识别 IP 网络中的设备的一个唯一地址，32 个二进制位分成了 4 个八位组（1 个八位组 = 8 个二进制位）。&lt;/p>
-&lt;p>每个八位组转换成了十进制并由句点（点）分隔。 因此，可以说 IP 地址是用点分十进制格式表示的（例如，172.16.81.100）。 每个八位组值的范围从 0 到 255（十进制）或从 00000000 到 11111111（二进制）。&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash"> 10. 1. 23. &lt;span class="m">19&lt;/span> &lt;span class="o">(&lt;/span>decimal&lt;span class="o">)&lt;/span>
-00001010.00000001.00010111.00010011 &lt;span class="o">(&lt;/span>binary&lt;span class="o">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;h2 id="ip-地址编址方式">IP 地址编址方式&lt;/h2>
-&lt;p>IP 地址的编址方式经历了三个历史阶段：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>分类&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>子网划分&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>无分类&lt;/strong>&lt;/li>
-&lt;/ul>
-&lt;h3 id="1-分类">1. 分类&lt;/h3>
-&lt;hr>
-&lt;p>IP地址由两部分组成，&lt;strong>网络号&lt;/strong>和&lt;strong>主机号&lt;/strong>，其中不同分类具有不同的网络号长度，并且是固定的&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;strong>网络号&lt;/strong>(&lt;code>net-id&lt;/code>)：标志主机或路由器连接的网络，一个网络号在整个因特网内是唯一的&lt;/p>
-&lt;/blockquote>
-&lt;blockquote>
-&lt;p>&lt;strong>主机号&lt;/strong>(&lt;code>host-id&lt;/code>)：标志该主机（或路由器）。一个主机号在它前面的网络号所指明的网络范围内必须是唯一的&lt;/p>
-&lt;/blockquote>
-&lt;p>简而言之，&lt;strong>IP 地址 ::= {&amp;lt; 网络号 &amp;gt;, &amp;lt; 主机号 &amp;gt;}&lt;/strong>&lt;/p>
-&lt;p>根据 IP 地址的范围，由此便划分出A、B、C三类及特殊地址D、E：&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th style="text-align:center">类别&lt;/th>
-&lt;th style="text-align:center">起始位&lt;/th>
-&lt;th style="text-align:center">开始&lt;/th>
-&lt;th style="text-align:center">结束&lt;/th>
-&lt;th style="text-align:center">点分十进制掩码&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align:center">A&lt;/td>
-&lt;td style="text-align:center">0&lt;/td>
-&lt;td style="text-align:center">0.0.0.0&lt;/td>
-&lt;td style="text-align:center">127.0.0.0&lt;/td>
-&lt;td style="text-align:center">255.0.0.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:center">B&lt;/td>
-&lt;td style="text-align:center">10&lt;/td>
-&lt;td style="text-align:center">128.0.0.0&lt;/td>
-&lt;td style="text-align:center">191.255.0.0&lt;/td>
-&lt;td style="text-align:center">255.255.0.0&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align:center">C&lt;/td>
-&lt;td style="text-align:center">110&lt;/td>
-&lt;td style="text-align:center">192.0.0.0&lt;/td>
-&lt;td style="text-align:center">223.255.255.0&lt;/td>
-&lt;td style="text-align:center">255.255.255.0&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h3 id="2-子网划分">2. 子网划分&lt;/h3>
-&lt;hr>
-&lt;h4 id="子网掩码">子网掩码&lt;/h4>
-&lt;blockquote>
-&lt;p>子网掩码(subnet mask)又叫网络掩码、地址掩码、子网络遮罩，它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。&lt;/p>
-&lt;/blockquote>
-&lt;p>通常情况下，子网掩码的表示方法和地址本身的表示方法是一样的。在IPv4中，就是点分十进制四组表示法（四个取值从0到255的数字由点隔开，比如255.128.0.0）或表示为一个八位十六进制数（如FF.80.00.00，它等同于255.128.0.0），后者用得较少。&lt;/p>
-&lt;p>另一种更为简短的形式叫做&lt;a class="link" href="https://zh.wikipedia.org/wiki/%e6%97%a0%e7%b1%bb%e5%88%ab%e5%9f%9f%e9%97%b4%e8%b7%af%e7%94%b1" target="_blank" rel="noopener"
->无类别域间路由&lt;/a>（CIDR）表示法，它给出的是一个地址加上一个斜杠以及网络掩码的二进制表示法中“1”的位数（即网络号中和网络掩码相关的是哪些位）。例如，192.0.2.96/28表示的是一个前28位被用作网络号的IP地址（和255.255.255.240的意思一样）。&lt;/p>
-&lt;p>&lt;strong>子网掩码是由32位二进制数字组成的四组数字，左边是网络位，用二进制数字1表示，1的个数等于网络位数的长度，右边是主机位，用二进制数字0表示，0的个数等于主机位的长度。&lt;/strong>&lt;/p>
-&lt;p>当给定一个IP地址后，我们&lt;strong>通过相应的子网掩码即可得出该地址所在网络的网络号位数，以此判断该网络能够容纳的机器的个数（即主机号位数）&lt;/strong>。另外的一个作用就是可以通过运算判断两台机器是否处在同一子网。&lt;/p>
-&lt;p>&lt;strong>特点&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>与IP地址一一对应&lt;/li>
-&lt;li>1和0永远是连续的，不会交叉出现&lt;/li>
-&lt;li>左边永远是1，右边永远是0&lt;/li>
-&lt;/ul>
-&lt;h4 id="21--判断该网络能够容纳的机器的个数">2.1 判断该网络能够容纳的机器的个数&lt;/h4>
-&lt;p>​ 主机号有N位，那么这个地址中，就只能有&lt;code>2 ** n − 2&lt;/code>个主机，因为其中全0作为网络地址，全1作为广播地址&lt;/p>
-&lt;h5 id="22--判断两台机器是否处在同一子网网段">2.2 判断两台机器是否处在同一子网（网段）&lt;/h5>
-&lt;p>​ 将IP地址与子网掩码做&lt;code>与运算&lt;/code>，如果得出的结果一样，则这两个IP地址是同一个子网当中&lt;/p>
-&lt;h4 id="3广播地址broadcast-address">3.广播地址(&lt;code>Broadcast address&lt;/code>)&lt;/h4>
-&lt;blockquote>
-&lt;p>广播地址是专门用于同时向该网络中所有主机进行广播的一个地址。这就好像我们去收听一个广播频道，广播频道本身就是一个广播地址，播音员向这个地址去进行推送，那么只要能够收到这个频道的听众就都能够听到广播。那么这个广播的覆盖面到底有多广呢，这还是取决于我们的网络号。我们知道，一个完整的IP地址是由网络号和主机号两部分组成的，那么广播的覆盖范围就是其所在网络下的所有主机。&lt;/p>
-&lt;/blockquote>
-&lt;p>只要把主机号所在的二进制位全部变为1即可得到广播地址。&lt;/p>
-&lt;ul>
-&lt;li>局域网地址：192.168.211.32/24（斜杠后的数字代表子网掩码的二进制位数，那么主机号的位数为32-24=8），所以广播地址为：192.168.211.255&lt;/li>
 &lt;/ul></description></item><item><title>计算机网络</title><link>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><pubDate>Wed, 17 Jun 2020 11:22:54 +0800</pubDate><guid>https://huangkai1008.github.io/p/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid><description>&lt;h1 id="计算机网络">计算机网络&lt;/h1>
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;p>网络是 &lt;strong>节点（&lt;code>vertex&lt;/code>）&lt;/strong> 与 &lt;strong>边（&lt;code>edge&lt;/code>）&lt;/strong> 构成的与大小形状无关的 &lt;strong>图（&lt;code>graph&lt;/code>）&lt;/strong>。&lt;/p>

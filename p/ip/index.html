@@ -1,14 +1,15 @@
 <!doctype html><html lang=zh-cn>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="IP IP地址概述 **IP 地址(Internet Protocol address)**是用于识别 IP 网络中的设备的一个唯一地址，32 个二进制位分成了 4 个八位组（1 个八位"><title>IP</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="IP 网际协议（Internet Protocol） 是网络层的重要协议。在今天，有两个版本的 IP 正在使用，一个是现阶段仍广泛部署的 IPv4 [RFC 791]，另一"><title>IP</title>
 <link rel=canonical href=https://huangkai1008.github.io/p/ip/>
 <link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="IP">
-<meta property="og:description" content="IP IP地址概述 **IP 地址(Internet Protocol address)**是用于识别 IP 网络中的设备的一个唯一地址，32 个二进制位分成了 4 个八位组（1 个八位">
+<meta property="og:description" content="IP 网际协议（Internet Protocol） 是网络层的重要协议。在今天，有两个版本的 IP 正在使用，一个是现阶段仍广泛部署的 IPv4 [RFC 791]，另一">
 <meta property="og:url" content="https://huangkai1008.github.io/p/ip/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:published_time" content="2020-06-18T12:22:57+08:00"><meta property="article:modified_time" content="2020-06-18T12:22:57+08:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="计算机网络"><meta property="article:tag" content="网络层"><meta property="article:published_time" content="2020-10-17T21:07:31+08:00"><meta property="article:modified_time" content="2020-10-24T22:43:31+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/IPv4_Packet.png">
 <meta name=twitter:title content="IP">
-<meta name=twitter:description content="IP IP地址概述 **IP 地址(Internet Protocol address)**是用于识别 IP 网络中的设备的一个唯一地址，32 个二进制位分成了 4 个八位组（1 个八位">
+<meta name=twitter:description content="IP 网际协议（Internet Protocol） 是网络层的重要协议。在今天，有两个版本的 IP 正在使用，一个是现阶段仍广泛部署的 IPv4 [RFC 791]，另一"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/IPv4_Packet.png">
 <link rel="shortcut icon" href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018164707.jpg>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
 </head>
@@ -22,8 +23,13 @@ extended">
 </a>
 </div>
 <main class="main full-width">
-<article class=main-article>
+<article class="has-image main-article">
 <header class=article-header>
+<div class=article-image>
+<a href=/p/ip/>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/IPv4_Packet.png loading=lazy alt="Featured image of post IP">
+</a>
+</div>
 <div class=article-details>
 <header class=article-category>
 <a href=/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ style=background-color:#2a9d8f;color:#fff>
@@ -35,34 +41,54 @@ extended">
 </h2>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>Jun 18, 2020</time>
+<time class=article-time--published>Oct 17, 2020</time>
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-3 minute read
+5 minute read
 </time>
 </div>
 </footer>
 </div>
 </header>
 <section class=article-content>
+<hr>
 <h1 id=ip>IP</h1>
-<h2 id=ip地址概述>IP地址概述</h2>
-<blockquote>
-<p>**IP 地址(<code>Internet Protocol address</code>)**是用于识别 IP 网络中的设备的一个唯一地址，32 个二进制位分成了 4 个八位组（1 个八位组 = 8 个二进制位）。</p>
-<p>每个八位组转换成了十进制并由句点（点）分隔。 因此，可以说 IP 地址是用点分十进制格式表示的（例如，172.16.81.100）。 每个八位组值的范围从 0 到 255（十进制）或从 00000000 到 11111111（二进制）。</p>
-</blockquote>
+<p><strong>网际协议（<code>Internet Protocol</code>）</strong> 是<a class=link href=%e7%bd%91%e7%bb%9c%e5%b1%82.md>网络层</a>的重要协议。在今天，有两个版本的 IP 正在使用，一个是现阶段仍广泛部署的 <code>IPv4</code> [RFC 791]，另一个是 <code>IPv6</code> [RFC2460; RFC 4291]。</p>
+<h2 id=一ipv4-数据报格式>一、IPv4 数据报格式</h2>
+<p><code>IPv4</code> 数据报中的关键字段有：</p>
+<ul>
+<li><strong>版本号(<code>version</code>)</strong> ：长度为 4 bit ，规定了数据报的 IP 协议版本。</li>
+<li><strong>首部长度（<code>Header Length</code>）</strong> ：长度为 4 bit ，因为一个 IPv4 数据报可能包含可变数量的选项，所以需要用此字段来确定数据报中载荷（例如在这个数据报中被封装的运输层报文段）实际开始的地方。当 IP 数据报不包含选项时，首部长度一般为 20 字节。</li>
+<li><strong>服务类型（<code>Type of service, TOS</code>）</strong> ：用来区分不同类型的 IP 数据报，例如可以区分实时数据报和非实时数据报。</li>
+<li><strong>数据报长度（<code>Datagram length</code>）</strong>：长度为16 bit ，标识 IP 数据报的总长度（首部加上数据），用字节来计量，所以 IP 数据报的理论最大长度为 2 ^ 16 - 1 = 65535 字节。</li>
+<li><strong>标识（<code>Identifier</code>）</strong> 、<strong>标志（<code>Flags</code>）</strong> 、 <strong>片位移（<code>Fragmentation offset</code>）</strong> ：这三个首部字段与 <a class=link href=IP.md#%e4%ba%8c%e3%80%81%20IPv4%20%e6%95%b0%e6%8d%ae%e6%8a%a5%e5%88%86%e7%89%87>IPv4分片</a>有关。</li>
+<li><strong>寿命(<code>Time-to-live, TTL</code>)</strong> ：此字段用来防止数据报在网络中无限循环。当一台路由器处理数据报时，TTL 的值减1，当 TTL 为0时，该数据报必须丢弃。</li>
+<li><strong>协议（<code>Upper-layer protocol</code>）</strong> ：该字段值标识了此数据报应该交给哪个特地的上层传输层协议。</li>
+<li><strong>首部检验和（<code>Header checksum</code>）</strong> ：此字段用于帮助路由器检测收到的 IP 数据报中的比特错误。</li>
+<li><strong>源和目的 IP 地址（<code>Source and destination IP addresses</code>）</strong> ：当源生成一个数据报时，在源 IP 地址字段插入它的 IP 地址，在目的 IP 地址字段插入其最终目的地的地址。</li>
+<li><strong>选项（<code>Options</code>）</strong></li>
+<li><strong>数据/有效载荷（<code>Data/Payload</code>）</strong> ：IP 数据报的数据字段包含要交付给目的地的运输层报文段，也可以承载例如 ICMP 报文。</li>
+</ul>
+<h2 id=二-ipv4-数据报分片>二、 IPv4 数据报分片</h2>
+<p>一个链路层帧可以承载的最大数据量叫做 <strong>最大传送单元（<code>Maximum Transmission Unit, MTU</code>）</strong> 。MTU 严格限制着 IP 数据报的长度，如果一个 IP 数据报的长度大于 MTU，则需要进行分<strong>片（<code>fragment</code>）</strong>。</p>
+<h2 id=三-ipv4-地址>三、 IPv4 地址</h2>
+<p>主机与链路之间的边界叫做 <strong>接口（<code>interface</code>）</strong> 。对于路由器来说，路由器必须拥有两条及以上的链路与它连接。路由器与它的任意一条链路之间的边界也叫做接口。因此，一台路由器有多个接口。</p>
+<p>IP 要求每台主机和路由器接口拥有自己的 IP 地址，因此，从技术上来讲，<strong>一个 IP 地址与一个接口相关联，而不是与包括该接口的主机或路由器相关联。</strong></p>
+<h3 id=ipv4-地址的格式>IPv4 地址的格式</h3>
+<p>每个 <strong>IP 地址（<code>Internet Protocol address</code>）</strong> 长度为 32 比特（等价为 4 字节），通常按照 <strong>点分十进制记法（<code>dotted-decimal notation</code>）</strong> 记录。</p>
+<p>所谓点分十进制记法，即32 个二进制位分成了 4 个八位组（1 个八位组 = 8 个二进制位），每个八位组转换成了十进制并由句点（点）分隔。 每个八位组值的范围从 0 到 255（十进制）或从 00000000 到 11111111（二进制）。</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>      10.       1.      23.      <span class=m>19</span> <span class=o>(</span>decimal<span class=o>)</span>
 00001010.00000001.00010111.00010011 <span class=o>(</span>binary<span class=o>)</span>
 </code></pre></div><hr>
-<h2 id=ip-地址编址方式>IP 地址编址方式</h2>
+<h3 id=ipv4-地址编址方式>IPv4 地址编址方式</h3>
 <p>IP 地址的编址方式经历了三个历史阶段：</p>
 <ul>
 <li><strong>分类</strong></li>
 <li><strong>子网划分</strong></li>
 <li><strong>无分类</strong></li>
 </ul>
-<h3 id=1-分类>1. 分类</h3>
+<h4 id=分类>分类</h4>
 <hr>
 <p>IP地址由两部分组成，<strong>网络号</strong>和<strong>主机号</strong>，其中不同分类具有不同的网络号长度，并且是固定的</p>
 <blockquote>
@@ -107,7 +133,11 @@ extended">
 </tr>
 </tbody>
 </table>
-<h3 id=2-子网划分>2. 子网划分</h3>
+<h4 id=子网划分>子网划分</h4>
+<ol>
+<li>主机号有N位，那么这个地址中，就只能有<code>2 ** n − 2</code>个主机，因为其中全0作为网络地址，全1作为广播地址。</li>
+<li>将IP地址与子网掩码做<code>与运算</code>，如果得出的结果一样，则这两个IP地址是同一个子网当中。</li>
+</ol>
 <hr>
 <h4 id=子网掩码>子网掩码</h4>
 <blockquote>
@@ -117,17 +147,13 @@ extended">
 <p>另一种更为简短的形式叫做<a class=link href=https://zh.wikipedia.org/wiki/%e6%97%a0%e7%b1%bb%e5%88%ab%e5%9f%9f%e9%97%b4%e8%b7%af%e7%94%b1 target=_blank rel=noopener>无类别域间路由</a>（CIDR）表示法，它给出的是一个地址加上一个斜杠以及网络掩码的二进制表示法中“1”的位数（即网络号中和网络掩码相关的是哪些位）。例如，192.0.2.96/28表示的是一个前28位被用作网络号的IP地址（和255.255.255.240的意思一样）。</p>
 <p><strong>子网掩码是由32位二进制数字组成的四组数字，左边是网络位，用二进制数字1表示，1的个数等于网络位数的长度，右边是主机位，用二进制数字0表示，0的个数等于主机位的长度。</strong></p>
 <p>当给定一个IP地址后，我们<strong>通过相应的子网掩码即可得出该地址所在网络的网络号位数，以此判断该网络能够容纳的机器的个数（即主机号位数）</strong>。另外的一个作用就是可以通过运算判断两台机器是否处在同一子网。</p>
-<p><strong>特点</strong></p>
+<p><strong>特点</strong> ：</p>
 <ul>
 <li>与IP地址一一对应</li>
 <li>1和0永远是连续的，不会交叉出现</li>
 <li>左边永远是1，右边永远是0</li>
 </ul>
-<h4 id=21--判断该网络能够容纳的机器的个数>2.1 判断该网络能够容纳的机器的个数</h4>
-<p>​ 主机号有N位，那么这个地址中，就只能有<code>2 ** n − 2</code>个主机，因为其中全0作为网络地址，全1作为广播地址</p>
-<h5 id=22--判断两台机器是否处在同一子网网段>2.2 判断两台机器是否处在同一子网（网段）</h5>
-<p>​ 将IP地址与子网掩码做<code>与运算</code>，如果得出的结果一样，则这两个IP地址是同一个子网当中</p>
-<h4 id=3广播地址broadcast-address>3.广播地址(<code>Broadcast address</code>)</h4>
+<h4 id=广播地址broadcast-address>广播地址(<code>Broadcast address</code>)</h4>
 <blockquote>
 <p>广播地址是专门用于同时向该网络中所有主机进行广播的一个地址。这就好像我们去收听一个广播频道，广播频道本身就是一个广播地址，播音员向这个地址去进行推送，那么只要能够收到这个频道的听众就都能够听到广播。那么这个广播的覆盖面到底有多广呢，这还是取决于我们的网络号。我们知道，一个完整的IP地址是由网络号和主机号两部分组成的，那么广播的覆盖范围就是其所在网络下的所有主机。</p>
 </blockquote>
@@ -139,11 +165,16 @@ extended">
 <footer class=article-footer>
 <section class=article-tags>
 <a href=/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/>计算机网络</a>
+<a href=/tags/%E7%BD%91%E7%BB%9C%E5%B1%82/>网络层</a>
 </section>
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
-<span>Licensed under CC BY-NC-SA 4.0</span>
+<span>MIT</span>
 </section>
-</footer>
+<section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>
+Last updated on Oct 24, 2020 22:43 +0800
+</span>
+</section></footer>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
 </article>
 <aside class=related-contents--wrapper>
@@ -261,15 +292,17 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <div class=widget--toc>
 <nav id=TableOfContents>
 <ol>
-<li><a href=#ip地址概述>IP地址概述</a></li>
-<li><a href=#ip-地址编址方式>IP 地址编址方式</a>
+<li><a href=#一ipv4-数据报格式>一、IPv4 数据报格式</a></li>
+<li><a href=#二-ipv4-数据报分片>二、 IPv4 数据报分片</a></li>
+<li><a href=#三-ipv4-地址>三、 IPv4 地址</a>
 <ol>
-<li><a href=#1-分类>1. 分类</a></li>
-<li><a href=#2-子网划分>2. 子网划分</a>
+<li><a href=#ipv4-地址的格式>IPv4 地址的格式</a></li>
+<li><a href=#ipv4-地址编址方式>IPv4 地址编址方式</a>
 <ol>
+<li><a href=#分类>分类</a></li>
+<li><a href=#子网划分>子网划分</a></li>
 <li><a href=#子网掩码>子网掩码</a></li>
-<li><a href=#21--判断该网络能够容纳的机器的个数>2.1 判断该网络能够容纳的机器的个数</a></li>
-<li><a href=#3广播地址broadcast-address>3.广播地址(<code>Broadcast address</code>)</a></li>
+<li><a href=#广播地址broadcast-address>广播地址(<code>Broadcast address</code>)</a></li>
 </ol>
 </li>
 </ol>
