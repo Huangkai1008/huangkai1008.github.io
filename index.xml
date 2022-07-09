@@ -614,7 +614,222 @@ alt="图1-1 一种数据系统架构">
 &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
 &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>IP</title><link>https://huangkai1008.github.io/p/ip/</link><pubDate>Sat, 17 Oct 2020 21:07:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/ip/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/IPv4_Packet.png" alt="Featured image of post IP" />&lt;hr>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>InnoDB 记录存储格式</title><link>https://huangkai1008.github.io/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</link><pubDate>Mon, 26 Oct 2020 08:05:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post InnoDB 记录存储格式" />&lt;h1 id="innodb-记录存储格式">InnoDB 记录存储格式&lt;/h1>
+&lt;h2 id="一前言">一、前言&lt;/h2>
+&lt;p>根据 &lt;a class="link" href="MySQL%e7%9a%84%e5%9f%ba%e7%a1%80%e6%9e%b6%e6%9e%84.md" >MySQL的基础架构&lt;/a> 来看，MySQL 服务端中存储引擎负责数据的读取和写入。不同的存储引擎的形式也是不尽相同，有的存储引擎（比如 &lt;code>Memory 引擎&lt;/code>）只把数据存储在内存、并不会持久化到磁盘，而 InnoDB 存储引擎会将数据持久化到磁盘中。&lt;/p>
+&lt;h2 id="二innodb-记录格式">二、InnoDB 记录格式&lt;/h2>
+&lt;h3 id="innodb-页简介">InnoDB 页简介&lt;/h3>
+&lt;p>InnoDB 将记录存储在一个固定大小的单元中，这种单元通常被称为 &lt;strong>页（&lt;code>page&lt;/code>）&lt;/strong> ，将页作为磁盘和内存交互的基本单位。页的默认大小为16KB，可以通过以下命令查看默认页的大小（单位为字节）：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">STATUS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LIKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;innodb_page_size&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+------------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+------------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Innodb_page_size&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">16384&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+------------------+-------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">00&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>也就是说，一般情况下，一次至少从磁盘读取16KB 的内容到内存中，一次至少把内存中的16KB 内存刷新到磁盘中。&lt;/p>
+&lt;h3 id="innodb-行格式">InnoDB 行格式&lt;/h3>
+&lt;p>InnoDB 的行格式有4种，分别是 &lt;code>COMPACT&lt;/code> 、&lt;code>REDUNDANT&lt;/code>、&lt;code>DYNAMIC&lt;/code> 、&lt;code>COMPRESSED&lt;/code> 。可以通过如下命令查看默认行格式：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">SHOW&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">VARIABLES&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">LIKE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;innodb_default_row_format&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------------------+---------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Variable_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------------------+---------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">innodb_default_row_format&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">dynamic&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="o">+---------------------------+---------+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">in&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">set&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">01&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以在创建或修改表的语句中指定记录所使用的行格式。举例来说，我们创建一个示例表并插入样例数据。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-mysql" data-lang="mysql">&lt;span class="n">mysql&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">CREATE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">TABLE&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">record_format&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">c1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">VARCHAR&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">c2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">VARCHAR&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">NOT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="no">NULL&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">c3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">CHAR&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">c4&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">VARCHAR&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kp">CHARSET&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">ascii&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ROW_FORMAT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">COMPACT&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="n">Query&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">OK&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rows&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">affected&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="mi">02&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sec&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;figure
+>
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2009.45.32.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2009.45.32.png"
+loading="lazy"
+alt="创建测试表">
+&lt;/a>
+&lt;figcaption>创建测试表&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h4 id="compact-行格式">COMPACT 行格式&lt;/h4>
+&lt;p>COMPACT 行格式的结构大概如下图所示：&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/compact%E8%A1%8C%E6%A0%BC%E5%BC%8F.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/compact%E8%A1%8C%E6%A0%BC%E5%BC%8F.png"
+loading="lazy"
+alt="COMPACT 行格式">
+&lt;/a>
+&lt;figcaption>COMPACT 行格式&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>一条记录可以分为两部分：记录的额外信息和记录的真实数据。&lt;/p>
+&lt;h5 id="记录的额外信息">记录的额外信息&lt;/h5>
+&lt;h6 id="变长字段长度列表">变长字段长度列表&lt;/h6>
+&lt;p>MySQL 中有些类型的字段长度是不固定的，比如 VARCHAR(M) 类型、TEXT 等，这就导致每条记录中该字段的「实际」长度可能是不一样的。&lt;/p>
+&lt;p>为此，MySQL 在存储这些变长类型的数据时，实际上分成了两部分存储，分别是：&lt;/p>
+&lt;ol>
+&lt;li>真正的数据内容&lt;/li>
+&lt;li>该数据占用的字节数&lt;/li>
+&lt;/ol>
+&lt;p>在 COMPACT 行格式中，所有变长字段的真实数据占用的字节数都存储在记录的 &lt;strong>变长字段长度列表&lt;/strong> 中。它是以列的 &lt;strong>逆序&lt;/strong> 存储表中变长字段的实际长度的。&lt;/p>
+&lt;p>因为我们使用的是 ascii 字符集，每个字符只需要一个字节来编码，所以对于表中的第一条记录有：&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2009.59.25.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2009.59.25.png"
+loading="lazy"
+alt="变长字段长度列表">
+&lt;/a>
+&lt;figcaption>变长字段长度列表&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>变长字段 c1、c2、c4 所占用的字节数分别为 4、2、1，以逆序存放在变长字段长度列表表示为 010304。&lt;/p>
+&lt;p>例如某个字符集最多需要 $W$ 字节来表示一个字符，变长类型 VARCHAR(M) 表示最多可以存储 $M$ 个字符，所以这种类型能表示的字符串最多占用的字节数就是 $M \times W$ 。&lt;/p>
+&lt;p>再假设该变长字段实际存储的字符串占用的字节数是 $L$ 。&lt;/p>
+&lt;p>如果 $M \times W \leq 255$，那么使用1字节来表示真实数据占用的字节数；&lt;/p>
+&lt;p>如果 $M \times W &amp;gt; 255$：&lt;/p>
+&lt;ul>
+&lt;li>$L \leq 127$ : 使用1字节来表示真实数据占用的字节数；&lt;/li>
+&lt;li>$L &amp;gt; 127$：使用2字节来表示真实数据占用的字节数。&lt;/li>
+&lt;/ul>
+&lt;p>值得注意的是，&lt;strong>变长字段列表中只存储非 NULL 的列的内容长度&lt;/strong>。&lt;/p>
+&lt;h6 id="null-值列表">NULL 值列表&lt;/h6>
+&lt;p>MySQL 中有些列是允许为 NULL 的，如果这些列很多、每个 NULL 值都在表中存储的话会很占用空间。Compact 把这些 NULL 统一管理了起来，放到了 &lt;strong>NULL 值列表&lt;/strong>。&lt;/p>
+&lt;p>它的处理过程如下：&lt;/p>
+&lt;ol>
+&lt;li>统计表中允许为 NULL 的列：
+若列都不允许为 NULL，则 NULL 值列表就不存在了；否则，以一个二进制位来表示一个允许为空的列，仍是&lt;strong>逆序&lt;/strong>排列，其中 1 表示 NULL，0 表示非 NULL。&lt;/li>
+&lt;li>若 NULL 值列表不足整数字节，在高位补 0。&lt;/li>
+&lt;/ol>
+&lt;p>以第二条数据为例 c1、c3、c4 允许为 NULL，并且c3、c4的值是NULL。&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2011.05.54.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2011.05.54.png"
+loading="lazy"
+alt="第2条数据">
+&lt;/a>
+&lt;figcaption>第2条数据&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2011.04.43.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2011.04.43.png"
+loading="lazy"
+alt="NULL值列表">
+&lt;/a>
+&lt;figcaption>NULL值列表&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h6 id="记录头信息">记录头信息&lt;/h6>
+&lt;p>记录头信息由固定的5字节组成，用于描述记录的一些属性。&lt;/p>
+&lt;p>详细信息如下表:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">名称&lt;/th>
+&lt;th style="text-align:center">大小（位）&lt;/th>
+&lt;th style="text-align:center">描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">预留位1&lt;/td>
+&lt;td style="text-align:center">1&lt;/td>
+&lt;td style="text-align:center">未使用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">预留位2&lt;/td>
+&lt;td style="text-align:center">1&lt;/td>
+&lt;td style="text-align:center">未使用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">deleted_flag&lt;/td>
+&lt;td style="text-align:center">1&lt;/td>
+&lt;td style="text-align:center">标记该记录是否被删除&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">min_rec_flag&lt;/td>
+&lt;td style="text-align:center">1&lt;/td>
+&lt;td style="text-align:center">B+ 树每层非叶子节点中的最小记录都会添加该标记&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">n_owned&lt;/td>
+&lt;td style="text-align:center">4&lt;/td>
+&lt;td style="text-align:center">当前记录拥有的记录数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">heap_no&lt;/td>
+&lt;td style="text-align:center">13&lt;/td>
+&lt;td style="text-align:center">当前记录在页面堆中的相对位置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">record_type&lt;/td>
+&lt;td style="text-align:center">3&lt;/td>
+&lt;td style="text-align:center">当前记录的类型&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">next_record&lt;/td>
+&lt;td style="text-align:center">16&lt;/td>
+&lt;td style="text-align:center">下一条记录的相对位置&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h5 id="记录的真实数据">记录的真实数据&lt;/h5>
+&lt;p>除了用户自定义的列外，InnoDB 会为每个记录添加 &lt;strong>隐藏列&lt;/strong>，具体如下表所示：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">列名&lt;/th>
+&lt;th style="text-align:center">是否必需&lt;/th>
+&lt;th style="text-align:center">占用空间&lt;/th>
+&lt;th style="text-align:center">描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">row_id&lt;/td>
+&lt;td style="text-align:center">否&lt;/td>
+&lt;td style="text-align:center">6 字节&lt;/td>
+&lt;td style="text-align:center">行ID，标识唯一一条数据&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">trx_id&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td style="text-align:center">6字节&lt;/td>
+&lt;td style="text-align:center">事务ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">roll_pointer&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td style="text-align:center">7字节&lt;/td>
+&lt;td style="text-align:center">回滚指针&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>说起 row_id，有必要提一下 InnoDB 的主键生成策略，它遵循如下顺序：&lt;/p>
+&lt;ol>
+&lt;li>优先使用用户定义的主键&lt;/li>
+&lt;li>若未定义主键，则选取唯一键作为主键&lt;/li>
+&lt;li>若无唯一键，添加 row_id 作为主键&lt;/li>
+&lt;/ol>
+&lt;p>即，当我们新建一个表时，若没有指定主键（Primary Key），InnoDB 会选择一个唯一键（Unique Key）作为主键，如果表中唯一键也没定义，则就要添加一个隐藏列 row_id 来充当主键了。&lt;/p>
+&lt;h4 id="redundantdynamiccompressed-行格式">REDUNDANT、DYNAMIC、COMPRESSED 行格式&lt;/h4>
+&lt;p>&lt;strong>REDUNDANT&lt;/strong> 是一种比较原始的行格式，现在已经用的很少了，它是非紧凑的。&lt;strong>COMPACT 、DYNAMIC、COMPRESSED&lt;/strong> 都是较新的紧凑的行格式。&lt;/p>
+&lt;p>像现在用的较多的 5.7以及8.0版本的MySQL ，默认行格式都是 &lt;strong>DYNAMIC&lt;/strong> 。&lt;/p>
+&lt;p>DYNAMIC 和 COMPRESSED 行格式类似于 COMPACT ，主要区别在于&lt;a class="link" href="InnoDB%20%e8%ae%b0%e5%bd%95%e5%ad%98%e5%82%a8%e6%a0%bc%e5%bc%8f.md#%e8%a1%8c%e6%ba%a2%e5%87%ba" >行溢出&lt;/a>的处理。&lt;/p>
+&lt;p>另外，COMPRESSED 行格式还会采用压缩算法对页面进行压缩。&lt;/p>
+&lt;h4 id="行溢出">行溢出&lt;/h4>
+&lt;p>我们知道，页的大小是有限的，假设页的大小为16KB， 那么当单行的数据超出了页的最大范围，那么就会产生行的溢出。对于这种情况，各种行格式有着不同的处理方法。&lt;/p>
+&lt;p>对于&lt;code>Compact&lt;/code>和&lt;code>Redundant&lt;/code>行格式来说，如果某一列中的数据非常多的话，在本记录的真实数据处只会存储该列的前 &lt;strong>768&lt;/strong> 个字节的数据和一个指向其他页的地址，然后把剩下的数据存放到其他页中。&lt;/p>
+&lt;p>而&lt;code>Dynamic&lt;/code>和&lt;code>Compressed&lt;/code>行格式会把所有的字节都存储到其他页面中，只在记录的真实数据处存储其他页面的地址。·&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ul>
+&lt;li>小孩子 4919. (2020). &lt;em>MySQL 是怎样运行的&lt;/em>. 人民邮电出版社.&lt;/li>
+&lt;li>&lt;a class="link" href="https://dev.mysql.com/doc/internals/en/innodb-page-structure.html" target="_blank" rel="noopener"
+>InnoDB Page Structure&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>IP</title><link>https://huangkai1008.github.io/p/ip/</link><pubDate>Sat, 17 Oct 2020 21:07:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/ip/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/IPv4_Packet.png" alt="Featured image of post IP" />&lt;hr>
 &lt;h1 id="ip">IP&lt;/h1>
 &lt;p>&lt;strong>网际协议（&lt;code>Internet Protocol&lt;/code>）&lt;/strong> 是&lt;a class="link" href="%e7%bd%91%e7%bb%9c%e5%b1%82.md" >网络层&lt;/a>的重要协议。在今天，有两个版本的 IP 正在使用，一个是现阶段仍广泛部署的 &lt;code>IPv4&lt;/code> [RFC 791]，另一个是 &lt;code>IPv6&lt;/code> [RFC2460; RFC 4291]。&lt;/p>
 &lt;h2 id="一ipv4-数据报格式">一、IPv4 数据报格式&lt;/h2>
@@ -2625,7 +2840,7 @@ loading="lazy"
 &lt;h3 id="隔离性isolation">隔离性（Isolation）&lt;/h3>
 &lt;blockquote>
 &lt;p>&lt;strong>通常来说&lt;/strong>，一个事务所做的修改在最终提交以前，对其他事务是不可见的。&lt;/p>
-&lt;/blockquote></description></item><item><title>MySQL的基础架构</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jun 2020 21:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</guid><description>&lt;h1 id="mysql的基础架构">MySQL的基础架构&lt;/h1>
+&lt;/blockquote></description></item><item><title>MySQL的基础架构</title><link>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</link><pubDate>Mon, 01 Jun 2020 21:56:20 +0800</pubDate><guid>https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png" alt="Featured image of post MySQL的基础架构" />&lt;h1 id="mysql的基础架构">MySQL的基础架构&lt;/h1>
 &lt;h2 id="逻辑架构">逻辑架构&lt;/h2>
 &lt;p>MySQL可以大体分为&lt;strong>Server层&lt;/strong>和&lt;strong>存储引擎层&lt;/strong>两部分, 见图1&lt;/p>
 &lt;p>&lt;figure

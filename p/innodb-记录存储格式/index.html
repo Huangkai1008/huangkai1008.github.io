@@ -1,0 +1,399 @@
+<!doctype html><html lang=zh-cn>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="InnoDB 记录存储格式 一、前言 根据 MySQL的基础架构 来看，MySQL 服务端中存储引擎负责数据的读取和写入。不同的存储引擎的形式也是不尽相同，有的存"><title>InnoDB 记录存储格式</title>
+<link rel=canonical href=https://huangkai1008.github.io/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/>
+<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="InnoDB 记录存储格式">
+<meta property="og:description" content="InnoDB 记录存储格式 一、前言 根据 MySQL的基础架构 来看，MySQL 服务端中存储引擎负责数据的读取和写入。不同的存储引擎的形式也是不尽相同，有的存">
+<meta property="og:url" content="https://huangkai1008.github.io/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/">
+<meta property="og:site_name" content="Huanghuang's Blog">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="mysql"><meta property="article:tag" content="innodb"><meta property="article:published_time" content="2020-10-26T08:05:31+08:00"><meta property="article:modified_time" content="2020-10-26T08:05:31+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
+<meta name=twitter:title content="InnoDB 记录存储格式">
+<meta name=twitter:description content="InnoDB 记录存储格式 一、前言 根据 MySQL的基础架构 来看，MySQL 服务端中存储引擎负责数据的读取和写入。不同的存储引擎的形式也是不尽相同，有的存"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
+<link rel="shortcut icon" href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018164707.jpg>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
+</head>
+<body class="article-page has-toc">
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex
+extended">
+<div id=article-toolbar>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<span>Back</span>
+</a>
+</div>
+<main class="main full-width">
+<article class="has-image main-article">
+<header class=article-header>
+<div class=article-image>
+<a href=/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png loading=lazy alt="Featured image of post InnoDB 记录存储格式">
+</a>
+</div>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/mysql/>
+mysql
+</a>
+</header>
+<h2 class=article-title>
+<a href=/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/>InnoDB 记录存储格式</a>
+</h2>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Oct 26, 2020</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+5 minute read
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<h1 id=innodb-记录存储格式>InnoDB 记录存储格式</h1>
+<h2 id=一前言>一、前言</h2>
+<p>根据 <a class=link href=MySQL%e7%9a%84%e5%9f%ba%e7%a1%80%e6%9e%b6%e6%9e%84.md>MySQL的基础架构</a> 来看，MySQL 服务端中存储引擎负责数据的读取和写入。不同的存储引擎的形式也是不尽相同，有的存储引擎（比如 <code>Memory 引擎</code>）只把数据存储在内存、并不会持久化到磁盘，而 InnoDB 存储引擎会将数据持久化到磁盘中。</p>
+<h2 id=二innodb-记录格式>二、InnoDB 记录格式</h2>
+<h3 id=innodb-页简介>InnoDB 页简介</h3>
+<p>InnoDB 将记录存储在一个固定大小的单元中，这种单元通常被称为 <strong>页（<code>page</code>）</strong> ，将页作为磁盘和内存交互的基本单位。页的默认大小为16KB，可以通过以下命令查看默认页的大小（单位为字节）：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=n>mysql</span><span class=o>&gt;</span><span class=w> </span><span class=k>SHOW</span><span class=w> </span><span class=n>STATUS</span><span class=w> </span><span class=k>LIKE</span><span class=w> </span><span class=s1>&#39;innodb_page_size&#39;</span><span class=p>;</span><span class=w>
+</span><span class=w></span><span class=o>+------------------+-------+</span><span class=w>
+</span><span class=w></span><span class=o>|</span><span class=w> </span><span class=n>Variable_name</span><span class=w>    </span><span class=o>|</span><span class=w> </span><span class=n>Value</span><span class=w> </span><span class=o>|</span><span class=w>
+</span><span class=w></span><span class=o>+------------------+-------+</span><span class=w>
+</span><span class=w></span><span class=o>|</span><span class=w> </span><span class=n>Innodb_page_size</span><span class=w> </span><span class=o>|</span><span class=w> </span><span class=mi>16384</span><span class=w> </span><span class=o>|</span><span class=w>
+</span><span class=w></span><span class=o>+------------------+-------+</span><span class=w>
+</span><span class=w></span><span class=mi>1</span><span class=w> </span><span class=n>row</span><span class=w> </span><span class=k>in</span><span class=w> </span><span class=kt>set</span><span class=w> </span><span class=p>(</span><span class=mi>0</span><span class=p>.</span><span class=mi>00</span><span class=w> </span><span class=n>sec</span><span class=p>)</span><span class=w>
+</span></code></pre></div><p>也就是说，一般情况下，一次至少从磁盘读取16KB 的内容到内存中，一次至少把内存中的16KB 内存刷新到磁盘中。</p>
+<h3 id=innodb-行格式>InnoDB 行格式</h3>
+<p>InnoDB 的行格式有4种，分别是 <code>COMPACT</code> 、<code>REDUNDANT</code>、<code>DYNAMIC</code> 、<code>COMPRESSED</code> 。可以通过如下命令查看默认行格式：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=n>mysql</span><span class=o>&gt;</span><span class=w> </span><span class=k>SHOW</span><span class=w> </span><span class=n>VARIABLES</span><span class=w> </span><span class=k>LIKE</span><span class=w> </span><span class=s1>&#39;innodb_default_row_format&#39;</span><span class=p>;</span><span class=w>
+</span><span class=w></span><span class=o>+---------------------------+---------+</span><span class=w>
+</span><span class=w></span><span class=o>|</span><span class=w> </span><span class=n>Variable_name</span><span class=w>             </span><span class=o>|</span><span class=w> </span><span class=n>Value</span><span class=w>   </span><span class=o>|</span><span class=w>
+</span><span class=w></span><span class=o>+---------------------------+---------+</span><span class=w>
+</span><span class=w></span><span class=o>|</span><span class=w> </span><span class=n>innodb_default_row_format</span><span class=w> </span><span class=o>|</span><span class=w> </span><span class=n>dynamic</span><span class=w> </span><span class=o>|</span><span class=w>
+</span><span class=w></span><span class=o>+---------------------------+---------+</span><span class=w>
+</span><span class=w></span><span class=mi>1</span><span class=w> </span><span class=n>row</span><span class=w> </span><span class=k>in</span><span class=w> </span><span class=kt>set</span><span class=w> </span><span class=p>(</span><span class=mi>0</span><span class=p>.</span><span class=mi>01</span><span class=w> </span><span class=n>sec</span><span class=p>)</span><span class=w>
+</span></code></pre></div><p>可以在创建或修改表的语句中指定记录所使用的行格式。举例来说，我们创建一个示例表并插入样例数据。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=n>mysql</span><span class=o>&gt;</span><span class=w> </span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=nf>record_format</span><span class=w> </span><span class=p>(</span><span class=w>
+</span><span class=w>    </span><span class=o>-&gt;</span><span class=w> </span><span class=n>c1</span><span class=w> </span><span class=kt>VARCHAR</span><span class=w> </span><span class=p>(</span><span class=w> </span><span class=mi>10</span><span class=w> </span><span class=p>),</span><span class=w>
+</span><span class=w>    </span><span class=o>-&gt;</span><span class=w> </span><span class=n>c2</span><span class=w> </span><span class=kt>VARCHAR</span><span class=w> </span><span class=p>(</span><span class=w> </span><span class=mi>10</span><span class=w> </span><span class=p>)</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=no>NULL</span><span class=p>,</span><span class=w>
+</span><span class=w>    </span><span class=o>-&gt;</span><span class=w> </span><span class=n>c3</span><span class=w> </span><span class=kt>CHAR</span><span class=w> </span><span class=p>(</span><span class=w> </span><span class=mi>10</span><span class=w> </span><span class=p>),</span><span class=w>
+</span><span class=w>    </span><span class=o>-&gt;</span><span class=w> </span><span class=n>c4</span><span class=w> </span><span class=kt>VARCHAR</span><span class=w> </span><span class=p>(</span><span class=w> </span><span class=mi>10</span><span class=w> </span><span class=p>)</span><span class=w>
+</span><span class=w>    </span><span class=o>-&gt;</span><span class=w> </span><span class=p>)</span><span class=w> </span><span class=kp>CHARSET</span><span class=o>=</span><span class=n>ascii</span><span class=w> </span><span class=n>ROW_FORMAT</span><span class=o>=</span><span class=n>COMPACT</span><span class=p>;</span><span class=w>
+</span><span class=w></span><span class=n>Query</span><span class=w> </span><span class=n>OK</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=w> </span><span class=n>rows</span><span class=w> </span><span class=nf>affected</span><span class=w> </span><span class=p>(</span><span class=mi>0</span><span class=p>.</span><span class=mi>02</span><span class=w> </span><span class=n>sec</span><span class=p>)</span><span class=w>
+</span></code></pre></div><p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2009.45.32.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2009.45.32.png loading=lazy alt=创建测试表>
+</a>
+<figcaption>创建测试表</figcaption>
+</figure></p>
+<h4 id=compact-行格式>COMPACT 行格式</h4>
+<p>COMPACT 行格式的结构大概如下图所示：</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/compact%E8%A1%8C%E6%A0%BC%E5%BC%8F.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/compact%E8%A1%8C%E6%A0%BC%E5%BC%8F.png loading=lazy alt="COMPACT 行格式">
+</a>
+<figcaption>COMPACT 行格式</figcaption>
+</figure></p>
+<p>一条记录可以分为两部分：记录的额外信息和记录的真实数据。</p>
+<h5 id=记录的额外信息>记录的额外信息</h5>
+<h6 id=变长字段长度列表>变长字段长度列表</h6>
+<p>MySQL 中有些类型的字段长度是不固定的，比如 VARCHAR(M) 类型、TEXT 等，这就导致每条记录中该字段的「实际」长度可能是不一样的。</p>
+<p>为此，MySQL 在存储这些变长类型的数据时，实际上分成了两部分存储，分别是：</p>
+<ol>
+<li>真正的数据内容</li>
+<li>该数据占用的字节数</li>
+</ol>
+<p>在 COMPACT 行格式中，所有变长字段的真实数据占用的字节数都存储在记录的 <strong>变长字段长度列表</strong> 中。它是以列的 <strong>逆序</strong> 存储表中变长字段的实际长度的。</p>
+<p>因为我们使用的是 ascii 字符集，每个字符只需要一个字节来编码，所以对于表中的第一条记录有：</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2009.59.25.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2009.59.25.png loading=lazy alt=变长字段长度列表>
+</a>
+<figcaption>变长字段长度列表</figcaption>
+</figure></p>
+<p>变长字段 c1、c2、c4 所占用的字节数分别为 4、2、1，以逆序存放在变长字段长度列表表示为 010304。</p>
+<p>例如某个字符集最多需要 $W$ 字节来表示一个字符，变长类型 VARCHAR(M) 表示最多可以存储 $M$ 个字符，所以这种类型能表示的字符串最多占用的字节数就是 $M \times W$ 。</p>
+<p>再假设该变长字段实际存储的字符串占用的字节数是 $L$ 。</p>
+<p>如果 $M \times W \leq 255$，那么使用1字节来表示真实数据占用的字节数；</p>
+<p>如果 $M \times W > 255$：</p>
+<ul>
+<li>$L \leq 127$ : 使用1字节来表示真实数据占用的字节数；</li>
+<li>$L > 127$：使用2字节来表示真实数据占用的字节数。</li>
+</ul>
+<p>值得注意的是，<strong>变长字段列表中只存储非 NULL 的列的内容长度</strong>。</p>
+<h6 id=null-值列表>NULL 值列表</h6>
+<p>MySQL 中有些列是允许为 NULL 的，如果这些列很多、每个 NULL 值都在表中存储的话会很占用空间。Compact 把这些 NULL 统一管理了起来，放到了 <strong>NULL 值列表</strong>。</p>
+<p>它的处理过程如下：</p>
+<ol>
+<li>统计表中允许为 NULL 的列：
+若列都不允许为 NULL，则 NULL 值列表就不存在了；否则，以一个二进制位来表示一个允许为空的列，仍是<strong>逆序</strong>排列，其中 1 表示 NULL，0 表示非 NULL。</li>
+<li>若 NULL 值列表不足整数字节，在高位补 0。</li>
+</ol>
+<p>以第二条数据为例 c1、c3、c4 允许为 NULL，并且c3、c4的值是NULL。</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2011.05.54.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2011.05.54.png loading=lazy alt=第2条数据>
+</a>
+<figcaption>第2条数据</figcaption>
+</figure></p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2011.04.43.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-09%2011.04.43.png loading=lazy alt=NULL值列表>
+</a>
+<figcaption>NULL值列表</figcaption>
+</figure></p>
+<h6 id=记录头信息>记录头信息</h6>
+<p>记录头信息由固定的5字节组成，用于描述记录的一些属性。</p>
+<p>详细信息如下表:</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>名称</th>
+<th style=text-align:center>大小（位）</th>
+<th style=text-align:center>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>预留位1</td>
+<td style=text-align:center>1</td>
+<td style=text-align:center>未使用</td>
+</tr>
+<tr>
+<td style=text-align:center>预留位2</td>
+<td style=text-align:center>1</td>
+<td style=text-align:center>未使用</td>
+</tr>
+<tr>
+<td style=text-align:center>deleted_flag</td>
+<td style=text-align:center>1</td>
+<td style=text-align:center>标记该记录是否被删除</td>
+</tr>
+<tr>
+<td style=text-align:center>min_rec_flag</td>
+<td style=text-align:center>1</td>
+<td style=text-align:center>B+ 树每层非叶子节点中的最小记录都会添加该标记</td>
+</tr>
+<tr>
+<td style=text-align:center>n_owned</td>
+<td style=text-align:center>4</td>
+<td style=text-align:center>当前记录拥有的记录数</td>
+</tr>
+<tr>
+<td style=text-align:center>heap_no</td>
+<td style=text-align:center>13</td>
+<td style=text-align:center>当前记录在页面堆中的相对位置</td>
+</tr>
+<tr>
+<td style=text-align:center>record_type</td>
+<td style=text-align:center>3</td>
+<td style=text-align:center>当前记录的类型</td>
+</tr>
+<tr>
+<td style=text-align:center>next_record</td>
+<td style=text-align:center>16</td>
+<td style=text-align:center>下一条记录的相对位置</td>
+</tr>
+</tbody>
+</table>
+<h5 id=记录的真实数据>记录的真实数据</h5>
+<p>除了用户自定义的列外，InnoDB 会为每个记录添加 <strong>隐藏列</strong>，具体如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>列名</th>
+<th style=text-align:center>是否必需</th>
+<th style=text-align:center>占用空间</th>
+<th style=text-align:center>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>row_id</td>
+<td style=text-align:center>否</td>
+<td style=text-align:center>6 字节</td>
+<td style=text-align:center>行ID，标识唯一一条数据</td>
+</tr>
+<tr>
+<td style=text-align:center>trx_id</td>
+<td style=text-align:center>是</td>
+<td style=text-align:center>6字节</td>
+<td style=text-align:center>事务ID</td>
+</tr>
+<tr>
+<td style=text-align:center>roll_pointer</td>
+<td style=text-align:center>是</td>
+<td style=text-align:center>7字节</td>
+<td style=text-align:center>回滚指针</td>
+</tr>
+</tbody>
+</table>
+<p>说起 row_id，有必要提一下 InnoDB 的主键生成策略，它遵循如下顺序：</p>
+<ol>
+<li>优先使用用户定义的主键</li>
+<li>若未定义主键，则选取唯一键作为主键</li>
+<li>若无唯一键，添加 row_id 作为主键</li>
+</ol>
+<p>即，当我们新建一个表时，若没有指定主键（Primary Key），InnoDB 会选择一个唯一键（Unique Key）作为主键，如果表中唯一键也没定义，则就要添加一个隐藏列 row_id 来充当主键了。</p>
+<h4 id=redundantdynamiccompressed-行格式>REDUNDANT、DYNAMIC、COMPRESSED 行格式</h4>
+<p><strong>REDUNDANT</strong> 是一种比较原始的行格式，现在已经用的很少了，它是非紧凑的。<strong>COMPACT 、DYNAMIC、COMPRESSED</strong> 都是较新的紧凑的行格式。</p>
+<p>像现在用的较多的 5.7以及8.0版本的MySQL ，默认行格式都是 <strong>DYNAMIC</strong> 。</p>
+<p>DYNAMIC 和 COMPRESSED 行格式类似于 COMPACT ，主要区别在于<a class=link href=InnoDB%20%e8%ae%b0%e5%bd%95%e5%ad%98%e5%82%a8%e6%a0%bc%e5%bc%8f.md#%e8%a1%8c%e6%ba%a2%e5%87%ba>行溢出</a>的处理。</p>
+<p>另外，COMPRESSED 行格式还会采用压缩算法对页面进行压缩。</p>
+<h4 id=行溢出>行溢出</h4>
+<p>我们知道，页的大小是有限的，假设页的大小为16KB， 那么当单行的数据超出了页的最大范围，那么就会产生行的溢出。对于这种情况，各种行格式有着不同的处理方法。</p>
+<p>对于<code>Compact</code>和<code>Redundant</code>行格式来说，如果某一列中的数据非常多的话，在本记录的真实数据处只会存储该列的前 <strong>768</strong> 个字节的数据和一个指向其他页的地址，然后把剩下的数据存放到其他页中。</p>
+<p>而<code>Dynamic</code>和<code>Compressed</code>行格式会把所有的字节都存储到其他页面中，只在记录的真实数据处存储其他页面的地址。·</p>
+<h2 id=参考资料>参考资料</h2>
+<ul>
+<li>小孩子 4919. (2020). <em>MySQL 是怎样运行的</em>. 人民邮电出版社.</li>
+<li><a class=link href=https://dev.mysql.com/doc/internals/en/innodb-page-structure.html target=_blank rel=noopener>InnoDB Page Structure</a></li>
+</ul>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/mysql/>mysql</a>
+<a href=/tags/innodb/>innodb</a>
+</section>
+<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>MIT</span>
+</section>
+</footer>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
+</article>
+<aside class=related-contents--wrapper>
+<h2 class=section-title>Related contents</h2>
+<div class=related-contents>
+<div class="flex article-list--tile">
+<article class=has-image>
+<a href=/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/>
+<div class=article-image>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png loading=lazy data-key data-hash=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png>
+</div>
+<div class=article-details>
+<h2 class=article-title>MySQL的基础架构</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/mysql%E7%9A%84%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/>
+<div class=article-details>
+<h2 class=article-title>MySQL的日志系统</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/mysql%E7%9A%84%E4%BA%8B%E5%8A%A1/>
+<div class=article-details>
+<h2 class=article-title>MySQL的事务</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/mysql%E4%BC%98%E5%8C%96/>
+<div class=article-details>
+<h2 class=article-title>Mysql优化</h2>
+</div>
+</a>
+</article>
+<article>
+<a href=/p/mysql%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/>
+<div class=article-details>
+<h2 class=article-title>Mysql安装配置</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<div class=disqus-container>
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src="//huanghuang's blog.disqus.com/embed.js",a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+<style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style>
+<script>window.addEventListener('onColorSchemeChange',a=>{DISQUS&&DISQUS.reset({reload:!0})})</script>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2019 -
+2022 Huanghuang's Blog
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">Table of contents</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#一前言>一、前言</a></li>
+<li><a href=#二innodb-记录格式>二、InnoDB 记录格式</a>
+<ol>
+<li><a href=#innodb-页简介>InnoDB 页简介</a></li>
+<li><a href=#innodb-行格式>InnoDB 行格式</a>
+<ol>
+<li><a href=#compact-行格式>COMPACT 行格式</a></li>
+<li><a href=#redundantdynamiccompressed-行格式>REDUNDANT、DYNAMIC、COMPRESSED 行格式</a></li>
+<li><a href=#行溢出>行溢出</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#参考资料>参考资料</a></li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>
