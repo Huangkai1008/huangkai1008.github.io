@@ -45,7 +45,7 @@ mysql
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-3 minute read
+5 minute read
 </time>
 </div>
 </footer>
@@ -145,6 +145,36 @@ mysql
 <li><strong>purge 阶段</strong> ：将该记录加入垃圾链表。</li>
 </ol>
 <p>对于垃圾链表中记录所占用的空间即为 <strong>可重用空间</strong> 。这样下次当有新的记录添加进来时，即可通过覆盖的方式来复用这部分存储空间。当然，所谓的垃圾链表也是通过被删除记录的<code>next_record</code> 字段作为指针来链接形成的。</p>
+<h2 id=三-page-directory-页目录>三、 Page Directory 页目录</h2>
+<p>用户记录中的各个记录组成了类似单向链表的结构，其中，最小记录、最大记录分别为表头、表尾。我们知道单向链表的查找效率只有 <code>O(N)</code> 级别，如果每次都从表头去查询是很低效的。为此，引入了 <strong>Page Directory</strong> 。</p>
+<h3 id=页目录简介>页目录简介</h3>
+<p>首先我们将所有正常的记录（包括 Infimum 和 Supremum 记录，但不包括已经移除到垃圾链表的记录）划分为若干个分组。</p>
+<p>每个分组的最后一条记录（即组内最大的记录）的 <code>n_owned</code> 字段表示该组内共有几条记录。</p>
+<p>将每个组中最后一条记录在页面中的地址偏移量（即该记录的真实数据与页面中第0个字节之间的距离）按顺序存储到靠近页尾部的地方，也就是存到页目录中。页目录中的这些地址偏移量称为<strong>槽（Slot）</strong> ，各 Slot 根据其所指向的记录按从大到小的顺序在页目录中排列，其中每个槽占用2字节。</p>
+<p><figure>
+<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Page%20Directory.png>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Page%20Directory.png loading=lazy alt="InnoDB Page Directory">
+</a>
+<figcaption>InnoDB Page Directory</figcaption>
+</figure></p>
+<p>这样我们在该页下如果需要通过主键来查找某条记录时，过程可以分为两步：</p>
+<ol>
+<li>通过 <strong>二分法</strong> 确定该记录所在分组对应的槽，然后找到该槽所在分组中主键值最小的记录（前一个槽最大记录主键值加1）。</li>
+<li>通过记录的 <code>next_record</code> 属性遍历该槽所在的组中的各个记录。</li>
+</ol>
+<h3 id=如何分组>如何分组</h3>
+<p>InnoDB 对于每个分组中的记录数有规定：</p>
+<ol>
+<li>Infimum 记录所在的分组只能有1条记录，即只有它自己；</li>
+<li>Supremum 记录所在的分组的记录数量只能在1~8条记录之间；</li>
+<li>其他分组的记录数量只能在是4~8条记录之间。</li>
+</ol>
+<p>具体地关于如何分组，基本步骤如下：</p>
+<ol>
+<li>在初始情况下，一个数据页中只有 Infimum 和 Supremum 这两条记录，它们分别属于两个分组。页目录中也只有两个槽，分别代表 Infimum 记录和 Supremum 记录在页面中的地址偏移量。</li>
+<li>之后每插入一条记录，都会从 Slot 0 开始遍历，直至找到第一个指向的记录比该新纪录大的槽。随后将槽所指向记录的 <code>n_owned</code> 记录值加1。</li>
+<li>为了避免某个分组内记录数量过多，当分组内的 <strong>记录达到8</strong> 时，此时如果再向此组内插入一条新记录，会导致此分组拆分为两个组，其中一个组4条另一个组5条记录。这个拆分过程会在页目录中新增一个槽，记录这个新增分组中最大记录的偏移量。</li>
+</ol>
 <h2 id=参考资料>参考资料</h2>
 <ul>
 <li>小孩子 4919. (2020). <em>MySQL 是怎样运行的</em>. 人民邮电出版社.</li>
@@ -284,6 +314,12 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <li><a href=#deleted_flag-字段>deleted_flag 字段</a></li>
 </ol>
 </li>
+</ol>
+</li>
+<li><a href=#三-page-directory-页目录>三、 Page Directory 页目录</a>
+<ol>
+<li><a href=#页目录简介>页目录简介</a></li>
+<li><a href=#如何分组>如何分组</a></li>
 </ol>
 </li>
 <li><a href=#参考资料>参考资料</a></li>
