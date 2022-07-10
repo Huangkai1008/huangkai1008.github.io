@@ -45,7 +45,7 @@ mysql
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-5 minute read
+6 minute read
 </time>
 </div>
 </footer>
@@ -175,6 +175,89 @@ mysql
 <li>之后每插入一条记录，都会从 Slot 0 开始遍历，直至找到第一个指向的记录比该新纪录大的槽。随后将槽所指向记录的 <code>n_owned</code> 记录值加1。</li>
 <li>为了避免某个分组内记录数量过多，当分组内的 <strong>记录达到8</strong> 时，此时如果再向此组内插入一条新记录，会导致此分组拆分为两个组，其中一个组4条另一个组5条记录。这个拆分过程会在页目录中新增一个槽，记录这个新增分组中最大记录的偏移量。</li>
 </ol>
+<h2 id=四page-header>四、Page Header</h2>
+<p><strong>Page Header (页面头)</strong> 描述的就是数据页类型的状态信息，下表是对 Page Header 的结构描述。</p>
+<table>
+<thead>
+<tr>
+<th>状态名称</th>
+<th style=text-align:center>占用空间大小</th>
+<th style=text-align:center>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PAGE_N_DIR_SLOTS</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>页目录中的槽数量</td>
+</tr>
+<tr>
+<td>PAGE_HEAP_TOP</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>Free Space剩余空间的起始地址</td>
+</tr>
+<tr>
+<td>PAGE_N_HEAP</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>第1位表示本记录是否为紧凑型的记录，剩余15位表示本页的堆中记录的数量（包括 Infimum 、Supremum和“已删除”的记录）</td>
+</tr>
+<tr>
+<td>PAGE_FREE</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>已被删除的记录的链表(即所谓的垃圾链表)的头节点对应记录在页面中的偏移量</td>
+</tr>
+<tr>
+<td>PAGE_GARBAGE</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>已删除记录占用的字节数</td>
+</tr>
+<tr>
+<td>PAGE_LAST_INSERT</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>最后插入记录的位置</td>
+</tr>
+<tr>
+<td>PAGE_DIRECTION</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>记录插入的方向</td>
+</tr>
+<tr>
+<td>PAGE_N_DIRECTION</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>一个方向连续插入的记录数量</td>
+</tr>
+<tr>
+<td>PAGE_N_RECS</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>该页中用户记录的数量</td>
+</tr>
+<tr>
+<td>PAGE_MAX_TRX_ID</td>
+<td style=text-align:center>8字节</td>
+<td style=text-align:center>修改当前页的最大事务id，该值仅在二级索引页面中定义</td>
+</tr>
+<tr>
+<td>PAGE_LEVEL</td>
+<td style=text-align:center>2字节</td>
+<td style=text-align:center>当前页在 B+ 树中所属的层级</td>
+</tr>
+<tr>
+<td>PAGE_INDEX_ID</td>
+<td style=text-align:center>8字节</td>
+<td style=text-align:center>索引ID，表示当前页属于哪个索引</td>
+</tr>
+<tr>
+<td>PAGE_BTR_SEG_LEAF</td>
+<td style=text-align:center>10字节</td>
+<td style=text-align:center>B+ 树叶子节点段的头部信息，仅在 B+ 树的根页面定义</td>
+</tr>
+<tr>
+<td>PAGE_BTR_SEG_TOP</td>
+<td style=text-align:center>10字节</td>
+<td style=text-align:center>B+ 树非叶子节点段的头部信息，仅在 B+ 树的根页面中定义</td>
+</tr>
+</tbody>
+</table>
 <h2 id=参考资料>参考资料</h2>
 <ul>
 <li>小孩子 4919. (2020). <em>MySQL 是怎样运行的</em>. 人民邮电出版社.</li>
@@ -322,6 +405,7 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <li><a href=#如何分组>如何分组</a></li>
 </ol>
 </li>
+<li><a href=#四page-header>四、Page Header</a></li>
 <li><a href=#参考资料>参考资料</a></li>
 </ol>
 </nav>

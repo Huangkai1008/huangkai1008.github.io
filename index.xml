@@ -746,6 +746,89 @@ alt="InnoDB Page Directory">
 &lt;li>之后每插入一条记录，都会从 Slot 0 开始遍历，直至找到第一个指向的记录比该新纪录大的槽。随后将槽所指向记录的 &lt;code>n_owned&lt;/code> 记录值加1。&lt;/li>
 &lt;li>为了避免某个分组内记录数量过多，当分组内的 &lt;strong>记录达到8&lt;/strong> 时，此时如果再向此组内插入一条新记录，会导致此分组拆分为两个组，其中一个组4条另一个组5条记录。这个拆分过程会在页目录中新增一个槽，记录这个新增分组中最大记录的偏移量。&lt;/li>
 &lt;/ol>
+&lt;h2 id="四page-header">四、Page Header&lt;/h2>
+&lt;p>&lt;strong>Page Header (页面头)&lt;/strong> 描述的就是数据页类型的状态信息，下表是对 Page Header 的结构描述。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>状态名称&lt;/th>
+&lt;th style="text-align:center">占用空间大小&lt;/th>
+&lt;th style="text-align:center">描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>PAGE_N_DIR_SLOTS&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">页目录中的槽数量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_HEAP_TOP&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">Free Space剩余空间的起始地址&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_N_HEAP&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">第1位表示本记录是否为紧凑型的记录，剩余15位表示本页的堆中记录的数量（包括 Infimum 、Supremum和“已删除”的记录）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_FREE&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">已被删除的记录的链表(即所谓的垃圾链表)的头节点对应记录在页面中的偏移量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_GARBAGE&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">已删除记录占用的字节数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_LAST_INSERT&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">最后插入记录的位置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_DIRECTION&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">记录插入的方向&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_N_DIRECTION&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">一个方向连续插入的记录数量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_N_RECS&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">该页中用户记录的数量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_MAX_TRX_ID&lt;/td>
+&lt;td style="text-align:center">8字节&lt;/td>
+&lt;td style="text-align:center">修改当前页的最大事务id，该值仅在二级索引页面中定义&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_LEVEL&lt;/td>
+&lt;td style="text-align:center">2字节&lt;/td>
+&lt;td style="text-align:center">当前页在 B+ 树中所属的层级&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_INDEX_ID&lt;/td>
+&lt;td style="text-align:center">8字节&lt;/td>
+&lt;td style="text-align:center">索引ID，表示当前页属于哪个索引&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_BTR_SEG_LEAF&lt;/td>
+&lt;td style="text-align:center">10字节&lt;/td>
+&lt;td style="text-align:center">B+ 树叶子节点段的头部信息，仅在 B+ 树的根页面定义&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PAGE_BTR_SEG_TOP&lt;/td>
+&lt;td style="text-align:center">10字节&lt;/td>
+&lt;td style="text-align:center">B+ 树非叶子节点段的头部信息，仅在 B+ 树的根页面中定义&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>小孩子 4919. (2020). &lt;em>MySQL 是怎样运行的&lt;/em>. 人民邮电出版社.&lt;/li>
