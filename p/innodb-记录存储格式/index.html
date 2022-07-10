@@ -6,10 +6,10 @@
 <meta property="og:description" content="InnoDB 记录存储格式 一、前言 根据 MySQL的基础架构 来看，MySQL 服务端中存储引擎负责数据的读取和写入。不同的存储引擎的形式也是不尽相同，有的存">
 <meta property="og:url" content="https://huangkai1008.github.io/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="mysql"><meta property="article:tag" content="innodb"><meta property="article:published_time" content="2020-10-26T08:05:31+08:00"><meta property="article:modified_time" content="2020-10-26T08:05:31+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="mysql"><meta property="article:tag" content="innodb"><meta property="article:published_time" content="2020-10-26T08:05:31+08:00"><meta property="article:modified_time" content="2020-10-26T08:05:31+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/compact%E8%A1%8C%E6%A0%BC%E5%BC%8F.png">
 <meta name=twitter:title content="InnoDB 记录存储格式">
 <meta name=twitter:description content="InnoDB 记录存储格式 一、前言 根据 MySQL的基础架构 来看，MySQL 服务端中存储引擎负责数据的读取和写入。不同的存储引擎的形式也是不尽相同，有的存"><meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png">
+<meta name=twitter:image content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/compact%E8%A1%8C%E6%A0%BC%E5%BC%8F.png">
 <link rel="shortcut icon" href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018164707.jpg>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
 </head>
@@ -27,7 +27,7 @@ extended">
 <header class=article-header>
 <div class=article-image>
 <a href=/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/>
-<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png loading=lazy alt="Featured image of post InnoDB 记录存储格式">
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/compact%E8%A1%8C%E6%A0%BC%E5%BC%8F.png loading=lazy alt="Featured image of post InnoDB 记录存储格式">
 </a>
 </div>
 <div class=article-details>
@@ -269,6 +269,16 @@ mysql
 <div class=related-contents>
 <div class="flex article-list--tile">
 <article class=has-image>
+<a href=/p/innodb-%E7%B4%A2%E5%BC%95%E9%A1%B5/>
+<div class=article-image>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png loading=lazy data-key data-hash=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png>
+</div>
+<div class=article-details>
+<h2 class=article-title>InnoDB 索引页</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
 <a href=/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/>
 <div class=article-image>
 <img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png loading=lazy data-key data-hash=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png>
@@ -296,13 +306,6 @@ mysql
 <a href=/p/mysql%E4%BC%98%E5%8C%96/>
 <div class=article-details>
 <h2 class=article-title>Mysql优化</h2>
-</div>
-</a>
-</article>
-<article>
-<a href=/p/mysql%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/>
-<div class=article-details>
-<h2 class=article-title>Mysql安装配置</h2>
 </div>
 </a>
 </article>

@@ -614,7 +614,109 @@ alt="图1-1 一种数据系统架构">
 &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
 &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>InnoDB 记录存储格式</title><link>https://huangkai1008.github.io/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</link><pubDate>Mon, 26 Oct 2020 08:05:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/Internet_Protocol_Analysis_-_Transport_Layer.png" alt="Featured image of post InnoDB 记录存储格式" />&lt;h1 id="innodb-记录存储格式">InnoDB 记录存储格式&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>InnoDB 索引页</title><link>https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95%E9%A1%B5/</link><pubDate>Tue, 27 Oct 2020 19:29:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95%E9%A1%B5/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png" alt="Featured image of post InnoDB 索引页" />&lt;h1 id="innodb-索引页">InnoDB 索引页&lt;/h1>
+&lt;h2 id="一概述">一、概述&lt;/h2>
+&lt;p>&lt;strong>索引页(&lt;code>index page&lt;/code>)&lt;/strong> 是 InnoDB 众多页类型中的一种，因为 InnoDB 的特点是 &lt;strong>索引组织表（&lt;code>Index Organized Table&lt;/code>）&lt;/strong> ，所以可以将索引页看成“数据页”。&lt;/p>
+&lt;p>InnoDB 的索引页组成如下图：&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png"
+loading="lazy"
+alt="InnoDB 数据页结构">
+&lt;/a>
+&lt;figcaption>InnoDB 数据页结构&lt;/figcaption>
+&lt;/figure>
+可以通过这个表对索引页的各个部分有个基本的了解。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">名称&lt;/th>
+&lt;th style="text-align:center">中文名&lt;/th>
+&lt;th style="text-align:center">占用空间大小&lt;/th>
+&lt;th style="text-align:center">简单描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">File Header&lt;/td>
+&lt;td style="text-align:center">文件头部&lt;/td>
+&lt;td style="text-align:center">38字节&lt;/td>
+&lt;td style="text-align:center">页的一些通用信息&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Page Header&lt;/td>
+&lt;td style="text-align:center">页面头部&lt;/td>
+&lt;td style="text-align:center">56字节&lt;/td>
+&lt;td style="text-align:center">索引页的一些专有信息&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Infimum &amp;amp; Supremum&lt;/td>
+&lt;td style="text-align:center">页面中的最小记录和最大记录&lt;/td>
+&lt;td style="text-align:center">26字节&lt;/td>
+&lt;td style="text-align:center">两个虚拟的记录&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">User Records&lt;/td>
+&lt;td style="text-align:center">用户记录&lt;/td>
+&lt;td style="text-align:center">不确定&lt;/td>
+&lt;td style="text-align:center">用户存储的记录内容&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Free Space&lt;/td>
+&lt;td style="text-align:center">空闲空间&lt;/td>
+&lt;td style="text-align:center">不确定&lt;/td>
+&lt;td style="text-align:center">页中尚未使用的空间&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Page Directory&lt;/td>
+&lt;td style="text-align:center">页目录&lt;/td>
+&lt;td style="text-align:center">不确定&lt;/td>
+&lt;td style="text-align:center">页中某些记录的相对位置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">File Trailer&lt;/td>
+&lt;td style="text-align:center">文件尾部&lt;/td>
+&lt;td style="text-align:center">8字节&lt;/td>
+&lt;td style="text-align:center">校验页是否完整&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="二用户记录的存储">二、用户记录的存储&lt;/h2>
+&lt;p>用户存储的记录会按照指定的行格式插入到 &lt;strong>User Records&lt;/strong> 部分，但是在开始生成页时，并没有 &lt;strong>User Records&lt;/strong> 部分。每当插入一条记录时，都会从 &lt;strong>Free Space&lt;/strong> 部分申请一个记录大小的空间并划分到 &lt;strong>User Records&lt;/strong> 部分。&lt;/p>
+&lt;p>我们这里以 Compact 行格式为例来展开一下。&lt;/p>
+&lt;h3 id="infimum--supremum">Infimum &amp;amp; Supremum&lt;/h3>
+&lt;p>InnoDB存储引擎会自动向数据页插入两条记录：&lt;strong>Infimum（最小记录）&lt;/strong>、&lt;strong>Supremum（最大记录）&lt;/strong> 。这两条记录也被称为伪记录/虚拟记录。&lt;/p>
+&lt;p>这两条记录的结构十分简单，都是由5个字节的记录头信息和8字节大小的一个固定单词组成。&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2016.49.37.png" >
+&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2016.49.37.png"
+loading="lazy"
+alt="Infimum &amp; Supremum">
+&lt;/a>
+&lt;figcaption>Infimum &amp;amp; Supremum&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h3 id="用户记录和记录头信息innodb20记录存储格式md记录头信息">用户记录和&lt;a class="link" href="InnoDB%20%e8%ae%b0%e5%bd%95%e5%ad%98%e5%82%a8%e6%a0%bc%e5%bc%8f.md#%e8%ae%b0%e5%bd%95%e5%a4%b4%e4%bf%a1%e6%81%af" >记录头信息&lt;/a>&lt;/h3>
+&lt;h4 id="next_record-字段">next_record 字段&lt;/h4>
+&lt;p>&lt;code>next_record&lt;/code> 表示的是下一条记录的相对位置(地址偏移量)。&lt;strong>但需要注意的是，其并不是指向下一条记录的起始部分，而是指向下一条记录的数据内容的起始部分。&lt;/strong>&lt;/p>
+&lt;p>这个属性值有正负之分，例如第一条记录的 &lt;code>next_record&lt;/code> 值为 60 （十进制表示）时，则表示从这条记录的真实数据的地址处向后找 60 字节即是下一条记录的真实数据；当第三条记录的 &lt;code>next_record&lt;/code> 值为 -112 时，则表示从这条记录的真实数据的地址处向前找 112 字节便是上一条记录的真实数据的起始处。&lt;/p>
+&lt;p>这其实也解释了为什么记录的额外信息部分(变长字段的长度列表、NULL值标志位)是按照列的顺序逆序排列的。因为此时数据内容部分中位置靠前的字段与其所对应的长度信息的相对距离更近。根据 &lt;strong>局部性原理&lt;/strong> 可知，此举将可能会提高CPU高速缓存的命中率。&lt;/p>
+&lt;p>这里我们可以看到， 用户记录的各个行通过这个字段组成了一个 &lt;strong>单向链表&lt;/strong> 。&lt;strong>链表的每个节点的后继节点都是下一个比它大的记录，这里的 “大小” 比的是主键的大小，而不是记录插入的前后顺序。当其中记录发生变化(新增、删除、修改)时，该链表也会适时调整，以满足链表按记录按照主键值从小到大的排序规则。&lt;/strong>&lt;/p>
+&lt;p>特别的，针对这个记录链表而言无论其怎么变化，其表头、表尾永远是固定不变的，分别是Infimum 最小记录和 Supremum 最大记录，这也是此两条伪记录的命名来源。&lt;strong>可以看出这两条记录相当于是记录链表的哨兵节点。&lt;/strong>&lt;/p>
+&lt;h4 id="heap_no-字段">heap_no 字段&lt;/h4>
+&lt;p>该字段表示的是记录在本页中的位置。&lt;strong>由于 Infimum最小记录、Supremum最大记录在用户插入的记录的前面，故分别为0、1&lt;/strong>。故对于用户记录而言，该值从2开始。假设插入了三条记录，记录主键值分别为1，2， 3，那么记录1、记录2、记录3中该字段的值分别为2、3、4。&lt;/p>
+&lt;h4 id="deleted_flag-字段">deleted_flag 字段&lt;/h4>
+&lt;p>该字段为记录删除的标志位。当我们删除某记录时，不是直接从硬盘中删除，而是分为两个阶段：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>delete mask 阶段&lt;/strong> ： 将该字段的值置为1。&lt;/li>
+&lt;li>&lt;strong>purge 阶段&lt;/strong> ：将该记录加入垃圾链表。&lt;/li>
+&lt;/ol>
+&lt;p>对于垃圾链表中记录所占用的空间即为 &lt;strong>可重用空间&lt;/strong> 。这样下次当有新的记录添加进来时，即可通过覆盖的方式来复用这部分存储空间。当然，所谓的垃圾链表也是通过被删除记录的&lt;code>next_record&lt;/code> 字段作为指针来链接形成的。&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ul>
+&lt;li>小孩子 4919. (2020). &lt;em>MySQL 是怎样运行的&lt;/em>. 人民邮电出版社.&lt;/li>
+&lt;/ul></description></item><item><title>InnoDB 记录存储格式</title><link>https://huangkai1008.github.io/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</link><pubDate>Mon, 26 Oct 2020 08:05:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/innodb-%E8%AE%B0%E5%BD%95%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/compact%E8%A1%8C%E6%A0%BC%E5%BC%8F.png" alt="Featured image of post InnoDB 记录存储格式" />&lt;h1 id="innodb-记录存储格式">InnoDB 记录存储格式&lt;/h1>
 &lt;h2 id="一前言">一、前言&lt;/h2>
 &lt;p>根据 &lt;a class="link" href="MySQL%e7%9a%84%e5%9f%ba%e7%a1%80%e6%9e%b6%e6%9e%84.md" >MySQL的基础架构&lt;/a> 来看，MySQL 服务端中存储引擎负责数据的读取和写入。不同的存储引擎的形式也是不尽相同，有的存储引擎（比如 &lt;code>Memory 引擎&lt;/code>）只把数据存储在内存、并不会持久化到磁盘，而 InnoDB 存储引擎会将数据持久化到磁盘中。&lt;/p>
 &lt;h2 id="二innodb-记录格式">二、InnoDB 记录格式&lt;/h2>
