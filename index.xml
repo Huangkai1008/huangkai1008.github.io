@@ -614,7 +614,16 @@ alt="图1-1 一种数据系统架构">
 &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>
 &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="k">return&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">count_partitions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>InnoDB 索引页</title><link>https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95%E9%A1%B5/</link><pubDate>Tue, 27 Oct 2020 19:29:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95%E9%A1%B5/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png" alt="Featured image of post InnoDB 索引页" />&lt;h1 id="innodb-索引页">InnoDB 索引页&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>InnoDB 索引</title><link>https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95/</link><pubDate>Tue, 03 Nov 2020 08:40:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png" alt="Featured image of post InnoDB 索引" />&lt;h1 id="innodb-的索引">InnoDB 的索引&lt;/h1>
+&lt;h2 id="一前言">一、前言&lt;/h2>
+&lt;h2 id="什么是索引">什么是索引&lt;/h2>
+&lt;p>&lt;strong>索引（&lt;code>index&lt;/code>）&lt;/strong> 的出现是为了提高数据查询的效率，索引的实现一般会使用特定的数据结构，我们可以使用不同的数据结构实现不同的索引模型。&lt;/p>
+&lt;h2 id="索引的常见模型">索引的常见模型&lt;/h2>
+&lt;p>索引的常见模型有 &lt;strong>哈希表（&lt;code>hash-table&lt;/code>）&lt;/strong> 、&lt;strong>有序数组（&lt;code>array&lt;/code>）&lt;/strong> 和 &lt;strong>搜索树（&lt;code>search tree&lt;/code>）&lt;/strong>。&lt;/p>
+&lt;p>其中&lt;strong>哈希表适用于只有等值查询的场景&lt;/strong>，例如 Memcached 及其他一些 NoSQL 引擎。&lt;/p>
+&lt;p>&lt;strong>有序数组在等值查询和范围查询场景中的性能都很优秀&lt;/strong>，但是对于需要更新数据的场景就显得成本太高，&lt;strong>所以有序数组索引只适用于静态存储引擎&lt;/strong> 。&lt;/p>
+&lt;p>关于搜索树，我们最熟悉的应该是 &lt;strong>二分搜索树（&lt;code>binary-search tree&lt;/code>）&lt;/strong>。如果需要维持 &lt;code>O(log(N))&lt;/code> 的查询复杂度和更新复杂度，则需要维护这个二分搜索树为平衡二叉树。为了让一个查询尽量少地读磁盘，就必须让查询过程访问尽量少的数据块。那么，我们就不应该使用二叉树，而是要使用“N 叉”树。这里，“N 叉”树中的 &lt;code>N&lt;/code> 取决于数据块的大小。&lt;/p>
+&lt;h2 id="二innodb-的索引模型">二、InnoDB 的索引模型&lt;/h2></description></item><item><title>InnoDB 索引页</title><link>https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95%E9%A1%B5/</link><pubDate>Tue, 27 Oct 2020 19:29:31 +0800</pubDate><guid>https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95%E9%A1%B5/</guid><description>&lt;img src="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png" alt="Featured image of post InnoDB 索引页" />&lt;h1 id="innodb-索引页">InnoDB 索引页&lt;/h1>
 &lt;h2 id="一概述">一、概述&lt;/h2>
 &lt;p>&lt;strong>索引页(&lt;code>index page&lt;/code>)&lt;/strong> 是 InnoDB 众多页类型中的一种，因为 InnoDB 的特点是 &lt;strong>索引组织表（&lt;code>Index Organized Table&lt;/code>）&lt;/strong> ，所以可以将索引页看成“数据页”。&lt;/p>
 &lt;p>InnoDB 的索引页组成如下图：&lt;/p>

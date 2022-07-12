@@ -1,15 +1,15 @@
 <!doctype html><html lang=zh-cn>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="MySQL的基础架构 逻辑架构 MySQL可以大体分为Server层和存储引擎层两部分, 见图1 图1 Mysql逻辑架构图 Server 层包括连接器、查询缓存、"><title>MySQL的基础架构</title>
-<link rel=canonical href=https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/>
-<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="MySQL的基础架构">
-<meta property="og:description" content="MySQL的基础架构 逻辑架构 MySQL可以大体分为Server层和存储引擎层两部分, 见图1 图1 Mysql逻辑架构图 Server 层包括连接器、查询缓存、">
-<meta property="og:url" content="https://huangkai1008.github.io/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="InnoDB 的索引 一、前言 什么是索引 索引（index） 的出现是为了提高数据查询的效率，索引的实现一般会使用特定的数据结构，我们可以使用不同的数据结构实"><title>InnoDB 索引</title>
+<link rel=canonical href=https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95/>
+<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="InnoDB 索引">
+<meta property="og:description" content="InnoDB 的索引 一、前言 什么是索引 索引（index） 的出现是为了提高数据查询的效率，索引的实现一般会使用特定的数据结构，我们可以使用不同的数据结构实">
+<meta property="og:url" content="https://huangkai1008.github.io/p/innodb-%E7%B4%A2%E5%BC%95/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="mysql"><meta property="article:tag" content="innodb"><meta property="article:published_time" content="2020-06-01T21:56:20+08:00"><meta property="article:modified_time" content="2020-10-25T22:14:18+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png">
-<meta name=twitter:title content="MySQL的基础架构">
-<meta name=twitter:description content="MySQL的基础架构 逻辑架构 MySQL可以大体分为Server层和存储引擎层两部分, 见图1 图1 Mysql逻辑架构图 Server 层包括连接器、查询缓存、"><meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="mysql"><meta property="article:tag" content="innodb"><meta property="article:published_time" content="2020-11-03T08:40:31+08:00"><meta property="article:modified_time" content="2020-11-03T08:40:31+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png">
+<meta name=twitter:title content="InnoDB 索引">
+<meta name=twitter:description content="InnoDB 的索引 一、前言 什么是索引 索引（index） 的出现是为了提高数据查询的效率，索引的实现一般会使用特定的数据结构，我们可以使用不同的数据结构实"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png">
 <link rel="shortcut icon" href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018164707.jpg>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
 </head>
@@ -26,8 +26,8 @@ extended">
 <article class="has-image main-article">
 <header class=article-header>
 <div class=article-image>
-<a href=/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/>
-<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png loading=lazy alt="Featured image of post MySQL的基础架构">
+<a href=/p/innodb-%E7%B4%A2%E5%BC%95/>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png loading=lazy alt="Featured image of post InnoDB 索引">
 </a>
 </div>
 <div class=article-details>
@@ -37,78 +37,31 @@ mysql
 </a>
 </header>
 <h2 class=article-title>
-<a href=/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/>MySQL的基础架构</a>
+<a href=/p/innodb-%E7%B4%A2%E5%BC%95/>InnoDB 索引</a>
 </h2>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>Jun 01, 2020</time>
+<time class=article-time--published>Nov 03, 2020</time>
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-3 minute read
+1 minute read
 </time>
 </div>
 </footer>
 </div>
 </header>
 <section class=article-content>
-<h1 id=mysql的基础架构>MySQL的基础架构</h1>
-<h2 id=逻辑架构>逻辑架构</h2>
-<p>MySQL可以大体分为<strong>Server层</strong>和<strong>存储引擎层</strong>两部分, 见图1</p>
-<p><figure>
-<a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018154957.png>
-<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018154957.png loading=lazy alt="图1 Mysql逻辑架构图">
-</a>
-<figcaption>图1 Mysql逻辑架构图</figcaption>
-</figure></p>
-<ul>
-<li><strong>Server 层</strong>包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。</li>
-<li><strong>存储引擎层</strong>负责数据的存储和提取。其架构模式是<strong>插件式</strong>的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 <strong>InnoDB</strong>，它从 MySQL 5.5.5 版本开始成为了默认存储引擎</li>
-</ul>
-<h3 id=连接器connector>连接器(<code>Connector</code>)</h3>
-<p>连接器负责和客户端建立连接、获取权限、维持和管理连接。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=c1># Mysql连接命令
-</span><span class=c1></span><span class=n>mysql</span><span class=w> </span><span class=o>-</span><span class=n>h</span><span class=err>$</span><span class=n>ip</span><span class=w> </span><span class=o>-</span><span class=n>P</span><span class=err>$</span><span class=n>port</span><span class=w> </span><span class=o>-</span><span class=n>u</span><span class=err>$</span><span class=k>user</span><span class=w> </span><span class=o>-</span><span class=n>p</span><span class=w>
-</span></code></pre></div><p>MySQL 客户端和服务端完成TCP握手后，连接器需要认证身份</p>
-<ul>
-<li>
-<p>如果用户名或密码不对，就会收到一个 <strong>Access denied for user</strong> 的错误，然后客户端程序结束执行。</p>
-</li>
-<li>
-<p>如果用户名密码认证通过，连接器会到权限表里面查出拥有的权限，之后这个连接里面的权限判断逻辑，都将依赖于此时读到的权限，这就意味着，一个用户成功建立连接后，即使这个用户的权限做了修改，也不会影响已经存在连接的权限。修改完成后，只有再新建的连接才会使用新的权限设置。</p>
-</li>
-</ul>
-<blockquote>
-<p>长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接。短连接则是指每次执行完很少的几次查询就断开连接，下次查询再重新建立一个。</p>
-</blockquote>
-<h4 id=连接方式>连接方式</h4>
-<ol>
-<li>TCP/IP</li>
-<li>命名管道和共享内存</li>
-<li>UNIX 域套接字</li>
-</ol>
-<h3 id=查询缓存query-cache>查询缓存(<code>Query Cache</code>)</h3>
-<p>在连接建立完成后，MySQL 拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。之前执行过的语句及其结果可能会以 key-value 对的形式，被直接缓存在内存中。key 是查询的语句，value 是查询的结果。如果你的查询能够直接在这个缓存中找到 key，那么这个 value 就会被直接返回给客户端。</p>
-<blockquote>
-<p>注：MySQL 8.0 版本的查询缓存功能被移除了</p>
-</blockquote>
-<h3 id=分析器parser>分析器(<code>Parser</code>)</h3>
-<p>分析器的主要功能是对SQL语句做解析</p>
-<ul>
-<li>分析器会先做<strong>词法分析</strong>，再做<strong>语法分析</strong>，语法分析器会根据语法规则，判断 SQL 语句是否满足 MySQL 语法</li>
-</ul>
-<h3 id=优化器query-optimizer>优化器(<code>Query Optimizer</code>)</h3>
-<p>优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序。优化器并不关心表使用的是什么存储引擎，但存储引擎对于优化查询是有影响的。优化器会请求存储引擎提供容量或某个具体操作的开销信息，以及表数据的统计信息等。例如，某些存储引擎的某种索引，可能对一些特定的查询有优化。</p>
-<h3 id=执行器query-execution-engine>执行器(<code>Query execution engine</code>)</h3>
-<p>开始执行的时候，要先判断一下对于表有没有执行操作的权限，如果没有，就会返回没有权限的错误。如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。</p>
-<p>对于一个特定的例子</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>from</span><span class=w> </span><span class=k>user</span><span class=w> </span><span class=k>where</span><span class=w> </span><span class=n>ID</span><span class=o>=</span><span class=mi>10</span><span class=p>;</span><span class=w>
-</span></code></pre></div><p>假定ID字段没有索引，那么执行器的执行流程是这样的：</p>
-<ol>
-<li>调用 InnoDB 引擎接口取这个表的第一行，判断 ID 值是不是 10，如果不是则跳过，如果是则将这行存在结果集中；</li>
-<li>调用引擎接口取“下一行”，重复相同的判断逻辑，直到取到这个表的最后一行。</li>
-<li>执行器将上述遍历过程中所有满足条件的行组成的记录集作为结果集返回给客户端。</li>
-</ol>
+<h1 id=innodb-的索引>InnoDB 的索引</h1>
+<h2 id=一前言>一、前言</h2>
+<h2 id=什么是索引>什么是索引</h2>
+<p><strong>索引（<code>index</code>）</strong> 的出现是为了提高数据查询的效率，索引的实现一般会使用特定的数据结构，我们可以使用不同的数据结构实现不同的索引模型。</p>
+<h2 id=索引的常见模型>索引的常见模型</h2>
+<p>索引的常见模型有 <strong>哈希表（<code>hash-table</code>）</strong> 、<strong>有序数组（<code>array</code>）</strong> 和 <strong>搜索树（<code>search tree</code>）</strong>。</p>
+<p>其中<strong>哈希表适用于只有等值查询的场景</strong>，例如 Memcached 及其他一些 NoSQL 引擎。</p>
+<p><strong>有序数组在等值查询和范围查询场景中的性能都很优秀</strong>，但是对于需要更新数据的场景就显得成本太高，<strong>所以有序数组索引只适用于静态存储引擎</strong> 。</p>
+<p>关于搜索树，我们最熟悉的应该是 <strong>二分搜索树（<code>binary-search tree</code>）</strong>。如果需要维持 <code>O(log(N))</code> 的查询复杂度和更新复杂度，则需要维护这个二分搜索树为平衡二叉树。为了让一个查询尽量少地读磁盘，就必须让查询过程访问尽量少的数据块。那么，我们就不应该使用二叉树，而是要使用“N 叉”树。这里，“N 叉”树中的 <code>N</code> 取决于数据块的大小。</p>
+<h2 id=二innodb-的索引模型>二、InnoDB 的索引模型</h2>
 </section>
 <footer class=article-footer>
 <section class=article-tags>
@@ -116,29 +69,15 @@ mysql
 <a href=/tags/innodb/>innodb</a>
 </section>
 <section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
-<span>Licensed under CC BY-NC-SA 4.0</span>
+<span>MIT</span>
 </section>
-<section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<span>
-Last updated on Oct 25, 2020 22:14 +0800
-</span>
-</section></footer>
+</footer>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css integrity=sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js integrity=sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js integrity=sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
 </article>
 <aside class=related-contents--wrapper>
 <h2 class=section-title>Related contents</h2>
 <div class=related-contents>
 <div class="flex article-list--tile">
-<article class=has-image>
-<a href=/p/innodb-%E7%B4%A2%E5%BC%95/>
-<div class=article-image>
-<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png loading=lazy data-key data-hash=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/%E6%88%AA%E5%B1%8F2022-07-10%2010.15.54.png>
-</div>
-<div class=article-details>
-<h2 class=article-title>InnoDB 索引</h2>
-</div>
-</a>
-</article>
 <article class=has-image>
 <a href=/p/innodb-%E7%B4%A2%E5%BC%95%E9%A1%B5/>
 <div class=article-image>
@@ -156,6 +95,16 @@ Last updated on Oct 25, 2020 22:14 +0800
 </div>
 <div class=article-details>
 <h2 class=article-title>InnoDB 记录存储格式</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/p/mysql%E7%9A%84%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/>
+<div class=article-image>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png loading=lazy data-key data-hash=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/mysql-architecture.png>
+</div>
+<div class=article-details>
+<h2 class=article-title>MySQL的基础架构</h2>
 </div>
 </a>
 </article>
@@ -240,19 +189,10 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <div class=widget--toc>
 <nav id=TableOfContents>
 <ol>
-<li><a href=#逻辑架构>逻辑架构</a>
-<ol>
-<li><a href=#连接器connector>连接器(<code>Connector</code>)</a>
-<ol>
-<li><a href=#连接方式>连接方式</a></li>
-</ol>
-</li>
-<li><a href=#查询缓存query-cache>查询缓存(<code>Query Cache</code>)</a></li>
-<li><a href=#分析器parser>分析器(<code>Parser</code>)</a></li>
-<li><a href=#优化器query-optimizer>优化器(<code>Query Optimizer</code>)</a></li>
-<li><a href=#执行器query-execution-engine>执行器(<code>Query execution engine</code>)</a></li>
-</ol>
-</li>
+<li><a href=#一前言>一、前言</a></li>
+<li><a href=#什么是索引>什么是索引</a></li>
+<li><a href=#索引的常见模型>索引的常见模型</a></li>
+<li><a href=#二innodb-的索引模型>二、InnoDB 的索引模型</a></li>
 </ol>
 </nav>
 </div>
