@@ -6,9 +6,10 @@
 <meta property="og:description" content="可靠、可扩展与可维护的应用系统 数据密集型应用 数据密集型应用（Data-Intensive Application) 的制约因素通常是“数据”，包括数据的规模、数据的复">
 <meta property="og:url" content="https://huangkai1008.github.io/p/%E5%8F%AF%E9%9D%A0%E5%8F%AF%E6%89%A9%E5%B1%95%E4%B8%8E%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/">
 <meta property="og:site_name" content="Huanghuang's Blog">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="系统设计"><meta property="article:tag" content="DDIA"><meta property="article:tag" content="database"><meta property="article:published_time" content="2022-02-13T11:13:32+08:00"><meta property="article:modified_time" content="2022-02-13T11:13:32+08:00">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="系统设计"><meta property="article:tag" content="DDIA"><meta property="article:tag" content="database"><meta property="article:published_time" content="2020-11-09T08:39:32+08:00"><meta property="article:modified_time" content="2020-11-09T08:39:32+08:00"><meta property="og:image" content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20220213102553.png">
 <meta name=twitter:title content="可靠、可扩展与可维护的应用系统">
-<meta name=twitter:description content="可靠、可扩展与可维护的应用系统 数据密集型应用 数据密集型应用（Data-Intensive Application) 的制约因素通常是“数据”，包括数据的规模、数据的复">
+<meta name=twitter:description content="可靠、可扩展与可维护的应用系统 数据密集型应用 数据密集型应用（Data-Intensive Application) 的制约因素通常是“数据”，包括数据的规模、数据的复"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20220213102553.png">
 <link rel="shortcut icon" href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20211018164707.jpg>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-149768628-1','auto'),ga('send','pageview'))</script>
 </head>
@@ -22,8 +23,13 @@ extended">
 </a>
 </div>
 <main class="main full-width">
-<article class=main-article>
+<article class="has-image main-article">
 <header class=article-header>
+<div class=article-image>
+<a href=/p/%E5%8F%AF%E9%9D%A0%E5%8F%AF%E6%89%A9%E5%B1%95%E4%B8%8E%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/>
+<img src=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20220213102553.png loading=lazy alt="Featured image of post 可靠、可扩展与可维护的应用系统">
+</a>
+</div>
 <div class=article-details>
 <header class=article-category>
 <a href=/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/>
@@ -35,7 +41,7 @@ extended">
 </h2>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>Feb 13, 2022</time>
+<time class=article-time--published>Nov 09, 2020</time>
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
@@ -61,7 +67,7 @@ extended">
 <li><strong>批处理（<code>batch processing</code>）</strong> ：定期处理大量的累积数据</li>
 </ul>
 <p>数据系统之间的界限正在变得模糊，例如 Redis 既可以用于数据存储也可以用于消息队列，Kafka 作为消息队列也具备持久化存储保证。</p>
-<p>其次，越来越多的应用程序需求广泛，单个工具不足以满足所有的数据处理和存储需求。因此需要将任务分解，每个组件负责高效完成其中一部分，多个组件依靠应用层代码驱动有机衔接起来。</p>
+<p>其次，越来越多的应用程序需求广泛，单个工具不足以满足所有的数据处理和存储需求。<strong>因此需要将任务分解，每个组件负责高效完成其中一部分，多个组件依靠应用层代码驱动有机衔接起来。</strong></p>
 <p>下图1-1展示了一种数据系统架构：</p>
 <p><figure>
 <a href=https://blog-1259169620.cos.ap-guangzhou.myqcloud.com/img/20220213102553.png>
@@ -156,6 +162,10 @@ extended">
 <li><strong>可操作性（<code>Operability</code>）</strong>：便于运维团队保持系统平稳运行</li>
 <li><strong>简单性（<code>Simplicity</code>）</strong> ：从系统中消除尽可能多的 <strong>复杂度（<code>complexity</code>）</strong>，使新工程师也能轻松理解系统（注意这和用户接口的简单性不一样）</li>
 <li><strong>可演化性（<code>evolvability</code>）</strong> ：使工程师在未来能轻松地对系统进行更改，当需求变化时为新应用场景做适配。也称为 <strong>可伸缩性（<code>extensibility</code>）</strong> 、<strong>可修改性（<code>modifiability</code>）</strong> 或 <strong>可塑性（<code>plasticity</code>）</strong></li>
+</ul>
+<h2 id=参考资料>参考资料</h2>
+<ul>
+<li>Martin, K. (2018). <em>数据密集型应用系统设计</em> (2018th ed.). 中国电力出版社.</li>
 </ul>
 </section>
 <footer class=article-footer>
@@ -284,6 +294,7 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 </ol>
 </li>
 <li><a href=#可维护性>可维护性</a></li>
+<li><a href=#参考资料>参考资料</a></li>
 </ol>
 </nav>
 </div>
